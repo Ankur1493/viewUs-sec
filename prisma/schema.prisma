@@ -25,6 +25,7 @@ model User {
 
 model Space {
   id        String   @id @default(cuid())
+  slug      String   @unique
   userId    String 
   title     String
   heading   String
