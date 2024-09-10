@@ -1,28 +1,22 @@
-import { model, models, Schema, Document } from "mongoose";
+import { model, models, Schema } from "mongoose";
 
 enum ReviewType {
   TEXT = 0,
   VIDEO = 1
 }
 
-// Interface for the Review model
-interface IReview extends Document {
-  userId: string;
+export interface IReview {
   spaceId: string;
-  reviewType: ReviewType;
+  reviewType?: ReviewType;
   review: string;
+  stars: Number;
   name: string;
   email: string;
-  designation: string | null;
-  image: string | null;
+  designation?: string | null;
+  image?: string | null;
 }
 
-// Mongoose schema
 const reviewSchema = new Schema<IReview>({
-  userId: {
-    type: String,
-    required: true,
-  },
   spaceId: {
     type: String,
     required: true,
@@ -36,6 +30,11 @@ const reviewSchema = new Schema<IReview>({
   review: {
     type: String,
     required: true,
+  },
+  stars: {
+    type: Number,
+    required: true,
+    default: 5
   },
   name: {
     type: String,
