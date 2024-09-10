@@ -1,7 +1,3 @@
-import React from "react";
-
-function VideoReviewCard() {
+export const VideoReviewCard = () => {
   return <div>VideoReviewCard</div>;
 }
-
-export default VideoReviewCard;
