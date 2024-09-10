@@ -12,7 +12,7 @@ import {
 import { Question } from "@prisma/client";
 import { ReviewForm } from "@/types";
 import useReviewPageStore from "@/store/useReviewPageStore";
-import TextReviewCard from "../textReview/TextReviewCard";
+import TextReviewCard from "../textReview/TextReviewCard"; // Corrected import
 import VideoReviewCard from "../videoReview/VideoReviewCard";
 
 export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
@@ -21,10 +21,7 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
   return (
     <>
       {clickedButton === "Text" ? (
-        <TextReviewCard
-          questions={reviewForm.questions}
-          image={reviewForm.image}
-        />
+        <TextReviewCard />
       ) : clickedButton == "Video" ? (
         <VideoReviewCard />
       ) : (

@@ -1,26 +1,53 @@
+/* eslint-disable no-var */
 import mongoose from "mongoose";
 
 let isMongoConnected: boolean = false;
+let mongoClientPromise: Promise<typeof mongoose> | null = null;
+
+declare global {
+  var _mongoClientPromise: Promise<typeof mongoose> | null; // This is important for TypeScript
+}
+/* eslint-enable no-var */
 
 export const connectToMongo = async () => {
-  mongoose.set("strictQuery", true);
-
-  if (!process.env.MONGODB_URI) return console.log("mongoDB url missing")
-
   if (isMongoConnected) {
-    return console.log("mongo db is connected")
+    console.log("MongoDB is already connected.");
+    return mongoose;
+  }
+
+  if (!process.env.MONGODB_URI) {
+    console.error("MongoDB URI is missing.");
+    throw new Error("MongoDB URI is missing.");
+  }
+
+  if (process.env.ENVIRONMENT === "development") {
+    if (!globalThis._mongoClientPromise) {
+      mongoClientPromise = mongoose.connect(process.env.MONGODB_URI, {
+        dbName: "viewUs",
+      });
+      globalThis._mongoClientPromise = mongoClientPromise;
+    } else {
+      mongoClientPromise = globalThis._mongoClientPromise;
+    }
+  } else {
+    mongoClientPromise = mongoose.connect(process.env.MONGODB_URI, {
+      dbName: "viewUs",
+    });
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      dbName: "viewUs",
-
-    });
-
+    await mongoClientPromise;
     isMongoConnected = true;
-    console.log("mongo db connected")
+    console.log("MongoDB connected.");
+    return mongoose;
   } catch (err) {
-    return console.log("mongo db not connected")
+    console.error("MongoDB connection error:", err);
+    throw err;
   }
-}
+};
+
+// Call connectToMongo when your application starts
+connectToMongo().catch(console.error);
+
+export default mongoose;
 

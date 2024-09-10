@@ -62,3 +62,4 @@ export default function TextReviewCard({
     </Card>
   );
 }
+export default TextReviewCard;
