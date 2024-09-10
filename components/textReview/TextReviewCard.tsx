@@ -12,13 +12,13 @@ import {
 import { Question } from "@prisma/client";
 import Starred from "../starred/Starred";
 
-export default function TextReviewCard({
+export const TextReviewCard = ({
   questions,
   image,
 }: {
   questions: Question[];
   image: string | null;
-}) {
+}) => {
   return (
     <Card className="w-[450px] px-[2%]">
       <CardHeader>
@@ -62,4 +62,3 @@ export default function TextReviewCard({
     </Card>
   );
 }
-export default TextReviewCard;
