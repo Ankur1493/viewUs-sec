@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// don't need the complete db modal here
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  image     String?  // Optional S3 URL
+
+  spaces    Space[]  // Relation to spaces
+}
+
+model Space {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  userId    String 
+  title     String
+  heading   String
+  image     String?  // Optional S3 URL
+
+  user      User     @relation(fields: [userId], references: [id])
+  questions Question[]  // Relation to questions
+}
+
+model Question {
+  id        String   @id @default(cuid())
+  spaceId   String 
+  question  String 
+
+  space     Space    @relation(fields: [spaceId], references: [id])
+}
