@@ -7,7 +7,6 @@ export default async function ReviewPage({
   params: { slug: string };
 }) {
   const reviewForm = await getSpaceDetails(params.slug);
-  console.log(reviewForm);
 
   if (!reviewForm) {
     return <div>Can not found this space</div>;
