@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 import mongoose from "mongoose";
 
 let isMongoConnected: boolean = false;
@@ -6,6 +7,7 @@ let mongoClientPromise: Promise<typeof mongoose> | null = null;
 declare global {
   var _mongoClientPromise: Promise<typeof mongoose> | null; // This is important for TypeScript
 }
+/* eslint-enable no-var */
 
 export const connectToMongo = async () => {
   if (isMongoConnected) {
