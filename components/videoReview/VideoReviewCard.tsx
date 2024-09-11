@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Question } from "@prisma/client";
 import Starred from "../starred/Starred";
+import VideoRecorder from "./VideoRecorder";
 
 export const VideoReviewCard = ({
   questions,
@@ -47,7 +48,9 @@ export const VideoReviewCard = ({
         <div className="mt-2">
           <Starred />
         </div>
-        <div></div>
+        <div>
+          <VideoRecorder />
+        </div>
       </CardContent>
       <CardFooter className="flex flex-col">
         <Button className="w-full">Submit</Button>
