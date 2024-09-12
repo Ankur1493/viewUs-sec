@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 
-const VideoRecorder = () => {
+export const VideoRecorder = () => {
   const [recording, setRecording] = useState(false);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
@@ -71,6 +71,8 @@ const VideoRecorder = () => {
   };
 
   const stopRecording = () => {
+    console.log(videoUrl);
+
     if (mediaRecorder) {
       mediaRecorder.stop();
       if (streamRef.current) {
@@ -122,5 +124,3 @@ const VideoRecorder = () => {
     </div>
   );
 };
-
-export default VideoRecorder;

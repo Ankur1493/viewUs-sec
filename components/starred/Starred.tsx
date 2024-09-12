@@ -4,7 +4,7 @@ interface StarredProps {
   size?: string;
 }
 
-const Starred: React.FC<StarredProps> = ({ size = "text-3xl" }) => {
+export const Starred: React.FC<StarredProps> = ({ size = "text-3xl" }) => {
   const [rating, setRating] = useState<number>(0);
   const [hovered, setHovered] = useState<number>(0);
 
@@ -38,5 +38,3 @@ const Starred: React.FC<StarredProps> = ({ size = "text-3xl" }) => {
     </div>
   );
 };
-
-export default Starred;
