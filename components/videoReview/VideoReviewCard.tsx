@@ -128,54 +128,57 @@ export const VideoReviewCard = ({
           Record a Video
         </CardTitle>
       </CardHeader>
-      <CardContent className="pb-1">
-        <div className="mt-3">
-          <ul>
-            {questions.map((q: Question) => (
-              <li key={q.id}>Q. {q.question} ?</li>
-            ))}
-          </ul>
-        </div>
-        <div className="mt-2">
-          <Starred />
-        </div>
-        <div>
-          <div className="flex flex-col justify-center">
-            {error && <p className="text-red-500 mb-4">{error}</p>}
-
-            <div className="border-2 border-gray-300 rounded-md overflow-hidden mb-2 w-full max-w-lg">
-              <video
-                ref={videoRef}
-                className="w-full h-auto"
-                autoPlay
-                playsInline
-              />
-            </div>
-
-            {recording && (
-              <p className="text-xl font-bold mb-2">
-                Recording: {formatTime(timer)}
-              </p>
-            )}
-
-            {!recording ? (
-              <button
-                onClick={startRecording}
-                className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mb-4 rounded"
-              >
-                Start Recording
-              </button>
-            ) : (
-              <button
-                onClick={stopRecording}
-                className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
-              >
-                Stop Recording
-              </button>
-            )}
+      <div className="flex">
+        <CardContent className="pb-1">
+          <div className="mt-3">
+            <ul>
+              {questions.map((q: Question) => (
+                <li key={q.id}>Q. {q.question} ?</li>
+              ))}
+            </ul>
           </div>
-        </div>
-      </CardContent>
+          <div className="mt-2">
+            <Starred />
+          </div>
+          <div>
+            <div className="flex flex-col justify-center">
+              {error && <p className="text-red-500 mb-4">{error}</p>}
+
+              <div className="border-2 border-gray-300 rounded-md overflow-hidden mb-2 w-full max-w-lg">
+                <video
+                  ref={videoRef}
+                  className="w-full h-auto"
+                  autoPlay
+                  playsInline
+                />
+              </div>
+
+              {recording && (
+                <p className="text-xl font-bold mb-2">
+                  Recording: {formatTime(timer)}
+                </p>
+              )}
+
+              {!recording ? (
+                <button
+                  onClick={startRecording}
+                  className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mb-4 rounded"
+                >
+                  Start Recording
+                </button>
+              ) : (
+                <button
+                  onClick={stopRecording}
+                  className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+                >
+                  Stop Recording
+                </button>
+              )}
+            </div>
+          </div>
+        </CardContent>
+        <div>hello</div>
+      </div>
       <CardFooter className="flex flex-col">
         <Button className="w-full">Submit</Button>
       </CardFooter>
