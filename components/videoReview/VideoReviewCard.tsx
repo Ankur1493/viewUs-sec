@@ -51,6 +51,7 @@ export const VideoReviewCard = ({
     null
   );
   const [showForm, setShowForm] = useState(false);
+  const [isMounted, setIsMounted] = useState(false); // Manage mount state for smoother rendering
   const [error, setError] = useState<string | null>(null);
   const [timer, setTimer] = useState<number>(0);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -92,10 +93,15 @@ export const VideoReviewCard = ({
 
     openCamera();
 
+    const mountTimeout = setTimeout(() => {
+      setIsMounted(true);
+    }, 100);
+
     return () => {
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
+      clearTimeout(mountTimeout);
     };
   }, []);
 
@@ -154,9 +160,9 @@ export const VideoReviewCard = ({
 
   return (
     <Card
-      className={`${
-        showForm ? "max-w-[800px] " : "w-[450px] px-[1%]"
-      } "px-[2%]"`}
+      className={`transition-all duration-700 ease-in-out transform ${
+        isMounted ? "opacity-100" : "opacity-0"
+      } ${showForm ? "max-w-[800px]" : "w-[450px] px-[1%]"}`}
     >
       <CardHeader>
         <div className="flex justify-center">
@@ -173,8 +179,13 @@ export const VideoReviewCard = ({
           Record a Video
         </CardTitle>
       </CardHeader>
+
       <div className="flex gap-2">
-        <CardContent className={`pb-1 ${showForm ? "w-[50%]" : "w-full"}`}>
+        <CardContent
+          className={`pb-1 z-10 transition-all duration-700 ease-in-out ${
+            showForm ? "flex-grow-[0.5] w-[50%]" : "flex-grow w-full"
+          }`}
+        >
           <div className="mt-3">
             <ul>
               {questions.map((q: Question) => (
@@ -222,8 +233,15 @@ export const VideoReviewCard = ({
             </div>
           </div>
         </CardContent>
+
         {showForm && (
-          <CardContent className="pb-1 w-[50%]">
+          <CardContent
+            className={`pb-1 w-[50%] transition-transform duration-700 ease-in-out ${
+              showForm
+                ? "transform translate-x-[0%]"
+                : "transform translate-x-[-100%]"
+            }`}
+          >
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit((data) => {
@@ -265,7 +283,7 @@ export const VideoReviewCard = ({
                     <FormItem>
                       <FormLabel>Enter your Job Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="CEO at XYZ company" {...field} />
+                        <Input placeholder="Software Developer" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -276,17 +294,16 @@ export const VideoReviewCard = ({
           </CardContent>
         )}
       </div>
+
       {showForm && (
         <CardFooter className="w-full">
           <Button
             type="submit"
-            className="w-full"
-            onClick={() =>
-              form.handleSubmit((data) => {
-                form.setValue("videoUrl", videoUrl || "");
-                onSubmit(data);
-              })()
-            }
+            className="w-full transition-transform duration-300 transform"
+            onClick={() => {
+              form.setValue("videoUrl", videoUrl || "");
+              form.handleSubmit(onSubmit)();
+            }}
           >
             Submit
           </Button>
