@@ -13,6 +13,26 @@ import { Question } from "@prisma/client";
 import { Starred } from "../starred/Starred";
 import React, { useState, useRef, useEffect } from "react";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+const FormSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+});
+
 export const VideoReviewCard = ({
   questions,
   image,
@@ -25,12 +45,26 @@ export const VideoReviewCard = ({
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
     null
   );
+  const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [timer, setTimer] = useState<number>(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const chunks = useRef<Blob[]>([]);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      description: "",
+    },
+  });
+
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data);
+  }
 
   useEffect(() => {
     const openCamera = async () => {
@@ -79,6 +113,7 @@ export const VideoReviewCard = ({
       setMediaRecorder(recorder);
       recorder.start();
       setRecording(true);
+      setShowForm(false);
 
       setTimer(0);
       timerIntervalRef.current = setInterval(() => {
@@ -96,6 +131,7 @@ export const VideoReviewCard = ({
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
       setRecording(false);
+      setShowForm(true);
 
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
@@ -112,7 +148,11 @@ export const VideoReviewCard = ({
   };
 
   return (
-    <Card className="w-[450px] px-[2%]">
+    <Card
+      className={`${
+        showForm ? "max-w-[800px] " : "w-[450px] px-[1%]"
+      } "px-[2%]"`}
+    >
       <CardHeader>
         <div className="flex justify-center">
           <Image
@@ -128,8 +168,8 @@ export const VideoReviewCard = ({
           Record a Video
         </CardTitle>
       </CardHeader>
-      <div className="flex">
-        <CardContent className="pb-1">
+      <div className="flex gap-2">
+        <CardContent className={`pb-1 ${showForm ? "w-[50%]" : "w-full"}`}>
           <div className="mt-3">
             <ul>
               {questions.map((q: Question) => (
@@ -144,7 +184,7 @@ export const VideoReviewCard = ({
             <div className="flex flex-col justify-center">
               {error && <p className="text-red-500 mb-4">{error}</p>}
 
-              <div className="border-2 border-gray-300 rounded-md overflow-hidden mb-2 w-full max-w-lg">
+              <div className="border-2 border-gray-300 rounded-md overflow-hidden mb-2 w-full ">
                 <video
                   ref={videoRef}
                   className="w-full h-auto"
@@ -177,7 +217,54 @@ export const VideoReviewCard = ({
             </div>
           </div>
         </CardContent>
-        <div>hello</div>
+        <CardContent className={`${showForm ? "pb-1 w-[50%]" : "hidden"}`}>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-full space-y-6 mt-3"
+            >
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enter your name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="john" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enter your email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="john123@gmail.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enter your Job Title</FormLabel>
+                    <FormControl>
+                      <Input placeholder="CEO at XYZ company" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+        </CardContent>
       </div>
       <CardFooter className="flex flex-col">
         <Button className="w-full">Submit</Button>
