@@ -35,6 +35,7 @@ const FormSchema = z.object({
   description: z.string().min(4, {
     message: "Description must be at least 4 characters.",
   }),
+  videoUrl: z.string().optional(),
 });
 
 export const VideoReviewCard = ({
@@ -63,11 +64,13 @@ export const VideoReviewCard = ({
       name: "",
       email: "",
       description: "",
+      videoUrl: "",
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+    console.log("Form Data:", data);
+    console.log("Video URL:", videoUrl);
   }
 
   useEffect(() => {
@@ -127,8 +130,6 @@ export const VideoReviewCard = ({
   };
 
   const stopRecording = () => {
-    console.log(videoUrl);
-
     if (mediaRecorder) {
       mediaRecorder.stop();
       if (streamRef.current) {
@@ -221,58 +222,76 @@ export const VideoReviewCard = ({
             </div>
           </div>
         </CardContent>
-        <CardContent className={`${showForm ? "pb-1 w-[50%]" : "hidden"}`}>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-6 mt-3"
-            >
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Enter your name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="john" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Enter your email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="john123@gmail.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Enter your Job Title</FormLabel>
-                    <FormControl>
-                      <Input placeholder="CEO at XYZ company" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </form>
-          </Form>
-        </CardContent>
+        {showForm && (
+          <CardContent className="pb-1 w-[50%]">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit((data) => {
+                  form.setValue("videoUrl", videoUrl || "");
+                  onSubmit(data);
+                })}
+                className="w-full space-y-6 mt-3"
+              >
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Enter your name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="john" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Enter your email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="john123@gmail.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Enter your Job Title</FormLabel>
+                      <FormControl>
+                        <Input placeholder="CEO at XYZ company" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </Form>
+          </CardContent>
+        )}
       </div>
-      <CardFooter className="flex flex-col">
-        <Button className="w-full">Submit</Button>
-      </CardFooter>
+      {showForm && (
+        <CardFooter className="w-full">
+          <Button
+            type="submit"
+            className="w-full"
+            onClick={() =>
+              form.handleSubmit((data) => {
+                form.setValue("videoUrl", videoUrl || "");
+                onSubmit(data);
+              })()
+            }
+          >
+            Submit
+          </Button>
+        </CardFooter>
+      )}
     </Card>
   );
 };
