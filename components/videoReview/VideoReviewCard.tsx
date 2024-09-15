@@ -75,22 +75,6 @@ export const VideoReviewCard = ({
   }
 
   useEffect(() => {
-    const openCamera = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-        });
-        streamRef.current = stream;
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.play();
-        }
-      } catch (err) {
-        setError("Error accessing the camera");
-        console.error(err);
-      }
-    };
-
     openCamera();
 
     const mountTimeout = setTimeout(() => {
@@ -104,6 +88,22 @@ export const VideoReviewCard = ({
       clearTimeout(mountTimeout);
     };
   }, []);
+
+  const openCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+      });
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        videoRef.current.play();
+      }
+    } catch (err) {
+      setError("Error accessing the camera");
+      console.error(err);
+    }
+  };
 
   const startRecording = () => {
     if (streamRef.current) {
@@ -148,6 +148,14 @@ export const VideoReviewCard = ({
         clearInterval(timerIntervalRef.current);
       }
     }
+  };
+
+  const retakeRecording = () => {
+    setVideoUrl(null);
+    setError(null);
+    setTimer(0);
+    openCamera();
+    setShowForm(false);
   };
 
   const formatTime = (time: number) => {
@@ -215,14 +223,27 @@ export const VideoReviewCard = ({
                 </p>
               )}
 
-              {!recording ? (
+              {!recording && !videoUrl && (
                 <button
                   onClick={startRecording}
                   className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mb-4 rounded"
                 >
                   Start Recording
                 </button>
-              ) : (
+              )}
+
+              {!recording && videoUrl && (
+                <div>
+                  <button
+                    onClick={retakeRecording}
+                    className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mb-4 rounded w-full"
+                  >
+                    Retake Recording
+                  </button>
+                </div>
+              )}
+
+              {recording && (
                 <button
                   onClick={stopRecording}
                   className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
