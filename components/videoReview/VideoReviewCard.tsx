@@ -51,7 +51,7 @@ export const VideoReviewCard = ({
     null
   );
   const [showForm, setShowForm] = useState(false);
-  const [isMounted, setIsMounted] = useState(false); // Manage mount state for smoother rendering
+  const [isMounted, setIsMounted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [timer, setTimer] = useState<number>(0);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -70,6 +70,7 @@ export const VideoReviewCard = ({
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log("Starred Rating:", rating);
     console.log("Form Data:", data);
     console.log("Video URL:", videoUrl);
   }
@@ -166,6 +167,21 @@ export const VideoReviewCard = ({
     return `${minutes}:${seconds}`;
   };
 
+  const [rating, setRating] = useState<number>(0);
+  const [hovered, setHovered] = useState<number>(0);
+
+  const handleMouseEnter = (index: number) => {
+    setHovered(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(0);
+  };
+
+  const handleClick = (index: number) => {
+    setRating(index);
+  };
+
   return (
     <Card
       className={`transition-all duration-700 ease-in-out transform ${
@@ -202,7 +218,23 @@ export const VideoReviewCard = ({
             </ul>
           </div>
           <div className="mt-2">
-            <Starred />
+            <div className="flex">
+              {Array.from({ length: 5 }, (_, index) => (
+                <span
+                  key={index}
+                  className={`cursor-pointer ${
+                    index < (hovered || rating)
+                      ? "text-yellow-500"
+                      : "text-gray-400"
+                  } text-3xl`}
+                  onMouseEnter={() => handleMouseEnter(index + 1)}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => handleClick(index + 1)}
+                >
+                  &#9733;
+                </span>
+              ))}
+            </div>
           </div>
           <div>
             <div className="flex flex-col justify-center">
