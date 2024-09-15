@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Question } from "@prisma/client";
-import { Starred } from "../starred/Starred";
 import React, { useState, useRef, useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
