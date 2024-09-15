@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Question } from "@prisma/client";
-import Starred from "../starred/Starred";
+import { Starred } from "../starred/Starred";
 
 export const TextReviewCard = ({
   questions,
@@ -61,4 +61,4 @@ export const TextReviewCard = ({
       </CardFooter>
     </Card>
   );
-}
+};

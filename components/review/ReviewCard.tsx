@@ -21,9 +21,15 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
   return (
     <>
       {clickedButton === "Text" ? (
-        <TextReviewCard questions={reviewForm.questions} image={reviewForm.image} />
+        <TextReviewCard
+          questions={reviewForm.questions}
+          image={reviewForm.image}
+        />
       ) : clickedButton == "Video" ? (
-        <VideoReviewCard />
+        <VideoReviewCard
+          questions={reviewForm.questions}
+          image={reviewForm.image}
+        />
       ) : (
         <Card className="w-[450px] px-[2%]">
           <CardHeader>
