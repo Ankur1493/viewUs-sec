@@ -22,7 +22,7 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
   return (
     <>
       {reviewButton === "Text" && detailsButton ? (
-        <PersonalDetialCard />
+        <PersonalDetialCard image={reviewForm.image} />
       ) : reviewButton === "Text" ? (
         <TextReviewCard
           questions={reviewForm.questions}
