@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRef } from "react";
+import useReviewPageStore from "@/store/useReviewPageStore";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -49,8 +50,12 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
     },
   });
 
+  const { textReview, starred } = useReviewPageStore();
+
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
+    console.log({ textReview });
+    console.log({ starred });
   }
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -60,7 +65,7 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
-      form.setValue("image", file); // Update form state for the image
+      form.setValue("image", file);
     }
   };
 

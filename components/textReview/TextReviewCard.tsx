@@ -20,7 +20,8 @@ export const TextReviewCard = ({
   questions: Question[];
   image: string | null;
 }) => {
-  const { detailsButton, setDetailsButton } = useReviewPageStore();
+  const { detailsButton, setDetailsButton, textReview, setTextReview } =
+    useReviewPageStore();
   return (
     <Card className="w-[450px] px-[2%]">
       <CardHeader>
@@ -55,6 +56,8 @@ export const TextReviewCard = ({
             id="text"
             className="w-full border border-gray-400 rounded-lg h-28 p-3 text-base"
             placeholder="Give a Text Review"
+            value={textReview}
+            onChange={(e) => setTextReview(e.target.value)}
           ></textarea>
         </div>
       </CardContent>
