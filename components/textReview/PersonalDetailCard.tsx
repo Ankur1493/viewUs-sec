@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Image from "next/image";
 import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -50,7 +51,8 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
     },
   });
 
-  const { textReview, starred } = useReviewPageStore();
+  const { detailsButton, setDetailsButton, textReview, starred } =
+    useReviewPageStore();
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     // const formData = new FormData();
@@ -93,7 +95,19 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
   };
 
   return (
-    <Card className="w-[450px] px-[2%]">
+    <Card className="relative w-[450px] px-[2%]">
+      <div className="absolute top-2 right-2">
+        {" "}
+        <Button
+          variant="outline"
+          onClick={() => {
+            setDetailsButton(!detailsButton);
+          }}
+          className="shadow-md"
+        >
+          <ArrowLeft size={24} />
+        </Button>
+      </div>
       <CardHeader>
         <div className="flex justify-center">
           <Image

@@ -12,6 +12,7 @@ import {
 import { Question } from "@prisma/client";
 import { Starred } from "../starred/Starred";
 import useReviewPageStore from "@/store/useReviewPageStore";
+import { ArrowLeft } from "lucide-react";
 
 export const TextReviewCard = ({
   questions,
@@ -20,10 +21,27 @@ export const TextReviewCard = ({
   questions: Question[];
   image: string | null;
 }) => {
-  const { detailsButton, setDetailsButton, textReview, setTextReview } =
-    useReviewPageStore();
+  const {
+    setReviewButton,
+    detailsButton,
+    setDetailsButton,
+    textReview,
+    setTextReview,
+  } = useReviewPageStore();
   return (
-    <Card className="w-[450px] px-[2%]">
+    <Card className="relative w-[450px] px-[2%]">
+      <div className="absolute top-2 right-2">
+        {" "}
+        <Button
+          variant="outline"
+          onClick={() => {
+            setReviewButton("");
+          }}
+          className="shadow-md"
+        >
+          <ArrowLeft size={24} />
+        </Button>
+      </div>
       <CardHeader>
         <div className="flex justify-center">
           <Image

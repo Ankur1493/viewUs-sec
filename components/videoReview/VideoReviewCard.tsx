@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,6 +16,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import useReviewPageStore from "@/store/useReviewPageStore";
 
 import {
   Form,
@@ -181,12 +184,26 @@ export const VideoReviewCard = ({
     setRating(index);
   };
 
+  const { setReviewButton } = useReviewPageStore();
+
   return (
     <Card
-      className={`transition-all duration-700 ease-in-out transform ${
+      className={`relative transition-all duration-700 ease-in-out transform ${
         isMounted ? "opacity-100" : "opacity-0"
       } ${showForm ? "max-w-[800px]" : "w-[450px] px-[1%]"}`}
     >
+      <div className="absolute top-2 right-2">
+        {" "}
+        <Button
+          variant="outline"
+          onClick={() => {
+            setReviewButton("");
+          }}
+          className="shadow-md"
+        >
+          <ArrowLeft size={24} />
+        </Button>
+      </div>
       <CardHeader>
         <div className="flex justify-center">
           <Image
