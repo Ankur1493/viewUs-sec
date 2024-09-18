@@ -64,6 +64,7 @@ export const TextReviewCard = ({
       <CardFooter className="flex flex-col">
         <Button
           className="w-full"
+          disabled={!textReview.trim()}
           onClick={() => {
             setDetailsButton(!detailsButton);
           }}

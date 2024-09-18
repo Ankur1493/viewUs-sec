@@ -166,7 +166,7 @@ export const VideoReviewCard = ({
     return `${minutes}:${seconds}`;
   };
 
-  const [rating, setRating] = useState<number>(0);
+  const [rating, setRating] = useState<number>(5);
   const [hovered, setHovered] = useState<number>(0);
 
   const handleMouseEnter = (index: number) => {

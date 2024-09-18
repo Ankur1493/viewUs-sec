@@ -52,11 +52,34 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
 
   const { textReview, starred } = useReviewPageStore();
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-    console.log({ textReview });
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    // const formData = new FormData();
+    // formData.append("name", data.name);
+    // formData.append("email", data.email);
+    // formData.append("description", data.description);
+    // if (data.image) formData.append("image", data.image);
+    // formData.append("textReview", textReview);
+    // formData.append("starred", JSON.stringify(starred));
+
+    // try {
+    //   const response = await fetch("/api/review/text", {
+    //     method: "POST",
+    //     body: formData,
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error("Network response was not ok");
+    //   }
+
+    //   const result = await response.json();
+    //   console.log("Submission result:", result);
+    // } catch (error) {
+    //   console.error("Submission error:", error);
+    // }
     console.log({ starred });
-  }
+    console.log({ textReview });
+    console.log({ data });
+  };
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
