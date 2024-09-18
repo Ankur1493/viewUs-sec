@@ -22,7 +22,7 @@ const FormSchema = z.object({
   }),
 });
 
-export function InputForm() {
+export const PersonalDetialCard = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -57,4 +57,4 @@ export function InputForm() {
       </form>
     </Form>
   );
-}
+};

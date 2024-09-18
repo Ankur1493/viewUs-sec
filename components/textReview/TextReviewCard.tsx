@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Question } from "@prisma/client";
 import { Starred } from "../starred/Starred";
+import useReviewPageStore from "@/store/useReviewPageStore";
 
 export const TextReviewCard = ({
   questions,
@@ -19,6 +20,7 @@ export const TextReviewCard = ({
   questions: Question[];
   image: string | null;
 }) => {
+  const { detailsButton, setDetailsButton } = useReviewPageStore();
   return (
     <Card className="w-[450px] px-[2%]">
       <CardHeader>
@@ -57,7 +59,14 @@ export const TextReviewCard = ({
         </div>
       </CardContent>
       <CardFooter className="flex flex-col">
-        <Button className="w-full">Next</Button>
+        <Button
+          className="w-full"
+          onClick={() => {
+            setDetailsButton(!detailsButton);
+          }}
+        >
+          Next
+        </Button>
       </CardFooter>
     </Card>
   );
