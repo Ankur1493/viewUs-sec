@@ -57,7 +57,7 @@ export const TextReviewCard = ({
         </div>
       </CardContent>
       <CardFooter className="flex flex-col">
-        <Button className="w-full">Submit</Button>
+        <Button className="w-full">Next</Button>
       </CardFooter>
     </Card>
   );

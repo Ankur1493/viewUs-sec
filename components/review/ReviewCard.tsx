@@ -16,16 +16,16 @@ import { TextReviewCard } from "../textReview/TextReviewCard";
 import { VideoReviewCard } from "../videoReview/VideoReviewCard";
 
 export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
-  const { clickedButton, setClickedButton } = useReviewPageStore();
+  const { reviewButton, setReviewButton } = useReviewPageStore();
 
   return (
     <>
-      {clickedButton === "Text" ? (
+      {reviewButton === "Text" ? (
         <TextReviewCard
           questions={reviewForm.questions}
           image={reviewForm.image}
         />
-      ) : clickedButton == "Video" ? (
+      ) : reviewButton == "Video" ? (
         <VideoReviewCard
           questions={reviewForm.questions}
           image={reviewForm.image}
@@ -62,8 +62,8 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
           <CardFooter className="flex flex-col gap-3">
             <Button
               onClick={() => {
-                setClickedButton("Video");
-                console.log("Clicked Button: ", clickedButton);
+                setReviewButton("Video");
+                console.log("Clicked Button: ", reviewButton);
               }}
               className="w-full"
             >
@@ -71,8 +71,8 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
             </Button>
             <Button
               onClick={() => {
-                setClickedButton("Text");
-                console.log("Clicked Button: ", clickedButton);
+                setReviewButton("Text");
+                console.log("Clicked Button: ", reviewButton);
               }}
               className="w-full"
             >

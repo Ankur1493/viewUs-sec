@@ -1,13 +1,17 @@
 import { create } from "zustand";
 
 interface buttonStore {
-  clickedButton: string | null;
-  setClickedButton: (buttonType: string) => void;
+  reviewButton: string | null;
+  detailsButton: boolean;
+  setReviewButton: (buttonType: string) => void;
+  setDetailsButton: (buttonType: boolean) => void;
 }
 
 const useReviewPageStore = create<buttonStore>((set) => ({
-  clickedButton: null,
-  setClickedButton: (buttonType: string) => set({ clickedButton: buttonType }),
+  reviewButton: null,
+  detailsButton: false,
+  setReviewButton: (buttonType: string) => set({ reviewButton: buttonType }),
+  setDetailsButton: (state: boolean) => set({ detailsButton: state }),
 }));
 
 export default useReviewPageStore;
