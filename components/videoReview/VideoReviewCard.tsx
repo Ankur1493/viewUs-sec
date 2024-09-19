@@ -75,6 +75,7 @@ export const VideoReviewCard = ({
     console.log("Starred Rating:", rating);
     console.log("Form Data:", data);
     console.log("Video URL:", videoUrl);
+    console.log({ submitButton });
   }
 
   useEffect(() => {
@@ -184,7 +185,8 @@ export const VideoReviewCard = ({
     setRating(index);
   };
 
-  const { setReviewButton } = useReviewPageStore();
+  const { setReviewButton, setSubmitButton, submitButton } =
+    useReviewPageStore();
 
   return (
     <Card
@@ -372,6 +374,7 @@ export const VideoReviewCard = ({
             onClick={() => {
               form.setValue("videoUrl", videoUrl || "");
               form.handleSubmit(onSubmit)();
+              setSubmitButton(!submitButton);
             }}
           >
             Submit

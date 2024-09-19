@@ -51,8 +51,14 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
     },
   });
 
-  const { detailsButton, setDetailsButton, textReview, starred } =
-    useReviewPageStore();
+  const {
+    detailsButton,
+    setDetailsButton,
+    textReview,
+    starred,
+    setSubmitButton,
+    submitButton,
+  } = useReviewPageStore();
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     // const formData = new FormData();
@@ -81,6 +87,7 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
     console.log({ starred });
     console.log({ textReview });
     console.log({ data });
+    console.log({ submitButton });
   };
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -215,7 +222,11 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button
+              type="submit"
+              className="w-full"
+              onClick={() => setSubmitButton(!submitButton)}
+            >
               Submit
             </Button>
           </form>

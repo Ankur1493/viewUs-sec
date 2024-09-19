@@ -15,13 +15,17 @@ import useReviewPageStore from "@/store/useReviewPageStore";
 import { TextReviewCard } from "../textReview/TextReviewCard";
 import { VideoReviewCard } from "../videoReview/VideoReviewCard";
 import { PersonalDetialCard } from "../textReview/PersonalDetailCard";
+import ThankYouCard from "../ThankYouCard";
 
 export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
-  const { reviewButton, setReviewButton, detailsButton } = useReviewPageStore();
+  const { reviewButton, setReviewButton, detailsButton, submitButton } =
+    useReviewPageStore();
 
   return (
     <>
-      {reviewButton === "Text" && detailsButton ? (
+      {submitButton ? (
+        <ThankYouCard />
+      ) : reviewButton === "Text" && detailsButton ? (
         <PersonalDetialCard image={reviewForm.image} />
       ) : reviewButton === "Text" ? (
         <TextReviewCard
