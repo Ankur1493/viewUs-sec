@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/card";
 import { Question } from "@prisma/client";
 import { Starred } from "../starred/Starred";
+import useReviewPageStore from "@/store/useReviewPageStore";
+import { ArrowLeft } from "lucide-react";
 
 export const TextReviewCard = ({
   questions,
@@ -19,8 +21,27 @@ export const TextReviewCard = ({
   questions: Question[];
   image: string | null;
 }) => {
+  const {
+    setReviewButton,
+    detailsButton,
+    setDetailsButton,
+    textReview,
+    setTextReview,
+  } = useReviewPageStore();
   return (
-    <Card className="w-[450px] px-[2%]">
+    <Card className="relative w-[450px] px-[2%]">
+      <div className="absolute top-2 right-2">
+        {" "}
+        <Button
+          variant="outline"
+          onClick={() => {
+            setReviewButton("");
+          }}
+          className="shadow-md"
+        >
+          <ArrowLeft size={24} />
+        </Button>
+      </div>
       <CardHeader>
         <div className="flex justify-center">
           <Image
@@ -53,11 +74,21 @@ export const TextReviewCard = ({
             id="text"
             className="w-full border border-gray-400 rounded-lg h-28 p-3 text-base"
             placeholder="Give a Text Review"
+            value={textReview}
+            onChange={(e) => setTextReview(e.target.value)}
           ></textarea>
         </div>
       </CardContent>
       <CardFooter className="flex flex-col">
-        <Button className="w-full">Submit</Button>
+        <Button
+          className="w-full"
+          disabled={!textReview.trim()}
+          onClick={() => {
+            setDetailsButton(!detailsButton);
+          }}
+        >
+          Next
+        </Button>
       </CardFooter>
     </Card>
   );
