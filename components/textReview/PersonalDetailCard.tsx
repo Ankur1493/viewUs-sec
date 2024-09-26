@@ -1,4 +1,4 @@
-"use client"; // Add this at the top
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -88,6 +88,8 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
     console.log({ textReview });
     console.log({ data });
     console.log({ submitButton });
+
+    setSubmitButton(!submitButton);
   };
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -222,11 +224,7 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              className="w-full"
-              onClick={() => setSubmitButton(!submitButton)}
-            >
+            <Button type="submit" className="w-full">
               Submit
             </Button>
           </form>
