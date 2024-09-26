@@ -3,12 +3,13 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'ui.aceternity.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "ui.aceternity.com",
+        port: "",
+        pathname: "/**",
       },
     ],
+    domains: ["thewowstyle.com"],
   },
 };
 
