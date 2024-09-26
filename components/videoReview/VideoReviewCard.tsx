@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,6 +16,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import useReviewPageStore from "@/store/useReviewPageStore";
 
 import {
   Form,
@@ -72,6 +75,7 @@ export const VideoReviewCard = ({
     console.log("Starred Rating:", rating);
     console.log("Form Data:", data);
     console.log("Video URL:", videoUrl);
+    console.log({ submitButton });
   }
 
   useEffect(() => {
@@ -166,7 +170,7 @@ export const VideoReviewCard = ({
     return `${minutes}:${seconds}`;
   };
 
-  const [rating, setRating] = useState<number>(0);
+  const [rating, setRating] = useState<number>(5);
   const [hovered, setHovered] = useState<number>(0);
 
   const handleMouseEnter = (index: number) => {
@@ -181,12 +185,27 @@ export const VideoReviewCard = ({
     setRating(index);
   };
 
+  const { setReviewButton, setSubmitButton, submitButton } =
+    useReviewPageStore();
+
   return (
     <Card
-      className={`transition-all duration-700 ease-in-out transform ${
+      className={`relative transition-all duration-700 ease-in-out transform ${
         isMounted ? "opacity-100" : "opacity-0"
       } ${showForm ? "max-w-[800px]" : "w-[450px] px-[1%]"}`}
     >
+      <div className="absolute top-2 right-2">
+        {" "}
+        <Button
+          variant="outline"
+          onClick={() => {
+            setReviewButton("");
+          }}
+          className="shadow-md"
+        >
+          <ArrowLeft size={24} />
+        </Button>
+      </div>
       <CardHeader>
         <div className="flex justify-center">
           <Image
@@ -355,6 +374,7 @@ export const VideoReviewCard = ({
             onClick={() => {
               form.setValue("videoUrl", videoUrl || "");
               form.handleSubmit(onSubmit)();
+              setSubmitButton(!submitButton);
             }}
           >
             Submit
