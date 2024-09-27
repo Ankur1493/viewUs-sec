@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,9 +45,11 @@ const Navbar: React.FC = () => {
           </ul>
         </nav>
         <div>
-          <button className="bg-gray-200 bg-opacity-40 text-black py-2 px-4 rounded-md hover:bg-gray-300">
-            Sign Up
-          </button>
+          <Link href={"/login"}>
+            <button className="text-black py-2 px-4 rounded-md bg-black text-white hover:bg-opacity-80">
+              Sign Up
+            </button>
+          </Link>
         </div>
       </div>
     </header>

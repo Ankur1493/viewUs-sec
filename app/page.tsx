@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Image from "next/image";
+import { Grid } from "@/components/landing/Grid";
 
 export default function Home() {
   return (
@@ -41,6 +42,12 @@ export default function Home() {
               height={2000}
               className="w-full h-full rounded-xl border border-black border-8"
             />
+          </div>
+          <div className="flex flex-col justify-center items-center mt-32 font-bold text-center w-full">
+            <h2 className="w-2/4 pb-12 text-5xl">
+              Build Trust with Real Customer Stories
+            </h2>
+            <Grid />
           </div>
         </div>
       </div>
