@@ -23,7 +23,7 @@ const items = [
   {
     title: "Collect Testimonials Easily",
     description:
-      "Gather text and video testimonials with just a few clicks—no technical setup needed.",
+      "Whether it's written feedback or powerful video stories, ViewUs lets you gather all types of testimonials in just a few clicks. No need for complicated forms or technical setups—just effortless collection.",
     header: <Skeleton />,
     className: "md:col-span-2",
   },
@@ -45,14 +45,14 @@ const items = [
   {
     title: "Share Testimonials Anywhere",
     description:
-      "Embed testimonials on websites, blogs, or social media—no coding required.",
+      "Easily embed your testimonials on any website, blog, or social media platform. No coding skills required—just copy, paste, and start showcasing what your customers have to say.",
     header: <Skeleton />,
     className: "md:col-span-2",
   },
   {
-    title: "Manage Testimonials in One Place",
+    title: "Centralized Dashboard to Manage All Testimonials",
     description:
-      "Keep all testimonials organized and easy to manage in one dashboard.",
+      "Keep all your customer testimonials organized in one easy-to-access dashboard. Sort, filter, and showcase the feedback that matters most—all without the clutter.",
     header: <Skeleton />,
     className: "md:col-span-3",
   },
