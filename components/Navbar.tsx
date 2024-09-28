@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`bg-white bg-opacity-10 backdrop-blur-md text-black shadow-xl p-4 sticky top-0 transition-all duration-300 ease-in-out z-[50] flex justify-between items-center ${
+      className={`bg-white bg-opacity-30 backdrop-blur-md text-black shadow-custom p-4 sticky top-0 transition-all duration-300 ease-in-out z-[50] flex justify-between items-center ${
         isScrolled ? "w-[80%] transform top-10 rounded-xl" : "w-full"
       } `}
     >

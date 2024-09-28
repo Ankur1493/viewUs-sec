@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Image from "next/image";
 import { Grid } from "@/components/landing/Grid";
-import { AddTestimonial } from "@/components/landing/AddTestimonial";
+import { StepstoCreate } from "@/components/landing/StepsToCreate";
 
 export default function Home() {
   return (
@@ -44,17 +44,17 @@ export default function Home() {
               className="w-full h-full rounded-xl border border-black border-8"
             />
           </div>
-          <div className="relative w-full top-20">
+          <div className="relative w-full top-40">
             <h2
-              className="w-full text-center text-5xl font-bold pb-12 sticky"
+              className="w-full text-center text-5xl font-bold pb-8 sticky"
               style={{ top: "20vh" }}
             >
               Collect Your Testimonials in 3 Easy Steps
             </h2>
-            <AddTestimonial />
+            <StepstoCreate />
           </div>
 
-          <div className="flex flex-col justify-center items-center mt-32 font-bold text-center w-full pb-12">
+          <div className="flex flex-col justify-center items-center pt-60 font-bold text-center w-full pb-12">
             <h2 className="w-2/4 pb-12 text-5xl">
               Build Trust with Real Customer Stories
             </h2>
