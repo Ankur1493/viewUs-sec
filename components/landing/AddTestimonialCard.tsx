@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   CardContent,
@@ -22,10 +23,9 @@ export const AddTestimonialCard: React.FC<CardProps> = ({
   description,
   imageAlt,
   image,
-  className,
 }) => {
   return (
-    <Card className={`w-full max-w-3xl ${className}`}>
+    <Card className="relative w-full max-w-3xl mx-auto">
       <CardHeader>
         <div className="flex items-center space-x-4">
           <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 text-black">

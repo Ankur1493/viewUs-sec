@@ -44,12 +44,16 @@ export default function Home() {
               className="w-full h-full rounded-xl border border-black border-8"
             />
           </div>
-          <div className="flex flex-col justify-center items-center mt-32 font-bold text-center w-full pb-12">
-            <h2 className="w-2/4 pb-12 text-5xl">
-              Collect Your Testimonials in 3 easy steps
+          <div className="relative w-full top-20">
+            <h2
+              className="w-full text-center text-5xl font-bold pb-12 sticky"
+              style={{ top: "20vh" }}
+            >
+              Collect Your Testimonials in 3 Easy Steps
             </h2>
             <AddTestimonial />
           </div>
+
           <div className="flex flex-col justify-center items-center mt-32 font-bold text-center w-full pb-12">
             <h2 className="w-2/4 pb-12 text-5xl">
               Build Trust with Real Customer Stories

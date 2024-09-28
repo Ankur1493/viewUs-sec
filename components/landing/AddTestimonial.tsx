@@ -1,81 +1,70 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { AddTestimonialCard } from "./AddTestimonialCard";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+
 const cards = [
   {
     step: 1,
     title: "Create Your Space",
-    description:
-      "Whether it's written feedback or powerful video stories, ViewUs lets you gather all types of testimonials in just a few clicks. No need for complicated forms or technical setups—just effortless collection",
+    description: "Gather all types of testimonials.",
     image: "/path-to-dashboard-image.jpg",
     imageAlt: "Dashboard Image",
   },
   {
     step: 2,
-    title: "Share the form with others",
-    description:
-      "Whether it's written feedback or powerful video stories, ViewUs lets you gather all types of testimonials in just a few clicks. No need for complicated forms or technical setups—just effortless collection",
-    image: "/path-to-review-form-image.jpg",
-    imageAlt: "Review Form Image",
+    title: "Collect Testimonials",
+    description: "Easily collect testimonials through various formats.",
+    image: "/path-to-collection-image.jpg",
+    imageAlt: "Collection Image",
   },
   {
     step: 3,
-    title: "Showcase Your testimonials",
-    description:
-      "Whether it's written feedback or powerful video stories, ViewUs lets you gather all types of testimonials in just a few clicks. No need for complicated forms or technical setups—just effortless collection",
-    image: "/path-to-wall-of-love-image.jpg",
-    imageAlt: "Wall of Love Image",
+    title: "Showcase on Your Website",
+    description: "Display your testimonials seamlessly.",
+    image: "/path-to-showcase-image.jpg",
+    imageAlt: "Showcase Image",
   },
 ];
 
-export const AddTestimonial: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scrollY, setScrollY] = useState(0);
+export const AddTestimonial = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setScrollY(scrollTop);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const cardHeight = 400;
+  const yTransform1 = useTransform(scrollYProgress, [0, 0.5], ["0%", "-100%"]);
+  const yTransform2 = useTransform(scrollYProgress, [0.5, 1], ["0%", "-100%"]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-screen overflow-hidden"
-    >
-      {cards.map((card, index) => {
-        const startScroll = index * cardHeight;
-        const progress = Math.min(
-          Math.max((scrollY - startScroll) / cardHeight, 0),
-          1
-        );
+    <div ref={containerRef} className="relative w-full h-[200vh]">
+      {cards.map((card, i) => {
+        const isSecondCard = i === 1;
+        const isThirdCard = i === 2;
 
         return (
           <motion.div
-            key={index}
-            style={{ height: "100%" }}
-            className="absolute top-0 left-0 w-full flex items-center justify-center"
-            initial={{ y: 100, opacity: 0 }}
-            animate={{
-              y: progress * -100,
-              opacity: progress,
-              zIndex: index,
+            key={i}
+            style={{
+              position: "sticky",
+              top: isSecondCard ? "37vh" : isThirdCard ? "39vh" : "35vh",
+              zIndex: i,
+              transform: isSecondCard
+                ? yTransform1
+                : isThirdCard
+                ? yTransform2
+                : "none",
             }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="w-full"
           >
             <AddTestimonialCard
               step={card.step}
               title={card.title}
               description={card.description}
-              image={card.image}
               imageAlt={card.imageAlt}
+              image={card.image}
             />
           </motion.div>
         );
