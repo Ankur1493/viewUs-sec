@@ -19,6 +19,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.9.0",
+    "gsap": "^3.12.5",
     "lucide-react": "^0.439.0",
     "mongodb": "^6.8.1",
     "mongoose": "^8.6.1",

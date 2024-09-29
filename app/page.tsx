@@ -3,16 +3,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { Grid } from "@/components/landing/Grid";
 import { StepstoCreate } from "@/components/landing/StepsToCreate";
+import TriangleGrid from "@/components/landing/TriangleGrid";
 
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col items-center absolute top-0 w-screen transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
+      <div className=" relativeflex flex-col items-center absolute top-0 w-screen transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
         <Navbar />
+        <div className="absolute top-20 w-full flex justify-center">
+          <TriangleGrid />
+        </div>
         <div className="w-screen flex flex-col items-center md:mt-32 mt-16">
-          <div className="flex flex-col justify-center items-center w-3/5">
+          <div className="flex flex-col justify-center items-center w-4/6">
             <h1 className="text-4xl mt-2 md:text-5xl font-bold pb-3 text-center">
-              Effortlessly Gather and Showcase Customer Testimonials
+              Capture, Organize, and Feature Testimonials with Minimal Effort
             </h1>
           </div>
           <div className="flex flex-col justify-center items-center text-gray-400 md:w-2/5 w-3/4">
