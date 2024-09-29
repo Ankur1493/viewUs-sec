@@ -22,7 +22,7 @@ const TriangleGrid = () => {
     gsap.set(".triangle-grid-item", {
       opacity: 0,
       transformOrigin: "center",
-      color: "#fff",
+      color: "#A81E91",
     });
 
     gsap.set("#triangle-grid", { opacity: 1 });
@@ -38,7 +38,7 @@ const TriangleGrid = () => {
         {
           opacity: 0.4,
           rotate: "+=180",
-          color: "#A78BFA",
+          color: "#A81E91",
           scale: 3,
           duration: 0.6,
           stagger: {
@@ -50,7 +50,7 @@ const TriangleGrid = () => {
         {
           opacity: 0.2,
           rotate: "+=180",
-          color: "#fff",
+          color: "#A81E91",
           scale: 1,
           delay: -2,
           duration: 0.6,
@@ -71,7 +71,7 @@ const TriangleGrid = () => {
         {
           opacity: 0.4,
           rotate: "+=180",
-          color: "#A78BFA",
+          color: "#A81E91",
           scale: 3,
           duration: 0.6,
           stagger: {
@@ -83,7 +83,7 @@ const TriangleGrid = () => {
         {
           opacity: 0.2,
           rotate: "+=180",
-          color: "#fff",
+          color: "#A81E91",
           scale: 1,
           delay: -2,
           duration: 0.6,
@@ -104,7 +104,7 @@ const TriangleGrid = () => {
         items.push(
           <path
             key={`${i}-${j}`}
-            fill="black"
+            fill="#A81E91"
             opacity=".2"
             className="triangle-grid-item"
             d={`M${j * 32 + 5},${i * 32 + 10}l-3.75,2.165l0,-4.33l3.75,2.165z`}

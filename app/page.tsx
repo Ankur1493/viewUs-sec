@@ -4,6 +4,7 @@ import { Grid } from "@/components/landing/Grid";
 import { StepstoCreate } from "@/components/landing/StepsToCreate";
 import TriangleGrid from "@/components/landing/TriangleGrid";
 import HeroImage from "@/components/landing/HeroImage";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   const slice = {
@@ -64,6 +65,7 @@ export default function Home() {
             <Grid />
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );
