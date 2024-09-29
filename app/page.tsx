@@ -1,14 +1,19 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import Image from "next/image";
 import { Grid } from "@/components/landing/Grid";
 import { StepstoCreate } from "@/components/landing/StepsToCreate";
 import TriangleGrid from "@/components/landing/TriangleGrid";
+import HeroImage from "@/components/landing/HeroImage";
 
 export default function Home() {
+  const slice = {
+    primary: {
+      image: "/assets/images/sample.png",
+    },
+  };
   return (
     <>
-      <div className=" relativeflex flex-col items-center absolute top-0 w-screen transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
+      <div className=" relative flex flex-col items-center absolute top-0 w-screen transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
         <Navbar />
         <div className="absolute top-20 w-full flex justify-center">
           <TriangleGrid />
@@ -39,14 +44,8 @@ export default function Home() {
               SignUp
             </Link>
           </div>
-          <div className="py-8">
-            <Image
-              src="/assets/images/sample.png"
-              alt="Sample pic"
-              width={1000}
-              height={2000}
-              className="w-full h-full rounded-xl border border-black border-8"
-            />
+          <div>
+            <HeroImage imageSrc={slice.primary.image} />
           </div>
           <div className="relative w-full top-40">
             <h2
