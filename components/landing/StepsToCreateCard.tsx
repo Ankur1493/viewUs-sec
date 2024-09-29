@@ -25,12 +25,26 @@ export const StepsToCreateCard: React.FC<CardProps> = ({
   image,
 }) => {
   return (
-    <Card className="relative w-[70%] mb-28 mx-auto bg-secondBackground text-white flex h-[300px]">
-      <CardHeader className="px-0 pl-3">
-        <div className="flex items-center">
-          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 text-black">
-            {step}
-          </div>
+    <Card className="relative w-[70%] mb-28 mx-auto rounded-2xl bg-secondBackground text-white flex h-[300px]">
+      <CardHeader className="px-4">
+        <div className="flex flex-col items-center justify-around h-full relative">
+          {[1, 2, 3].map((s, index) => (
+            <div key={s} className="relative flex flex-col items-center">
+              <div
+                className={`flex items-center justify-center w-12 h-12 rounded-full ${
+                  s === step ? "bg-black text-white" : "bg-gray-200 text-black"
+                }`}
+              >
+                {s}
+              </div>
+              {index < 2 && (
+                <div
+                  className="w-0.5 h-10 bg-black"
+                  style={{ position: "absolute", top: "3rem" }}
+                />
+              )}
+            </div>
+          ))}
         </div>
       </CardHeader>
       <CardContent className="flex justify-center items-center pl-2">
