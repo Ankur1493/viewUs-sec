@@ -3,17 +3,17 @@ import Image from "next/image";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-none text-black py-8 w-full mt-24 px-20 shadow-top">
+    <footer className="bg-none text-black py-8 w-full mt-24 px-20 border-t border-t-gray-200">
       <div className="container mx-auto px-4 flex flex-wrap justify-between">
         <div className="w-full lg:w-1/4 mb-6 lg:mb-0">
           <div className="flex items-center">
-            <div className="relative w-8 h-8 overflow-hidden rounded-full mr-2">
+            <div className="relative w-8 h-8 overflow-hidden  mr-2">
               <Image
                 src="/assets/images/sample.png"
                 alt="Logo"
                 layout="fill"
                 objectFit="cover"
-                className="rounded-full"
+                className="rounded-lg"
               />
             </div>
             <span className="text-xl font-semibold">ViewUs</span>
