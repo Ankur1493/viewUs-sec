@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         background: "hsl(var(--background))",
+        secondBackground: "#262626",
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -55,6 +56,10 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        custom: "0 4px 15px rgba(0, 0, 0, 0.1)",
+        top: "0 -10px 24px rgba(0, 0, 0, 0.2)",
       },
     },
   },
