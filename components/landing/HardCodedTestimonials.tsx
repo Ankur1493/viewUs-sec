@@ -116,7 +116,7 @@ export default function HardCodedTestimonials() {
       };
       animate();
     });
-  }, [controls, columnSpeeds]);
+  }, [controls]);
 
 
   const columns = [

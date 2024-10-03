@@ -4,7 +4,6 @@ import React from "react";
 import { WobbleCard } from "../ui/wobble-card";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
-import { Car } from "lucide-react";
 import Link from "next/link";
 
 export function Features() {

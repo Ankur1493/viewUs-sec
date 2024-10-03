@@ -95,7 +95,7 @@ const TriangleGrid = () => {
         },
       ],
     });
-  }, []);
+  }, [grid]);
 
   const renderGridItems = () => {
     const items = [];

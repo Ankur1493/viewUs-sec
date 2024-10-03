@@ -67,8 +67,6 @@ export const StepstoCreate = () => {
         const isSecondCard = i === 1;
         const isThirdCard = i === 2;
 
-        const yTransform =
-          i === 1 ? yTransform1 : i === 2 ? yTransform2 : "none";
         const widthTransform =
           i === 0
             ? widthTransform1
