@@ -6,6 +6,7 @@ import TriangleFeature from "@/components/landing/TriangleGrid";
 import HeroImage from "@/components/landing/HeroImage";
 import { Footer } from "@/components/Footer";
 import HardCodedTestimonials from "./HardCodedTestimonials";
+import { BookCall } from "./BookCall";
 
 export const Landing = () => {
   return (
@@ -59,12 +60,15 @@ export const Landing = () => {
           <StepstoCreate />
         </div>
 
-        <div className="flex flex-col justify-center items-center pt-60 font-bold text-center w-full pb-12">
+        <div className="flex flex-col justify-center items-center mt-44 font-bold text-center w-full">
           <h2 className="w-3/5 pb-12 text-6xl">
             Forge Lasting Connections: From First Click to Loyal Customer
           </h2>
           <Features />
         </div>
+      </div>
+      <div className="flex flex-col justify-center items-center mt-24 font-bold text-center w-full bg-[#141111]">
+        <BookCall />
       </div>
       <Footer />
     </div>
