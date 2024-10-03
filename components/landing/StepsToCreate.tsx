@@ -9,7 +9,7 @@ const cards = [
     title: "Create Your Space",
     description:
       "Customize your very own testimonial collection space in minutes. Set up a branded page where customers can easily leave their feedback, whether it's written or in video form. Tailor it to match your business’s identity and make the process seamless for your customers.",
-    image: "/assets/images/sample.png",
+    image: "/assets/images/test1.webp",
     imageAlt: "Dashboard Image",
   },
   {
@@ -18,7 +18,7 @@ const cards = [
     description:
       "Effortlessly share your testimonial form with clients through a link, email, or social media. No complicated setups—just a simple, user-friendly form that allows your customers to provide feedback with ease. Watch as the testimonials start flowing in.",
 
-    image: "/assets/images/sample.png",
+    image: "/assets/images/test2.webp",
     imageAlt: "Collection Image",
   },
   {
@@ -27,7 +27,7 @@ const cards = [
     description:
       "Display the best of your customer feedback for the world to see. Use our beautiful, customizable display options to integrate testimonials directly into your website, or share them across your social media platforms. Build trust and credibility through the authentic voices of your satisfied customers.",
 
-    image: "/assets/images/sample.png",
+    image: "/assets/images/test3.webp",
     imageAlt: "Showcase Image",
   },
 ];
@@ -67,8 +67,6 @@ export const StepstoCreate = () => {
         const isSecondCard = i === 1;
         const isThirdCard = i === 2;
 
-        const yTransform =
-          i === 1 ? yTransform1 : i === 2 ? yTransform2 : "none";
         const widthTransform =
           i === 0
             ? widthTransform1

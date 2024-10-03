@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { Button } from "./ui/button";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,28 +28,23 @@ const Navbar: React.FC = () => {
       } `}
     >
       <div className="flex items-center gap-2">
-        <div className="h-5 w-5 bg-black rounded-full"></div>
-        <span className="font-semibold">ReviewIt</span>
+        <div className="h-8 w-8 bg-black rounded"></div>
+        <span className="font-semibold">ViewUs</span>
       </div>
       <div className="flex items-center justify-center gap-4">
         <nav>
           <ul className="flex gap-4">
             <li>
-              <a href="#">Wall Of Love</a>
+              <Link href="/pricing">Pricing</Link>
             </li>
             <li>
-              <a href="#">Pricing</a>
-            </li>
-            <li>
-              <a href="#">About</a>
+              <Link href="/about">About</Link>
             </li>
           </ul>
         </nav>
         <div>
-          <Link href={"/login"}>
-            <button className="text-black py-2 px-4 rounded-md bg-black text-white hover:bg-opacity-80">
-              Sign Up
-            </button>
+          <Link href="/login">
+            <Button>Sign Up</Button>
           </Link>
         </div>
       </div>
