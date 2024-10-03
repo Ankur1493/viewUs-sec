@@ -15,8 +15,7 @@ export function Features() {
             Easily manage all of your testimonials from one place
           </h2>
           <p className="mt-4 max-w-[32rem] text-left  text-base/6 text-neutral-200">
-            We have a enriched dashboard to let you manage these testimonials at
-            warp speed and let you focus on your product.
+            We have a enriched dashboard to let you manage these testimonials at warp speed and let you focus on your product.
           </p>
         </div>
         <Image
@@ -37,8 +36,7 @@ export function Features() {
             Collect Testimonials Easily
           </h2>
           <p className="mt-4 text-left  text-base/6 text-neutral-200">
-            gather all types of testimonials in just a few clicks. No need for
-            complicated forms or technical setups.
+            gather all types of testimonials in just a few clicks. No need for complicated forms or technical setups.
           </p>
         </div>
         <Image
@@ -58,12 +56,7 @@ export function Features() {
             let us show you how we can increase your sales
           </p>
           <Link href="/login" className="w-full">
-            <Button
-              className="w-full bg-neutral-200 hover:bg-white text-xl font-semibold py-6 rounded-2xl"
-              variant="secondary"
-            >
-              Start for free
-            </Button>
+            <Button className="w-full bg-neutral-200 hover:bg-white text-xl font-semibold py-6 rounded-2xl" variant="secondary">Start for free</Button>
           </Link>
         </CardContent>
       </Card>
@@ -73,8 +66,7 @@ export function Features() {
             Share your Testimonials Anywhere
           </h2>
           <p className="mt-4 max-w-[32rem] text-left  text-base/6 text-neutral-200">
-            start showcasing what your customers have to say easily. Integrate
-            your testimonials in your blogs, sales page or anywhere you like.
+            start showcasing what your customers have to say easily. Integrate your testimonials in your blogs, sales page or anywhere you like.
           </p>
         </div>
         <Image

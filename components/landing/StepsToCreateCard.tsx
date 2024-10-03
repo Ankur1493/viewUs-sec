@@ -27,19 +27,15 @@ export const StepsToCreateCard: React.FC<CardProps> = ({
 }) => {
   return (
     <Card
-      className={cn(
-        "flex h-[450px]relative w-[70%] mb-12 mx-auto rounded-2xl bg-secondBackground text-gray-900",
+      className={cn("flex h-[450px]relative w-[70%] mb-12 mx-auto rounded-2xl bg-secondBackground text-gray-900",
         step === 2 ? "bg-gray-300" : step === 3 ? "bg-secondBackground" : ""
-      )}
-    >
+      )}>
       <CardHeader className="px-4">
         <div className="flex flex-col items-center justify-around h-full relative">
           {[1, 2, 3].map((s, index) => (
             <div key={s} className="relative flex flex-col items-center">
               <div
-                className={`flex items-center justify-center w-12 h-12 rounded-full text-white ${
-                  s === step ? "bg-black" : "bg-gray-900"
-                }`}
+                className={`flex items-center justify-center w-12 h-12 rounded-full text-white ${s === step ? "bg-black" : "bg-gray-900"}`}
               >
                 {s}
               </div>
@@ -55,9 +51,7 @@ export const StepsToCreateCard: React.FC<CardProps> = ({
       </CardHeader>
       <CardContent className="flex justify-center items-center pl-2">
         <div className="w-2/3">
-          <CardTitle className="text-5xl font-bold text-black">
-            {title}
-          </CardTitle>
+          <CardTitle className="text-5xl font-bold text-black">{title}</CardTitle>
           <CardDescription className="pt-4 w-[80%] text-lg text-justify">
             {description}
           </CardDescription>

@@ -45,8 +45,7 @@ export const Landing = () => {
             See what our users say about us
           </h2>
           <p className="text-xl text-center text-gray-500 mb-12">
-            Our very own wall of love. Or complaints. Whatever you want to call
-            it.
+            Our very own wall of love. Or complaints. Whatever you want to call it.
           </p>
           <HardCodedTestimonials />
         </div>
@@ -73,5 +72,5 @@ export const Landing = () => {
       </div>
       <Footer />
     </div>
-  );
-};
+  )
+}
