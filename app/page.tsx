@@ -1,7 +1,10 @@
+import { Landing } from "@/components/landing/Landing";
+
 export default function Home() {
+
   return (
-    <div className="h-screen w-screen flex flex-col gap-5 justify-center items-center">
-      {/*create a good looking card or something which says collect reviews with view us*/}
+    <div className="flex flex-col items-center absolute top-0 w-screen transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
+      <Landing />
     </div>
   );
 }

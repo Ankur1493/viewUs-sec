@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import useReviewPageStore from "@/store/useReviewPageStore";
 
 interface StarredProps {
   size?: string;
 }
 
-const Starred: React.FC<StarredProps> = ({ size = "text-3xl" }) => {
-  const [rating, setRating] = useState<number>(0);
+export const Starred: React.FC<StarredProps> = ({ size = "text-3xl" }) => {
+  const { setStarred } = useReviewPageStore();
+  const [rating, setRating] = useState<number>(5);
   const [hovered, setHovered] = useState<number>(0);
 
   const handleMouseEnter = (index: number) => {
@@ -18,6 +20,7 @@ const Starred: React.FC<StarredProps> = ({ size = "text-3xl" }) => {
 
   const handleClick = (index: number) => {
     setRating(index);
+    setStarred(index);
   };
 
   return (
@@ -38,5 +41,3 @@ const Starred: React.FC<StarredProps> = ({ size = "text-3xl" }) => {
     </div>
   );
 };
-
-export default Starred;
