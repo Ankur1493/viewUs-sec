@@ -128,7 +128,9 @@ export default function HardCodedTestimonials() {
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="relative h-[600px]">
+        <div className="relative h-[700px]">
+          <div className="absolute -top-12 left-0 right-0 h-12 bg-gradient-to-b from-white to-transparent pointer-events-none z-10"></div>
+          <div className="absolute -bottom-12 left-0 right-0 h-6 bg-gradient-to-t from-white to-transparent pointer-events-none z-10"></div>
           <div className="absolute w-full grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {columns.map((column, columnIndex) => (
               <motion.div
