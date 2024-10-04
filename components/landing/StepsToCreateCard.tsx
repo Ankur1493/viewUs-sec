@@ -28,7 +28,7 @@ export const StepsToCreateCard: React.FC<CardProps> = ({
   return (
     <Card
       className={cn(
-        "flex h-[450px]relative w-[70%] mb-12 mx-auto rounded-2xl bg-secondBackground text-gray-900",
+        "flex h-[450px] relative w-[70%] mb-12 mx-auto rounded-2xl bg-secondBackground text-gray-900",
         step === 2 ? "bg-gray-300" : step === 3 ? "bg-secondBackground" : ""
       )}
     >
