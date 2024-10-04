@@ -15,9 +15,9 @@ export const Landing = () => {
       <div className="absolute z-0 top-20 w-full flex justify-center">
         <TriangleFeature />
       </div>
-      <div className="w-screen z-10 flex flex-col items-center md:mt-32 mt-16">
+      <div className="w-screen z-10 flex flex-col items-center md:mt-24 mt-16">
         <div className="flex flex-col justify-center items-center w-4/6">
-          <h1 className="text-4xl mt-2 md:text-7xl font-bold pb-3 text-center">
+          <h1 className="text-4xl mt-2 md:text-6xl font-bold pb-3 text-center">
             Showcase your Testimonials
             <span className="block">with Minimal Effort</span>
           </h1>
@@ -49,10 +49,10 @@ export const Landing = () => {
           </p>
           <HardCodedTestimonials />
         </div>
-        <div className="relative w-full top-40">
+        <div className="relative w-full top-40 mt-28">
           <h2
             className="w-full text-center text-6xl font-bold pb-12 sticky"
-            style={{ top: "20vh" }}
+            style={{ top: "17vh" }}
           >
             Manage your Testimonials in
             <span className="block">3 easy steps</span>
@@ -60,7 +60,7 @@ export const Landing = () => {
           <StepstoCreate />
         </div>
 
-        <div className="flex flex-col justify-center items-center mt-44 font-bold text-center w-full">
+        <div className="flex flex-col justify-center items-center mt-44 pt-20 font-bold text-center w-full">
           <h2 className="w-3/5 pb-12 text-6xl">
             Forge Lasting Connections: From First Click to Loyal Customer
           </h2>
