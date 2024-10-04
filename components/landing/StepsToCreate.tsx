@@ -61,7 +61,7 @@ export const StepstoCreate = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full flex flex-col justify-center items-center"
+      className="relative w-full flex flex-col absolute justify-center items-center"
     >
       {cards.map((card, i) => {
         const isSecondCard = i === 1;
@@ -79,7 +79,6 @@ export const StepstoCreate = () => {
             key={i}
             style={{
               position: "sticky",
-              top: isSecondCard ? "38vh" : isThirdCard ? "41vh" : "35vh",
               zIndex: i,
               width: widthTransform,
               transform: isSecondCard
@@ -88,7 +87,7 @@ export const StepstoCreate = () => {
                 ? yTransform2
                 : "none",
             }}
-            className="w-full"
+            className={`w-full ${isSecondCard ? "top-[28vh] md:top-[38vh]" : isThirdCard ? "top-[32vh] md:top-[41vh]" : "top-[24vh] md:top-[35vh]"}`}
           >
             <StepsToCreateCard
               step={card.step}

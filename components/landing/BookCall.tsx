@@ -17,14 +17,14 @@ export const BookCall = () => {
     <div className="max-w-7xl mx-auto w-full flex flex-col gap-7 rounded-3xl p-3">
       <div className="py-4 flex flex-col gap-6">
         <p className="text-gray-400 font-thin font-mono text-md">FAQs</p>
-        <h1 className="text-white text-5xl">Still confused? Let&apos;s talk</h1>
+        <h1 className="text-white text-4xl md:text-5xl">Still confused? Let&apos;s talk</h1>
       </div>
-      <div className="text-white flex justify-around">
+      <div className="text-white flex flex-col lg:flex-row justify-around">
         <Accordion
           type="single"
           collapsible
           defaultValue="item-1"
-          className="w-2/3"
+          className="w-full lg:w-2/3"
         >
           <AccordionItem value="item-1">
             <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -61,8 +61,8 @@ export const BookCall = () => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <div className="flex items-center">
-          <Card className="min-h-[350px] border-dashed border-gray-950">
+        <div className="flex items-center justify-center">
+          <Card className="h-[300px] lg:min-h-[350px] border-dashed border-gray-950">
             <CardHeader>
               <CardTitle>Have a call with us</CardTitle>
             </CardHeader>
@@ -110,7 +110,7 @@ export const BookCall = () => {
           <p className="text-gray-400 font-thin font-mono text-md">
             Time to take Action
           </p>
-          <h1 className="text-white text-5xl">
+          <h1 className="text-white text-4xl md:text-5xl">
             Book your spot, Let us help you
           </h1>
         </div>

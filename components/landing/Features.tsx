@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export function Features() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-6xl mx-auto w-full">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-6xl mx-auto w-full px-3 lg:px-0">
       <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-pink-600 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px]">
         <div className="max-w-lg">
           <h2 className="max-w-sm md:max-w-lg  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
