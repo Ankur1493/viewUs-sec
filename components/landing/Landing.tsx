@@ -7,6 +7,7 @@ import HeroImage from "@/components/landing/HeroImage";
 import { Footer } from "@/components/Footer";
 import HardCodedTestimonials from "./HardCodedTestimonials";
 import { BookCall } from "./BookCall";
+import { ManageTestimonials } from "./ManageTestimonials";
 
 export const Landing = () => {
   return (
@@ -39,6 +40,9 @@ export const Landing = () => {
         </div>
         <div>
           <HeroImage imageSrc="/assets/images/HeroImage.png" />
+        </div>
+        <div className="relative w-full my-12 top-16 md:top-28 lg:top-40">
+            <ManageTestimonials />
         </div>
         <div className="relative w-full my-12 top-16 md:top-28 lg:top-40">
           <h2 className="text-3xl md:text-6xl font-bold text-center mb-2">
