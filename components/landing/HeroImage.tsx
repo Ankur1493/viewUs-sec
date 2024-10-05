@@ -10,7 +10,7 @@ interface HeroImageProps {
 const HeroImage: React.FC<HeroImageProps> = ({ imageSrc }) => {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce"
+      "(prefers-reduced-motion: reduce)"
     ).matches;
 
     if (prefersReducedMotion) {
@@ -23,37 +23,37 @@ const HeroImage: React.FC<HeroImageProps> = ({ imageSrc }) => {
       return;
     }
 
-    const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
+    const tl = gsap.timeline({ defaults: { ease: "power2.out", duration: 0.8 } });
 
     tl.fromTo(
       ".hero__heading",
-      { scale: 0.5 },
-      { scale: 1, opacity: 1, duration: 1.4 }
-    );
-    tl.fromTo(
-      ".hero__body",
-      { y: 20 },
-      { y: 0, opacity: 1, duration: 1.2 },
-      "-=0.6"
-    );
-    tl.fromTo(
-      ".hero__button",
-      { scale: 1.5 },
-      { scale: 1, opacity: 1, duration: 1.3 },
-      "-=0.8"
-    );
-    tl.fromTo(
-      ".hero__image",
-      { y: 100 },
-      { y: 0, opacity: 1, duration: 1.3 },
-      "+=0.3"
-    );
-    tl.fromTo(
-      ".hero__glow",
-      { scale: 0.5 },
-      { scale: 1, opacity: 1, duration: 1.8 },
-      "-=1"
-    );
+      { scale: 0.7 },
+      { scale: 1, opacity: 1 }
+    )
+      .fromTo(
+        ".hero__body",
+        { y: 30 },
+        { y: 0, opacity: 1 },
+        "-=0.4"
+      )
+      .fromTo(
+        ".hero__button",
+        { scale: 1.3 },
+        { scale: 1, opacity: 1 },
+        "-=0.5"
+      )
+      .fromTo(
+        ".hero__image",
+        { y: 80 },
+        { y: 0, opacity: 1 },
+        "-=0.3"
+      )
+      .fromTo(
+        ".hero__glow",
+        { scale: 0.7 },
+        { scale: 1, opacity: 1 },
+        "-=0.5"
+      );
 
     gsap.to(".hero__glow--one", {
       ease: "power2.inOut",
@@ -61,9 +61,9 @@ const HeroImage: React.FC<HeroImageProps> = ({ imageSrc }) => {
       repeatDelay: 0,
       keyframes: [
         { top: "0%", left: "33%", duration: 0 },
-        { top: "33%", left: "33%", duration: 1 },
+        { top: "33%", left: "33%", duration: 1.5 },
         { top: "33%", left: "0%", duration: 2 },
-        { top: "0%", left: "0%", duration: 1 },
+        { top: "0%", left: "0%", duration: 1.5 },
         { top: "0%", left: "33%", duration: 2 },
       ],
     });
@@ -74,9 +74,9 @@ const HeroImage: React.FC<HeroImageProps> = ({ imageSrc }) => {
       repeatDelay: 0,
       keyframes: [
         { top: "33%", left: "0%", duration: 0 },
-        { top: "0%", left: "0%", duration: 1 },
+        { top: "0%", left: "0%", duration: 1.5 },
         { top: "0%", left: "33%", duration: 2 },
-        { top: "33%", left: "33%", duration: 1 },
+        { top: "33%", left: "33%", duration: 1.5 },
         { top: "33%", left: "0%", duration: 2 },
       ],
     });
@@ -94,7 +94,7 @@ const HeroImage: React.FC<HeroImageProps> = ({ imageSrc }) => {
             alt="Hero Image"
             width={1000}
             height={2000}
-            className="rounded-3xl  border-black border-8"
+            className="rounded-3xl border-black border-8"
           />
         )}
       </div>

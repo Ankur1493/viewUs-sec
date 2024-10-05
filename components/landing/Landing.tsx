@@ -51,12 +51,12 @@ export const Landing = () => {
           </p>
           <HardCodedTestimonials />
         </div>
-        <div className="relative w-full my-12 top-16 md:top-28 lg:top-40">
+        <div className="relative w-full my-8 top-16 md:top-28 lg:top-40">
             <ManageTestimonials />
         </div>
         <div className="relative w-full top-40 mt-4 md:mt-28">
           <h2
-            className="w-full text-center text-3xl top-[10vh] md:top-[17vh] md:text-6xl font-bold pb-12 sticky"
+            className="w-full text-center px-2 md:px-0 text-[28px] top-[10vh] md:top-[17vh] md:text-6xl font-bold pb-12 sticky"
           >
             Manage your Testimonials in
             <span className="md:block"> 3 easy steps</span>
