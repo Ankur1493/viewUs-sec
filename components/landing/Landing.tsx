@@ -63,7 +63,6 @@ export const Landing = () => {
           </h2>
           <StepstoCreate />
         </div>
-
         <div className="flex flex-col justify-center items-center mt-40 md:mt-44 pt-20 font-bold text-center w-full">
           <h2 className="w-[90%] lg:w-3/5 pb-12 text-4xl md:text-5xl lg:text-6xl">
             Forge Lasting Connections: From First Click to Loyal Customer
