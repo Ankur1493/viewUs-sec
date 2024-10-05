@@ -23,7 +23,7 @@ export const Landing = () => {
             with Minimal Effort
           </h1>
         </div>
-        <div className="flex flex-col justify-center items-center text-gray-400 w-3/4 md:1/6 lg:w-2/5 ">
+        <div className="flex flex-col justify-center items-center text-gray-400 w-3/4 md:1/6 lg:w-3/5 ">
           <p className="text-md md:text-xl text-center">
             ViewUs helps you seamlessly collect and manage customer
             testimonials.
@@ -42,9 +42,6 @@ export const Landing = () => {
           <HeroImage imageSrc="/assets/images/HeroImage.png" />
         </div>
         <div className="relative w-full my-12 top-16 md:top-28 lg:top-40">
-            <ManageTestimonials />
-        </div>
-        <div className="relative w-full my-12 top-16 md:top-28 lg:top-40">
           <h2 className="text-3xl md:text-6xl font-bold text-center mb-2">
             See what our users say about us
           </h2>
@@ -53,6 +50,9 @@ export const Landing = () => {
             it.
           </p>
           <HardCodedTestimonials />
+        </div>
+        <div className="relative w-full my-12 top-16 md:top-28 lg:top-40">
+            <ManageTestimonials />
         </div>
         <div className="relative w-full top-40 mt-4 md:mt-28">
           <h2
