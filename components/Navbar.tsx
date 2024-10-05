@@ -23,8 +23,9 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`bg-white bg-opacity-30 backdrop-blur-md text-black shadow-custom p-4 sticky top-0 transition-all duration-500 ease-in-out z-[50] flex justify-between items-center ${isScrolled ? "w-[80%] transform top-10 rounded-xl" : "w-full"
-        } `}
+      className={`bg-white bg-opacity-30 backdrop-blur-md text-black shadow-custom p-4 sticky top-0 transition-all duration-500 ease-in-out z-[50] flex justify-between items-center ${
+        isScrolled ? "w-full md:w-[80%] transform md:top-10 md:rounded-xl" : "w-full pr-6"
+      } `}
     >
       <div className="flex items-center gap-2">
         <div className="h-8 w-8 bg-black rounded"></div>
@@ -43,9 +44,7 @@ const Navbar: React.FC = () => {
         </nav>
         <div>
           <Link href="/login">
-            <Button>
-              Sign Up
-            </Button>
+            <Button>Sign Up</Button>
           </Link>
         </div>
       </div>

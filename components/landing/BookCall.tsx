@@ -1,28 +1,31 @@
-"use client"
+"use client";
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
-import Image from "next/image"
-import Link from "next/link"
-import { MoveRight } from "lucide-react"
+} from "@/components/ui/accordion";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import Image from "next/image";
+import Link from "next/link";
+import { MoveRight } from "lucide-react";
 import Cal from "@calcom/embed-react";
 
 export const BookCall = () => {
   return (
-    <div
-      className="max-w-7xl mx-auto w-full flex flex-col gap-7 rounded-3xl p-3"
-    >
+    <div className="max-w-7xl mx-auto w-full flex flex-col gap-7 rounded-3xl p-3">
       <div className="py-4 flex flex-col gap-6">
         <p className="text-gray-400 font-thin font-mono text-md">FAQs</p>
-        <h1 className="text-white text-5xl">Still confused? Let&apos;s talk</h1>
+        <h1 className="text-white text-4xl md:text-5xl">Still confused? Let&apos;s talk</h1>
       </div>
-      <div className="text-white flex justify-around">
-        <Accordion type="single" collapsible defaultValue="item-1" className="w-2/3">
+      <div className="text-white flex flex-col lg:flex-row justify-around">
+        <Accordion
+          type="single"
+          collapsible
+          defaultValue="item-1"
+          className="w-full lg:w-2/3"
+        >
           <AccordionItem value="item-1">
             <AccordionTrigger>Is it accessible?</AccordionTrigger>
             <AccordionContent>
@@ -58,16 +61,23 @@ export const BookCall = () => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <div>
-          <Card className="min-h-[350px] border-dashed border-gray-950">
+        <div className="flex items-center justify-center">
+          <Card className="h-[300px] lg:min-h-[350px] border-dashed border-gray-950">
             <CardHeader>
               <CardTitle>Have a call with us</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-5 justify-center items-center">
-              <p className="text-gray-800 font-normal text-md">Schedule a 15 minutes call with Ankur,
-                <span className="block"> and setup your testimonials together</span>
+              <p className="text-gray-800 font-normal text-md">
+                Schedule a 15 minutes call with Ankur,
+                <span className="block">
+                  {" "}
+                  and setup your testimonials together
+                </span>
               </p>
-              <Link href="/#book-call" className="flex justify-around items-center border-dashed border border-gray-400 p-2 rounded-lg w-full hover:bg-[#141111] hover:text-white duration-500">
+              <Link
+                href="/#book-call"
+                className="flex justify-around items-center border-dashed border border-gray-400 p-2 rounded-lg w-full hover:bg-[#141111] hover:text-white duration-500"
+              >
                 <Image
                   className="h-12 w-12 rounded-lg"
                   width={100}
@@ -75,11 +85,21 @@ export const BookCall = () => {
                   src="/assets/images/founder_profile.jpeg"
                   alt="Profile"
                 />
-                <p className="text-md font-normal underline flex gap-3">Book a call <MoveRight /> </p>
+                <p className="text-md font-normal underline flex gap-3">
+                  Book a call <MoveRight />{" "}
+                </p>
               </Link>
               <div className="flex gap-2 font-normal text-sm text-gray-800">
-                <p className="flex gap-2 items-center">or email<MoveRight size={15} /> </p>
-                <Link className="border-b border-b-gray-600 " href="mailto://team@viewus.in">team@viewus.in</Link>
+                <p className="flex gap-2 items-center">
+                  or email
+                  <MoveRight size={15} />{" "}
+                </p>
+                <Link
+                  className="border-b border-b-gray-600 "
+                  href="mailto://team@viewus.in"
+                >
+                  team@viewus.in
+                </Link>
               </div>
             </CardContent>
           </Card>
@@ -87,11 +107,15 @@ export const BookCall = () => {
       </div>
       <div id="book-call" className="mt-16">
         <div className="py-8 flex flex-col gap-6">
-          <p className="text-gray-400 font-thin font-mono text-md">Time to take Action</p>
-          <h1 className="text-white text-5xl">Book your spot, Let us help you</h1>
+          <p className="text-gray-400 font-thin font-mono text-md">
+            Time to take Action
+          </p>
+          <h1 className="text-white text-4xl md:text-5xl">
+            Book your spot, Let us help you
+          </h1>
         </div>
         <Cal calLink="ankur-sharma/15min"></Cal>
       </div>
-    </div >
-  )
-}
+    </div>
+  );
+};
