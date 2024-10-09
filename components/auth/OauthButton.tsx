@@ -3,7 +3,6 @@
 import { ChromeIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { signIn } from "next-auth/react"
-import google from "next-auth/providers/google"
 import { DEFAULT_LOGIN_REDIRECT } from "@/route"
 
 export const OauthButton = () => {

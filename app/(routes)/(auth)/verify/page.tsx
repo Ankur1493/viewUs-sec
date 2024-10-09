@@ -54,6 +54,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: { err
 
   if (user.email) {
     const verificationToken = await generateVerificationTokens(user.email)
+    console.log(verificationToken)
   }
   //todo ---- add rate limiting on this sending verification mail
 
