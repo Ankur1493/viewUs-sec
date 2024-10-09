@@ -28,7 +28,7 @@ export function SideBar() {
   return (
     <div
       className={cn(
-        "rounded-r-md flex flex-col md:flex-row bg-white w-full flex-1 max-w-7xl ml-0 pl-0 mx-auto overflow-hidden border-r border-neutral-200",
+        "rounded-r-xl flex flex-col md:flex-row w-full flex-1 max-w-7xl ml-0 pl-0 mx-auto overflow-hidden border-r border-neutral-200",
         "h-screen",
       )}
     >
@@ -38,7 +38,7 @@ export function SideBar() {
             <>
               <Logo />
             </>
-            <div className="flex justify-center mt-8"><Button className="w-[80%] bg-[#71D4FF] rounded-3xl py-5 text-black hover:bg-[#71D4FF] hover:bg-opacity-80 shadow-md">Create New Project</Button></div>
+            <div className="flex justify-center mt-8"><Button className="w-[80%] rounded-3xl py-5 shadow-md">Create New Project</Button></div>
             <div className="mt-8 flex px-8 flex-col gap-2">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link}/>
@@ -71,7 +71,7 @@ export const Logo = () => {
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-extrabold text-2xl text-black whitespace-pre"
+        className="font-bold text-2xl text-black whitespace-pre"
       >
         ViewUs
       </motion.span>

@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .main-button-color {
+    @apply bg-purple-500;
+  }
+}
