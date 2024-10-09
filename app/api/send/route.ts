@@ -3,11 +3,14 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST() {
+export async function POST(req: Request) {
   try {
+    const { type, email } = await req.json()
+    console.log({ type, email })
+
     const { data, error } = await resend.emails.send({
       from: 'ViewUs <team@viewus.in>',
-      to: ['ankursharma1493@gmail.com', "uditkapoor060@gmail.com"],
+      to: [email],
       subject: 'Hello world',
       react: EmailTemplate({ firstName: 'view-us' }),
     });
