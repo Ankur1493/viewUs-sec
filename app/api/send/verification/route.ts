@@ -5,8 +5,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
-    const { type, email } = await req.json()
-    console.log({ type, email })
+    const { token, email } = await req.json()
+    console.log({ token, email })
 
     const { data, error } = await resend.emails.send({
       from: 'ViewUs <team@viewus.in>',
