@@ -28,7 +28,7 @@ export function SideBar() {
   return (
     <div
       className={cn(
-        "rounded-r-xl flex flex-col md:flex-row w-full flex-1 max-w-7xl ml-0 pl-0 mx-auto overflow-hidden border-r border-neutral-200",
+        "md:rounded-r-xl flex flex-col md:flex-row w-full flex-1 max-w-7xl ml-0 pl-0 mx-auto overflow-hidden md:border-r border-neutral-200",
         "h-screen",
       )}
     >
