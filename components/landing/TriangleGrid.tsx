@@ -66,7 +66,7 @@ const TriangleGrid = () => {
     tl.to(".triangle-grid-item", {
       delay: 12,
       repeat: -1,
-      repeatDelay: 0,
+      repeatDelay: 15,
       keyframes: [
         {
           opacity: 0.4,
