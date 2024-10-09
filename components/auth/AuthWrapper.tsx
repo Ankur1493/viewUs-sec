@@ -7,8 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Link from "next/link";
-import { ArrowUpRight, ChromeIcon } from "lucide-react";
-import { Button } from "../ui/button";
+import { ArrowUpRight } from "lucide-react";
+import { OauthButton } from "./OauthButton";
 
 interface AuthWrapperProps {
   children: React.ReactNode;
@@ -27,10 +27,7 @@ export const AuthWrapper = ({ children, headerLabel, backLabel, backLabelHref, d
       </CardHeader>
       <CardContent>
         {children}
-        <Button variant="secondary" className="w-full mt-4 flex gap-4 ">
-          <p>Continue with Google</p>
-          <ChromeIcon />
-        </Button>
+        <OauthButton />
       </CardContent>
 
       <CardFooter>
