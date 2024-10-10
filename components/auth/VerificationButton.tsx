@@ -13,7 +13,7 @@ export const VerificationButton = ({ email }: { email: string }) => {
 
   return (
     <div>
-      <Button onClick={sendVerificationLink}>Send Verification Link</Button>
+      <Button onClick={sendVerificationLink} variant="link" className="p-0">Resend email</Button>
     </div>
   )
 }

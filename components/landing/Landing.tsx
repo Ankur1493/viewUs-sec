@@ -20,7 +20,7 @@ export const Landing = () => {
         <div className="flex flex-col justify-center items-center w-full md:w-11/12 lg:w-4/6">
           <h1 className="text-4xl mt-2 md:text-5xl lg:text-6xl font-bold pb-3 text-center">
             Showcase your Testimonials
-            with Minimal Effort
+            with <span className="block">Minimal Effort</span>
           </h1>
         </div>
         <div className="flex flex-col justify-center items-center text-gray-400 w-3/4 md:1/6 lg:w-3/5 ">

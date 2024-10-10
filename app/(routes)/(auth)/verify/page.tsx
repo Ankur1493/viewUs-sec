@@ -1,10 +1,11 @@
 import { auth } from "@/auth"
-import { VerificationButton } from "@/components/auth/VerificationButton";
 import { getUserById } from "@/data/user";
 import { getEmailVerificationTokenByToken } from "@/data/verificationToken";
 import { db } from "@/lib/db";
 import { generateVerificationTokens } from "@/lib/tokens";
 import { redirect } from "next/navigation";
+import { PartyPopper, TriangleAlert } from "lucide-react";
+import { VerifyCard } from "@/components/auth/VerifyCard";
 
 export default async function VerifyPage({ searchParams }: { searchParams: { error: string, token: string } }) {
   const session = await auth();
@@ -16,20 +17,21 @@ export default async function VerifyPage({ searchParams }: { searchParams: { err
 
   if (error) {
     return (
-      <div>wrong token added
-        <VerificationButton email={user.email!} />
+      <div className="h-screen w-screen flex flex-col justify-center items-center">
+         <div className="bg-[#E9F8FF] p-5 rounded-full"><TriangleAlert color="red" size={30} /></div>
+        <VerifyCard title="Wrong Verification Token" content="Seems like you had entered a wrong token. Click on the link shared in the verification mail:" mail={user?.email ?? ""} />
       </div>
     )
   }
 
-  // Logging the query parameters
   if (token) {
     const tokenVerification = await getEmailVerificationTokenByToken(token)
     if (user.email !== tokenVerification?.email) {
       return (
-        <div>wrong token added
-          <VerificationButton email={user.email!} />
-        </div>
+         <div className="h-screen w-screen flex flex-col justify-center items-center">
+         <div className="bg-[#E9F8FF] p-5 rounded-full"><TriangleAlert color="red" size={30} /></div>
+        <VerifyCard title="Wrong Verification Token" content="Seems like you had entered a wrong token. Click on the link shared in the verification mail:" mail={user?.email ?? ""} />
+    </div>
       )
     }
     console.log(tokenVerification)
@@ -60,8 +62,8 @@ export default async function VerifyPage({ searchParams }: { searchParams: { err
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
-      sending verification Link to {user.email}
-      <VerificationButton email={user.email!} />
+      <div className="bg-[#E9F8FF] p-5 rounded-full"><PartyPopper color="#009EE2" size={30} /></div>
+      <VerifyCard title="Thanks!" content="Click on the verification link shared via email to" mail={user?.email ?? ""} />
     </div>
   )
 }
