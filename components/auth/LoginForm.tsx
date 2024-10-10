@@ -41,9 +41,9 @@ export const LoginForm = () => {
 
   return (
     <div className="w-screen min-h-screen h-full flex justify-center items-center z-10">
-      <AuthWrapper headerLabel="Welcome Back" backLabel="Don't have an account, register now" backLabelHref="/register" description="Login to your account to get back to your conversation">
+      <AuthWrapper headerLabel="Welcome Back" backLabel="Don't have an account?" backLabel2="Register Now" backLabelHref="/register">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="email"
@@ -62,7 +62,7 @@ export const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>password</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="How dare you ask me my password" {...field} />
                   </FormControl>
@@ -71,7 +71,7 @@ export const LoginForm = () => {
               )}
             />
             <FormError message={error} />
-            <Button disabled={isPending} className="w-full" type="submit">Login</Button>
+            <Button disabled={isPending} className="w-full bg-[#71D4FF] text-black rounded-3xl py-3 hover:bg-[#71D4FF] hover:bg-opacity-80"  type="submit">Login</Button>
           </form>
         </Form>
       </AuthWrapper>

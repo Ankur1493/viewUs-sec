@@ -43,9 +43,9 @@ export const RegisterForm = () => {
 
   return (
     <div className="w-screen min-h-screen h-full flex justify-center items-center">
-      <AuthWrapper headerLabel="Join Now" backLabel="Already have an account, login now" backLabelHref="/login" description="create a new account to start exciting conversations">
+      <AuthWrapper headerLabel="Create an Account!!" backLabel="Already have an account?" backLabel2="Sign In" backLabelHref="/login">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="name"
@@ -78,7 +78,7 @@ export const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>password</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="How dare you ask me my password" {...field} />
                   </FormControl>
@@ -87,7 +87,7 @@ export const RegisterForm = () => {
               )}
             />
             <FormError message={error} />
-            <Button disabled={isPending} className="w-full" type="submit">Register</Button>
+            <Button disabled={isPending} className="w-full bg-[#71D4FF] text-black rounded-3xl py-3 hover:bg-[#71D4FF] hover:bg-opacity-80" type="submit">Register</Button>
           </form>
         </Form>
       </AuthWrapper>
