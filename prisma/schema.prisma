@@ -15,18 +15,50 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String
-  image     String?  // Optional S3 URL
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String?
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  accounts      Account[]
+  spaces        Space[]  // Relation to spaces
+ 
+  @@map("users")  
+}
 
-  spaces    Space[]  // Relation to spaces
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id        String  @id @default(cuid())
+  email     String  @unique
+  token     String  @unique
+  expires   DateTime
+
+  @@unique([email,token])
 }
 
 model Space {
   id        String   @id @default(cuid())
   slug      String   @unique
-  userId    String 
+  userId    String
   title     String
   heading   String
   image     String?  // Optional S3 URL
@@ -37,8 +69,8 @@ model Space {
 
 model Question {
   id        String   @id @default(cuid())
-  spaceId   String 
-  question  String 
+  spaceId   String
+  question  String
 
   space     Space    @relation(fields: [spaceId], references: [id])
 }

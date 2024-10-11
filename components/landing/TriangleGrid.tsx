@@ -40,7 +40,7 @@ const TriangleGrid = () => {
           rotate: "+=180",
           color: "#A81E91",
           scale: 3,
-          duration: 0.6,
+          duration: 0.4,
           stagger: {
             amount: 2,
             grid: grid,
@@ -53,7 +53,7 @@ const TriangleGrid = () => {
           color: "#A81E91",
           scale: 1,
           delay: -2,
-          duration: 0.6,
+          duration: 0.4,
           stagger: {
             amount: 3,
             grid: grid,
@@ -66,14 +66,14 @@ const TriangleGrid = () => {
     tl.to(".triangle-grid-item", {
       delay: 12,
       repeat: -1,
-      repeatDelay: 12,
+      repeatDelay: 15,
       keyframes: [
         {
           opacity: 0.4,
           rotate: "+=180",
           color: "#A81E91",
           scale: 3,
-          duration: 0.6,
+          duration: 0.4,
           stagger: {
             amount: 2,
             grid: grid,
@@ -86,7 +86,7 @@ const TriangleGrid = () => {
           color: "#A81E91",
           scale: 1,
           delay: -2,
-          duration: 0.6,
+          duration: 0.4,
           stagger: {
             amount: 3,
             grid: grid,

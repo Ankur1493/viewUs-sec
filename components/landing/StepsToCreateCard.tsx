@@ -38,7 +38,7 @@ export const StepsToCreateCard: React.FC<CardProps> = ({
             <div key={s} className="relative flex flex-col items-center">
               <div
                 className={`flex items-center justify-center w-12 h-12 rounded-full text-white ${
-                  s === step ? "bg-black" : "bg-gray-900"
+                  s === step ? "bg-blue-900" : "bg-blue-400"
                 }`}
               >
                 {s}
