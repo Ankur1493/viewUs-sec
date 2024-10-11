@@ -1,11 +1,12 @@
+"use server"
+import axios from "axios";
 import { getEmailVerificationTokenByEmail } from "@/data/verificationToken";
 import { v4 as uuid } from "uuid"
-import { db } from "./db";
+import { db } from "@/lib/db";
 
 export const generateVerificationTokens = async (email: string) => {
 
   const existingToken = await getEmailVerificationTokenByEmail(email)
-
   if (existingToken) {
     await db.verificationToken.delete({
       where: {
@@ -24,5 +25,8 @@ export const generateVerificationTokens = async (email: string) => {
       expires
     }
   })
+  const response = await axios.post("http://localhost:3000/api/send/verification", { token: verificationToken.token, email })
+  console.log(response.data)
+
   return verificationToken
 }

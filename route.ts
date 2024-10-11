@@ -1,5 +1,6 @@
 export const publicRoutes = [
   "/",
+  "/a",
   "/a/*"
 ]
 

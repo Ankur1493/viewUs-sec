@@ -1,4 +1,4 @@
-import { EmailTemplate } from "@/components/emailTemplates/text-review-submitted";
+import { VerificationEmailTemplate } from '@/components/emailTemplates/verification-mail';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       from: 'ViewUs <team@viewus.in>',
       to: [email],
       subject: 'Hello world',
-      react: EmailTemplate({ firstName: 'view-us' }),
+      react: VerificationEmailTemplate({ firstName: 'view-us', token, email }),
     });
 
     if (error) {

@@ -2,7 +2,6 @@ import { auth } from "@/auth"
 import { getUserById } from "@/data/user";
 import { getEmailVerificationTokenByToken } from "@/data/verificationToken";
 import { db } from "@/lib/db";
-import { generateVerificationTokens } from "@/lib/tokens";
 import { redirect } from "next/navigation";
 import { PartyPopper, TriangleAlert } from "lucide-react";
 import { VerifyCard } from "@/components/auth/VerifyCard";
@@ -18,7 +17,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: { err
   if (error) {
     return (
       <div className="h-screen w-screen flex flex-col justify-center items-center">
-         <div className="bg-[#E9F8FF] p-5 rounded-full"><TriangleAlert color="red" size={30} /></div>
+        <div className="bg-[#E9F8FF] p-5 rounded-full"><TriangleAlert color="red" size={30} /></div>
         <VerifyCard title="Wrong Verification Token" content="Seems like you had entered a wrong token. Click on the link shared in the verification mail:" mail={user?.email ?? ""} />
       </div>
     )
@@ -28,10 +27,10 @@ export default async function VerifyPage({ searchParams }: { searchParams: { err
     const tokenVerification = await getEmailVerificationTokenByToken(token)
     if (user.email !== tokenVerification?.email) {
       return (
-         <div className="h-screen w-screen flex flex-col justify-center items-center">
-         <div className="bg-[#E9F8FF] p-5 rounded-full"><TriangleAlert color="red" size={30} /></div>
-        <VerifyCard title="Wrong Verification Token" content="Seems like you had entered a wrong token. Click on the link shared in the verification mail:" mail={user?.email ?? ""} />
-    </div>
+        <div className="h-screen w-screen flex flex-col justify-center items-center">
+          <div className="bg-[#E9F8FF] p-5 rounded-full"><TriangleAlert color="red" size={30} /></div>
+          <VerifyCard title="Wrong Verification Token" content="Seems like you had entered a wrong token. Click on the link shared in the verification mail:" mail={user?.email ?? ""} />
+        </div>
       )
     }
     console.log(tokenVerification)
@@ -52,11 +51,6 @@ export default async function VerifyPage({ searchParams }: { searchParams: { err
   const userDetails = await getUserById(user.id!)
   if (userDetails && userDetails.emailVerified) {
     return redirect("/dashboard")
-  }
-
-  if (user.email) {
-    const verificationToken = await generateVerificationTokens(user.email)
-    console.log(verificationToken)
   }
   //todo ---- add rate limiting on this sending verification mail
 
