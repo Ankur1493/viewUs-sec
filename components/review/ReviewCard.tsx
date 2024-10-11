@@ -9,12 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Question } from "@prisma/client";
 import { ReviewForm } from "@/types";
 import useReviewPageStore from "@/store/useReviewPageStore";
-import { TextReviewCard } from "../textReview/TextReviewCard";
-import { VideoReviewCard } from "../videoReview/VideoReviewCard";
-import { PersonalDetialCard } from "../textReview/PersonalDetailCard";
+import { TextReviewCard } from "./TextReviewCard";
+import { VideoReviewCard } from "./VideoReviewCard";
+import { CustomerDetailCard } from "./CustomerDetailCard";
 import ThankYouCard from "../ThankYouCard";
 
 export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
@@ -26,64 +25,52 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
       {submitButton ? (
         <ThankYouCard />
       ) : reviewButton === "Text" && detailsButton ? (
-        <PersonalDetialCard image={reviewForm.image} />
+        <CustomerDetailCard />
       ) : reviewButton === "Text" ? (
         <TextReviewCard
+          title={reviewForm.title}
           questions={reviewForm.questions}
           image={reviewForm.image}
         />
       ) : reviewButton == "Video" ? (
         <VideoReviewCard
-          questions={reviewForm.questions}
+          title={reviewForm.title}
           image={reviewForm.image}
         />
       ) : (
-        <Card className="w-[450px] px-[2%]">
-          <CardHeader>
-            <div className="flex justify-center">
+        <Card className="max-w-[700px] px-[2%] border-none flex flex-col gap-4 shadow-none">
+          <CardHeader className="flex flex-row gap-3">
+            <div className="flex">
               <Image
                 src={reviewForm.image!}
                 alt="logo"
-                height={80}
-                width={80}
-                className="rounded-full"
+                height={60}
+                width={60}
+                className="rounded-xl"
               />
             </div>
 
-            <CardTitle className="text-center text-[#33313B]">
-              {reviewForm.slug.toUpperCase()}
+            <CardTitle className="text-center text-[#33313B] text-4xl font-normal flex items-center">
+              {reviewForm.title.toUpperCase()}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-[#33313B] font-normal text-lg">
-              {reviewForm.heading}
+            <div className="text-[#33313B] font-nromal text-5xl">
+              Leave us a testimonial
             </div>
-            <div className="mt-3">
-              <ul>
-                {reviewForm.questions.map((q: Question) => (
-                  <li key={q.id}>Q. {q.question} ?</li>
-                ))}
-              </ul>
+            <div className="mt-5">
+              We want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col gap-3">
-            <Button
-              onClick={() => {
-                setReviewButton("Video");
-                console.log("Clicked Button: ", reviewButton);
-              }}
-              className="w-full"
-            >
-              Record a Video
-            </Button>
+          <CardFooter className="flex">
             <Button
               onClick={() => {
                 setReviewButton("Text");
                 console.log("Clicked Button: ", reviewButton);
               }}
-              className="w-full"
+              variant="form"
             >
-              Write a Testimonial
+              Tell us about your experience
             </Button>
           </CardFooter>
         </Card>

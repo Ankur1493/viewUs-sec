@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,8 +22,11 @@ import { useRef } from "react";
 import useReviewPageStore from "@/store/useReviewPageStore";
 
 const FormSchema = z.object({
-  name: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  FirstName: z.string().min(2, {
+    message: "First name must be at least 2 characters.",
+  }),
+  LastName: z.string().min(2, {
+    message: "Last name must be at least 2 characters.",
   }),
   image: z
     .any()
@@ -33,21 +36,26 @@ const FormSchema = z.object({
       "Only .jpg or .png files are accepted."
     ),
   email: z.string().email(),
-  description: z.string().min(4, {
-    message: "Description must be at least 4 characters.",
+  company: z.string().min(3, {
+    message: "Company must be at least 3 characters.",
+  }),
+  jobTitle: z.string().min(2, {
+    message: "Job Title must be at least 2 characters.",
   }),
 });
 
-export const PersonalDetialCard = ({ image }: { image: string | null }) => {
+export const CustomerDetailCard = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     mode: "onSubmit",
     defaultValues: {
-      name: "",
+      FirstName: "",
+      LastName: "",
       image: undefined,
       email: "",
-      description: "",
+      company: "",
+      jobTitle: "",
     },
   });
 
@@ -102,7 +110,7 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
   };
 
   return (
-    <Card className="relative w-[450px] px-[2%]">
+    <Card className="relative w-[550px] px-[2%] h-[80%] border-none shadow-none">
       <div className="absolute top-2 right-2">
         {" "}
         <Button
@@ -116,19 +124,10 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
         </Button>
       </div>
       <CardHeader>
-        <div className="flex justify-center">
-          <Image
-            src={image!}
-            alt="logo"
-            height={80}
-            width={80}
-            className="rounded-full"
-          />
-        </div>
-
         <CardTitle className="text-center text-[#33313B]">
-          Just a Last Step🙌
+          Tell us about yourself
         </CardTitle>
+        <CardDescription>This information may be displayed with your testimonial.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -141,10 +140,10 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
               name="image"
               render={({ fieldState }) => (
                 <FormItem>
-                  <FormLabel>Attach Image</FormLabel>
+                  <FormLabel>Add a photo</FormLabel>
                   <FormControl>
                     <div className="flex items-center space-x-4">
-                      <div className="relative w-20 h-20 rounded-full overflow-hidden">
+                      <div className="relative w-16 h-16 rounded-full overflow-hidden">
                         {selectedImage ? (
                           <Image
                             src={selectedImage}
@@ -153,16 +152,17 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
                             objectFit="cover"
                           />
                         ) : (
-                          <div className="w-20 h-20 bg-gray-300 rounded-full" />
+                          <div className="w-16 h-16 bg-gray-300 rounded-full" />
                         )}
                       </div>
 
                       <div className="flex flex-col">
                         <Button
-                          className="px-4 py-2 bg-gray-800 text-white"
+                          variant="outline"
                           onClick={() => fileInputRef.current?.click()}
+                          className="rounded-3xl border-gray-400"
                         >
-                          {selectedImage ? "Upload Again" : "Add Image"}
+                          {selectedImage ? "Upload Again" : "Upload photo"}
                         </Button>
 
                         <input
@@ -185,12 +185,25 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
 
             <FormField
               control={form.control}
-              name="name"
+              name="FirstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Enter your name</FormLabel>
+                  <FormLabel>First Name<span className="text-red-500">*</span></FormLabel>
                   <FormControl>
-                    <Input placeholder="john" {...field} />
+                    <Input placeholder="Udit" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="LastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last Name<span className="text-red-500">*</span></FormLabel>
+                  <FormControl>
+                    <Input placeholder="Kapoor" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -201,9 +214,23 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Enter your email</FormLabel>
+                  <FormLabel>Enter your email<span className="text-red-500">*</span></FormLabel>
                   <FormControl>
-                    <Input placeholder="john123@gmail.com" {...field} />
+                    <Input placeholder="udit123@gmail.com" {...field} />
+                  </FormControl>
+                  <div className="text-xs pt-0 font-light">Your email will not be shared publically</div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="company"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company<span className="text-red-500">*</span></FormLabel>
+                  <FormControl>
+                    <Input placeholder="Apple" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -211,10 +238,10 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
             />
             <FormField
               control={form.control}
-              name="description"
+              name="jobTitle"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Enter your Job Title</FormLabel>
+                  <FormLabel>Job Title<span className="text-red-500">*</span></FormLabel>
                   <FormControl>
                     <Input placeholder="Software Developer" {...field} />
                   </FormControl>
@@ -222,13 +249,16 @@ export const PersonalDetialCard = ({ image }: { image: string | null }) => {
                 </FormItem>
               )}
             />
+            <div className="flex justify-end">
             <Button
               type="submit"
-              className="w-full"
+              variant="form"
               onClick={() => setSubmitButton(!submitButton)}
+              className="w-2/6 py-5"
             >
-              Submit
+              Continue
             </Button>
+            </div>
           </form>
         </Form>
       </CardContent>
