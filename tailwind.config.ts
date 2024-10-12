@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        satoshi: ['Satoshi', 'sans-serif'],
+      },
       colors: {
         background: "hsl(var(--background))",
         secondBackground: "#E6E6E6",

@@ -14,29 +14,40 @@ import useReviewPageStore from "@/store/useReviewPageStore";
 import { TextReviewCard } from "./TextReviewCard";
 import { VideoReviewCard } from "./VideoReviewCard";
 import { CustomerDetailCard } from "./CustomerDetailCard";
-import ThankYouCard from "../ThankYouCard";
+import { ThankYouCard } from "./ThankYouCard";
 
 export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
-  const { reviewButton, setReviewButton, detailsButton, submitButton } =
+  const { reviewButton, setDetailsButton, detailsButton, submitButton } =
     useReviewPageStore();
 
   return (
     <>
+      {(detailsButton || submitButton) && (
+        <div className="absolute top-5 left-5 flex items-center gap-3">
+          <Image
+            src={reviewForm.image!}
+            alt="logo"
+            height={40}
+            width={40}
+            className="rounded-full"
+          />
+          <CardTitle className="text-[#33313B] text-[24px] font-normal">
+            {reviewForm.title.toUpperCase()}
+          </CardTitle>
+        </div>
+      )}
       {submitButton ? (
         <ThankYouCard />
-      ) : reviewButton === "Text" && detailsButton ? (
-        <CustomerDetailCard />
       ) : reviewButton === "Text" ? (
         <TextReviewCard
           title={reviewForm.title}
           questions={reviewForm.questions}
           image={reviewForm.image}
         />
+      ) : detailsButton ? (
+        <CustomerDetailCard />
       ) : reviewButton == "Video" ? (
-        <VideoReviewCard
-          title={reviewForm.title}
-          image={reviewForm.image}
-        />
+        <VideoReviewCard title={reviewForm.title} image={reviewForm.image} />
       ) : (
         <Card className="max-w-[700px] px-[2%] border-none flex flex-col gap-4 shadow-none">
           <CardHeader className="flex flex-row gap-3">
@@ -46,7 +57,7 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
                 alt="logo"
                 height={60}
                 width={60}
-                className="rounded-xl"
+                className="rounded-full"
               />
             </div>
 
@@ -59,13 +70,15 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
               Leave us a testimonial
             </div>
             <div className="mt-5">
-              We want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!
+              We want to share customer success stories on our website and would
+              love for you to submit a written or video testimonial. Your
+              feedback means a lot to us!
             </div>
           </CardContent>
           <CardFooter className="flex">
             <Button
               onClick={() => {
-                setReviewButton("Text");
+                setDetailsButton(!detailsButton);
                 console.log("Clicked Button: ", reviewButton);
               }}
               variant="form"

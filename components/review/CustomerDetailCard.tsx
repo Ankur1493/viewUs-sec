@@ -1,13 +1,18 @@
-"use client"; // Add this at the top
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Image from "next/image";
-import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { useState, useEffect } from "react";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -48,7 +53,7 @@ export const CustomerDetailCard = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       FirstName: "",
       LastName: "",
@@ -60,42 +65,48 @@ export const CustomerDetailCard = () => {
   });
 
   const {
-    detailsButton,
-    setDetailsButton,
-    textReview,
-    starred,
-    setSubmitButton,
     submitButton,
+    setReviewButton,
+    setDetailsButton,
+    detailsButton,
+    setCustomerDetails,
+    customerDetails,
   } = useReviewPageStore();
 
+  useEffect(() => {
+    form.reset({
+      FirstName: customerDetails.firstName || "",
+      LastName: customerDetails.lastName || "",
+      image: customerDetails.image || undefined,
+      email: customerDetails.email || "",
+      company: customerDetails.company || "",
+      jobTitle: customerDetails.jobTitle || "",
+    });
+
+    if (customerDetails.image) {
+      const imageUrl = URL.createObjectURL(customerDetails.image);
+      setSelectedImage(imageUrl);
+    }
+  }, [customerDetails, form]);
+
+  const isFormValid = form.formState.isValid;
+
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    // const formData = new FormData();
-    // formData.append("name", data.name);
-    // formData.append("email", data.email);
-    // formData.append("description", data.description);
-    // if (data.image) formData.append("image", data.image);
-    // formData.append("textReview", textReview);
-    // formData.append("starred", JSON.stringify(starred));
+    const normalizedData = {
+      firstName: data.FirstName,
+      lastName: data.LastName,
+      email: data.email,
+      company: data.company,
+      jobTitle: data.jobTitle,
+      image: data.image,
+    };
 
-    // try {
-    //   const response = await fetch("/api/review/text", {
-    //     method: "POST",
-    //     body: formData,
-    //   });
-
-    //   if (!response.ok) {
-    //     throw new Error("Network response was not ok");
-    //   }
-
-    //   const result = await response.json();
-    //   console.log("Submission result:", result);
-    // } catch (error) {
-    //   console.error("Submission error:", error);
-    // }
-    console.log({ starred });
-    console.log({ textReview });
     console.log({ data });
     console.log({ submitButton });
+    setCustomerDetails(normalizedData);
+    setReviewButton("Text");
+    setDetailsButton(!detailsButton);
+    console.log(useReviewPageStore.getState().customerDetails);
   };
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -110,30 +121,20 @@ export const CustomerDetailCard = () => {
   };
 
   return (
-    <Card className="relative w-[550px] px-[2%] h-[80%] border-none shadow-none">
-      <div className="absolute top-2 right-2">
-        {" "}
-        <Button
-          variant="outline"
-          onClick={() => {
-            setDetailsButton(!detailsButton);
-          }}
-          className="shadow-md"
-        >
-          <ArrowLeft size={24} />
-        </Button>
-      </div>
+    <Card className="relative w-[550px] px-[2%] h-[80%] border-none shadow-none font-satoshi">
       <CardHeader>
-        <CardTitle className="text-center text-[#33313B]">
+        <CardTitle className="text-left text-[#33313B] text-[36px] font-[500]">
           Tell us about yourself
         </CardTitle>
-        <CardDescription>This information may be displayed with your testimonial.</CardDescription>
+        <CardDescription className="text-[#222222] font-[400] text-[16px] leading-[24px]">
+          This information may be displayed with your testimonial.
+        </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="text-[14px]">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-6 mt-3"
+            className="w-full space-y-[40px] mt-3"
           >
             <FormField
               control={form.control}
@@ -188,9 +189,11 @@ export const CustomerDetailCard = () => {
               name="FirstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First Name<span className="text-red-500">*</span></FormLabel>
+                  <FormLabel>
+                    First Name<span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Udit" {...field} />
+                    <Input placeholder="Udit" {...field} className="h-[48px]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -201,9 +204,15 @@ export const CustomerDetailCard = () => {
               name="LastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Last Name<span className="text-red-500">*</span></FormLabel>
+                  <FormLabel>
+                    Last Name<span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Kapoor" {...field} />
+                    <Input
+                      placeholder="Kapoor"
+                      {...field}
+                      className="h-[48px]"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -214,11 +223,19 @@ export const CustomerDetailCard = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Enter your email<span className="text-red-500">*</span></FormLabel>
+                  <FormLabel>
+                    Enter your email<span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="udit123@gmail.com" {...field} />
+                    <Input
+                      placeholder="udit123@gmail.com"
+                      {...field}
+                      className="h-[48px]"
+                    />
                   </FormControl>
-                  <div className="text-xs pt-0 font-light">Your email will not be shared publically</div>
+                  <div className="text-xs pt-0 font-light">
+                    Your email will not be shared publically
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -228,9 +245,15 @@ export const CustomerDetailCard = () => {
               name="company"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Company<span className="text-red-500">*</span></FormLabel>
+                  <FormLabel>
+                    Company<span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Apple" {...field} />
+                    <Input
+                      placeholder="Apple"
+                      {...field}
+                      className="h-[48px]"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -241,23 +264,31 @@ export const CustomerDetailCard = () => {
               name="jobTitle"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Job Title<span className="text-red-500">*</span></FormLabel>
+                  <FormLabel>
+                    Job Title<span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Software Developer" {...field} />
+                    <Input
+                      placeholder="Software Developer"
+                      {...field}
+                      className="h-[48px]"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <div className="flex justify-end">
-            <Button
-              type="submit"
-              variant="form"
-              onClick={() => setSubmitButton(!submitButton)}
-              className="w-2/6 py-5"
-            >
-              Continue
-            </Button>
+              <Button
+                type="submit"
+                variant="form"
+                disabled={!isFormValid}
+                className={`w-3/12 py-5 ${
+                  !isFormValid ? "cursor-not-allowed" : "cursor-pointer"
+                }`}
+              >
+                Continue
+              </Button>
             </div>
           </form>
         </Form>
