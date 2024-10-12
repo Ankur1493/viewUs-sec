@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
+import useReviewPageStore from "@/store/useReviewPageStore";
 
 export const TagSelection: React.FC = () => {
+  const { selectedTags, setSelectedTags } = useReviewPageStore();
   const tags = [
     "Easy to use",
     "Great value",
@@ -15,20 +17,10 @@ export const TagSelection: React.FC = () => {
     "Provides results",
   ];
 
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
-  const toggleTag = (tag: string) => {
-    setSelectedTags((prevSelectedTags) =>
-      prevSelectedTags.includes(tag)
-        ? prevSelectedTags.filter((t) => t !== tag)
-        : [...prevSelectedTags, tag]
-    );
-  };
-
   const availableTags = tags.filter((tag) => !selectedTags.includes(tag));
 
   return (
-    <div className="flex flex-col py-10 font-satoshi">
+    <div className="flex flex-col py-8 font-satoshi">
       <div>
         <h2 className="text-[16px] font-[500] leading-[24px] mb-4">
           What did we do well?
@@ -41,7 +33,7 @@ export const TagSelection: React.FC = () => {
             >
               {tag}{" "}
               <span
-                onClick={() => toggleTag(tag)}
+                onClick={() => setSelectedTags(tag)}
                 className="ml-2 cursor-pointer text-[20px]"
               >
                 ×
@@ -53,7 +45,7 @@ export const TagSelection: React.FC = () => {
           {availableTags.map((tag) => (
             <button
               key={tag}
-              onClick={() => toggleTag(tag)}
+              onClick={() => setSelectedTags(tag)}
               className={`px-3 py-1 border rounded-full text-[14px] border-[#7CCE3B] 
                 ${
                   selectedTags.includes(tag)

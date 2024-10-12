@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import { create } from "zustand";
 
 interface buttonStore {
@@ -6,6 +7,8 @@ interface buttonStore {
   textReview: string;
   submitButton: boolean;
   starred: number;
+  videoButtonOpt: boolean;
+  selectedTags: string[];
   customerDetails: {
     firstName: string;
     lastName: string;
@@ -19,8 +22,9 @@ interface buttonStore {
   setTextReview: (review: string) => void;
   setSubmitButton: (buttonType: boolean) => void;
   setStarred: (star: number) => void;
+  setVideoButtonOpt: (buttonType: boolean) => void;
+  setSelectedTags: (tag: string) => void;
   setCustomerDetails: (details: Partial<buttonStore["customerDetails"]>) => void;
-  resetCustomerDetails: () => void;
 }
 
 const useReviewPageStore = create<buttonStore>((set) => ({
@@ -29,6 +33,8 @@ const useReviewPageStore = create<buttonStore>((set) => ({
   textReview: "",
   submitButton: false,
   starred: 5,
+  videoButtonOpt: false,
+  selectedTags: [],
   customerDetails: {
     firstName: '',
     lastName: '',
@@ -42,19 +48,15 @@ const useReviewPageStore = create<buttonStore>((set) => ({
   setTextReview: (review: string) => set({ textReview: review }),
   setSubmitButton: (state: boolean) => set({ submitButton: state }),
   setStarred: (star: number) => set({ starred: star }),
+  setVideoButtonOpt: (state: boolean) => set({videoButtonOpt: state}),
   setCustomerDetails: (details) => set((state) => ({
     customerDetails: { ...state.customerDetails, ...details },
   })),
-  resetCustomerDetails: () => set({
-    customerDetails: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      company: '',
-      jobTitle: '',
-      image: null,
-    },
-  }),
+  setSelectedTags: (tag) => set((state) => ({
+    selectedTags: state.selectedTags.includes(tag)
+      ? state.selectedTags.filter((t) => t !== tag)
+      : [...state.selectedTags, tag],
+  })),
 }));
 
 export default useReviewPageStore;

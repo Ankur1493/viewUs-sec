@@ -30,8 +30,8 @@ export const TextReviewCard = ({
     textReview,
     setTextReview,
     setReviewButton,
-    setSubmitButton,
-    submitButton,
+    setVideoButtonOpt,
+    videoButtonOpt,
   } = useReviewPageStore();
   return (
     <Card className="relative w-[90%] h-[95%] px-[2%] border-none shadow-none flex flex-col gap-4">
@@ -52,7 +52,7 @@ export const TextReviewCard = ({
               {title.toUpperCase()}
             </CardTitle>
           </CardHeader>
-          <CardContent className="pb-1 w-[85%]">
+          <CardContent className="pb-0 w-[85%]">
             <div className="text-[#33313B] font-[500] text-[36px]">
               Write a testimonial
             </div>
@@ -82,10 +82,10 @@ export const TextReviewCard = ({
             </div>
             <TagSelection />
           </CardContent>
-          <CardFooter className="w-[85%] flex justify-between">
+          <CardFooter className="w-[85%] flex justify-between mt-0">
             <Button
               variant="link"
-              className="text-black text-md px-0"
+              className="text-black text-[14px] px-0 hover:text-gray-800"
               onClick={() => {
                 setReviewButton("");
                 setDetailsButton(!detailsButton);
@@ -97,9 +97,9 @@ export const TextReviewCard = ({
               type="submit"
               variant="form"
               disabled={!textReview.trim()}
-              className="text-sm p-0 py-2 px-4"
+              className="text-[14px] p-0 py-2 px-4"
               onClick={() => {
-                setSubmitButton(!submitButton);
+                setVideoButtonOpt(!videoButtonOpt);
               }}
             >
               Continue

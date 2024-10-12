@@ -7,6 +7,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 import useReviewPageStore from "@/store/useReviewPageStore";
 import { Starred } from "./Starred";
+import { VideoRecorder } from "./VideoRecorder";
 
 export const VideoReviewCard = ({
   image,
@@ -15,103 +16,6 @@ export const VideoReviewCard = ({
   image: string | null;
   title: string;
 }) => {
-  const [recording, setRecording] = useState(false);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
-    null
-  );
-
-  const [error, setError] = useState<string | null>(null);
-  const [timer, setTimer] = useState<number>(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const streamRef = useRef<MediaStream | null>(null);
-  const chunks = useRef<Blob[]>([]);
-  const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    openCamera();
-
-    return () => {
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop());
-      }
-    };
-  }, []);
-
-  const openCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-      });
-      streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
-      }
-    } catch (err) {
-      setError("Error accessing the camera");
-      console.error(err);
-    }
-  };
-
-  const startRecording = () => {
-    if (streamRef.current) {
-      const recorder = new MediaRecorder(streamRef.current);
-      recorder.ondataavailable = (event) => chunks.current.push(event.data);
-      recorder.onstop = () => {
-        const blob = new Blob(chunks.current, { type: "video/webm" });
-        chunks.current = [];
-        const videoUrl = URL.createObjectURL(blob);
-        setVideoUrl(videoUrl);
-
-        if (videoRef.current) {
-          videoRef.current.srcObject = null;
-          videoRef.current.src = videoUrl;
-          videoRef.current.controls = true;
-          videoRef.current.play();
-        }
-      };
-
-      setMediaRecorder(recorder);
-      recorder.start();
-      setRecording(true);
-
-      setTimer(0);
-      timerIntervalRef.current = setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1);
-      }, 1000);
-    }
-  };
-
-  const stopRecording = () => {
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop());
-      }
-      setRecording(false);
-
-      if (timerIntervalRef.current) {
-        clearInterval(timerIntervalRef.current);
-      }
-    }
-  };
-
-  const retakeRecording = () => {
-    setVideoUrl(null);
-    setError(null);
-    setTimer(0);
-    openCamera();
-  };
-
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60)
-      .toString()
-      .padStart(2, "0");
-    const seconds = (time % 60).toString().padStart(2, "0");
-    return `${minutes}:${seconds}`;
-  };
-
   const { setSubmitButton, submitButton, setReviewButton } =
     useReviewPageStore();
 
@@ -125,7 +29,7 @@ export const VideoReviewCard = ({
               alt="logo"
               height={50}
               width={50}
-              className="rounded-xl"
+              className="rounded-full"
             />
           </div>
 
@@ -146,53 +50,7 @@ export const VideoReviewCard = ({
           </div>
           <CardContent className="pb-1 w-[85%]">
             <div>
-              <div className="flex flex-col justify-start">
-                {error && <p className="text-red-500 mb-4">{error}</p>}
-
-                <div className="rounded-md overflow-hidden mb-2">
-                  <video
-                    ref={videoRef}
-                    className="rounded-md h-[400px]"
-                    autoPlay
-                    playsInline
-                  />
-                </div>
-
-                {recording && (
-                  <p className="text-xl font-bold mb-2">
-                    Recording: {formatTime(timer)}
-                  </p>
-                )}
-
-                {!recording && !videoUrl && (
-                  <button
-                    onClick={startRecording}
-                    className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mb-4 rounded w-2/3 ml-12"
-                  >
-                    Start Recording
-                  </button>
-                )}
-
-                {!recording && videoUrl && (
-                  <div>
-                    <button
-                      onClick={retakeRecording}
-                      className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mb-4 rounded w-2/3 ml-12"
-                    >
-                      Retake Recording
-                    </button>
-                  </div>
-                )}
-
-                {recording && (
-                  <button
-                    onClick={stopRecording}
-                    className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded w-2/3 ml-12"
-                  >
-                    Stop Recording
-                  </button>
-                )}
-              </div>
+              <VideoRecorder />
             </div>
           </CardContent>
         </div>
@@ -243,7 +101,7 @@ export const VideoReviewCard = ({
           <div className="flex justify-between">
             <Button
               variant="link"
-              className="text-black text-md px-0"
+              className="text-black text-[14px] px-0 hover:text-gray-800"
               onClick={() => {
                 setReviewButton("Text");
               }}
@@ -253,7 +111,7 @@ export const VideoReviewCard = ({
             <Button
               type="submit"
               variant="form"
-              className="text-sm p-0 py-2 px-4"
+              className="text-[14px] p-0 py-2 px-4"
               onClick={() => {
                 setSubmitButton(!submitButton);
               }}

@@ -74,6 +74,10 @@ export const CustomerDetailCard = () => {
   } = useReviewPageStore();
 
   useEffect(() => {
+    if (customerDetails.image) {
+      const imageUrl = URL.createObjectURL(customerDetails.image);
+      setSelectedImage(imageUrl);
+    }
     form.reset({
       FirstName: customerDetails.firstName || "",
       LastName: customerDetails.lastName || "",
@@ -83,10 +87,11 @@ export const CustomerDetailCard = () => {
       jobTitle: customerDetails.jobTitle || "",
     });
 
-    if (customerDetails.image) {
-      const imageUrl = URL.createObjectURL(customerDetails.image);
-      setSelectedImage(imageUrl);
-    }
+    return () => {
+      if (selectedImage) {
+        URL.revokeObjectURL(selectedImage);
+      }
+    };
   }, [customerDetails, form]);
 
   const isFormValid = form.formState.isValid;
@@ -116,8 +121,12 @@ export const CustomerDetailCard = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
-      form.setValue("image", file);
+      form.setValue("image", file, { shouldValidate: true });
     }
+  };
+  const handleUploadClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    fileInputRef.current?.click();
   };
 
   return (
@@ -160,7 +169,7 @@ export const CustomerDetailCard = () => {
                       <div className="flex flex-col">
                         <Button
                           variant="outline"
-                          onClick={() => fileInputRef.current?.click()}
+                          onClick={handleUploadClick}
                           className="rounded-3xl border-gray-400"
                         >
                           {selectedImage ? "Upload Again" : "Upload photo"}
