@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import profile from "@/public/assets/images/profile.png";
 
 import {
   Card,
@@ -153,7 +154,7 @@ export const CustomerDetailCard = () => {
                   <FormLabel>Add a photo</FormLabel>
                   <FormControl>
                     <div className="flex items-center space-x-4">
-                      <div className="relative w-16 h-16 rounded-full overflow-hidden">
+                      <div className="relative w-[64px] h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
                         {selectedImage ? (
                           <Image
                             src={selectedImage}
@@ -162,7 +163,12 @@ export const CustomerDetailCard = () => {
                             objectFit="cover"
                           />
                         ) : (
-                          <div className="w-16 h-16 bg-gray-300 rounded-full" />
+                          <Image
+                            src={profile}
+                            alt="Profile"
+                            width={28}
+                            height={28}
+                          />
                         )}
                       </div>
 

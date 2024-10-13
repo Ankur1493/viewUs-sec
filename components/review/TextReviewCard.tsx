@@ -30,8 +30,8 @@ export const TextReviewCard = ({
     textReview,
     setTextReview,
     setReviewButton,
-    setVideoButtonOpt,
-    videoButtonOpt,
+    submitButton,
+    setSubmitButton,
   } = useReviewPageStore();
   return (
     <Card className="relative w-[90%] h-[95%] px-[2%] border-none shadow-none flex flex-col gap-4">
@@ -79,6 +79,11 @@ export const TextReviewCard = ({
               <div className="text-left text-sm text-gray-800">
                 {500 - textReview.length} / 500 characters left
               </div>
+              {textReview.trim().length < 30 ? (
+                <div className="text-left text-sm text-red-500">
+                  Please write at least 30 characters.
+                </div>
+              ) : null}
             </div>
             <TagSelection />
           </CardContent>
@@ -96,13 +101,13 @@ export const TextReviewCard = ({
             <Button
               type="submit"
               variant="form"
-              disabled={!textReview.trim()}
+              disabled={textReview.trim().length < 30}
               className="text-[14px] p-0 py-2 px-4"
               onClick={() => {
-                setVideoButtonOpt(!videoButtonOpt);
+                setSubmitButton(!submitButton);
               }}
             >
-              Continue
+              Submit
             </Button>
           </CardFooter>
         </div>

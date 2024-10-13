@@ -15,20 +15,14 @@ import { TextReviewCard } from "./TextReviewCard";
 import { VideoReviewCard } from "./VideoReviewCard";
 import { CustomerDetailCard } from "./CustomerDetailCard";
 import { ThankYouCard } from "./ThankYouCard";
-import { VideoReviewCardOpt } from "./VideoReviewCardOpt";
 
 export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
-  const {
-    reviewButton,
-    setDetailsButton,
-    detailsButton,
-    submitButton,
-    videoButtonOpt,
-  } = useReviewPageStore();
+  const { reviewButton, setDetailsButton, detailsButton, submitButton } =
+    useReviewPageStore();
 
   return (
     <>
-      {(detailsButton || submitButton || videoButtonOpt) && (
+      {(detailsButton || submitButton) && (
         <div className="absolute top-5 left-5 flex items-center gap-3">
           <Image
             src={reviewForm.image!}
@@ -44,8 +38,6 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
       )}
       {submitButton ? (
         <ThankYouCard />
-      ) : reviewButton === "Text" && videoButtonOpt ? (
-        <VideoReviewCardOpt />
       ) : reviewButton === "Text" ? (
         <TextReviewCard
           title={reviewForm.title}

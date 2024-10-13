@@ -7,7 +7,6 @@ interface buttonStore {
   textReview: string;
   submitButton: boolean;
   starred: number;
-  videoButtonOpt: boolean;
   selectedTags: string[];
   customerDetails: {
     firstName: string;
@@ -22,7 +21,6 @@ interface buttonStore {
   setTextReview: (review: string) => void;
   setSubmitButton: (buttonType: boolean) => void;
   setStarred: (star: number) => void;
-  setVideoButtonOpt: (buttonType: boolean) => void;
   setSelectedTags: (tag: string) => void;
   setCustomerDetails: (details: Partial<buttonStore["customerDetails"]>) => void;
 }
@@ -32,7 +30,7 @@ const useReviewPageStore = create<buttonStore>((set) => ({
   detailsButton: false,
   textReview: "",
   submitButton: false,
-  starred: 5,
+  starred: 0,
   videoButtonOpt: false,
   selectedTags: [],
   customerDetails: {
@@ -48,7 +46,6 @@ const useReviewPageStore = create<buttonStore>((set) => ({
   setTextReview: (review: string) => set({ textReview: review }),
   setSubmitButton: (state: boolean) => set({ submitButton: state }),
   setStarred: (star: number) => set({ starred: star }),
-  setVideoButtonOpt: (state: boolean) => set({videoButtonOpt: state}),
   setCustomerDetails: (details) => set((state) => ({
     customerDetails: { ...state.customerDetails, ...details },
   })),
