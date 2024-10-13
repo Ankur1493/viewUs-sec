@@ -19,11 +19,12 @@ export default {
 
         const passwordsMatched = await bcrypt.compare(password, user.password);
 
-        if (passwordsMatched)
+        if (passwordsMatched) {
           if (user.emailVerified === null) {
             await generateVerificationTokens(email)
           }
-        return user;
+          return user;
+        }
       }
       return null;
 
