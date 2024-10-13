@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 
 import useReviewPageStore from "@/store/useReviewPageStore";
 import { Starred } from "./Starred";

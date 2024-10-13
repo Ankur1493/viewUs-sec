@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import useReviewPageStore from "@/store/useReviewPageStore";
 
 export const TagSelection: React.FC = () => {
@@ -32,12 +32,12 @@ export const TagSelection: React.FC = () => {
               className="px-3 py-1 bg-[#C2F19D] text-black rounded-full text-[14px] flex items-center"
             >
               {tag}{" "}
-              <span
+              <button
                 onClick={() => setSelectedTags(tag)}
                 className="ml-2 cursor-pointer text-[20px]"
               >
                 ×
-              </span>
+              </button>
             </span>
           ))}
         </div>
@@ -47,10 +47,9 @@ export const TagSelection: React.FC = () => {
               key={tag}
               onClick={() => setSelectedTags(tag)}
               className={`px-3 py-1 border rounded-full text-[14px] border-[#7CCE3B] 
-                ${
-                  selectedTags.includes(tag)
-                    ? "bg-[#C2F19D] text-black"
-                    : "text-black hover:bg-green-50"
+                ${selectedTags.includes(tag)
+                  ? "bg-[#C2F19D] text-black"
+                  : "text-black hover:bg-green-50"
                 }`}
             >
               {tag}

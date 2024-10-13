@@ -79,7 +79,6 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
             <Button
               onClick={() => {
                 setDetailsButton(!detailsButton);
-                console.log("Clicked Button: ", reviewButton);
               }}
               variant="form"
             >

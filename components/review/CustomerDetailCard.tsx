@@ -66,7 +66,6 @@ export const CustomerDetailCard = () => {
   });
 
   const {
-    submitButton,
     setReviewButton,
     setDetailsButton,
     detailsButton,
@@ -107,12 +106,9 @@ export const CustomerDetailCard = () => {
       image: data.image,
     };
 
-    console.log({ data });
-    console.log({ submitButton });
     setCustomerDetails(normalizedData);
     setReviewButton("Text");
     setDetailsButton(!detailsButton);
-    console.log(useReviewPageStore.getState().customerDetails);
   };
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -298,9 +294,8 @@ export const CustomerDetailCard = () => {
                 type="submit"
                 variant="form"
                 disabled={!isFormValid}
-                className={`w-3/12 py-5 ${
-                  !isFormValid ? "cursor-not-allowed" : "cursor-pointer"
-                }`}
+                className={`w-3/12 py-5 ${!isFormValid ? "cursor-not-allowed" : "cursor-pointer"
+                  }`}
               >
                 Continue
               </Button>
