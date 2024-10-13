@@ -16,22 +16,6 @@ export const VideoRecorder = () => {
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const openCamera = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-        });
-        streamRef.current = stream;
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.play();
-        }
-      } catch (err) {
-        setError("Error accessing the camera");
-        console.error(err);
-      }
-    };
-
     openCamera();
 
     return () => {
@@ -40,6 +24,22 @@ export const VideoRecorder = () => {
       }
     };
   }, []);
+
+  const openCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+      });
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        videoRef.current.play();
+      }
+    } catch (err) {
+      setError("Error accessing the camera");
+      console.error(err);
+    }
+  };
 
   const startRecording = () => {
     if (streamRef.current) {
@@ -71,8 +71,6 @@ export const VideoRecorder = () => {
   };
 
   const stopRecording = () => {
-    console.log(videoUrl);
-
     if (mediaRecorder) {
       mediaRecorder.stop();
       if (streamRef.current) {
@@ -86,6 +84,13 @@ export const VideoRecorder = () => {
     }
   };
 
+  const retakeRecording = () => {
+    setVideoUrl(null);
+    setError(null);
+    setTimer(0);
+    openCamera();
+  };
+
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60)
       .toString()
@@ -95,28 +100,46 @@ export const VideoRecorder = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-start">
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      <div className="border-2 border-gray-300 rounded-md overflow-hidden mb-2 w-full max-w-lg">
-        <video ref={videoRef} className="w-full h-auto" autoPlay playsInline />
+      <div className="rounded-md overflow-hidden mb-2">
+        <video
+          ref={videoRef}
+          className="rounded-md w-[600px]"
+          autoPlay
+          playsInline
+        />
       </div>
 
       {recording && (
         <p className="text-xl font-bold mb-2">Recording: {formatTime(timer)}</p>
       )}
 
-      {!recording ? (
+      {!recording && !videoUrl && (
         <button
           onClick={startRecording}
-          className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mb-4 rounded"
+          className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mb-4 rounded w-2/3 ml-12"
         >
           Start Recording
         </button>
-      ) : (
+      )}
+
+      {!recording && videoUrl && (
+        <div>
+          <button
+            onClick={retakeRecording}
+            className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mb-4 rounded w-2/3 ml-12"
+          >
+            Retake Recording
+          </button>
+        </div>
+      )}
+
+      {recording && (
         <button
           onClick={stopRecording}
-          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded w-2/3 ml-12"
         >
           Stop Recording
         </button>

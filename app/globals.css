@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url("../styles/theme.css");
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@300,301,400,401,500,501,700,701,900,901&display=swap");
 
 :root {
   --background: #ffffff;
@@ -19,7 +20,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Satoshi', sans-serif;
   overflow-x: hidden;
 }
 
