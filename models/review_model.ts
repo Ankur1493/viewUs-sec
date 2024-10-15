@@ -1,6 +1,6 @@
 import { model, models, Schema } from "mongoose";
 
-enum ReviewType {
+export enum ReviewType {
   TEXT = 0,
   VIDEO = 1,
   IMPORTED = 3
@@ -88,7 +88,9 @@ const reviewSchema = new Schema<IReview>({
       },
       message: "You can select up to 3 tags only."
     }
-  }
+  },
+}, {
+  timestamps: true
 });
 
 const Review = models.Review || model<IReview>("Review", reviewSchema);

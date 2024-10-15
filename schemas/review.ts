@@ -6,5 +6,6 @@ export const textReviewSchema = z.object({
   name: z.string().min(2, { message: "name should be atleast 2 characters long" }),
   email: z.string().email(),
   image: z.string().nullable().optional().default(null),
-  designation: z.string().nullable().optional().default(null)
+  jobTitle: z.string().nullable().optional().default(null),
+  company: z.string().nullable().optional().default(null)
 })

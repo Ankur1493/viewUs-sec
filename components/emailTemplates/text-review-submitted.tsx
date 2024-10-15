@@ -1,15 +1,20 @@
 import * as React from "react";
 
-interface EmailTemplateProps {
+interface ReviewSubmittedEmailTemplateProps {
   firstName: string;
+  reviewCount: number;
+  spaceTitle: string;
 }
 
-export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
+export const EmailTemplate: React.FC<Readonly<ReviewSubmittedEmailTemplateProps>> = ({
   firstName,
+  reviewCount,
+  spaceTitle
 }) => (
   <div>
     <h1>
-      Now its official!! we are fucking building this platform {firstName}
+      hey {" " + firstName + " "}, you have recieved a text review, for the {spaceTitle}.
+      <p className="block">You have total of {reviewCount} text reviews, we would love it if you can upgrade</p>
     </h1>
   </div>
 );

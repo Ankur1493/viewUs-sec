@@ -1,7 +1,7 @@
 import { connectToMongo } from "@/lib/mongoose";
-import Review, { IReview } from "@/models/review_model";
+import Review, { IReview, ReviewType } from "@/models/review_model";
 
-export const createReview = async ({ spaceId, review, stars, name, email, designation, image, reviewType }: IReview) => {
+export const createReview = async ({ spaceId, review, stars, name, email, jobTitle, company, image, reviewType }: IReview) => {
   try {
     await connectToMongo()
     const reviewCreated = await Review.create({
@@ -10,7 +10,8 @@ export const createReview = async ({ spaceId, review, stars, name, email, design
       stars,
       name,
       email,
-      designation,
+      jobTitle,
+      company,
       image,
       reviewType
     });
@@ -21,7 +22,33 @@ export const createReview = async ({ spaceId, review, stars, name, email, design
     return reviewCreated.id;
   } catch (err) {
     console.log(err);
-    return false;
+    return { err: "failed to create review" };
   }
 };
 
+export const getSpaceReviewsLength = async (spaceId: string) => {
+  try {
+    await connectToMongo();
+    const reviews = await Review.find({
+      spaceId
+    });
+    if (!reviews) {
+      return { err: "failed to get reviews" }
+    }
+    const textReviews = reviews.filter(review => review.reviewType === ReviewType.TEXT);
+    const videoReviews = reviews.filter(review => review.reviewType === ReviewType.VIDEO);
+    const importedReviews = reviews.filter(review => review.reviewType === ReviewType.IMPORTED);
+
+    return {
+      success: true,
+      data: {
+        textReviews: textReviews.length,
+        videoReviews: videoReviews.length,
+        importedReviews: importedReviews.length
+      }
+    }
+  } catch (err) {
+    console.log(err);
+    return { err: "failed to get reviews" };
+  }
+}
