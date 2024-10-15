@@ -1,8 +1,8 @@
 "use server"
-import axios from "axios";
 import { getEmailVerificationTokenByEmail } from "@/data/verificationToken";
 import { v4 as uuid } from "uuid"
 import { db } from "@/lib/db";
+import { sendVerificationMail } from "./mail";
 
 export const generateVerificationTokens = async (email: string) => {
 
@@ -25,8 +25,7 @@ export const generateVerificationTokens = async (email: string) => {
       expires
     }
   })
-  const response = await axios.post("http://localhost:3000/api/send/verification", { token: verificationToken.token, email })
-  console.log(response.data)
+  sendVerificationMail({ email: verificationToken.email, token: verificationToken.token })
 
   return verificationToken
 }
