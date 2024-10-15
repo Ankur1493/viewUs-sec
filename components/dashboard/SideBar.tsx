@@ -1,17 +1,22 @@
 "use client";
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
-import { House, Briefcase, CircleHelp } from "lucide-react";
+import { House, Briefcase, CircleHelp, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
+import { signOut, useSession } from "next-auth/react";
 
 export function SideBar() {
+
+  const session = useSession();
+  const user = session.data?.user
+
   const links = [
     {
-      label: "Home",
-      href: "#",
+      label: "Dashboard",
+      href: "/Dashboard",
       icon: (
         <House className="text-neutral-700 h-6 w-6 flex-shrink-0" />
       ),
@@ -41,20 +46,28 @@ export function SideBar() {
             <div className="flex justify-center mt-8"><Button className="w-[80%] rounded-3xl py-5 shadow-md">Create New Project</Button></div>
             <div className="mt-8 flex px-8 flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link}/>
+                <SidebarLink key={idx} link={link} />
               ))}
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="mt-8 flex px-8 flex-col gap-2">
             <SidebarLink
               link={{
                 label: "Help & Support",
-                href: "#",
+                href: "mailto:team@viewus.in",
                 icon: (
                   <CircleHelp className="text-neutral-700 h-6 w-6 flex-shrink-0" />
                 ),
               }}
             />
+            <button
+              onClick={() => {
+                signOut()
+              }}
+              className="flex items-center justify-start gap-2 group/sidebar py-2 rounded-xl hover:shadow-md hover:shadow-gray-300">
+              <LogOutIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
+              Sign Out
+            </button>
           </div>
         </SidebarBody>
       </Sidebar>
