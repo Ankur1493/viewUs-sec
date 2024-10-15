@@ -62,6 +62,10 @@ model Space {
   title     String
   heading   String
   image     String?  // Optional S3 URL
+  name_req  Boolean @default(false)
+  email_req  Boolean @default(false)
+  job_req  Boolean @default(false)
+  company_req  Boolean @default(false)
 
   user      User     @relation(fields: [userId], references: [id])
   questions Question[]  // Relation to questions
