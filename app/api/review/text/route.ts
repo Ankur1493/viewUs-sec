@@ -6,6 +6,7 @@ import { getSpaceReviewsLength } from "@/data/review";
 import { sendTextReviewSubmitted } from "@/lib/mail";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import sharp from "sharp"
+import Review from "@/models/review_model";
 
 const bucketName = process.env.AWS_BUCKET_NAME!
 const bucketRegion = process.env.AWS_BUCKET_REGION!
@@ -20,6 +21,41 @@ const s3 = new S3Client({
   region: bucketRegion
 })
 
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const spaceId = searchParams.get('spaceId');
+
+    if (!spaceId) {
+      return NextResponse.json(
+        { success: false, message: 'Missing spaceId parameter' },
+        { status: 400 }
+      );
+    }
+    const reviews = await Review.find({ spaceId }).sort({ createdAt: -1 });
+    if (!reviews) {
+      return NextResponse.json(
+        { success: false, message: 'Can not find your review' },
+        { status: 400 }
+      );
+    }
+
+
+    const formattedReviews = reviews.map((review) => ({
+      ...review.toObject(),
+      imageUrl: `${process.env.CDN_NAME}/${review.image}`,
+    }));
+
+    return NextResponse.json({ success: true, reviews: formattedReviews }, { status: 200 });
+
+  } catch (err) {
+    console.log(err)
+    return NextResponse.json({
+      success: false,
+      message: "Internal server error",
+    }, { status: 500 });
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -84,7 +120,7 @@ export async function POST(req: NextRequest) {
 
       const command = new PutObjectCommand(params);
       await s3.send(command);
-      imageName = `textReviews/${spaceId}-${spaceDetails.slug}-${fileName}`
+      imageName = `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`
     }
 
     // Create the review without saving the image
