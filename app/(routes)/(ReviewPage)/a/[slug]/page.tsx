@@ -1,4 +1,4 @@
-import { getSpaceDetails } from "@/data/space";
+import { getSpaceDetails } from "@/actions/space";
 import ReviewCard from "@/components/review/ReviewCard";
 
 export default async function ReviewPage({
