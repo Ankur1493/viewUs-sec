@@ -7,14 +7,6 @@ import { sendTextReviewSubmitted } from "@/lib/mail";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import sharp from "sharp"
 
-export const routeSegmentConfig = {
-  api: {
-    bodyParser: {
-      enabled: false,
-    },
-  },
-};
-
 const bucketName = process.env.AWS_BUCKET_NAME!
 const bucketRegion = process.env.AWS_BUCKET_REGION!
 const accessKey = process.env.ACCESS_KEY!
