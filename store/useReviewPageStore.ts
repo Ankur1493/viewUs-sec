@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import { create } from "zustand";
 
 interface buttonStore {
@@ -12,9 +11,9 @@ interface buttonStore {
     firstName: string;
     lastName: string;
     email: string;
-    company: string;
-    jobTitle: string;
-    image: File | null;
+    company?: string | null;
+    jobTitle?: string | null;
+    image?: File | null;
   };
   setReviewButton: (buttonType: string) => void;
   setDetailsButton: (buttonType: boolean) => void;

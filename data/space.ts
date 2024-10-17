@@ -16,7 +16,7 @@ export const getSpaceDetails = async (slug: string) => {
     return space;
   } catch (error) {
     console.error("Error fetching space details:", error);
-    throw new Error("Failed to fetch space details");
+    return null
   }
 };
 

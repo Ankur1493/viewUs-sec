@@ -11,7 +11,8 @@ export interface IReview {
   reviewType?: ReviewType;
   review: string;
   stars: number;
-  name: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
   email: string | null;
   jobTitle?: string | null;
   company?: string | null;
@@ -41,10 +42,15 @@ const reviewSchema = new Schema<IReview>({
     required: true,
     default: 5
   },
-  name: {
+  firstName: {
     type: String,
     default: null
   },
+  lastName: {
+    type: String,
+    default: null
+  },
+
   email: {
     type: String,
     default: null

@@ -1,19 +1,21 @@
 import { connectToMongo } from "@/lib/mongoose";
 import Review, { IReview, ReviewType } from "@/models/review_model";
 
-export const createReview = async ({ spaceId, review, stars, name, email, jobTitle, company, image, reviewType }: IReview) => {
+export const createReview = async ({ spaceId, review, stars, firstName, lastName, email, jobTitle, company, image, reviewType, tags }: IReview) => {
   try {
     await connectToMongo()
     const reviewCreated = await Review.create({
       spaceId,
       review,
       stars,
-      name,
+      firstName,
+      lastName,
       email,
       jobTitle,
       company,
       image,
-      reviewType
+      reviewType,
+      tags
     });
 
     if (!reviewCreated) {

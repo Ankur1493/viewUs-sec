@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios"
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,20 +11,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Question } from "@prisma/client";
-import { Starred } from "./Starred";
 import useReviewPageStore from "@/store/useReviewPageStore";
 import { Video } from "lucide-react";
 import { TagSelection } from "./TagSelection";
+import { useState } from "react";
+import { Starred } from "./Starred";
 
 export const TextReviewCard = ({
   questions,
   image,
   title,
+  spaceId
 }: {
   questions: Question[];
   image: string | null;
   title: string;
+  spaceId: string
 }) => {
+  //zustand state variables are called
   const {
     detailsButton,
     setDetailsButton,
@@ -32,7 +37,52 @@ export const TextReviewCard = ({
     setReviewButton,
     submitButton,
     setSubmitButton,
+    customerDetails,
+    starred,
+    selectedTags
   } = useReviewPageStore();
+
+  const [error, setError] = useState(false)
+
+  const handleSubmitReview = async () => {
+    try {
+      const formData = new FormData();
+
+      formData.append('firstName', customerDetails.firstName);
+      formData.append('lastName', customerDetails.lastName);
+      formData.append('email', customerDetails.email);
+      formData.append("spaceId", spaceId)
+      if (customerDetails.company)
+        formData.append('company', customerDetails?.company);
+      if (customerDetails.jobTitle)
+        formData.append('jobTitle', customerDetails?.jobTitle);
+
+      formData.append("review", textReview)
+      formData.append("stars", starred.toString())
+      selectedTags.forEach(tag => formData.append("tags[]", tag)); // Append each tag individually as an array
+
+      if (customerDetails.image) {
+        formData.append('image', customerDetails.image);
+        console.log(customerDetails.image)
+      }
+
+      const response = await axios.post('/api/review/text', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      // Handle success (e.g., show a success message or navigate)
+      console.log('Review submitted successfully', response.data);
+
+      setSubmitButton(!submitButton)
+
+    } catch (err) {
+      console.error('Error submitting review', err);
+      setError(true);
+    }
+  }
+
   return (
     <Card className="relative w-[90%] h-[95%] px-[2%] border-none shadow-none flex flex-col gap-4">
       <div className="flex flex-row">
@@ -103,9 +153,7 @@ export const TextReviewCard = ({
               variant="form"
               disabled={textReview.trim().length < 30}
               className="text-[14px] p-0 py-2 px-4"
-              onClick={() => {
-                setSubmitButton(!submitButton);
-              }}
+              onClick={handleSubmitReview}
             >
               Submit
             </Button>
@@ -132,6 +180,7 @@ export const TextReviewCard = ({
               >
                 Record Video Testimonial
               </Button>
+              {error && (<div className="text-sm text-red-400">Failed to submit your review, Please try again</div>)}
             </CardFooter>
           </Card>
           <div className="w-3/4 flex flex-col gap-4 font-satoshi mt-[20px]">

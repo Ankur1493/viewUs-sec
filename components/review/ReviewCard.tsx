@@ -43,9 +43,13 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
           title={reviewForm.title}
           questions={reviewForm.questions}
           image={reviewForm.image}
+          spaceId={reviewForm.id}
         />
       ) : detailsButton ? (
-        <CustomerDetailCard />
+        <CustomerDetailCard
+          jobReq={reviewForm.job_req}
+          companyReq={reviewForm.company_req}
+        />
       ) : reviewButton == "Video" ? (
         <VideoReviewCard title={reviewForm.title} image={reviewForm.image} />
       ) : (

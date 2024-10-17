@@ -27,12 +27,18 @@ import { Input } from "@/components/ui/input";
 import { useRef } from "react";
 import useReviewPageStore from "@/store/useReviewPageStore";
 
+
+type CustomerDetailCardProps = {
+  jobReq: boolean;
+  companyReq: boolean;
+}
+
 const FormSchema = z.object({
-  FirstName: z.string().min(2, {
-    message: "First name must be at least 2 characters.",
+  firstName: z.string().min(2, {
+    message: "name must be at least 2 characters.",
   }),
-  LastName: z.string().min(2, {
-    message: "Last name must be at least 2 characters.",
+  lastName: z.string().min(2, {
+    message: "name must be at least 2 characters.",
   }),
   image: z
     .any()
@@ -42,22 +48,20 @@ const FormSchema = z.object({
       "Only .jpg or .png files are accepted."
     ),
   email: z.string().email(),
-  company: z.string().min(3, {
-    message: "Company must be at least 3 characters.",
-  }),
-  jobTitle: z.string().min(2, {
-    message: "Job Title must be at least 2 characters.",
-  }),
+  company: z.string().min(2, { message: "job title needs to be 2 characters long" }),
+  jobTitle: z.string().min(2, { message: "comapny name needs to be 2 characters long" }),
 });
 
-export const CustomerDetailCard = () => {
+export const CustomerDetailCard = ({ jobReq, companyReq }: CustomerDetailCardProps) => {
+
+
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
     defaultValues: {
-      FirstName: "",
-      LastName: "",
+      firstName: "",
+      lastName: "",
       image: undefined,
       email: "",
       company: "",
@@ -79,8 +83,8 @@ export const CustomerDetailCard = () => {
       setSelectedImage(imageUrl);
     }
     form.reset({
-      FirstName: customerDetails.firstName || "",
-      LastName: customerDetails.lastName || "",
+      firstName: customerDetails.firstName || "",
+      lastName: customerDetails.lastName || "",
       image: customerDetails.image || undefined,
       email: customerDetails.email || "",
       company: customerDetails.company || "",
@@ -98,8 +102,8 @@ export const CustomerDetailCard = () => {
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     const normalizedData = {
-      firstName: data.FirstName,
-      lastName: data.LastName,
+      firstName: data.firstName,
+      lastName: data.lastName,
       email: data.email,
       company: data.company,
       jobTitle: data.jobTitle,
@@ -194,17 +198,20 @@ export const CustomerDetailCard = () => {
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
-              name="FirstName"
+              name="firstName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
                     First Name<span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="Udit" {...field} className="h-[48px]" />
+                    <Input
+                      placeholder="Udit"
+                      {...field}
+                      className="h-[48px]"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -212,7 +219,7 @@ export const CustomerDetailCard = () => {
             />
             <FormField
               control={form.control}
-              name="LastName"
+              name="lastName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -257,7 +264,7 @@ export const CustomerDetailCard = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Company<span className="text-red-500">*</span>
+                    Company{companyReq ? <span className="text-red-500">*</span> : ""}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -276,7 +283,7 @@ export const CustomerDetailCard = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Job Title<span className="text-red-500">*</span>
+                    Job Title{jobReq ? <span className="text-red-500">*</span> : ""}
                   </FormLabel>
                   <FormControl>
                     <Input

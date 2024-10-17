@@ -11,7 +11,6 @@ import { signOut, useSession } from "next-auth/react";
 export function SideBar() {
 
   const session = useSession();
-  const user = session.data?.user
 
   const links = [
     {
