@@ -12,6 +12,9 @@ const config: Config = {
       fontFamily: {
         satoshi: ['Satoshi', 'sans-serif'],
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
       colors: {
         background: "hsl(var(--background))",
         secondBackground: "#E6E6E6",
