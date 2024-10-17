@@ -6,11 +6,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 export function SideBar() {
-
-  const session = useSession();
 
   const links = [
     {
