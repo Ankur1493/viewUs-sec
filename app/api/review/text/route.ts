@@ -24,15 +24,15 @@ const s3 = new S3Client({
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const spaceId = searchParams.get('spaceId');
+    const slug = searchParams.get('slug');
 
-    if (!spaceId) {
+    if (!slug) {
       return NextResponse.json(
         { success: false, message: 'Missing spaceId parameter' },
         { status: 400 }
       );
     }
-    const reviews = await Review.find({ spaceId }).sort({ createdAt: -1 });
+    const reviews = await Review.find({ slug }).sort({ createdAt: -1 });
     if (!reviews) {
       return NextResponse.json(
         { success: false, message: 'Can not find your review' },
@@ -126,6 +126,7 @@ export async function POST(req: NextRequest) {
     // Create the review without saving the image
     const reviewCreated = await createReview({
       spaceId,
+      slug: spaceDetails.slug,
       review: validatedFields.data.review,
       stars: validatedFields.data.stars,
       firstName: validatedFields.data.firstName,
