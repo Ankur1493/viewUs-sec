@@ -1,6 +1,13 @@
 import { ManageTestimonials } from "@/components/space/ManageTestimonials";
 import axios from "axios";
 import { FrownIcon } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "View Us - space",
+  description:
+    "Ankur Sharma is a full stack developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
+};
 
 export default async function SpacePage({
   params,

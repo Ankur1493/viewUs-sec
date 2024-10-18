@@ -1,42 +1,48 @@
 "use client";
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
-import { House, CircleHelp, LogOutIcon, BookTextIcon, CircleDollarSignIcon, RssIcon } from "lucide-react";
+import { CircleHelp, LogOutIcon, ImportIcon, CircleCheckIcon, PencilIcon, VideoIcon } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
 import { signOut } from "next-auth/react";
 
-export function SideBar() {
+export function SpaceSideBar() {
 
   const links = [
     {
-      label: "Dashboard",
+      label: "All",
       href: "/dashboard",
       icon: (
-        <House className="text-neutral-700 h-6 w-6 flex-shrink-0" />
+        <CircleCheckIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
-      label: "Documentation",
+      label: "Written",
       href: "/docs",
       icon: (
-        <BookTextIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
+        <PencilIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
-      label: "Pricing",
+      label: "Video",
       href: "/pricing",
       icon: (
-        <CircleDollarSignIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
+        <VideoIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
-      label: "Blogs",
+      label: "Imported",
       href: "/articles",
       icon: (
-        <RssIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
+        <ImportIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Liked",
+      href: "/articles",
+      icon: (
+        <ImportIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
       ),
     },
   ];
@@ -54,10 +60,22 @@ export function SideBar() {
             <>
               <Logo />
             </>
-            <div className="flex justify-center mt-8"><Button className="w-[80%] rounded-3xl py-5 shadow-md">Create New Project</Button></div>
-            <div className="mt-8 flex px-8 flex-col gap-2">
+            <div className="flex justify-start pl-4 mt-8 border-t border-t-gray-200 text-xl text-neutral-600 font-semibold">Inbox</div>
+            <div className="mt-1 flex px-8 flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
+                <SidebarLink className="py-1" key={idx} link={link} />
+              ))}
+            </div>
+            <div className="flex justify-start pl-4 mt-6 border-t border-t-gray-200 text-xl text-neutral-600 font-semibold">Import Testimonials</div>
+            <div className="mt-1 flex px-8 flex-col gap-2">
+              {links.map((link, idx) => (
+                <SidebarLink className="py-1" key={idx} link={link} />
+              ))}
+            </div>
+            <div className="flex justify-start pl-4 mt-6 border-t border-t-gray-200 text-xl text-neutral-600 font-semibold">Inbox</div>
+            <div className="mt-1 flex px-8 flex-col gap-2">
+              {links.map((link, idx) => (
+                <SidebarLink className="py-1" key={idx} link={link} />
               ))}
             </div>
           </div>
