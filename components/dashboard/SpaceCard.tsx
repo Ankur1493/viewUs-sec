@@ -15,7 +15,7 @@ interface SpaceWithReviewCount extends Space {
 export const SpaceCard = (space: SpaceWithReviewCount) => {
   return (
     <Card key={space.id} className="w-[90%] lg:w-1/3  bg-gray-50 text-black shadow-sm hover:shadow-md duration-200 group">
-      <Link href={`/spaces/${space.slug}`}>
+      <Link href={`/space/${space.slug}`}>
         <CardHeader className="flex-row justify-start w-full  items-center group-hover:gap-1">
           {
             space.image !== null && (

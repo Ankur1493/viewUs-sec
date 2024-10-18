@@ -7,7 +7,9 @@ export enum ReviewType {
 }
 
 export interface IReview {
+  id?: string;
   spaceId: string;
+  slug: string;
   reviewType?: ReviewType;
   review: string;
   stars: number;
@@ -24,6 +26,10 @@ export interface IReview {
 
 const reviewSchema = new Schema<IReview>({
   spaceId: {
+    type: String,
+    required: true,
+  },
+  slug: {
     type: String,
     required: true,
   },
