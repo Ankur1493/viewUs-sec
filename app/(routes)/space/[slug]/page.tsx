@@ -1,7 +1,8 @@
-import { ManageTestimonials } from "@/components/space/ManageTestimonials";
+import { Metadata } from "next";
 import axios from "axios";
 import { FrownIcon } from "lucide-react";
-import { Metadata } from "next";
+import { ManageTestimonials } from "@/components/space/ManageTestimonials";
+import { ImportPosts } from "@/components/space/imports/ImportPosts";
 
 export const metadata: Metadata = {
   title: "View Us - space",
@@ -35,6 +36,7 @@ export default async function SpacePage({
   return (
     <div className="flex justify-center h-full w-full">
       <ManageTestimonials testimonials={spaceTestimonials} />
+      <ImportPosts />
     </div>
   )
 }

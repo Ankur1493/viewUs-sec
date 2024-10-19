@@ -3,19 +3,22 @@ import { NextResponse } from 'next/server';
 import puppeteer from 'puppeteer';
 import { db } from '@/lib/db';
 import { ImportedReviewType, ReviewType } from '@/models/review_model';
+import { auth } from '@/auth';
 
-// Define the POST req handler
 export async function POST(req: Request) {
   try {
-    const { url } = await req.json();
 
-    // Check if the URL is provided
-    if (!url) {
-      return NextResponse.json({ error: 'URL is required' }, { status: 400 });
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized access' }, { status: 401 });
     }
 
+    const { url } = await req.json();
+    if (!url)
+      return NextResponse.json({ error: 'URL is required' }, { status: 400 });
 
-    const spaceSlug = req.url.split("/")[2]
+    const reqUrl = req.headers.get('referer') || 'No referrer found';
+    const spaceSlug = reqUrl.split("/space/")[1]
 
     const spaceExists = await db.space.findUnique({
       where: {
@@ -69,7 +72,7 @@ export async function POST(req: Request) {
     })
 
     if (reviewCreated) {
-      return NextResponse.json({ data: reviewCreated ?? null }, { status: tweet ? 200 : 404 })
+      return NextResponse.json({ data: reviewCreated ?? null }, { status: reviewCreated ? 200 : 404 })
     }
   } catch (error) {
     console.error('Error fetching details:', error);

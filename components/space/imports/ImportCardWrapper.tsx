@@ -49,13 +49,8 @@ export const ImportCardWrapper: React.FC<CardWrapperProps> = ({
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
 
-    const statusId = data.link.split("/status/")[1];
     try {
-      if (!statusId) {
-        console.error("Invalid URL format.");
-        return;
-      }
-      const response = await axios.post(`/api/import-testimonial/${slug.toString().toLowerCase()}/${statusId}`)
+      const response = await axios.post(`/api/import-testimonial/${slug.toString().toLowerCase()}`, { url: data.link })
       console.log(response.data)
     } catch (err) {
       console.log(err)

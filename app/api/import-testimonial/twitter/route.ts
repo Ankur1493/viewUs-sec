@@ -3,13 +3,25 @@ import { NextResponse } from 'next/server'
 import { getTweet } from 'react-tweet/api'
 import { ImportedReviewType, ReviewType } from '@/models/review_model'
 import { db } from '@/lib/db'
+import { auth } from '@/auth'
 
-type RouteSegment = { params: { id: string } }
 
-export async function POST(req: Request, { params }: RouteSegment) {
+export async function POST(req: Request) {
   try {
-    const tweet = await getTweet(params.id)
-    const spaceSlug = req.url.split("/")[2]
+
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized access' }, { status: 401 });
+    }
+
+    const { url } = await req.json()
+    if (!url)
+      return NextResponse.json({ error: 'URL is required' }, { status: 400 });
+
+    const statusId = url.split("/status/")[1];
+    const tweet = await getTweet(statusId)
+    const reqUrl = req.headers.get('referer') || 'No referrer found';
+    const spaceSlug = reqUrl.split("/space/")[1]
 
     const spaceExists = await db.space.findUnique({
       where: {
