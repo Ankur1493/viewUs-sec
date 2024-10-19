@@ -21,7 +21,9 @@ interface buttonStore {
   setSubmitButton: (buttonType: boolean) => void;
   setStarred: (star: number) => void;
   setSelectedTags: (tag: string) => void;
-  setCustomerDetails: (details: Partial<buttonStore["customerDetails"]>) => void;
+  setCustomerDetails: (
+    details: Partial<buttonStore["customerDetails"]>
+  ) => void;
 }
 
 const useReviewPageStore = create<buttonStore>((set) => ({
@@ -33,11 +35,11 @@ const useReviewPageStore = create<buttonStore>((set) => ({
   videoButtonOpt: false,
   selectedTags: [],
   customerDetails: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    company: '',
-    jobTitle: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    company: "",
+    jobTitle: "",
     image: null,
   },
   setReviewButton: (buttonType: string) => set({ reviewButton: buttonType }),
@@ -45,14 +47,16 @@ const useReviewPageStore = create<buttonStore>((set) => ({
   setTextReview: (review: string) => set({ textReview: review }),
   setSubmitButton: (state: boolean) => set({ submitButton: state }),
   setStarred: (star: number) => set({ starred: star }),
-  setCustomerDetails: (details) => set((state) => ({
-    customerDetails: { ...state.customerDetails, ...details },
-  })),
-  setSelectedTags: (tag) => set((state) => ({
-    selectedTags: state.selectedTags.includes(tag)
-      ? state.selectedTags.filter((t) => t !== tag)
-      : [...state.selectedTags, tag],
-  })),
+  setCustomerDetails: (details) =>
+    set((state) => ({
+      customerDetails: { ...state.customerDetails, ...details },
+    })),
+  setSelectedTags: (tag) =>
+    set((state) => ({
+      selectedTags: state.selectedTags.includes(tag)
+        ? state.selectedTags.filter((t) => t !== tag)
+        : [...state.selectedTags, tag],
+    })),
 }));
 
 export default useReviewPageStore;
