@@ -1,67 +1,85 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useState, useRef } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Save, Key, Trash2 } from "lucide-react";
+import profileImage from "@/public/assets/images/profile.png";
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { useSession } from "next-auth/react";
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
+const ProfileSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters."),
+  company: z.string().optional(),
+  title: z.string().optional(),
+  email: z.string().email(),
+  image: z
+    .any()
+    .refine((file) => file instanceof File, "Please upload an image file.")
+    .refine(
+      (file) => ["image/jpeg", "image/jpg", "image/png"].includes(file?.type),
+      "Only .jpg or .png files are accepted."
+    )
+    .optional(),
+});
 
 interface User {
-  name?: string;
+  id?: string;
+  name?: string | null;
   email?: string;
-  company?: string;
+  company?: string | null;
   imageUrl?: string;
-  title?: string;
+  title?: string | null;
 }
 
-export const Profile = () => {
-  const session = useSession();
-  const userData = session.data?.user;
-  const [user, setUser] = useState<User>({
-    name: userData?.name || "",
-    email: userData?.email || "",
-    company: userData?.name || "",
-    imageUrl: userData?.image || "",
-    title: "",
+interface ProfileProps {
+  user: User | null;
+}
+
+export const Profile = ({ user }: ProfileProps) => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(
+    user?.imageUrl || null
+  );
+
+  const form = useForm<z.infer<typeof ProfileSchema>>({
+    resolver: zodResolver(ProfileSchema),
+    defaultValues: {
+      name: user?.name || "",
+      email: user?.email || "",
+      company: user?.company || "",
+      title: user?.title || "",
+    },
   });
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (userData) {
-      setUser({
-        name: userData.name || "",
-        email: userData.email || "",
-        company: userData.name || "",
-        imageUrl: userData.image || "",
-        title: "",
-      });
-    }
-  }, [userData]);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUser((prevUser) => ({ ...prevUser, [name]: value }));
-  };
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setUser((prevUser) => ({
-          ...prevUser,
-          imageUrl: reader.result as string,
-        }));
-      };
-      reader.readAsDataURL(file);
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+      form.setValue("image", file, { shouldValidate: true });
     }
   };
 
@@ -69,8 +87,8 @@ export const Profile = () => {
     fileInputRef.current?.click();
   };
 
-  const handleSaveChanges = () => {
-    console.log("Saving changes:", user);
+  const handleSaveChanges = (data: z.infer<typeof ProfileSchema>) => {
+    console.log("Saving changes:", data);
   };
 
   const handleChangePassword = () => {
@@ -82,105 +100,163 @@ export const Profile = () => {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader>
-        <CardTitle className="text-2xl">Profile</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="flex flex-col items-center space-y-4">
-            <Avatar className="w-32 h-32">
-              <AvatarImage src={user.imageUrl} alt={userData?.name || "User"} />
-              <AvatarFallback>
-                {userData?.name ? userData.name.charAt(0).toUpperCase() : "U"}
-              </AvatarFallback>
-            </Avatar>
-            <Button onClick={handleChangeImage} variant="outline">
-              Change Image
-            </Button>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleImageChange}
-              accept="image/*"
-              className="hidden"
-              aria-label="Change profile image"
-            />
-            <h2 className="text-2xl font-bold">{user.name || "No Name"}</h2>
-            <p className="text-muted-foreground">{user.email || "No Email"}</p>
-            <p className="text-muted-foreground">
-              {user.title || ""} {user.company || "No Company"}
-            </p>
-          </div>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
+    <AlertDialog>
+      <div className="container mx-auto px-4 overflow-hidden pb-2">
+        <div className="mb-8 px-6">
+          <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2 mb-2">
+            Profile
+          </h2>
+        </div>
+        <div className="w-1/2 px-6">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleSaveChanges)}
+              className="space-y-4"
+            >
+              <div className="flex gap-4 items-center">
+                <div className="relative w-[64px] h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
+                  {selectedImage ? (
+                    <Image
+                      src={selectedImage}
+                      alt="Selected Image"
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  ) : (
+                    <Image
+                      src={profileImage}
+                      alt="Profile"
+                      width={28}
+                      height={28}
+                    />
+                  )}
+                </div>
+                <Button
+                  onClick={handleChangeImage}
+                  variant="outline"
+                  className="shadow-md"
+                >
+                  Change Image
+                </Button>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleImageChange}
+                  accept="image/*"
+                  className="hidden"
+                  aria-label="Change profile image"
+                />
+              </div>
+
+              <FormField
+                control={form.control}
                 name="name"
-                value={user.name || ""}
-                onChange={handleInputChange}
-                placeholder="Enter your name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter your name" />
+                    </FormControl>
+                    <FormMessage>
+                      {form.formState.errors.name?.message}
+                    </FormMessage>
+                  </FormItem>
+                )}
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
+              <FormField
+                control={form.control}
                 name="email"
-                type="email"
-                value={user.email || ""}
-                onChange={handleInputChange}
-                placeholder="Enter your email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled
+                        placeholder="Enter your email"
+                      />
+                    </FormControl>
+                    <FormMessage>
+                      {form.formState.errors.name?.message}
+                    </FormMessage>
+                  </FormItem>
+                )}
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="company">Company</Label>
-              <Input
-                id="company"
+
+              <FormField
+                control={form.control}
                 name="company"
-                value={user.company || ""}
-                onChange={handleInputChange}
-                placeholder="Enter your company"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Company</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter your company" />
+                    </FormControl>
+                    <FormMessage>
+                      {form.formState.errors.company?.message}
+                    </FormMessage>
+                  </FormItem>
+                )}
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="title">Job Title</Label>
-              <Input
-                id="title"
+
+              <FormField
+                control={form.control}
                 name="title"
-                value={user.title || ""}
-                onChange={handleInputChange}
-                placeholder="Enter your job title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Job Title</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter your job title" />
+                    </FormControl>
+                    <FormMessage>
+                      {form.formState.errors.title?.message}
+                    </FormMessage>
+                  </FormItem>
+                )}
               />
-            </div>
-            <div className="flex space-x-4 w-full pt-4">
-              <Button
-                variant="outline"
-                className="w-1/2 shadow-md border-2"
-                onClick={handleChangePassword}
-              >
-                Change Password
+              <Button className="w-full shadow-md" type="submit">
+                <Save className="w-4 h-4 mr-2" />
+                Save Changes
               </Button>
+            </form>
+          </Form>
+          <div className="flex space-x-4 w-full py-4">
+            <Button
+              variant="outline"
+              className="w-1/2 shadow-md"
+              onClick={handleChangePassword}
+            >
+              <Key className="w-4 h-4 mr-2" />
+              Change Password
+            </Button>
+            <AlertDialogTrigger className="w-1/2">
               <Button
-                className="w-1/2 shadow-md"
                 variant="destructive"
+                className="w-full shadow-md bg-red-600 hover:bg-red-600 hover:bg-opacity-90"
                 onClick={handleDeleteAccount}
               >
+                <Trash2 className="w-4 h-4 mr-2" />
                 Delete My Account
               </Button>
-            </div>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="bg-white shadow-md">
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your account and remove your data from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction className="bg-red-600 hover:bg-red-600 hover:bg-opacity-90">
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
           </div>
         </div>
-      </CardContent>
-      <CardFooter className="flex flex-col space-y-4">
-        <Button
-          className="w-full bg-green-600 hover:bg-green-600 hover:bg-opacity-80 shadow-md"
-          onClick={handleSaveChanges}
-        >
-          Save Changes
-        </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </AlertDialog>
   );
 };

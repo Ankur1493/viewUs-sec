@@ -3,6 +3,7 @@ import { NotificationCard } from "./NotificationCard";
 
 const notificationData = [
   {
+    space: "Calenso",
     firstName: "John",
     lastName: "Doe",
     company: "Microsoft",
@@ -11,6 +12,7 @@ const notificationData = [
     timestamp: "2024-10-18T10:24:00",
   },
   {
+    space: "bakedui",
     firstName: "Jane",
     lastName: "Smith",
     company: "Apple",
@@ -19,6 +21,7 @@ const notificationData = [
     timestamp: "2024-10-18T09:15:00",
   },
   {
+    space: "clan-chat",
     firstName: "Mark",
     lastName: "Johnson",
     company: "Flipkart",
