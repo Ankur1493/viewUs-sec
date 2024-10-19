@@ -7,7 +7,6 @@ import {
   ModalTrigger,
   ModalBody,
   ModalContent,
-  useModal,
 } from "@/components/ui/animated-modal";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
@@ -37,7 +36,6 @@ export const ImportCardWrapper: React.FC<CardWrapperProps> = ({
   image,
 }) => {
 
-  const { open, setOpen } = useModal()
   const FormSchema = z.object({
     link: z.string().url({ message: "Please enter a valid URL." }),
   });

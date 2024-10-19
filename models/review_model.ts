@@ -18,10 +18,10 @@ export interface IReview {
   slug: string;
   reviewType?: ReviewType;
   review: string;
-  stars: number;
+  stars?: number;
   firstName?: string | null;
   lastName?: string | null;
-  email: string | null;
+  email?: string | null;
   jobTitle?: string | null;
   company?: string | null;
   image?: string | null;
