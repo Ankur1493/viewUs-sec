@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { createImportedReview } from '@/data/review'
 import { NextResponse } from 'next/server'
 import { getTweet } from 'react-tweet/api'
@@ -63,10 +61,10 @@ export async function POST(req: Request) {
     if (review) {
       return NextResponse.json({ data: tweet ?? null }, { status: tweet ? 200 : 404 })
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error(error)
     return NextResponse.json(
-      { success: "failed", message: error.message ?? 'Bad request.' },
+      { success: "failed", message: 'Failed to import your tweet, try again later' },
       { status: 400 }
     )
   }

@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { NextResponse } from 'next/server';
 import puppeteer from 'puppeteer';
 import { db } from '@/lib/db';
@@ -62,6 +61,7 @@ export async function POST(req: Request) {
     const content = await page.evaluate(() => {
       const commentaryDiv = document.querySelector(".break-words");
       if (!commentaryDiv) return "No content available";
+      //@ts-expect-error: kyoki vercel chutiya hai 
       return commentaryDiv.innerText.trim(" ");
     });
 

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { createImportedReview } from '@/data/review';
 import { NextResponse } from 'next/server';
 import puppeteer from 'puppeteer';
@@ -47,8 +45,8 @@ export async function POST(req: Request) {
       }
 
       const commentBody = (commentElement.querySelector('.styles_htmlText__eYPgj') as HTMLElement)?.innerText || 'No comment body found';
-      const authorName = commentElement.querySelector('.text-14.font-semibold.text-dark-gray')?.innerText || 'No author name found';
-      const profileImage = commentElement.querySelector('img[loading="lazy"]')?.src || 'No image found';
+      const authorName = (commentElement.querySelector('.text-14.font-semibold.text-dark-gray') as HTMLElement)?.innerText || 'No author name found';
+      const profileImage = (commentElement.querySelector('img[loading="lazy"]') as HTMLImageElement)?.src || 'No image found';
 
       return { commentBody, authorName, profileImage };
     });
