@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { SideBar } from '@/components/dashboard/SideBar'
 import { Navbar } from '@/components/dashboard/Navbar'
 import { DashBoard } from '@/components/dashboard/DashBoard'
+import { ImportPosts } from "@/components/space/imports/ImportPosts";
 
 export const metadata: Metadata = {
   title: "View Us - dashboard",
@@ -19,6 +20,7 @@ export default function Dashboard() {
       <div className="flex-1">
         <Navbar />
         <DashBoard />
+        <ImportPosts />
       </div>
     </div>
   );
