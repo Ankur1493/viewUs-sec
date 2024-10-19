@@ -3,7 +3,13 @@ import { model, models, Schema } from "mongoose";
 export enum ReviewType {
   TEXT = 0,
   VIDEO = 1,
-  IMPORTED = 3
+  IMPORTED = 2
+}
+
+export enum ImportedReviewType {
+  TWITTER = 0,
+  LINKEDIN = 1,
+  PRODUCTHUNT = 2
 }
 
 export interface IReview {
@@ -12,15 +18,16 @@ export interface IReview {
   slug: string;
   reviewType?: ReviewType;
   review: string;
-  stars: number;
+  stars?: number;
   firstName?: string | null;
   lastName?: string | null;
-  email: string | null;
+  email?: string | null;
   jobTitle?: string | null;
   company?: string | null;
   image?: string | null;
-  importedImage?: string | null;
-  importedVideo?: string | null;
+  importedImage?: string[];
+  importedVideo?: string[];
+  importedReviewType?: ImportedReviewType;
   tags?: string[] | null;
 }
 
@@ -73,26 +80,21 @@ const reviewSchema = new Schema<IReview>({
     type: String,
     default: null,
   },
+  importedReviewType: {
+    type: Number,
+    required: true,
+    enum: ImportedReviewType,
+    default: ImportedReviewType.TWITTER
+  },
   importedImage: {
-    type: String,
-    default: null,
-    validate: {
-      validator: function (this: IReview) {
-        return this.reviewType === ReviewType.IMPORTED || !this.importedImage;
-      },
-      message: "Imported Image can only be set if reviewType is IMPORTED."
-    }
+    type: [String],
+    default: [],
   },
   importedVideo: {
-    type: String,
-    default: null,
-    validate: {
-      validator: function (this: IReview) {
-        return this.reviewType === ReviewType.IMPORTED || !this.importedVideo;
-      },
-      message: "Imported Video can only be set if reviewType is IMPORTED."
-    }
-  }, tags: {
+    type: [String],
+    default: [],
+  },
+  tags: {
     type: [String],
     validate: {
       validator: function (tags: string[]) {

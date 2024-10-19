@@ -41,12 +41,7 @@ export async function GET(req: Request) {
     }
 
 
-    const formattedReviews = reviews.map((review) => ({
-      ...review.toObject(),
-      imageUrl: `${process.env.CDN_NAME}/${review.image}`,
-    }));
-
-    return NextResponse.json({ success: true, reviews: formattedReviews }, { status: 200 });
+    return NextResponse.json({ success: true, reviews }, { status: 200 });
 
   } catch (err) {
     console.log(err)

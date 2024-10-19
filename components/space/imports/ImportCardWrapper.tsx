@@ -1,15 +1,14 @@
 "use client";
-import React from "react";
-import { Card, CardTitle, CardHeader, CardContent } from "../ui/card";
+import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 import Image from "next/image";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Modal,
   ModalTrigger,
   ModalBody,
   ModalContent,
-} from "../ui/animated-modal";
-import { Input } from "../ui/input";
+} from "@/components/ui/animated-modal";
+import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,18 +19,23 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { SocialPlatformsType } from "./ImportPosts";
+import axios from "axios";
 
 interface CardWrapperProps {
   title: string;
+  slug: SocialPlatformsType;
+  placeholder: string;
   image: string;
-  fetchLink: string;
 }
 
 export const ImportCardWrapper: React.FC<CardWrapperProps> = ({
   title,
+  slug,
+  placeholder,
   image,
-  fetchLink,
 }) => {
+
   const FormSchema = z.object({
     link: z.string().url({ message: "Please enter a valid URL." }),
   });
@@ -43,16 +47,21 @@ export const ImportCardWrapper: React.FC<CardWrapperProps> = ({
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log("fetchLink: ", fetchLink);
-    console.log("data: ", data);
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+
+    try {
+      const response = await axios.post(`/api/import-testimonial/${slug.toString().toLowerCase()}`, { url: data.link })
+      console.log(response.data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
     <div className="flex items-center justify-center">
       <Modal>
         <ModalTrigger className="bg-transparent text-white flex justify-center group/modal-btn">
-          <Card className="w-full bg-gray-50 w-40 h-40 flex justify-center items-center text-black shadow-md border-none">
+          <Card className="w-full bg-gray-50 w-40 h-40 flex justify-center items-center text-black shadow-md">
             <CardHeader className="flex  items-center py-4">
               <div className=" relative w-[60px] h-[60px]">
                 <Image
@@ -92,7 +101,7 @@ export const ImportCardWrapper: React.FC<CardWrapperProps> = ({
                         <FormItem>
                           <FormControl>
                             <Input
-                              placeholder="http://viewUs.in/dashboard"
+                              placeholder={placeholder}
                               className=""
                               {...field}
                             />
@@ -104,7 +113,6 @@ export const ImportCardWrapper: React.FC<CardWrapperProps> = ({
                     <Button
                       type="submit"
                       className="w-full"
-                      onClick={() => console.log({ fetchLink })}
                     >
                       Submit
                     </Button>

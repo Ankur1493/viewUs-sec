@@ -55,3 +55,29 @@ export const getSpaceReviewsLength = async (spaceId: string) => {
     return { err: "failed to get reviews" };
   }
 }
+
+export const createImportedReview = async ({ spaceId, slug, review, firstName, image, reviewType, importedReviewType, importedImage, importedVideo }: IReview) => {
+  try {
+    await connectToMongo()
+    const reviewCreated = await Review.create({
+      spaceId,
+      slug,
+      review,
+      firstName,
+      image,
+      reviewType,
+      importedReviewType,
+      importedImage,
+      importedVideo
+    });
+
+    if (!reviewCreated) {
+      return false;
+    }
+    return reviewCreated.id;
+  } catch (err) {
+    console.log(err);
+    return { err: "failed to create review" };
+  }
+};
+
