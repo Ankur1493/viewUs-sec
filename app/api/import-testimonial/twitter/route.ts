@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     if (tweet.video) {
       importedVideos.push(tweet.video.variants[tweet.video.variants.length - 1].src)
     }
-    //@ts-ignore
+
     const review = await createImportedReview({
       spaceId: spaceExists.id,
       slug: spaceExists.slug,

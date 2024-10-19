@@ -45,11 +45,11 @@ export async function POST(req: Request) {
       }
 
 
-      //@ts-ignore
+      //@ts-expect-error
       const commentBody = commentElement.querySelector('.styles_htmlText__eYPgj')?.innerText || 'No comment body found';
-      //@ts-ignore
+      //@ts-expect-error
       const authorName = commentElement.querySelector('.text-14.font-semibold.text-dark-gray')?.innerText || 'No author name found';
-      //@ts-ignore
+      //@ts-expect-error
       const profileImage = commentElement.querySelector('img[loading="lazy"]')?.src || 'No image found';
 
       return { commentBody, authorName, profileImage };

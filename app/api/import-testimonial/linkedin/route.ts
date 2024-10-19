@@ -61,7 +61,7 @@ export async function POST(req: Request) {
     const content = await page.evaluate(() => {
       const commentaryDiv = document.querySelector(".break-words");
       if (!commentaryDiv) return "No content available";
-      //@ts-ignore
+      //@ts-expect-error
       return commentaryDiv.innerText.trim(" ");
     });
 
