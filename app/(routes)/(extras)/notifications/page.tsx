@@ -1,6 +1,4 @@
-import React from "react";
-import { NotificationDetails } from "@/components/extras/NotificationDetials";
-
+import { NotificationDetails } from "@/components/extras/NotificationDetails";
 export default function Notifications() {
   return (
     <div>

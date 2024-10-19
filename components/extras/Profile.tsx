@@ -32,7 +32,7 @@ import {
 const ProfileSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
   company: z.string().optional(),
-  title: z.string().optional(),
+  jobTitle: z.string().optional(),
   email: z.string().email(),
   image: z
     .any()
@@ -50,7 +50,7 @@ interface User {
   email?: string;
   company?: string | null;
   imageUrl?: string;
-  title?: string | null;
+  jobTitle?: string | null;
 }
 
 interface ProfileProps {
@@ -68,7 +68,7 @@ export const Profile = ({ user }: ProfileProps) => {
       name: user?.name || "",
       email: user?.email || "",
       company: user?.company || "",
-      title: user?.title || "",
+      jobTitle: user?.jobTitle || "",
     },
   });
 
@@ -201,20 +201,20 @@ export const Profile = ({ user }: ProfileProps) => {
 
               <FormField
                 control={form.control}
-                name="title"
+                name="jobTitle"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Job Title</FormLabel>
+                    <FormLabel>Job jobTitle</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Enter your job title" />
+                      <Input {...field} placeholder="Enter your job jobTitle" />
                     </FormControl>
                     <FormMessage>
-                      {form.formState.errors.title?.message}
+                      {form.formState.errors.jobTitle?.message}
                     </FormMessage>
                   </FormItem>
                 )}
               />
-              <Button className="w-full shadow-md" type="submit">
+              <Button className="w-full shadow-md mt-24" type="submit">
                 <Save className="w-4 h-4 mr-2" />
                 Save Changes
               </Button>
@@ -229,10 +229,11 @@ export const Profile = ({ user }: ProfileProps) => {
               <Key className="w-4 h-4 mr-2" />
               Change Password
             </Button>
-            <AlertDialogTrigger className="w-1/2">
+
+            <AlertDialogTrigger
+              className="w-1/2">
               <div
-                className="w-full p-2 rounded-md shadow-md bg-red-600 text-white flex justify-center items-center hover:bg-red-600 hover:bg-opacity-90"
-                onClick={handleDeleteAccount}
+                className="h-9 px-4 py-2 flex items-center justify-center  w-full shadow-md bg-red-600 hover:bg-red-600 hover:bg-opacity-90 bg-destructive text-destructive-foreground whitespace-nowrap rounded-md text-sm font-medium"
               >
                 <Trash2 className="w-4 h-4 mr-2" />
                 Delete My Account

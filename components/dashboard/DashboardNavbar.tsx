@@ -15,10 +15,10 @@ export const DashboardNavbar = async () => {
 
   return (
     <div className="h-[60px] w-full p-4 flex items-center justify-end gap-4 overflow-x-hidden">
-      <Link href="/dashboard/notifications" className="cursor-pointer">
+      <Link href="/notifications" className="cursor-pointer">
         <Bell />
       </Link>
-      <Link href="#" className="cursor-pointer">
+      <Link href="/settings" className="cursor-pointer">
         <Settings className="cursor-pointer" />
       </Link>
 
@@ -28,7 +28,7 @@ export const DashboardNavbar = async () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className=" absolute mt-2 right-0 overflow-hidden">
           <DropdownMenuItem className="cursor-pointer">
-            <Link href="/dashboard/profile">Profile</Link>
+            <Link href="/profile">Profile</Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="cursor-pointer">
