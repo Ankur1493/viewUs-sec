@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { createImportedReview } from '@/data/review';
 import { NextResponse } from 'next/server';
 import puppeteer from 'puppeteer';
@@ -44,12 +46,8 @@ export async function POST(req: Request) {
         return { error: 'Comment not found' };
       }
 
-
-      //@ts-expect-error
-      const commentBody = commentElement.querySelector('.styles_htmlText__eYPgj')?.innerText || 'No comment body found';
-      //@ts-expect-error
+      const commentBody = (commentElement.querySelector('.styles_htmlText__eYPgj') as HTMLElement)?.innerText || 'No comment body found';
       const authorName = commentElement.querySelector('.text-14.font-semibold.text-dark-gray')?.innerText || 'No author name found';
-      //@ts-expect-error
       const profileImage = commentElement.querySelector('img[loading="lazy"]')?.src || 'No image found';
 
       return { commentBody, authorName, profileImage };

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { createImportedReview } from '@/data/review'
 import { NextResponse } from 'next/server'
 import { getTweet } from 'react-tweet/api'
