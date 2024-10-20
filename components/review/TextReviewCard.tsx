@@ -82,6 +82,9 @@ export const TextReviewCard = ({
     }
   };
 
+  const isValid =
+    textReview.trim().length >= 30 && starred > 0 && selectedTags.length >= 1;
+
   return (
     <Card className="relative w-[90%] h-[95%] px-[2%] border-none shadow-none flex flex-col gap-4">
       <div className="flex flex-row">
@@ -154,7 +157,7 @@ export const TextReviewCard = ({
             <Button
               type="submit"
               variant="form"
-              disabled={textReview.trim().length < 30}
+              disabled={!isValid}
               className="text-[14px] p-0 py-2 px-4"
               onClick={handleSubmitReview}
             >
