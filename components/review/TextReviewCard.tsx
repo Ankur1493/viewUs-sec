@@ -82,8 +82,7 @@ export const TextReviewCard = ({
     }
   };
 
-  const isValid =
-    textReview.trim().length >= 30 && starred > 0 && selectedTags.length >= 1;
+  const isValid = textReview.trim().length >= 30 && starred > 0;
 
   return (
     <Card className="relative w-[90%] h-[95%] px-[2%] border-none shadow-none flex flex-col gap-4">
