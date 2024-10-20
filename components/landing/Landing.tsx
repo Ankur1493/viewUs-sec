@@ -9,6 +9,7 @@ import { BookCall } from "./BookCall";
 import { ManageTestimonials } from "./ManageTestimonials";
 import { VideoSection } from "./VideoSection";
 import ReasonsToUse from "./ReasonsToUse";
+import { ChevronRight, ExternalLink } from "lucide-react";
 
 export const Landing = () => {
   return (
@@ -49,7 +50,29 @@ export const Landing = () => {
           <ReasonsToUse />
         </div>
         <div>
-          <VideoSection />
+          <VideoSection
+            heading="Instant testimonials Setup"
+            content="Easily set up testimonials on your website with just a few clicks!
+              Showcase customer reviews in a seamless and engaging way, boosting
+              your brand’s credibility in minutes."
+            videoSrc="/assets/videos/screen2.mp4"
+            buttonContent1="Live Preview"
+            linkHref1="#"
+            icon1={ExternalLink}
+          />
+        </div>
+        <div>
+          <VideoSection
+            heading="Hall of Fame"
+            content="Highlight the authentic voices of your customers with the Wall of Love. Share genuine testimonials that reflect trust and satisfaction, building lasting connections and enhancing your brand's credibility."
+            videoSrc="/assets/videos/screen2.mp4"
+            buttonContent1="Start your journey"
+            linkHref1="#"
+            buttonContent2="Live Preview"
+            linkHref2="#"
+            icon1={ChevronRight}
+            icon2={ExternalLink}
+          />
         </div>
 
         <div className="relative w-full my-12 top-16 lg:top-24">
