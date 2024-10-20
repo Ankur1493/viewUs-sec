@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import axios from "axios";
 import { FrownIcon } from "lucide-react";
 import { ManageTestimonials } from "@/components/space/ManageTestimonials";
-import { ImportPosts } from "@/components/space/imports/ImportPosts";
+// import { ImportPosts } from "@/components/space/imports/ImportPosts";
 
 export const metadata: Metadata = {
   title: "View Us - space",
@@ -15,12 +15,14 @@ export default async function SpacePage({
 }: {
   params: { slug: string };
 }) {
-
-  const baseUrl = process.env.NODE_ENV === "development" ? "http://localhost:3000/api/review/text" : "http://viewus.in/api/review/text"
+  const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/api/review/text"
+      : "http://viewus.in/api/review/text";
   const response = await axios.get(baseUrl, {
     params: { slug: params.slug },
   });
-  const spaceTestimonials = response.data.reviews
+  const spaceTestimonials = response.data.reviews;
 
   if (spaceTestimonials.length === 0) {
     return (
@@ -30,13 +32,20 @@ export default async function SpacePage({
         </div>
         <h1 className="text-3xl font-medium">You have no project yet</h1>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="flex justify-center h-full w-full">
+    <div className="flex flex-col justify-center h-full w-full px-4">
+      <div className="mb-5 px-6">
+        {params.slug && (
+          <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2 mb-2">
+            {params.slug}
+          </h2>
+        )}
+      </div>
       <ManageTestimonials testimonials={spaceTestimonials} />
-      <ImportPosts />
+      {/* <ImportPosts /> */}
     </div>
-  )
+  );
 }

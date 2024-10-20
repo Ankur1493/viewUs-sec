@@ -38,9 +38,21 @@ export const NotificationCard: React.FC<notificationCardProps> = ({
               <span className="font-semibold">
                 {firstName} {lastName}
               </span>{" "}
-              <span className="text-sm bg-yellow-200 px-3 bg-main p-1 rounded-md">
-                {job}, {company}
-              </span>
+              {job && company && (
+                <span className="text-sm bg-yellow-200 px-2 bg-main p-1 rounded-md">
+                  {job}, {company}
+                </span>
+              )}
+              {job && !company && (
+                <span className="text-sm bg-yellow-200 px-2 bg-main p-1 rounded-md">
+                  {job}
+                </span>
+              )}
+              {!job && company && (
+                <span className="text-sm bg-yellow-200 px-2 bg-main p-1 rounded-md">
+                  {company}
+                </span>
+              )}
             </p>
           </div>
           <p className="text-sm text-gray-600 p-0 -mb-2">
@@ -48,8 +60,6 @@ export const NotificationCard: React.FC<notificationCardProps> = ({
           </p>
         </div>
       </CardContent>
-      {/* <CardFooter className="p-0 flex justify-between items-center px-2 pl-6"> */}
-      {/* </CardFooter> */}
     </Card>
   );
 };

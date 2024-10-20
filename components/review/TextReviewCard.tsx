@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "axios"
+import axios from "axios";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,12 +21,12 @@ export const TextReviewCard = ({
   questions,
   image,
   title,
-  spaceId
+  spaceId,
 }: {
   questions: Question[];
   image: string | null;
   title: string;
-  spaceId: string
+  spaceId: string;
 }) => {
   //zustand state variables are called
   const {
@@ -39,49 +39,48 @@ export const TextReviewCard = ({
     setSubmitButton,
     customerDetails,
     starred,
-    selectedTags
+    selectedTags,
   } = useReviewPageStore();
 
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   const handleSubmitReview = async () => {
     try {
       const formData = new FormData();
 
-      formData.append('firstName', customerDetails.firstName);
-      formData.append('lastName', customerDetails.lastName);
-      formData.append('email', customerDetails.email);
-      formData.append("spaceId", spaceId)
+      formData.append("firstName", customerDetails.firstName);
+      formData.append("lastName", customerDetails.lastName);
+      formData.append("email", customerDetails.email);
+      formData.append("spaceId", spaceId);
       if (customerDetails.company)
-        formData.append('company', customerDetails?.company);
+        formData.append("company", customerDetails?.company);
       if (customerDetails.jobTitle)
-        formData.append('jobTitle', customerDetails?.jobTitle);
+        formData.append("jobTitle", customerDetails?.jobTitle);
 
-      formData.append("review", textReview)
-      formData.append("stars", starred.toString())
-      selectedTags.forEach(tag => formData.append("tags[]", tag)); // Append each tag individually as an array
+      formData.append("review", textReview);
+      formData.append("stars", starred.toString());
+      selectedTags.forEach((tag) => formData.append("tags[]", tag)); // Append each tag individually as an array
 
       if (customerDetails.image) {
-        formData.append('image', customerDetails.image);
-        console.log(customerDetails.image)
+        formData.append("image", customerDetails.image);
+        console.log(customerDetails.image);
       }
 
-      const response = await axios.post('/api/review/text', formData, {
+      const response = await axios.post("/api/review/text", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
 
       // Handle success (e.g., show a success message or navigate)
-      console.log('Review submitted successfully', response.data);
+      console.log("Review submitted successfully", response.data);
 
-      setSubmitButton(!submitButton)
-
+      setSubmitButton(!submitButton);
     } catch (err) {
-      console.error('Error submitting review', err);
+      console.error("Error submitting review", err);
       setError(true);
     }
-  }
+  };
 
   return (
     <Card className="relative w-[90%] h-[95%] px-[2%] border-none shadow-none flex flex-col gap-4">
@@ -90,7 +89,11 @@ export const TextReviewCard = ({
           <CardHeader className="flex flex-row gap-3">
             <div className="flex">
               <Image
-                src={image!}
+                src={
+                  image !== null
+                    ? image
+                    : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
+                }
                 alt="logo"
                 height={40}
                 width={40}
@@ -180,7 +183,11 @@ export const TextReviewCard = ({
               >
                 Record Video Testimonial
               </Button>
-              {error && (<div className="text-sm text-red-400">Failed to submit your review, Please try again</div>)}
+              {error && (
+                <div className="text-sm text-red-400">
+                  Failed to submit your review, Please try again
+                </div>
+              )}
             </CardFooter>
           </Card>
           <div className="w-3/4 flex flex-col gap-4 font-satoshi mt-[20px]">
