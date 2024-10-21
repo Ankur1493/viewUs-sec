@@ -13,7 +13,6 @@ export const SpacesListed = async () => {
   }
 
   const userSpaces = await getUserSpaces(user.id!);
-  console.log({ userSpaces });
 
   if (userSpaces?.length === 0 || !userSpaces) {
     return (

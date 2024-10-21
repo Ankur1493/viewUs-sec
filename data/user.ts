@@ -51,3 +51,4 @@ export const deleteUser = async (id: string) => {
     return null
   }
 }
+
