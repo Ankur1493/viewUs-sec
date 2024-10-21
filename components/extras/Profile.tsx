@@ -31,12 +31,16 @@ import {
 import { User } from "@prisma/client";
 import { profileSchema } from "@/schemas/user";
 import axios from "axios";
+import { deleteUserProfile } from "@/actions/user";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 
 export const Profile = ({ user }: { user: User }) => {
-  const cdn = process.env.NEXT_PUBLIC_CDN_NAME; // Use the updated environment variabl
+  const cdn = process.env.NEXT_PUBLIC_CDN_NAME;
+  const router = useRouter()
   const [selectedImage, setSelectedImage] = useState<string | null>(
-    user.image ? `${cdn}/${user.image}` : null // Ensure the URL is properly constructed
+    user.image ? `${cdn}/${user.image}` : null
   );
 
   const form = useForm<z.infer<typeof profileSchema>>({
@@ -79,13 +83,13 @@ export const Profile = ({ user }: { user: User }) => {
     }
 
     try {
-      // Send the form data to the API
       const response = await axios.post("/api/profile", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Important for file uploads
+          "Content-Type": "multipart/form-data",
         },
       });
-      console.log("updated");
+      console.log(response.status);
+      //toast profile updated
     } catch (error) {
       console.error("Error saving profile:", error);
     }
@@ -95,8 +99,15 @@ export const Profile = ({ user }: { user: User }) => {
     console.log("Change password clicked");
   };
 
-  const handleDeleteAccount = () => {
-    console.log("Delete account clicked");
+  const handleDeleteAccount = async () => {
+    const response = await deleteUserProfile(user.id);
+    if (response.status) {
+      await signOut()
+      router.push("/login")
+    } else {
+      //toast response.message
+      console.log(response.message)
+    }
   };
 
   return (
@@ -247,7 +258,9 @@ export const Profile = ({ user }: { user: User }) => {
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction className="bg-red-600 hover:bg-red-600 hover:bg-opacity-90">
-                  Delete
+                  <div onClick={handleDeleteAccount}>
+                    Delete
+                  </div>
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>

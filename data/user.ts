@@ -36,5 +36,18 @@ export const updateUser = async ({ id, name, image, company, jobTitle }: { id: s
   } catch {
     return null
   }
+}
 
+export const deleteUser = async (id: string) => {
+  try {
+    const deleted = await db.user.delete({
+      where: {
+        id
+      }
+    })
+
+    return deleted;
+  } catch {
+    return null
+  }
 }
