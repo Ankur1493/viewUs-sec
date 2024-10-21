@@ -6,6 +6,7 @@ import starsSelected from "@/public/assets/images/star_selected.png";
 import twitter from "@/public/assets/images/twitter_logo.png";
 import linkedIn from "@/public/assets/images/linkedIn_logo.png";
 import productHunt from "@/public/assets/images/ProductHunt_logo.png";
+import profile from "@/public/assets/images/avatar.webp";
 
 const importedReviewTypeLabels = {
   0: "Twitter",
@@ -48,7 +49,11 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
               />
             ) : (
               <Image
-                src={`${process.env.CDN_NAME}/${testimonial.image}`}
+                src={
+                  testimonial?.image
+                    ? `${process.env.CDN_NAME}/${testimonial.image}`
+                    : profile
+                }
                 alt="profile"
                 width={100}
                 height={100}

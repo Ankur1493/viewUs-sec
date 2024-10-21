@@ -230,14 +230,13 @@ export const Profile = ({ user }: ProfileProps) => {
               Change Password
             </Button>
             <AlertDialogTrigger className="w-1/2">
-              <Button
-                variant="destructive"
-                className="w-full shadow-md bg-red-600 hover:bg-red-600 hover:bg-opacity-90"
+              <div
+                className="w-full p-2 rounded-md shadow-md bg-red-600 text-white flex justify-center items-center hover:bg-red-600 hover:bg-opacity-90"
                 onClick={handleDeleteAccount}
               >
                 <Trash2 className="w-4 h-4 mr-2" />
                 Delete My Account
-              </Button>
+              </div>
             </AlertDialogTrigger>
             <AlertDialogContent className="bg-white shadow-md">
               <AlertDialogHeader>
