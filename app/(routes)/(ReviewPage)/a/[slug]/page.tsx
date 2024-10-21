@@ -1,4 +1,4 @@
-import { getSpaceDetails } from "@/data/space";
+import { getSpaceDetails } from "@/actions/space";
 import ReviewCard from "@/components/review/ReviewCard";
 
 export default async function ReviewPage({
@@ -12,5 +12,5 @@ export default async function ReviewPage({
     return <div>Can not found this space</div>;
   }
 
-  return <ReviewCard reviewForm={reviewForm} />;
+  return <div className="flex justify-center items-center w-screen h-screen"><ReviewCard reviewForm={reviewForm} /></div>
 }

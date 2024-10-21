@@ -1,90 +1,102 @@
 "use client";
-import React, { useState } from "react";
-import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
-import { House, Briefcase, CircleHelp } from "lucide-react";
+import React from "react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarHeader,
+  SidebarFooter,
+} from "../ui/sidebar";
+import {
+  House,
+  LogOutIcon,
+  BookTextIcon,
+  CircleDollarSignIcon,
+  RssIcon,
+  Settings,
+} from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
 
 export function SideBar() {
   const links = [
     {
       label: "Home",
-      href: "#",
-      icon: (
-        <House className="text-neutral-700 h-6 w-6 flex-shrink-0" />
-      ),
+      href: "/dashboard",
+      icon: <House className="text-neutral-700 h-6 w-6" />,
     },
     {
-      label: "Projects",
-      href: "#",
-      icon: (
-        <Briefcase className="text-neutral-700 h-6 w-6 flex-shrink-0" />
-      ),
+      label: "Documentation",
+      href: "/docs",
+      icon: <BookTextIcon className="text-neutral-700 h-6 w-6" />,
+    },
+    {
+      label: "Pricing",
+      href: "/pricing",
+      icon: <CircleDollarSignIcon className="text-neutral-700 h-6 w-6" />,
+    },
+    {
+      label: "Blogs",
+      href: "/articles",
+      icon: <RssIcon className="text-neutral-700 h-6 w-6" />,
     },
   ];
-  const [open, setOpen] = useState(false);
+
   return (
-    <div
-      className={cn(
-        "md:rounded-r-xl flex flex-col md:flex-row w-full flex-1 max-w-7xl ml-0 pl-0 mx-auto overflow-hidden md:border-r border-neutral-200",
-        "h-screen",
-      )}
-    >
-      <Sidebar open={open} setOpen={setOpen} animate={false}>
-        <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-            <>
-              <Logo />
-            </>
-            <div className="flex justify-center mt-8"><Button className="w-[80%] rounded-3xl py-5 shadow-md">Create New Project</Button></div>
-            <div className="mt-8 flex px-8 flex-col gap-2">
+    <Sidebar className="rounded-r-xl">
+      <SidebarHeader className="flex flex-col jutify-center items-center">
+        <Logo />
+        <Button className="w-[80%] py-5 shadow-md rounded-3xl">
+          Create New Project
+        </Button>
+      </SidebarHeader>
+      <SidebarContent className="pt-6">
+        <SidebarGroup>
+          <SidebarGroupContent className="flex flex-col jutify-center items-center">
+            <SidebarMenu className="w-[80%]">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link}/>
+                <SidebarMenuItem key={idx}>
+                  <SidebarMenuButton asChild>
+                    <Link href={link.href}>
+                      {link.icon}
+                      <span>{link.label}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               ))}
-            </div>
-          </div>
-          <div className="flex justify-center">
-            <SidebarLink
-              link={{
-                label: "Help & Support",
-                href: "#",
-                icon: (
-                  <CircleHelp className="text-neutral-700 h-6 w-6 flex-shrink-0" />
-                ),
-              }}
-            />
-          </div>
-        </SidebarBody>
-      </Sidebar>
-    </div>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter className="flex gap-3 jutify-center items-center">
+        <SidebarMenuButton className="w-[80%]">
+          <Link href="#" className="flex items-center justify-center gap-1">
+            <Settings size={18} />
+            <span>Help and Support</span>
+          </Link>
+        </SidebarMenuButton>
+        <Button
+          onClick={(event) => {
+            event.preventDefault();
+            signOut();
+          }}
+          className="flex gap-2 items-center py-2 rounded-xl w-[80%]"
+        >
+          <LogOutIcon size={15} /> Sign Out
+        </Button>
+      </SidebarFooter>
+    </Sidebar>
   );
 }
-export const Logo = () => {
-  return (
-    <Link
-      href="#"
-      className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-4 relative z-20"
-    >
-      <div className="h-8 w-8 bg-black rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="font-bold text-2xl text-black whitespace-pre"
-      >
-        ViewUs
-      </motion.span>
-    </Link>
-  );
-};
-export const LogoIcon = () => {
-  return (
-    <Link
-      href="#"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-    >
-      <div className="h-5 w-6 bg-black rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-    </Link>
-  );
-};
+
+export const Logo = () => (
+  <Link href="#" className="flex gap-2 items-center text-sm text-black py-4">
+    <div className="h-8 w-8 bg-black rounded-br-lg" />
+    <span className="font-bold text-2xl text-black">ViewUs</span>
+  </Link>
+);

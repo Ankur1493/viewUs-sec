@@ -1,19 +1,16 @@
-import React from 'react'
-import { SideBar } from '@/components/dashboard/SideBar'
-import { Navbar } from '@/components/dashboard/Navbar'
-import { DashBoard } from '@/components/dashboard/DashBoard'
+import { Metadata } from "next";
+import { DashBoard } from "@/components/dashboard/DashBoard";
 
-export default function Dashboard () {
+export const metadata: Metadata = {
+  title: "View Us - dashboard",
+  description:
+    "Ankur Sharma is a full stack developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
+};
+
+export default function Dashboard() {
   return (
-    <div className='h-screen w-screen flex'>
-        <div className='flex-3'>
-            <SideBar />
-        </div>
-        <div className='flex-1'>
-            <Navbar />
-            <DashBoard />
-        </div>
+    <div className="min-h-screen h-full ">
+      <DashBoard />
     </div>
-  )
+  );
 }
-

@@ -17,12 +17,16 @@ datasource db {
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String   @unique
   password      String?
   emailVerified DateTime? @map("email_verified")
   image         String?
+  company       String?
+  JobTitle      String?
   accounts      Account[]
   spaces        Space[]  // Relation to spaces
+  createdAt   DateTime @default(now())  // Automatically set on creation
+  updatedAt   DateTime @updatedAt       // Automatically updated on each update
  
   @@map("users")  
 }
@@ -62,6 +66,10 @@ model Space {
   title     String
   heading   String
   image     String?  // Optional S3 URL
+  job_req   Boolean @default(false)
+  company_req  Boolean @default(false)
+  createdAt   DateTime @default(now())  // Automatically set on creation
+  updatedAt   DateTime @updatedAt       // Automatically updated on each update
 
   user      User     @relation(fields: [userId], references: [id])
   questions Question[]  // Relation to questions

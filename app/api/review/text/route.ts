@@ -1,71 +1,158 @@
 import { createReview } from "@/data/review";
 import { db } from "@/lib/db";
 import { textReviewSchema } from "@/schemas/review";
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server";
+import { getSpaceReviewsLength } from "@/data/review";
+import { sendTextReviewSubmitted } from "@/lib/mail";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+import sharp from "sharp"
+import Review from "@/models/review_model";
+import { s3 } from "@/lib/aws";
 
-export async function POST(req: Request) {
+const bucketName = process.env.AWS_BUCKET_NAME!
+
+export async function GET(req: Request) {
   try {
-    const { reviewDetails, spaceId } = await req.json();
-    const validatedFields = textReviewSchema.safeParse(reviewDetails);
+    const { searchParams } = new URL(req.url);
+    const slug = searchParams.get('slug');
 
+    if (!slug) {
+      return NextResponse.json(
+        { success: false, message: 'Missing spaceId parameter' },
+        { status: 400 }
+      );
+    }
+    const reviews = await Review.find({ slug }).sort({ createdAt: -1 });
+    if (!reviews) {
+      return NextResponse.json(
+        { success: false, message: 'Can not find your review' },
+        { status: 400 }
+      );
+    }
+
+
+    return NextResponse.json({ success: true, reviews }, { status: 200 });
+
+  } catch (err) {
+    console.log(err)
+    return NextResponse.json({
+      success: false,
+      message: "Internal server error",
+    }, { status: 500 });
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+
+    const formData = await req.formData();
+
+    // Extract the fields from formData
+    const spaceId = formData.get("spaceId");
+    const review = formData.get("review");
+    const stars = Number(formData.get("stars")); // Ensure stars is treated as a number
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
+    const email = formData.get("email");
+    const jobTitle = formData.get("jobTitle") || null;
+    const company = formData.get("company") || null;
+    const tags = formData.getAll("tags[]") || [];
+    const image = formData.get("image")
+
+    // Validate the spaceId
     if (!spaceId || typeof spaceId !== "string") {
-      return new NextResponse("review form id are not valid", { status: 403 });
+      return NextResponse.json({ success: false, error: "Invalid space ID" }, { status: 400 });
     }
+
+    // Validate the review details using textReviewSchema
+    const validatedFields = textReviewSchema.safeParse({
+      review, stars, firstName, lastName, email, jobTitle, company, tags
+    });
+
     if (!validatedFields.success) {
-      return new NextResponse("Fields are not validated", { status: 401 });
+      return NextResponse.json({ success: false, message: "Invalid review fields", validatedFields }, { status: 400 });
     }
 
-    const { review, stars, name, email, designation, image } = validatedFields.data;
-
+    // Check if space exists
     const spaceDetails = await db.space.findUnique({
       where: { id: spaceId },
-      include: { user: true, questions: true }
+      include: { user: true }
     });
 
     if (!spaceDetails) {
-      return new NextResponse("review form not found", { status: 404 });
+      return NextResponse.json({ success: false, message: "Space not found" }, { status: 404 });
     }
 
-    if (spaceDetails.questions.length < 15) {
-      if (spaceDetails.questions.length < 10) {
-        const reviewCreated = await createReview({
-          spaceId,
-          review,
-          stars,
-          name,
-          email,
-          designation,
-          image,
-        });
-        if (!reviewCreated) {
-          return NextResponse.json("Failed to create review", { status: 500 });
-        } else {
-          //add a email service call here, to send a mail to user
-          return NextResponse.json("Review created successfully", { status: 200 });
-        }
-      } else {
-        const reviewCreated = await createReview({
-          spaceId,
-          review,
-          stars,
-          name,
-          email,
-          designation,
-          image,
-        });
-        if (!reviewCreated) {
-          return NextResponse.json("Failed to create review", { status: 500 });
-        } else {
-          //add a email service call here,to send a mail to user notifying them that they have reviews more that 10 now, they need to update 
-          return NextResponse.json("Review created successfully", { status: 200 });
-        }
-      }
-    } else {
-      return NextResponse.json("Review can't be created as review limit is over", { status: 404 });
+    let imageName = null
+    if (image) {
+      const file = image as File; // Explicitly cast image to File type
+
+      // Get the image details
+      const fileName = file.name;
+      const fileType = file.type;
+
+      // Convert the file to a buffer
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const resizedBuffer = await sharp(buffer).resize({ height: 50, width: 50, fit: "contain" }).toBuffer()
+
+      // Upload the image to S3
+      const params = {
+        Bucket: bucketName,
+        Key: `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`, // You can customize the path here
+        Body: resizedBuffer,
+        ContentType: fileType,
+      };
+
+      const command = new PutObjectCommand(params);
+      await s3.send(command);
+      imageName = `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`
     }
+
+    // Create the review without saving the image
+    const reviewCreated = await createReview({
+      spaceId,
+      slug: spaceDetails.slug,
+      review: validatedFields.data.review,
+      stars: validatedFields.data.stars,
+      firstName: validatedFields.data.firstName,
+      lastName: validatedFields.data.lastName,
+      email: validatedFields.data.email,
+      jobTitle: validatedFields.data.jobTitle,
+      company: validatedFields.data.company,
+      tags: validatedFields.data.tags,
+      image: imageName,
+    });
+
+    if (!reviewCreated) {
+      return NextResponse.json({ success: false, message: "Failed to create review" }, { status: 500 });
+    }
+
+    // Get space reviews count
+    const spaceReviews = await getSpaceReviewsLength(spaceId);
+    if (spaceReviews.err) {
+      return NextResponse.json({ success: false, message: "Could not retrieve space reviews" }, { status: 500 });
+    }
+
+    // Send email notification
+    if (spaceReviews.success) {
+      sendTextReviewSubmitted({
+        email: spaceDetails.user.email,
+        reviewCount: spaceReviews.data.textReviews,
+        spaceTitle: spaceDetails.title
+      });
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "Review created successfully",
+    }, { status: 200 });
+
   } catch (err) {
     console.error(err);
-    return new NextResponse("Internal Error", { status: 500 });
+    return NextResponse.json({
+      success: false,
+      message: "Internal server error",
+    }, { status: 500 });
   }
 }
 

@@ -7,7 +7,6 @@ import { signIn } from "@/auth";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
 import { DEFAULT_REGISTER_REDIRECT } from "@/route";
-import { generateVerificationTokens } from "@/lib/tokens";
 
 export const register = async (values: z.infer<typeof registerSchema>) => {
   const validatedFields = registerSchema.safeParse(values);
@@ -24,7 +23,6 @@ export const register = async (values: z.infer<typeof registerSchema>) => {
   }
 
   await db.user.create({ data: { name, email, password: hashedPassword } })
-  const verificationToken = await generateVerificationTokens(email)
 
   try {
     await signIn("credentials", {
