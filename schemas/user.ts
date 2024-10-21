@@ -7,10 +7,17 @@ export const profileSchema = z.object({
   email: z.string().email(),
   image: z
     .any()
-    .refine((file) => file instanceof File, "Please upload an image file.")
+    // Server-side file validation workaround
+    .refine(
+      (file) => {
+        // Check for file existence and required properties (assuming Node.js)
+        return file && typeof file === "object" && file.arrayBuffer && file.type;
+      },
+      "Please upload an image file."
+    )
     .refine(
       (file) => ["image/jpeg", "image/jpg", "image/png"].includes(file?.type),
       "Only .jpg or .png files are accepted."
     )
-    .optional(),
+    .optional().nullable(),
 });

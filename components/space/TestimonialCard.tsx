@@ -23,11 +23,10 @@ const importedReviewTypeImages = {
 type ImportedReviewType = keyof typeof importedReviewTypeImages;
 
 export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
-  console.log(testimonial);
   const numberOfStars = testimonial.stars ?? 0;
   const reviewTypeLabel: ImportedReviewType =
     importedReviewTypeLabels[
-      testimonial.importedReviewType as keyof typeof importedReviewTypeLabels
+    testimonial.importedReviewType as keyof typeof importedReviewTypeLabels
     ];
 
   return (
