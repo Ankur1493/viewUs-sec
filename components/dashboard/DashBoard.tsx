@@ -35,7 +35,7 @@ export const DashBoard = () => {
           </span>
           <Button className="rounded-3xl py-5 px-8">Create Project</Button>
         </div>
-        <div className="w-full mt-12">
+        <div className="w-full pt-12">
           <Suspense fallback={<SpacesLoadingSkeleton />}>
             <SpacesListed />
           </Suspense>

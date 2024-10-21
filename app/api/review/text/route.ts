@@ -4,22 +4,12 @@ import { textReviewSchema } from "@/schemas/review";
 import { NextRequest, NextResponse } from "next/server";
 import { getSpaceReviewsLength } from "@/data/review";
 import { sendTextReviewSubmitted } from "@/lib/mail";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import sharp from "sharp"
 import Review from "@/models/review_model";
+import { s3 } from "@/lib/aws";
 
 const bucketName = process.env.AWS_BUCKET_NAME!
-const bucketRegion = process.env.AWS_BUCKET_REGION!
-const accessKey = process.env.ACCESS_KEY!
-const secretAccessKey = process.env.SECRET_ACCESS_KEY!
-
-const s3 = new S3Client({
-  credentials: {
-    accessKeyId: accessKey,
-    secretAccessKey: secretAccessKey
-  },
-  region: bucketRegion
-})
 
 export async function GET(req: Request) {
   try {
