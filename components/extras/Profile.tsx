@@ -28,7 +28,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { User } from "@prisma/client";
+import { profileSchema } from "@/schemas/user";
+import { updateUserProfile } from "@/actions/user";
 
+<<<<<<< HEAD
 const ProfileSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
   company: z.string().optional(),
@@ -58,17 +62,28 @@ interface ProfileProps {
 }
 
 export const Profile = ({ user }: ProfileProps) => {
+=======
+
+export const Profile = ({ user }: { user: User }) => {
+>>>>>>> a888493 (user update action, needs aws image improvement)
   const [selectedImage, setSelectedImage] = useState<string | null>(
-    user?.imageUrl || null
+    user.image || null
   );
 
-  const form = useForm<z.infer<typeof ProfileSchema>>({
-    resolver: zodResolver(ProfileSchema),
+  const form = useForm<z.infer<typeof profileSchema>>({
+    resolver: zodResolver(profileSchema),
     defaultValues: {
+<<<<<<< HEAD
       name: user?.name || "",
       email: user?.email || "",
       company: user?.company || "",
       jobTitle: user?.jobTitle || "",
+=======
+      name: user.name || "",
+      email: user.email,
+      company: user.company || "",
+      jobTitle: user.JobTitle || "",
+>>>>>>> a888493 (user update action, needs aws image improvement)
     },
   });
 
@@ -87,8 +102,11 @@ export const Profile = ({ user }: ProfileProps) => {
     fileInputRef.current?.click();
   };
 
-  const handleSaveChanges = (data: z.infer<typeof ProfileSchema>) => {
-    console.log("Saving changes:", data);
+  const handleSaveChanges = async (data: z.infer<typeof profileSchema>) => {
+    data.email = user.email
+    const response = await updateUserProfile(data)
+    console.log(response)
+
   };
 
   const handleChangePassword = () => {
