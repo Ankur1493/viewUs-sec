@@ -27,11 +27,10 @@ import { Input } from "@/components/ui/input";
 import { useRef } from "react";
 import useReviewPageStore from "@/store/useReviewPageStore";
 
-
 type CustomerDetailCardProps = {
   jobReq: boolean;
   companyReq: boolean;
-}
+};
 
 const FormSchema = z.object({
   firstName: z.string().min(2, {
@@ -42,19 +41,26 @@ const FormSchema = z.object({
   }),
   image: z
     .any()
-    .refine((file) => file instanceof File, "Please upload an image file.")
     .refine(
-      (file) => ["image/jpeg", "image/jpg", "image/png"].includes(file?.type),
+      (file) => !file || file instanceof File,
+      "Please upload an image file."
+    )
+    .refine(
+      (file) =>
+        !file || ["image/jpeg", "image/jpg", "image/png"].includes(file?.type),
       "Only .jpg or .png files are accepted."
     ),
-  email: z.string().email(),
-  company: z.string().min(2, { message: "job title needs to be 2 characters long" }),
-  jobTitle: z.string().min(2, { message: "comapny name needs to be 2 characters long" }),
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
+  company: z.string().optional().or(z.literal("")),
+  jobTitle: z.string().optional().or(z.literal("")),
 });
 
-export const CustomerDetailCard = ({ jobReq, companyReq }: CustomerDetailCardProps) => {
-
-
+export const CustomerDetailCard = ({
+  jobReq,
+  companyReq,
+}: CustomerDetailCardProps) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -98,7 +104,10 @@ export const CustomerDetailCard = ({ jobReq, companyReq }: CustomerDetailCardPro
     };
   }, [customerDetails, form]);
 
-  const isFormValid = form.formState.isValid;
+  const isFormValid =
+    !!form.watch("firstName") &&
+    !!form.watch("lastName") &&
+    !!form.watch("email");
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     const normalizedData = {
@@ -207,11 +216,7 @@ export const CustomerDetailCard = ({ jobReq, companyReq }: CustomerDetailCardPro
                     First Name<span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Udit"
-                      {...field}
-                      className="h-[48px]"
-                    />
+                    <Input placeholder="Udit" {...field} className="h-[48px]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -264,7 +269,8 @@ export const CustomerDetailCard = ({ jobReq, companyReq }: CustomerDetailCardPro
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Company{companyReq ? <span className="text-red-500">*</span> : ""}
+                    Company
+                    {companyReq ? <span className="text-red-500">*</span> : ""}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -283,7 +289,8 @@ export const CustomerDetailCard = ({ jobReq, companyReq }: CustomerDetailCardPro
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Job Title{jobReq ? <span className="text-red-500">*</span> : ""}
+                    Job Title
+                    {jobReq ? <span className="text-red-500">*</span> : ""}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -301,8 +308,9 @@ export const CustomerDetailCard = ({ jobReq, companyReq }: CustomerDetailCardPro
                 type="submit"
                 variant="form"
                 disabled={!isFormValid}
-                className={`w-3/12 py-5 ${!isFormValid ? "cursor-not-allowed" : "cursor-pointer"
-                  }`}
+                className={`w-3/12 py-5 ${
+                  !isFormValid ? "cursor-not-allowed" : "cursor-pointer"
+                }`}
               >
                 Continue
               </Button>

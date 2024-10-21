@@ -61,6 +61,7 @@ const TriangleGrid = () => {
           },
         },
       ],
+      delay: 1,
     });
 
     tl.to(".triangle-grid-item", {

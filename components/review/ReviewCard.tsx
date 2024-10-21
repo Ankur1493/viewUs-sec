@@ -25,7 +25,11 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
       {(detailsButton || submitButton) && (
         <div className="absolute top-5 left-5 flex items-center gap-3">
           <Image
-            src={reviewForm.image!}
+            src={
+              reviewForm.image !== null
+                ? reviewForm.image
+                : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
+            }
             alt="logo"
             height={40}
             width={40}
@@ -57,7 +61,11 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
           <CardHeader className="flex flex-row gap-3">
             <div className="flex">
               <Image
-                src={reviewForm.image!}
+                src={
+                  reviewForm.image !== null
+                    ? reviewForm.image
+                    : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
+                }
                 alt="logo"
                 height={60}
                 width={60}

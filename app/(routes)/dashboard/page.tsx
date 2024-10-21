@@ -1,7 +1,5 @@
 import { Metadata } from "next";
-import { SideBar } from '@/components/dashboard/SideBar'
-import { Navbar } from '@/components/dashboard/Navbar'
-import { DashBoard } from '@/components/dashboard/DashBoard'
+import { DashBoard } from "@/components/dashboard/DashBoard";
 
 export const metadata: Metadata = {
   title: "View Us - dashboard",
@@ -9,17 +7,10 @@ export const metadata: Metadata = {
     "Ankur Sharma is a full stack developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
 };
 
-
 export default function Dashboard() {
   return (
-    <div className="min-h-screen h-full w-screen flex">
-      <div className="flex-3">
-        <SideBar />
-      </div>
-      <div className="flex-1">
-        <Navbar />
-        <DashBoard />
-      </div>
+    <div className="min-h-screen h-full ">
+      <DashBoard />
     </div>
   );
 }

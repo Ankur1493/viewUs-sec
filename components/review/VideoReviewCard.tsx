@@ -25,7 +25,11 @@ export const VideoReviewCard = ({
         <CardHeader className="flex flex-row gap-3">
           <div className="flex">
             <Image
-              src={image!}
+              src={
+                image !== null
+                  ? image
+                  : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
+              }
               alt="logo"
               height={50}
               width={50}

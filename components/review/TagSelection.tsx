@@ -46,16 +46,23 @@ export const TagSelection: React.FC = () => {
             <button
               key={tag}
               onClick={() => setSelectedTags(tag)}
+              disabled={selectedTags.length >= 3}
               className={`px-3 py-1 border rounded-full text-[14px] border-[#7CCE3B] 
-                ${selectedTags.includes(tag)
-                  ? "bg-[#C2F19D] text-black"
-                  : "text-black hover:bg-green-50"
-                }`}
+                ${
+                  selectedTags.includes(tag)
+                    ? "bg-[#C2F19D] text-black"
+                    : "text-black hover:bg-green-50"
+                } ${selectedTags.length >= 3 && "cursor-not-allowed"}`}
             >
               {tag}
             </button>
           ))}
         </div>
+        {selectedTags.length >= 3 && (
+          <p className="text-left text-sm text-red-500 pt-2">
+            You can select maximum 3 tags at a time.
+          </p>
+        )}
       </div>
     </div>
   );

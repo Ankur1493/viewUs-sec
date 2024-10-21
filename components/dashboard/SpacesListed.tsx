@@ -1,19 +1,19 @@
-import { getUserSpaces } from "@/actions/space"
-import { auth } from "@/auth"
-import { FrownIcon } from "lucide-react"
-import { redirect } from "next/navigation"
-import { SpaceCard } from "./SpaceCard"
+import { getUserSpaces } from "@/actions/space";
+import { auth } from "@/auth";
+import { FrownIcon } from "lucide-react";
+import { redirect } from "next/navigation";
+import { SpaceCard } from "./SpaceCard";
 
 export const SpacesListed = async () => {
-
-  const session = await auth()
-  const user = session?.user
+  const session = await auth();
+  const user = session?.user;
 
   if (!user) {
-    return redirect("/login")
+    return redirect("/login");
   }
 
-  const userSpaces = await getUserSpaces(user.id!)
+  const userSpaces = await getUserSpaces(user.id!);
+  console.log({ userSpaces });
 
   if (userSpaces?.length === 0 || !userSpaces) {
     return (
@@ -23,7 +23,7 @@ export const SpacesListed = async () => {
         </div>
         <h1 className="text-3xl font-medium">You have no project yet</h1>
       </div>
-    )
+    );
   }
 
   return (
@@ -32,5 +32,5 @@ export const SpacesListed = async () => {
         <SpaceCard key={space.id} {...space} />
       ))}
     </div>
-  )
-}
+  );
+};

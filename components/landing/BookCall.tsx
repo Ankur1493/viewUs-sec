@@ -17,47 +17,42 @@ export const BookCall = () => {
     <div className="max-w-7xl mx-auto w-full flex flex-col gap-7 rounded-3xl p-3">
       <div className="py-4 flex flex-col gap-6">
         <p className="text-gray-400 font-thin font-mono text-md">FAQs</p>
-        <h1 className="text-white text-4xl md:text-5xl">Still confused? Let&apos;s talk</h1>
+        <h1 className="text-white text-4xl md:text-5xl">
+          Still confused? Let&apos;s talk
+        </h1>
       </div>
       <div className="text-white flex flex-col lg:flex-row justify-around">
-        <Accordion
-          type="single"
-          collapsible
-          defaultValue="item-1"
-          className="w-full lg:w-2/3"
-        >
+        <Accordion type="single" collapsible className="w-full lg:w-2/3">
           <AccordionItem value="item-1">
-            <AccordionTrigger>Is it accessible?</AccordionTrigger>
+            <AccordionTrigger>Who can use ViewUs?</AccordionTrigger>
             <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
+              Any business wanting to showcase customer testimonials.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger>Is it styled?</AccordionTrigger>
+            <AccordionTrigger>How does it work?</AccordionTrigger>
             <AccordionContent>
-              Yes. It comes with default styles that matches the other
-              components&apos; aesthetic.
+              You share a link with customers, they either submit text review or
+              upload video, and you embed them on your site.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger>Is it animated?</AccordionTrigger>
+            <AccordionTrigger>How do I embed testimonials?</AccordionTrigger>
             <AccordionContent>
-              Yes. It&apos;s animated by default, but you can disable it if you
-              prefer.
+              Copy the embed code from your dashboard and paste it into your
+              website.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-4">
-            <AccordionTrigger>Is it styled?</AccordionTrigger>
+            <AccordionTrigger>Can I customize the widget?</AccordionTrigger>
             <AccordionContent>
-              Yes. It comes with default styles that matches the other
-              components&apos; aesthetic.
+              Yes, you can match the widget to your brand’s look.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-5">
-            <AccordionTrigger>Is it animated?</AccordionTrigger>
+            <AccordionTrigger>Is it easy to use?</AccordionTrigger>
             <AccordionContent>
-              Yes. It&apos;s animated by default, but you can disable it if you
-              prefer.
+              Absolutely! No coding skills are required.
             </AccordionContent>
           </AccordionItem>
         </Accordion>

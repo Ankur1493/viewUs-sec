@@ -1,16 +1,34 @@
+"use client";
 import React from "react";
+import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 
 export const ManageTestimonials = () => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0 });
+
   return (
-    <div className="bg-[#141111] text-white pt-28 p-10 space-y-10 overflow-x-hidden">
+    <div
+      className="bg-[#141111] text-white pt-28 p-10 space-y-10 overflow-x-hidden"
+      ref={ref}
+    >
       <section className="text-center space-y-4">
-        <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold">
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-3xl md:text-5xl lg:text-6xl font-bold"
+        >
           Manage testimonials in minutes not hours.
-        </h2>
-        <p className="text-lg text-gray-400">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          className="text-lg text-gray-400"
+        >
           Say goodbye to hours of work—manage testimonials in minutes.
-        </p>
+        </motion.p>
       </section>
 
       <div className="grid grid-cols-4 gap-1 md:gap-4 overflow-hidden w-[600px] md:w-[1200px] lg:w-[2000px] h-full -ml-32 lg:-ml-48">
