@@ -10,7 +10,7 @@ export const ManageTestimonials = ({
     <div className="w-full h-full px-6">
       <div className="flex flex-col gap-4">
         {testimonials.map((testimonial) => (
-          <TestimonialCard key={testimonial.id!} testimonial={testimonial} />
+          <TestimonialCard key={testimonial._id!} testimonial={testimonial} />
         ))}
       </div>
     </div>

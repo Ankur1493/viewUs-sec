@@ -13,12 +13,13 @@ export enum ImportedReviewType {
 }
 
 export interface IReview {
-  id?: string;
+  _id?: string;
   spaceId: string;
   slug: string;
   reviewType?: ReviewType;
   review: string;
   stars?: number;
+  liked: boolean;
   firstName?: string | null;
   lastName?: string | null;
   email?: string | null;
@@ -54,6 +55,10 @@ const reviewSchema = new Schema<IReview>({
     type: Number,
     required: true,
     default: 5
+  },
+  liked: {
+    type: Boolean,
+    default: false,
   },
   firstName: {
     type: String,
