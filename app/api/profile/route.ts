@@ -3,8 +3,10 @@ import { profileSchema } from "@/schemas/user";
 import { auth } from "@/auth";
 import { updateUser } from "@/data/user";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { CreateInvalidationCommand } from "@aws-sdk/client-cloudfront"
 import sharp from "sharp";
-import { s3 } from "@/lib/aws";
+import { s3, cloudFrontObject } from "@/lib/aws";
+import { revalidatePath } from "next/cache";
 
 export async function POST(req: NextRequest) {
   try {
@@ -67,6 +69,22 @@ export async function POST(req: NextRequest) {
       await s3.send(command);
 
       imageName = `profile/${user.id}-${user.email}-profile-picture`;
+
+      const invalidationParams = {
+        DistributionId: process.env.DISTRIBUTION_ID,
+        InvalidationBatch: {
+          CallerReference: `${imageName}-${Date.now()}`,
+          Paths: {
+            Quantity: 1,
+            Items: [
+              "/" + imageName
+            ]
+          }
+        },
+      }
+
+      const invalidationCommand = new CreateInvalidationCommand(invalidationParams)
+      await cloudFrontObject.send(invalidationCommand)
     }
 
     const updatedUser = await updateUser({

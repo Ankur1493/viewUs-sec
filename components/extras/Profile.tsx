@@ -48,6 +48,7 @@ export const Profile = ({ user }: { user: User }) => {
   const cdn = process.env.NEXT_PUBLIC_CDN_NAME;
   const router = useRouter()
 
+  const [imageKey, setImageKey] = useState(Date.now())
   const [passwordValues, setPasswordValues] = useState<PasswordFormState>({
     oldPassword: '',
     newPassword: '',
@@ -58,7 +59,7 @@ export const Profile = ({ user }: { user: User }) => {
   });
 
   const [selectedImage, setSelectedImage] = useState<string | null>(
-    user.image ? `${cdn}/${user.image}` : null
+    user.image ? `${cdn}/${user.image}?v=${imageKey}` : null
   );
 
   const form = useForm<z.infer<typeof profileSchema>>({

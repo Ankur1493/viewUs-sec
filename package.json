@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.0",
+    "@aws-sdk/client-cloudfront": "^3.682.0",
     "@aws-sdk/client-s3": "^3.673.0",
     "@calcom/embed-react": "^1.5.1",
     "@hookform/resolvers": "^3.9.0",
