@@ -79,7 +79,7 @@ const HeroSection: React.FC<HeroImageProps> = ({ imageSrc }) => {
             <span className="block">Minimal Effort</span>
           </h1>
         </div>
-        <div className="flex flex-col justify-center items-center text-gray-400 w-3/4 md:1/6 lg:w-3/5">
+        <div className="flex flex-col justify-center items-center text-gray-500 w-3/4 md:1/6 lg:w-3/5">
           <p className="hero__body text-md md:text-xl text-center opacity-0">
             ViewUs helps you seamlessly collect and manage customer
             testimonials.

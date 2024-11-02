@@ -90,11 +90,11 @@ export function SpaceSideBar() {
   return (
     <div
       className={cn(
-        "md:rounded-r-xl flex flex-col md:flex-row w-full flex-1 max-w-7xl ml-0 pl-0 mx-auto overflow-hidden md:border-r border-neutral-200",
+        "relative flex flex-col md:flex-row w-full flex-1 max-w-7xl ml-0 pl-0 mx-auto overflow-hidden",
         "h-screen"
       )}
     >
-      <Sidebar>
+      <Sidebar className="absolute w-full">
         <SidebarHeader className="flex flex-col jutify-center items-center">
           <Logo />
         </SidebarHeader>

@@ -9,7 +9,7 @@ export const ManageTestimonials = () => {
 
   return (
     <div
-      className="bg-[#141111] text-white pt-28 p-10 space-y-10 overflow-x-hidden"
+      className="bg-[#141111] text-white pt-28 p-10 space-y-10 overflow-x-hidden flex justify-center flex-col items-center"
       ref={ref}
     >
       <section className="text-center space-y-4">
@@ -31,7 +31,7 @@ export const ManageTestimonials = () => {
         </motion.p>
       </section>
 
-      <div className="grid grid-cols-4 gap-1 md:gap-4 overflow-hidden w-[600px] md:w-[1200px] lg:w-[2000px] h-full -ml-32 lg:-ml-48">
+      <div className="grid grid-cols-4 place-content-center gap-1 md:gap-4 overflow-hidden w-[600px] md:w-[1200px] lg:w-[2000px] h-full">
         <div className="col-span-1 row-span-2 flex items-center justify-center">
           <div className="rounded-lg">
             <Image
