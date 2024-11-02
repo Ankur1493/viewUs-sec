@@ -7,6 +7,7 @@ import twitter from "@/public/assets/images/twitter_logo.png";
 import linkedIn from "@/public/assets/images/linkedIn_logo.png";
 import productHunt from "@/public/assets/images/ProductHunt_logo.png";
 import profile from "@/public/assets/images/avatar.webp";
+import { TestimonialLikeButton } from "@/components/space/TestimonialLikeButton";
 
 const importedReviewTypeLabels = {
   0: "Twitter",
@@ -31,7 +32,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
 
   return (
     <Card
-      key={testimonial.id!}
+      key={testimonial._id}
       className="w-full  bg-gray-50 text-black shadow-sm hover:shadow-md duration-200 group"
     >
       {" "}
@@ -118,6 +119,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
         <p className="text-md tracking-wide text-justify font-medium">
           {testimonial.review}
         </p>
+        <TestimonialLikeButton testimonialId={testimonial._id!} initialLiked={testimonial.liked} />
       </CardContent>
     </Card>
   );

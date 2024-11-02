@@ -51,6 +51,7 @@ export async function POST(req: Request) {
       spaceId: spaceExists.id,
       slug: spaceExists.slug,
       review: message,
+      liked: false,
       firstName,
       image,
       reviewType: ReviewType.IMPORTED,

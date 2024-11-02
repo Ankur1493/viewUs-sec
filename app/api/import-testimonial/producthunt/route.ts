@@ -62,6 +62,7 @@ export async function POST(req: Request) {
       reviewType: ReviewType.IMPORTED,
       importedReviewType: ImportedReviewType.PRODUCTHUNT,
       slug: spaceExists.slug,
+      liked: false,
       review: result.commentBody as string,
       firstName: result.authorName as string,
       image: result.profileImage as string,

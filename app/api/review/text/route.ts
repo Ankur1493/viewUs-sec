@@ -121,6 +121,7 @@ export async function POST(req: NextRequest) {
       company: validatedFields.data.company,
       tags: validatedFields.data.tags,
       image: imageName,
+      liked: false,
     });
 
     if (!reviewCreated) {

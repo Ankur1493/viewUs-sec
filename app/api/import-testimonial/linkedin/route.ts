@@ -80,6 +80,7 @@ export async function POST(req: Request) {
       review: content,
       firstName: username,
       image: profilePic,
+      liked: false,
       reviewType: ReviewType.IMPORTED,
       importedReviewType: ImportedReviewType.LINKEDIN,
       importedImage: [postImage],
