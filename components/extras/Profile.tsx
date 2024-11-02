@@ -46,13 +46,13 @@ interface PasswordFormState {
 
 export const Profile = ({ user }: { user: User }) => {
   const cdn = process.env.NEXT_PUBLIC_CDN_NAME;
-  const router = useRouter()
+  const router = useRouter();
 
   const [imageKey, setImageKey] = useState(Date.now())
   const [passwordValues, setPasswordValues] = useState<PasswordFormState>({
-    oldPassword: '',
-    newPassword: '',
-    confirmPassword: '',
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
     showOldPassword: false,
     showNewPassword: false,
     showConfirmPassword: false,
@@ -94,40 +94,45 @@ export const Profile = ({ user }: { user: User }) => {
     }));
   };
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
   };
 
-  const handlePasswordChange = (prop: keyof PasswordFormState) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswordValues({
-      ...passwordValues,
-      [prop]: event.target.value,
-    });
-  };
+  const handlePasswordChange =
+    (prop: keyof PasswordFormState) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setPasswordValues({
+        ...passwordValues,
+        [prop]: event.target.value,
+      });
+    };
 
   const handleChangePassword = async () => {
-
     if (passwordValues.newPassword !== passwordValues.confirmPassword) {
       // toast passwords are not matching
-      console.log("new and confirm password are wrong")
-      return
+      console.log("new and confirm password are wrong");
+      return;
     }
 
-    const response = await updateUserPassword({ id: user.id, old: passwordValues.oldPassword, newPass: passwordValues.newPassword })
+    const response = await updateUserPassword({
+      id: user.id,
+      old: passwordValues.oldPassword,
+      newPass: passwordValues.newPassword,
+    });
 
     if (response.status) {
-      console.log(response.message)
-
+      console.log(response.message);
     } else {
-      console.log("sorry can not change")
+      console.log("sorry can not change");
     }
 
-    console.log(response.message)
+    console.log(response.message);
     passwordValues.oldPassword = "";
     passwordValues.newPassword = "";
     passwordValues.confirmPassword = "";
     console.log("Change password clicked");
-
   };
 
   const handleSaveChanges = async (data: z.infer<typeof profileSchema>) => {
@@ -157,15 +162,14 @@ export const Profile = ({ user }: { user: User }) => {
     }
   };
 
-
   const handleDeleteAccount = async () => {
     const response = await deleteUserProfile(user.id);
     if (response.status) {
-      await signOut()
-      router.push("/login")
+      await signOut();
+      router.push("/login");
     } else {
       //toast response.message
-      console.log(response.message)
+      console.log(response.message);
     }
   };
 
@@ -185,9 +189,7 @@ export const Profile = ({ user }: { user: User }) => {
             <div className="flex gap-4 items-center">
               <div className="relative w-[64px] h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
                 <Image
-                  src={
-                    selectedImage ? selectedImage : profileImage
-                  }
+                  src={selectedImage ? selectedImage : profileImage}
                   alt="Selected Image"
                   layout="fill"
                   objectFit="cover"
@@ -289,9 +291,7 @@ export const Profile = ({ user }: { user: User }) => {
         <div className="flex space-x-4 w-full py-4">
           <AlertDialog>
             <AlertDialogTrigger className="w-1/2">
-              <div
-                className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md border rounded-md text-sm font-medium"
-              >
+              <div className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md border rounded-md text-sm font-medium">
                 <Trash2 className="w-4 h-4 mr-2" />
                 Change Password
               </div>
@@ -302,13 +302,14 @@ export const Profile = ({ user }: { user: User }) => {
                 <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                 <AlertDialogDescription>
                   You will not be able to change your password for next 2 hours,
-                  we will also share a mail to confirm, if you have changed the password, ignore that mail
+                  we will also share a mail to confirm, if you have changed the
+                  password, ignore that mail
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <div className="relative">
                 <Input
                   placeholder="old password"
-                  onChange={handlePasswordChange('oldPassword')}
+                  onChange={handlePasswordChange("oldPassword")}
                   type={passwordValues.showOldPassword ? "text" : "password"}
                   value={passwordValues.oldPassword}
                   className="pr-10"
@@ -318,9 +319,13 @@ export const Profile = ({ user }: { user: User }) => {
                   variant="ghost"
                   size="icon"
                   className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                  onClick={() => handleClickShowPassword('showOldPassword')}
+                  onClick={() => handleClickShowPassword("showOldPassword")}
                   onMouseDown={handleMouseDownPassword}
-                  aria-label={passwordValues.showOldPassword ? "Hide password" : "Show password"}
+                  aria-label={
+                    passwordValues.showOldPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
                 >
                   {passwordValues.showOldPassword ? (
                     <EyeOff className="h-4 w-4 text-gray-500" />
@@ -332,7 +337,7 @@ export const Profile = ({ user }: { user: User }) => {
               <div className="relative">
                 <Input
                   placeholder="new password"
-                  onChange={handlePasswordChange('newPassword')}
+                  onChange={handlePasswordChange("newPassword")}
                   type={passwordValues.showNewPassword ? "text" : "password"}
                   value={passwordValues.newPassword}
                   className="pr-10"
@@ -342,9 +347,13 @@ export const Profile = ({ user }: { user: User }) => {
                   variant="ghost"
                   size="icon"
                   className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                  onClick={() => handleClickShowPassword('showNewPassword')}
+                  onClick={() => handleClickShowPassword("showNewPassword")}
                   onMouseDown={handleMouseDownPassword}
-                  aria-label={passwordValues.showNewPassword ? "Hide password" : "Show password"}
+                  aria-label={
+                    passwordValues.showNewPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
                 >
                   {passwordValues.showNewPassword ? (
                     <EyeOff className="h-4 w-4 text-gray-500" />
@@ -356,8 +365,10 @@ export const Profile = ({ user }: { user: User }) => {
               <div className="relative">
                 <Input
                   placeholder="confirm password"
-                  onChange={handlePasswordChange('confirmPassword')}
-                  type={passwordValues.showConfirmPassword ? "text" : "password"}
+                  onChange={handlePasswordChange("confirmPassword")}
+                  type={
+                    passwordValues.showConfirmPassword ? "text" : "password"
+                  }
                   value={passwordValues.confirmPassword}
                   className="pr-10"
                 />
@@ -366,9 +377,13 @@ export const Profile = ({ user }: { user: User }) => {
                   variant="ghost"
                   size="icon"
                   className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                  onClick={() => handleClickShowPassword('showConfirmPassword')}
+                  onClick={() => handleClickShowPassword("showConfirmPassword")}
                   onMouseDown={handleMouseDownPassword}
-                  aria-label={passwordValues.showConfirmPassword ? "Hide password" : "Show password"}
+                  aria-label={
+                    passwordValues.showConfirmPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
                 >
                   {passwordValues.showConfirmPassword ? (
                     <EyeOff className="h-4 w-4 text-gray-500" />
@@ -380,9 +395,7 @@ export const Profile = ({ user }: { user: User }) => {
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction className="bg-red-600 hover:bg-red-600 hover:bg-opacity-90">
-                  <div onClick={handleChangePassword}>
-                    Change
-                  </div>
+                  <div onClick={handleChangePassword}>Change</div>
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -390,9 +403,7 @@ export const Profile = ({ user }: { user: User }) => {
           {/*Delete dialog belo*/}
           <AlertDialog>
             <AlertDialogTrigger className="w-1/2">
-              <div
-                className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md bg-red-600 hover:bg-red-600 hover:bg-opacity-90 text-white rounded-md text-sm font-medium"
-              >
+              <div className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md bg-red-600 hover:bg-red-600 hover:bg-opacity-90 text-white rounded-md text-sm font-medium">
                 <Trash2 className="w-4 h-4 mr-2" />
                 Delete My Account
               </div>
@@ -409,9 +420,7 @@ export const Profile = ({ user }: { user: User }) => {
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction className="bg-red-600 hover:bg-red-600 hover:bg-opacity-90">
-                  <div onClick={handleDeleteAccount}>
-                    Delete
-                  </div>
+                  <div onClick={handleDeleteAccount}>Delete</div>
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -421,4 +430,3 @@ export const Profile = ({ user }: { user: User }) => {
     </div>
   );
 };
-

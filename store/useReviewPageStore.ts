@@ -15,6 +15,7 @@ interface buttonStore {
     jobTitle?: string | null;
     image?: File | null;
   };
+  testimonialType: string | null;
   setReviewButton: (buttonType: string) => void;
   setDetailsButton: (buttonType: boolean) => void;
   setTextReview: (review: string) => void;
@@ -24,6 +25,7 @@ interface buttonStore {
   setCustomerDetails: (
     details: Partial<buttonStore["customerDetails"]>
   ) => void;
+  setTestimonialType: (buttonType: string | null) => void;
 }
 
 const useReviewPageStore = create<buttonStore>((set) => ({
@@ -42,6 +44,7 @@ const useReviewPageStore = create<buttonStore>((set) => ({
     jobTitle: "",
     image: null,
   },
+  testimonialType: null,
   setReviewButton: (buttonType: string) => set({ reviewButton: buttonType }),
   setDetailsButton: (state: boolean) => set({ detailsButton: state }),
   setTextReview: (review: string) => set({ textReview: review }),
@@ -57,6 +60,8 @@ const useReviewPageStore = create<buttonStore>((set) => ({
         ? state.selectedTags.filter((t) => t !== tag)
         : [...state.selectedTags, tag],
     })),
+  setTestimonialType: (buttonType: string | null) =>
+    set({ testimonialType: buttonType }),
 }));
 
 export default useReviewPageStore;

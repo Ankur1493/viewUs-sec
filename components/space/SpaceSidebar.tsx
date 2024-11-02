@@ -22,7 +22,6 @@ import {
   Heart,
   Link2,
   Import,
-  Target,
   MessageCircleHeartIcon,
 } from "lucide-react";
 import Link from "next/link";
@@ -30,36 +29,38 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
-import { LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import useReviewPageStore from "@/store/useReviewPageStore";
 
 export function SpaceSideBar() {
+  const { setTestimonialType } = useReviewPageStore();
+
   const inboxLinks = [
     {
       label: "All",
-      href: "/dashboard",
       icon: (
-        <CircleCheckIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
+        <CircleCheckIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />
       ),
+      onClick: () => setTestimonialType(null),
     },
     {
       label: "Written",
-      href: "/docs",
-      icon: <PencilIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />,
+      icon: <PencilIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
+      onClick: () => setTestimonialType("text"),
     },
     {
       label: "Video",
-      href: "/pricing",
-      icon: <VideoIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />,
+      icon: <VideoIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
+      onClick: () => setTestimonialType("video"),
     },
     {
       label: "Imported",
-      href: "/articles",
-      icon: <ImportIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />,
+      icon: <ImportIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
+      onClick: () => setTestimonialType("imported"),
     },
     {
       label: "Liked",
-      href: "/articles",
-      icon: <Heart className="text-neutral-700 h-6 w-6 flex-shrink-0" />,
+      icon: <Heart className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
+      onClick: () => setTestimonialType("liked"),
     },
   ];
 
@@ -81,27 +82,8 @@ export function SpaceSideBar() {
   const ImportLinks = [
     {
       label: "Import Testimonials",
-      href: "/dashboard",
-      icon: <Import className="text-neutral-700 h-6 w-6 flex-shrink-0" />,
-    },
-    {
-      label: "Twitter",
-      href: "/dashboard",
-      icon: (
-        <TwitterLogoIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "LinkedIn",
-      href: "/",
-      icon: (
-        <LinkedInLogoIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Product Hunt",
-      href: "/",
-      icon: <Target className="text-neutral-700 h-6 w-6 flex-shrink-0" />,
+      icon: <Import className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
+      onClick: () => setTestimonialType("importTestimonials"),
     },
   ];
 
@@ -123,11 +105,11 @@ export function SpaceSideBar() {
               <SidebarMenu className="w-[80%]">
                 {inboxLinks.map((link, idx) => (
                   <SidebarMenuItem key={idx}>
-                    <SidebarMenuButton asChild>
-                      <Link href={link.href}>
+                    <SidebarMenuButton onClick={link.onClick}>
+                      <div className="flex items-center cursor-pointer">
                         {link.icon}
-                        <span>{link.label}</span>
-                      </Link>
+                        <span className="ml-2">{link.label}</span>
+                      </div>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -140,11 +122,11 @@ export function SpaceSideBar() {
               <SidebarMenu className="w-[80%]">
                 {ImportLinks.map((link, idx) => (
                   <SidebarMenuItem key={idx}>
-                    <SidebarMenuButton asChild>
-                      <Link href={link.href}>
+                    <SidebarMenuButton onClick={link.onClick}>
+                      <div className="flex items-center cursor-pointer">
                         {link.icon}
-                        <span>{link.label}</span>
-                      </Link>
+                        <span className="ml-2">{link.label}</span>
+                      </div>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
