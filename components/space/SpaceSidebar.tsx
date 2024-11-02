@@ -21,7 +21,6 @@ import {
   Settings,
   Heart,
   Link2,
-  Import,
   MessageCircleHeartIcon,
 } from "lucide-react";
 import Link from "next/link";
@@ -29,10 +28,14 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
-import useReviewPageStore from "@/store/useReviewPageStore";
+import { useParams } from "next/navigation";
+import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 
 export function SpaceSideBar() {
-  const { setTestimonialType } = useReviewPageStore();
+
+  const { slug } = useParams();
+
+  const { setFilter } = useTestimonialFilterStore()
 
   const inboxLinks = [
     {
@@ -40,27 +43,27 @@ export function SpaceSideBar() {
       icon: (
         <CircleCheckIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />
       ),
-      onClick: () => setTestimonialType(null),
+      onClick: () => setFilter("all"),
     },
     {
       label: "Written",
       icon: <PencilIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
-      onClick: () => setTestimonialType("text"),
+      onClick: () => setFilter("text"),
     },
     {
       label: "Video",
       icon: <VideoIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
-      onClick: () => setTestimonialType("video"),
+      onClick: () => setFilter("video"),
     },
     {
       label: "Imported",
       icon: <ImportIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
-      onClick: () => setTestimonialType("imported"),
+      onClick: () => setFilter("imported"),
     },
     {
       label: "Liked",
       icon: <Heart className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
-      onClick: () => setTestimonialType("liked"),
+      onClick: () => setFilter("liked"),
     },
   ];
 
@@ -76,14 +79,6 @@ export function SpaceSideBar() {
       icon: (
         <MessageCircleHeartIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
       ),
-    },
-  ];
-
-  const ImportLinks = [
-    {
-      label: "Import Testimonials",
-      icon: <Import className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
-      onClick: () => setTestimonialType("importTestimonials"),
     },
   ];
 
@@ -105,12 +100,14 @@ export function SpaceSideBar() {
               <SidebarMenu className="w-[80%]">
                 {inboxLinks.map((link, idx) => (
                   <SidebarMenuItem key={idx}>
-                    <SidebarMenuButton onClick={link.onClick}>
-                      <div className="flex items-center cursor-pointer">
-                        {link.icon}
-                        <span className="ml-2">{link.label}</span>
-                      </div>
-                    </SidebarMenuButton>
+                    <Link href={`/space/${slug}`}>
+                      <SidebarMenuButton onClick={link.onClick}>
+                        <div className="flex items-center cursor-pointer">
+                          {link.icon}
+                          <span className="ml-2">{link.label}</span>
+                        </div>
+                      </SidebarMenuButton>
+                    </Link>
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
@@ -120,16 +117,14 @@ export function SpaceSideBar() {
             <SidebarGroupLabel>Integrations</SidebarGroupLabel>
             <SidebarGroupContent className="flex flex-col jutify-center items-center">
               <SidebarMenu className="w-[80%]">
-                {ImportLinks.map((link, idx) => (
-                  <SidebarMenuItem key={idx}>
-                    <SidebarMenuButton onClick={link.onClick}>
-                      <div className="flex items-center cursor-pointer">
-                        {link.icon}
-                        <span className="ml-2">{link.label}</span>
-                      </div>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                <SidebarMenuItem >
+                  <SidebarMenuButton>
+                    <Link href={`/space/${slug}/import`} className="flex items-center cursor-pointer">
+                      <ImportIcon />
+                      <span className="ml-2">Import Testimonials</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

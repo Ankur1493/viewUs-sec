@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { IReview, ReviewType } from "@/models/review_model";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Import, Pencil, Video } from "lucide-react";
 import starsSelected from "@/public/assets/images/star_selected.png";
@@ -7,6 +6,7 @@ import twitter from "@/public/assets/images/twitter_logo.png";
 import linkedIn from "@/public/assets/images/linkedIn_logo.png";
 import productHunt from "@/public/assets/images/ProductHunt_logo.png";
 import profile from "@/public/assets/images/avatar.webp";
+import { IReview, ReviewType } from "./ManageTestimonials";
 import { TestimonialLikeButton } from "@/components/space/TestimonialLikeButton";
 
 const importedReviewTypeLabels = {
@@ -51,7 +51,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
               <Image
                 src={
                   testimonial?.image
-                    ? `${process.env.CDN_NAME}/${testimonial.image}`
+                    ? `https://d3eyp937ijscg0.cloudfront.net/${testimonial.image}`
                     : profile
                 }
                 alt="profile"
@@ -108,7 +108,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
               alt={reviewTypeLabel}
               width={50}
               height={50}
-              className="Sobject-cover"
+              className="object-cover"
             />
           ) : (
             <Import color="#009EE2" size={25} />

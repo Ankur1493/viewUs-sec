@@ -6,7 +6,6 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { CreateInvalidationCommand } from "@aws-sdk/client-cloudfront"
 import sharp from "sharp";
 import { s3, cloudFrontObject } from "@/lib/aws";
-import { revalidatePath } from "next/cache";
 
 export async function POST(req: NextRequest) {
   try {

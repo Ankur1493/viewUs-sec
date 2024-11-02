@@ -48,7 +48,7 @@ export const Profile = ({ user }: { user: User }) => {
   const cdn = process.env.NEXT_PUBLIC_CDN_NAME;
   const router = useRouter();
 
-  const [imageKey, setImageKey] = useState(Date.now())
+  const [imageKey, _] = useState(Date.now())
   const [passwordValues, setPasswordValues] = useState<PasswordFormState>({
     oldPassword: "",
     newPassword: "",
@@ -102,12 +102,12 @@ export const Profile = ({ user }: { user: User }) => {
 
   const handlePasswordChange =
     (prop: keyof PasswordFormState) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPasswordValues({
-        ...passwordValues,
-        [prop]: event.target.value,
-      });
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordValues({
+          ...passwordValues,
+          [prop]: event.target.value,
+        });
+      };
 
   const handleChangePassword = async () => {
     if (passwordValues.newPassword !== passwordValues.confirmPassword) {

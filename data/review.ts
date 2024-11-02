@@ -1,3 +1,5 @@
+"use server"
+
 import mongoose from "mongoose";
 import { connectToMongo } from "@/lib/mongoose";
 import Review, { IReview, ReviewType } from "@/models/review_model";

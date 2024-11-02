@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const statusId = url.split("/status/")[1];
     const tweet = await getTweet(statusId)
     const reqUrl = req.headers.get('referer') || 'No referrer found';
-    const spaceSlug = reqUrl.split("/space/")[1]
+    const spaceSlug = reqUrl.split("/space/")[1].split("/")[0];
 
     const spaceExists = await db.space.findUnique({
       where: {
