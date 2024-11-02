@@ -3,9 +3,7 @@ import { updateTestimonialLikeStatus } from "@/data/review";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  console.log("req aagyi")
   try {
-
     const session = await auth();
     if (!session) {
       return NextResponse.json({
@@ -16,7 +14,6 @@ export async function POST(req: Request) {
     }
 
     const { id, liked } = await req.json();
-    console.log({ id, liked })
 
     const likedUpdated = await updateTestimonialLikeStatus({ id, liked })
 
@@ -28,7 +25,6 @@ export async function POST(req: Request) {
     }
 
 
-    console.log(`req puri hogyi`)
     return NextResponse.json({
       success: true,
       message: "Review updated",

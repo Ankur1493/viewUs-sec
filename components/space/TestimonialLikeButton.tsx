@@ -24,7 +24,9 @@ export const TestimonialLikeButton = ({ testimonialId, initialLiked }: Testimoni
         liked: !liked
       })
       if (response.data.success) {
-        toast.success(`Testimonial ${!liked ? "added" : "removed"} from your wall of love`)
+        toast(`Testimonial ${!liked ? "added" : "removed"}`, {
+          description: "Wall of love will be updated in some time"
+        })
       }
 
       // Toggle the liked status

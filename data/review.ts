@@ -93,7 +93,6 @@ export const updateTestimonialLikeStatus = async ({ id, liked }: { id: string; l
       return { err: "failed to update like status" }
     }
 
-    console.log({ likeUpdated })
     return { success: true, likeUpdated };
   } catch (err) {
     console.log(err);
