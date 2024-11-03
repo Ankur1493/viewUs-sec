@@ -13,22 +13,22 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const ReasonsToUse: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  // const containerRef = useRef<HTMLDivElement>(null);
   const beamRefs = useRef<HTMLDivElement[]>([]);
   const lineRefs = useRef<HTMLDivElement[]>([]);
   const cardRefs = useRef<HTMLDivElement[]>([]);
 
-  const addToBeamRefs = (el: HTMLDivElement | null) => {
-    if (el && !beamRefs.current.includes(el)) {
-      beamRefs.current.push(el);
-    }
-  };
+  // const addToBeamRefs = (el: HTMLDivElement | null) => {
+  //   if (el && !beamRefs.current.includes(el)) {
+  //     beamRefs.current.push(el);
+  //   }
+  // };
 
-  const addToLineRefs = (el: HTMLDivElement | null) => {
-    if (el && !lineRefs.current.includes(el)) {
-      lineRefs.current.push(el);
-    }
-  };
+  // const addToLineRefs = (el: HTMLDivElement | null) => {
+  //   if (el && !lineRefs.current.includes(el)) {
+  //     lineRefs.current.push(el);
+  //   }
+  // };
 
   const addToCardRefs = (el: HTMLDivElement | null) => {
     if (el && !cardRefs.current.includes(el)) {
