@@ -1,5 +1,4 @@
 import { DashboardNavbar } from "@/components/dashboard/DashboardNavbar";
-import SpaceInfo from "@/components/space/SpaceInfo";
 import { SpaceSideBar } from "@/components/space/SpaceSidebar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
@@ -12,9 +11,8 @@ const SpaceLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="block md:hidden flex-none">
         <SidebarTrigger />
       </div>
-      <div className="flex-grow w-full md:w-5/6 lg:w-full">
+      <div className="flex-grow w-full h-full md:w-5/6 overflow-x-hidden">
         <DashboardNavbar />
-        <SpaceInfo />
         {children}
       </div>
     </div>
