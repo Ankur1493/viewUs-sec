@@ -34,6 +34,7 @@ import axios from "axios";
 import { deleteUserProfile, updateUserPassword } from "@/actions/user";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { toast } from "sonner";
 
 interface PasswordFormState {
   oldPassword: string;
@@ -48,7 +49,7 @@ export const Profile = ({ user }: { user: User }) => {
   const cdn = process.env.NEXT_PUBLIC_CDN_NAME;
   const router = useRouter();
 
-  const [imageKey] = useState(Date.now())
+  const [imageKey] = useState(Date.now());
   const [passwordValues, setPasswordValues] = useState<PasswordFormState>({
     oldPassword: "",
     newPassword: "",
@@ -102,17 +103,18 @@ export const Profile = ({ user }: { user: User }) => {
 
   const handlePasswordChange =
     (prop: keyof PasswordFormState) =>
-      (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPasswordValues({
-          ...passwordValues,
-          [prop]: event.target.value,
-        });
-      };
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setPasswordValues({
+        ...passwordValues,
+        [prop]: event.target.value,
+      });
+    };
 
   const handleChangePassword = async () => {
     if (passwordValues.newPassword !== passwordValues.confirmPassword) {
       // toast passwords are not matching
       console.log("new and confirm password are wrong");
+      toast.error("New and confirm password doesn't matches");
       return;
     }
 
@@ -123,8 +125,10 @@ export const Profile = ({ user }: { user: User }) => {
     });
 
     if (response.status) {
+      toast.success("Password updated successfully");
       console.log(response.message);
     } else {
+      toast.error("Sorry, unable to process your changes!");
       console.log("sorry can not change");
     }
 
@@ -155,9 +159,11 @@ export const Profile = ({ user }: { user: User }) => {
           "Content-Type": "multipart/form-data",
         },
       });
+      toast.success("Details updated successfully");
       console.log(response.status);
       //toast profile updated
     } catch (error) {
+      toast.error("Sorry, unable to process your changes!");
       console.error("Error saving profile:", error);
     }
   };
@@ -165,10 +171,12 @@ export const Profile = ({ user }: { user: User }) => {
   const handleDeleteAccount = async () => {
     const response = await deleteUserProfile(user.id);
     if (response.status) {
+      toast.success("Account deleted successfully");
       await signOut();
       router.push("/login");
     } else {
       //toast response.message
+      toast.error("Sorry, unable to process your changes!");
       console.log(response.message);
     }
   };

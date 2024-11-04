@@ -1,43 +1,44 @@
-"use client"
+"use client";
 
-import { useState } from 'react'
-import { toast } from "sonner"
-import axios from 'axios'
-import { Heart } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { toast } from "sonner";
+import axios from "axios";
+import { Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface TestimonialLikeButtonProps {
-  testimonialId: string
-  initialLiked: boolean
+  testimonialId: string;
+  initialLiked: boolean;
 }
 
-export const TestimonialLikeButton = ({ testimonialId, initialLiked }: TestimonialLikeButtonProps) => {
-  const [liked, setLiked] = useState(initialLiked)
-  const [isUpdating, setIsUpdating] = useState(false)
+export const TestimonialLikeButton = ({
+  testimonialId,
+  initialLiked,
+}: TestimonialLikeButtonProps) => {
+  const [liked, setLiked] = useState(initialLiked);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const updateLikeStatus = async () => {
-    setIsUpdating(true)
+    setIsUpdating(true);
     try {
-
       const response = await axios.post("/api/review/like", {
         id: testimonialId,
-        liked: !liked
-      })
+        liked: !liked,
+      });
       if (response.data.success) {
-        toast(`Testimonial ${!liked ? "added" : "removed"}`, {
-          description: "Wall of love will be updated in some time"
-        })
+        toast(`Testimonial ${!liked ? "added" : "removed"} successfully`, {
+          description: "Wall of love will be updated in some time",
+        });
       }
 
       // Toggle the liked status
-      setLiked(prevLiked => !prevLiked)
-
+      setLiked((prevLiked) => !prevLiked);
     } catch (error) {
-      console.error('Failed to update like status:', error)
+      console.error("Failed to update like status:", error);
     } finally {
-      setIsUpdating(false)
+      setIsUpdating(false);
     }
-  }
+  };
 
   return (
     <Button
@@ -48,8 +49,10 @@ export const TestimonialLikeButton = ({ testimonialId, initialLiked }: Testimoni
       aria-label={liked ? "Unlike testimonial" : "Like testimonial"}
     >
       <Heart
-        className={`h-6 w-6 ${liked ? 'fill-red-500 text-red-500' : 'text-gray-500'}`}
+        className={`h-6 w-6 ${
+          liked ? "fill-red-500 text-red-500" : "text-black"
+        }`}
       />
     </Button>
-  )
-}
+  );
+};

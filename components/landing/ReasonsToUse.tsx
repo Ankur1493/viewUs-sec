@@ -8,21 +8,28 @@ import {
   CardContent,
   CardDescription,
   CardTitle,
-} from "../ui/card";
+} from "@/components/ui/card";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const ReasonsToUse: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
+  // const containerRef = useRef<HTMLDivElement>(null);
+  const beamRefs = useRef<HTMLDivElement[]>([]);
   const lineRefs = useRef<HTMLDivElement[]>([]);
   const cardRefs = useRef<HTMLDivElement[]>([]);
 
-  const addToRefs = (el: HTMLDivElement | null) => {
-    if (el && !lineRefs.current.includes(el)) {
-      lineRefs.current.push(el);
-    }
-  };
+  // const addToBeamRefs = (el: HTMLDivElement | null) => {
+  //   if (el && !beamRefs.current.includes(el)) {
+  //     beamRefs.current.push(el);
+  //   }
+  // };
+
+  // const addToLineRefs = (el: HTMLDivElement | null) => {
+  //   if (el && !lineRefs.current.includes(el)) {
+  //     lineRefs.current.push(el);
+  //   }
+  // };
+
   const addToCardRefs = (el: HTMLDivElement | null) => {
     if (el && !cardRefs.current.includes(el)) {
       cardRefs.current.push(el);
@@ -35,72 +42,65 @@ const ReasonsToUse: React.FC = () => {
     ).matches;
     if (prefersReducedMotion) return;
 
+    const beams = beamRefs.current;
     const lines = lineRefs.current;
-    const glow = glowRef.current;
     const cards = cardRefs.current;
 
-    if (!glow || lines.length === 0 || cards.length === 0) return;
+    if (beams.length === 0 || lines.length === 0 || cards.length === 0) return;
 
     const tl = gsap.timeline({ repeat: -1 });
 
-    tl.to(glow, {
+    // Move main beam from top to middle
+    tl.to(beams[0], {
       top: "50%",
       duration: 0.5,
       ease: "power2.inOut",
     });
 
+    // Split into three beams
+    tl.to(beams[1], { opacity: 1, duration: 0.1 }, "split");
+    tl.to(beams[2], { opacity: 1, duration: 0.1 }, "split");
+    tl.to(beams[3], { opacity: 1, duration: 0.1 }, "split");
+
+    // Move beams to their destinations
     tl.to(
-      glow,
-      {
-        left: "0%",
-        duration: 0.5,
-        ease: "power2.inOut",
-      },
-      "horizontal"
+      beams[1],
+      { left: "0%", duration: 0.5, ease: "power2.inOut" },
+      "move"
     );
     tl.to(
-      glow,
-      {
-        left: "100%",
-        duration: 0.5,
-        ease: "power2.inOut",
-      },
-      "horizontal"
+      beams[2],
+      { left: "100%", duration: 0.5, ease: "power2.inOut" },
+      "move"
     );
     tl.to(
-      glow,
-      {
-        top: "100%",
-        left: "50%",
-        duration: 0.5,
-        ease: "power2.inOut",
-      },
-      "horizontal"
+      beams[3],
+      { top: "100%", duration: 0.5, ease: "power2.inOut" },
+      "move"
     );
 
+    // Move horizontal beams downwards
     tl.to(
-      glow,
-      {
-        top: "100%",
-        left: "0%",
-        duration: 0.5,
-        ease: "power2.inOut",
-      },
-      "vertical"
+      beams[1],
+      { top: "100%", duration: 0.5, ease: "power2.inOut" },
+      "moveDown"
     );
     tl.to(
-      glow,
-      {
-        top: "100%",
-        left: "100%",
-        duration: 0.5,
-        ease: "power2.inOut",
-      },
-      "vertical"
+      beams[2],
+      { top: "100%", duration: 0.5, ease: "power2.inOut" },
+      "moveDown"
     );
 
-    tl.set(glow, { top: "0%", left: "50%" });
+    // Fade out beams
+    tl.to(beams, { opacity: 0, duration: 0.3 }, "fadeOut");
 
+    // Reset main beam position
+    tl.set(beams[0], { top: "0%", left: "50%", opacity: 1 });
+    tl.set([beams[1], beams[2], beams[3]], { top: "50%", opacity: 0 });
+    tl.set(beams[1], { left: "50%" });
+    tl.set(beams[2], { left: "50%" });
+
+    // Animate lines
     lines.forEach((line, index) => {
       if (index === 0) {
         tl.to(line, { opacity: 1, duration: 0.5 }, 0);
@@ -113,34 +113,8 @@ const ReasonsToUse: React.FC = () => {
         tl.to(line, { opacity: 0.2, duration: 0.5 }, 2.5);
       }
     });
-    tl.to(glow, { top: "50%", duration: 0.5, ease: "power2.inOut" }, 0);
-    tl.to(
-      glow,
-      { left: "0%", duration: 0.5, ease: "power2.inOut" },
-      "horizontal"
-    );
-    tl.to(
-      glow,
-      { left: "100%", duration: 0.5, ease: "power2.inOut" },
-      "horizontal"
-    );
-    tl.to(
-      glow,
-      { top: "100%", left: "50%", duration: 0.5, ease: "power2.inOut" },
-      "horizontal"
-    );
-    tl.to(
-      glow,
-      { top: "100%", left: "0%", duration: 0.5, ease: "power2.inOut" },
-      "vertical"
-    );
-    tl.to(
-      glow,
-      { top: "100%", left: "100%", duration: 0.5, ease: "power2.inOut" },
-      "vertical"
-    );
-    tl.set(glow, { top: "0%", left: "50%" });
 
+    // Animate cards
     const animateCard = (cardIndex: number, startTime: number) => {
       tl.to(
         cards[cardIndex],
@@ -167,13 +141,12 @@ const ReasonsToUse: React.FC = () => {
 
     animateCard(0, 2.5);
     animateCard(2, 2.5);
-
     animateCard(1, 1.5);
   }, []);
 
   const cards = [
     {
-      title: "Best Pricing — Maximize Your ROI with Flexible Plans-",
+      title: "Best Pricing — Maximize Your ROI with Flexible Plans",
       content:
         "ViewUs offers feature-rich testimonial tools at competitive rates. Our flexible plans let you scale with ease, ensuring maximum impact without breaking the bank.",
       image: "/assets/images/card1.png",
@@ -194,50 +167,67 @@ const ReasonsToUse: React.FC = () => {
 
   return (
     <div className="container mx-auto text-center flex flex-col gap-10 lg:gap-0 justify-center items-center overflow-hidden">
-      <h2 className="text-2xl md:text-4xl lg:text-6xl font-bold">
+      <h2 className="text-2xl md:text-4xl lg:text-6xl font-bold pb-10">
         3 reasons to choose ViewUs
       </h2>
-      <div
+      {/* <div
         className="relative hidden lg:block flex items-center justify-center h-32 w-[800px]"
         ref={containerRef}
       >
         <div
-          ref={addToRefs}
-          className="absolute w-0.5 h-16 bg-purple-500 top-0 left-1/2 -translate-x-1/2 opacity-20"
+          ref={addToLineRefs}
+          className="absolute w-0.5 h-16 bg-purple-800 top-0 left-1/2 -translate-x-1/2 opacity-20"
         ></div>
         <div className="absolute flex w-full top-1/2 -translate-y-1/2">
           <div className="w-1/2 h-0.5 bg-transparent flex-1">
             <div
-              ref={addToRefs}
-              className="h-0.5 bg-purple-500 w-full opacity-20"
+              ref={addToLineRefs}
+              className="h-0.5 bg-purple-800 w-full opacity-20"
             ></div>
           </div>
           <div className="w-1/2 h-0.5 bg-transparent flex-1">
             <div
-              ref={addToRefs}
-              className="h-0.5 bg-purple-500 w-full opacity-20"
+              ref={addToLineRefs}
+              className="h-0.5 bg-purple-800 w-full opacity-20"
             ></div>
           </div>
         </div>
         <div className="absolute w-full h-16 flex justify-between top-1/2">
           <div
-            ref={addToRefs}
+            ref={addToLineRefs}
             className="w-0.5 h-16 bg-purple-500 opacity-20"
           ></div>
           <div
-            ref={addToRefs}
+            ref={addToLineRefs}
             className="w-0.5 h-16 bg-purple-500 opacity-20"
           ></div>
           <div
-            ref={addToRefs}
+            ref={addToLineRefs}
             className="w-0.5 h-16 bg-purple-500 opacity-20"
           ></div>
-        </div>
-        <div
-          ref={glowRef}
+        </div> */}
+      {/* Main beam */}
+      {/* <div
+          ref={addToBeamRefs}
           className="absolute w-4 h-4 bg-white rounded-full shadow-[0_0_10px_5px_rgba(255,255,255,0.7),0_0_20px_10px_rgba(255,255,255,0.5)] top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        ></div> */}
+      {/* Left beam */}
+      {/* <div
+          ref={addToBeamRefs}
+          className="absolute w-4 h-4 bg-white rounded-full shadow-[0_0_10px_5px_rgba(255,255,255,0.7),0_0_20px_10px_rgba(255,255,255,0.5)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0"
+        ></div> */}
+      {/* Right beam */}
+      {/* <div
+          ref={addToBeamRefs}
+          className="absolute w-4 h-4 bg-white rounded-full shadow-[0_0_10px_5px_rgba(255,255,255,0.7),0_0_20px_10px_rgba(255,255,255,0.5)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0"
+        ></div> */}
+      {/* Bottom beam */}
+      {/* <div
+          ref={addToBeamRefs}
+          className="absolute w-4 h-4 bg-white rounded-full shadow-[0_0_10px_5px_rgba(255,255,255,0.7),0_0_20px_10px_rgba(255,255,255,0.5)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0"
         ></div>
-      </div>
+      </div> */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-4 px-4 lg:px-2">
         {cards.map((card, index) => (
           <Card

@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
+// import { IReview } from "@/models/review_model";
 import { useEffect, useState } from "react";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { TestimonialCard } from "./TestimonialCard";
 import { FrownIcon } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
 
-
 export enum ReviewType {
   TEXT = 0,
   VIDEO = 1,
-  IMPORTED = 2
+  IMPORTED = 2,
 }
 
 enum ImportedReviewTypeModel {
   TWITTER = 0,
   LINKEDIN = 1,
-  PRODUCTHUNT = 2
+  PRODUCTHUNT = 2,
 }
 
 export interface IReview {
@@ -44,14 +44,13 @@ export const ManageTestimonials = ({
 }: {
   testimonials: IReview[];
 }) => {
-
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const { filter, initializeFilter } = useTestimonialFilterStore();
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     initializeFilter();
-    setLoading(false)
+    setLoading(false);
   }, [filter]);
 
   const filteredTestimonials = testimonials.filter((testimonial) => {
@@ -70,16 +69,18 @@ export const ManageTestimonials = ({
   });
 
   if (loading) {
-    <Skeleton className="w-1/2 h-48" />
+    <Skeleton className="w-1/2 h-48" />;
   }
 
   if (filteredTestimonials.length === 0) {
     return (
-      <div className="h-full w-full flex  justify-center items-center">
+      <div className="w-full flex pt-52  justify-center items-center">
         <div className="bg-[#E9F8FF] w-[80px] h-[80px] rounded-full flex justify-center items-center mx-6">
           <FrownIcon color="#009EE2" size={30} />
         </div>
-        <h1 className="text-3xl font-medium">You have no {filter} reviews yet</h1>
+        <h1 className="text-3xl font-medium">
+          You have no {filter} reviews yet
+        </h1>
       </div>
     );
   }

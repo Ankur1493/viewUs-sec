@@ -8,6 +8,8 @@ import productHunt from "@/public/assets/images/ProductHunt_logo.png";
 import profile from "@/public/assets/images/avatar.webp";
 import { IReview, ReviewType } from "./ManageTestimonials";
 import { TestimonialLikeButton } from "@/components/space/TestimonialLikeButton";
+import { TestimonialDeleteButton } from "./TestimonialDeleteButton";
+import { TestimonialShareButton } from "./TestimonialShareButton";
 
 const importedReviewTypeLabels = {
   0: "Twitter",
@@ -27,13 +29,13 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
   const numberOfStars = testimonial.stars ?? 0;
   const reviewTypeLabel: ImportedReviewType =
     importedReviewTypeLabels[
-    testimonial.importedReviewType as keyof typeof importedReviewTypeLabels
+      testimonial.importedReviewType as keyof typeof importedReviewTypeLabels
     ];
 
   return (
     <Card
       key={testimonial._id}
-      className="w-full  bg-gray-50 text-black shadow-sm hover:shadow-md duration-200 group"
+      className="w-[98%] bg-gray-50 text-black shadow-sm hover:shadow-md duration-200 group"
     >
       {" "}
       <CardHeader className="flex flex-row justify-between">
@@ -119,7 +121,20 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
         <p className="text-md tracking-wide text-justify font-medium">
           {testimonial.review}
         </p>
-        <TestimonialLikeButton testimonialId={testimonial._id!} initialLiked={testimonial.liked} />
+        <div className="flex justify-end items-center p-0">
+          <div className="flex justify-center items-center m-0">
+            <TestimonialDeleteButton testimonialId={testimonial._id!} />
+          </div>
+          <div>
+            <TestimonialLikeButton
+              testimonialId={testimonial._id!}
+              initialLiked={testimonial.liked}
+            />
+          </div>
+          <div>
+            <TestimonialShareButton testimonial={testimonial} />
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

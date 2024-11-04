@@ -23,19 +23,20 @@ import {
   Link2,
   MessageCircleHeartIcon,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 
 export function SpaceSideBar() {
-
   const { slug } = useParams();
+  const pathName = usePathname();
 
-  const { setFilter } = useTestimonialFilterStore()
+  const { filter, setFilter } = useTestimonialFilterStore();
+  const isImportedActive = pathName.includes("import");
 
   const inboxLinks = [
     {
@@ -44,26 +45,31 @@ export function SpaceSideBar() {
         <CircleCheckIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />
       ),
       onClick: () => setFilter("all"),
+      key: "all",
     },
     {
       label: "Written",
       icon: <PencilIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
       onClick: () => setFilter("text"),
+      key: "text",
     },
     {
       label: "Video",
       icon: <VideoIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
       onClick: () => setFilter("video"),
+      key: "video",
     },
     {
       label: "Imported",
       icon: <ImportIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
       onClick: () => setFilter("imported"),
+      key: "imported",
     },
     {
       label: "Liked",
       icon: <Heart className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
       onClick: () => setFilter("liked"),
+      key: "liked",
     },
   ];
 
@@ -83,88 +89,95 @@ export function SpaceSideBar() {
   ];
 
   return (
-    <div
-      className={cn(
-        "md:rounded-r-xl flex flex-col md:flex-row w-full flex-1 max-w-7xl ml-0 pl-0 mx-auto overflow-hidden md:border-r border-neutral-200",
-        "h-screen"
-      )}
-    >
-      <Sidebar>
-        <SidebarHeader className="flex flex-col jutify-center items-center">
-          <Logo />
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Inbox</SidebarGroupLabel>
-            <SidebarGroupContent className="flex flex-col jutify-center items-center">
-              <SidebarMenu className="w-[80%]">
-                {inboxLinks.map((link, idx) => (
-                  <SidebarMenuItem key={idx}>
-                    <Link href={`/space/${slug}`}>
-                      <SidebarMenuButton onClick={link.onClick}>
-                        <div className="flex items-center cursor-pointer">
-                          {link.icon}
-                          <span className="ml-2">{link.label}</span>
-                        </div>
-                      </SidebarMenuButton>
-                    </Link>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-          <SidebarGroup>
-            <SidebarGroupLabel>Integrations</SidebarGroupLabel>
-            <SidebarGroupContent className="flex flex-col jutify-center items-center">
-              <SidebarMenu className="w-[80%]">
-                <SidebarMenuItem >
-                  <SidebarMenuButton>
-                    <Link href={`/space/${slug}/import`} className="flex items-center cursor-pointer">
-                      <ImportIcon />
-                      <span className="ml-2">Import Testimonials</span>
+    <Sidebar>
+      <SidebarHeader className="flex flex-col jutify-center items-center">
+        <Logo />
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Inbox</SidebarGroupLabel>
+          <SidebarGroupContent className="flex flex-col jutify-center items-center">
+            <SidebarMenu className="w-[80%]">
+              {inboxLinks.map((link, idx) => (
+                <SidebarMenuItem key={idx}>
+                  <Link href={`/space/${slug}`}>
+                    <SidebarMenuButton
+                      key={idx}
+                      onClick={link.onClick}
+                      className={cn(
+                        "p-2 rounded-md",
+                        filter === link.key && !isImportedActive
+                          ? "bg-gray-100"
+                          : "bg-transparent"
+                      )}
+                    >
+                      <div className="flex items-center space-x-2">
+                        {link.icon}
+                        <span className="text-neutral-900">{link.label}</span>
+                      </div>
+                    </SidebarMenuButton>
+                  </Link>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Integrations</SidebarGroupLabel>
+          <SidebarGroupContent className="flex flex-col jutify-center items-center">
+            <SidebarMenu className="w-[80%]">
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  className={cn(isImportedActive ? "bg-gray-100" : "")}
+                >
+                  <Link
+                    href={`/space/${slug}/import`}
+                    className="flex items-center cursor-pointer"
+                  >
+                    <ImportIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />
+                    <span className="ml-2">Import Testimonials</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Pages</SidebarGroupLabel>
+          <SidebarGroupContent className="flex flex-col jutify-center items-center">
+            <SidebarMenu className="w-[80%]">
+              {PageLinks.map((link, idx) => (
+                <SidebarMenuItem key={idx}>
+                  <SidebarMenuButton asChild>
+                    <Link href={link.href}>
+                      {link.icon}
+                      <span>{link.label}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-          <SidebarGroup>
-            <SidebarGroupLabel>Pages</SidebarGroupLabel>
-            <SidebarGroupContent className="flex flex-col jutify-center items-center">
-              <SidebarMenu className="w-[80%]">
-                {PageLinks.map((link, idx) => (
-                  <SidebarMenuItem key={idx}>
-                    <SidebarMenuButton asChild>
-                      <Link href={link.href}>
-                        {link.icon}
-                        <span>{link.label}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-        <SidebarFooter className="flex gap-3 jutify-center items-center">
-          <SidebarMenuButton className="w-[80%]">
-            <Link href="#" className="flex items-center justify-center gap-1">
-              <Settings size={18} />
-              <span>Help and Support</span>
-            </Link>
-          </SidebarMenuButton>
-          <Button
-            onClick={(event) => {
-              event.preventDefault();
-              signOut();
-            }}
-            className="flex gap-2 items-center py-2 rounded-xl w-[80%]"
-          >
-            <LogOutIcon size={15} /> Sign Out
-          </Button>
-        </SidebarFooter>
-      </Sidebar>
-    </div>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter className="flex gap-3 jutify-center items-center">
+        <SidebarMenuButton className="w-[80%]">
+          <Link href="#" className="flex items-center justify-center gap-1">
+            <Settings size={18} />
+            <span>Help and Support</span>
+          </Link>
+        </SidebarMenuButton>
+        <Button
+          onClick={(event) => {
+            event.preventDefault();
+            signOut();
+          }}
+          className="flex gap-2 items-center py-2 rounded-xl w-[80%]"
+        >
+          <LogOutIcon size={15} /> Sign Out
+        </Button>
+      </SidebarFooter>
+    </Sidebar>
   );
 }
 

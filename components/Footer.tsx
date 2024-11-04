@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import logo from "@/public/assets/images/logo1.png";
 
 export const Footer: React.FC = () => {
   return (
@@ -7,14 +8,8 @@ export const Footer: React.FC = () => {
       <div className="container mx-auto px-4 flex flex-wrap justify-between">
         <div className="w-full lg:w-1/4 mb-12 md:mb-6 lg:mb-0">
           <div className="flex items-center">
-            <div className="relative w-8 h-8 overflow-hidden  mr-2">
-              <Image
-                src="/assets/images/sample.png"
-                alt="Logo"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg"
-              />
+            <div className="relative w-8 h-8 mr-2">
+              <Image src={logo} alt="Logo" layout="fill" objectFit="cover" />
             </div>
             <span className="text-xl font-semibold">ViewUs</span>
           </div>
@@ -46,7 +41,9 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="w-full lg:w-3/4 mb-6 lg:mb-0">
-            <h3 className="text-sm md:text-lg font-bold mb-4">COMPANY AND SUPPORT</h3>
+            <h3 className="text-sm md:text-lg font-bold mb-4">
+              COMPANY AND SUPPORT
+            </h3>
             <ul className="grid text-gray-300 md:grid-cols-2 gap-2">
               <li>
                 <a href="#">Our resources</a>

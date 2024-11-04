@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,8 @@ import {
 } from "@/components/ui/form";
 import { SocialPlatformsType } from "./ImportPosts";
 import axios from "axios";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface CardWrapperProps {
   title: string;
@@ -35,7 +38,8 @@ export const ImportCardWrapper: React.FC<CardWrapperProps> = ({
   placeholder,
   image,
 }) => {
-
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const FormSchema = z.object({
     link: z.string().url({ message: "Please enter a valid URL." }),
   });
@@ -48,14 +52,24 @@ export const ImportCardWrapper: React.FC<CardWrapperProps> = ({
   });
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-
+    setLoading(true);
     try {
-      const response = await axios.post(`/api/import-testimonial/${slug.toString().toLowerCase()}`, { url: data.link })
-      console.log(response.data)
+      const response = await axios.post(
+        `/api/import-testimonial/${slug.toString().toLowerCase()}`,
+        { url: data.link }
+      );
+      toast.success("Testimonial imported successfully");
+      console.log(response.data);
+      const currentUrl = window.location.href;
+      const newUrl = currentUrl.substring(0, currentUrl.lastIndexOf("/"));
+      router.push(newUrl);
     } catch (err) {
-      console.log(err)
+      console.log(err);
+      toast.error("Failed to import testimonial. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center">
@@ -112,9 +126,12 @@ export const ImportCardWrapper: React.FC<CardWrapperProps> = ({
                     />
                     <Button
                       type="submit"
-                      className="w-full"
+                      className={`mt-4 w-full ${
+                        loading ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
+                      disabled={loading}
                     >
-                      Submit
+                      {loading ? "Importing..." : "Import"}{" "}
                     </Button>
                   </form>
                 </Form>
