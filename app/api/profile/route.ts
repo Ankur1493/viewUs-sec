@@ -34,18 +34,19 @@ export async function POST(req: NextRequest) {
       company,
       jobTitle,
       email: user.email,
-      image: image ? image : user.image,
+      image: image ? image : null,
     });
 
     if (!validatedFields.success) {
       return NextResponse.json({
         status: false,
         data: null,
-        message: "Invalid input values",
+        message: `Invalid input values ${validatedFields.error} --- ${validatedFields.data}`,
       }, { status: 400 });
     }
 
-    let imageName = null;
+    let imageName = `profile/${user.id}-${user.email}-profile-picture`;
+    ;
 
     if (image) {
       const arrayBuffer = await image.arrayBuffer();
