@@ -27,10 +27,22 @@ export interface IReview {
   company?: string | null;
   image?: string | null;
   importedImage?: string[];
-  importedVideo?: string[];
+  importedVideo?: { videoUrl: string, status: string }[];
   importedReviewType?: ImportedReviewType;
   tags?: string[] | null;
 }
+
+const importedVideoSchema = new Schema({
+  videoUrl: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: ['processing', 'processed'],
+    required: true,
+  },
+});
 
 const reviewSchema = new Schema<IReview>({
   spaceId: {
@@ -96,11 +108,12 @@ const reviewSchema = new Schema<IReview>({
     default: [],
   },
   importedVideo: {
-    type: [String],
+    type: [importedVideoSchema],
     default: [],
   },
   tags: {
     type: [String],
+    default: [],
     validate: {
       validator: function (tags: string[]) {
         return tags.length <= 3;  // Limit to 3 tags
