@@ -27,11 +27,13 @@ export interface IReview {
   company?: string | null;
   image?: string | null;
   importedImage?: string[];
-  importedVideo?: { videoUrl: string, status: string }[];
+  //  importedVideo?: { videoUrl: string, status: string }[];
+  importedVideo?: string[];
   importedReviewType?: ImportedReviewType;
   tags?: string[] | null;
 }
 
+/*
 const importedVideoSchema = new Schema({
   videoUrl: {
     type: String,
@@ -43,7 +45,7 @@ const importedVideoSchema = new Schema({
     required: true,
   },
 });
-
+*/
 const reviewSchema = new Schema<IReview>({
   spaceId: {
     type: String,
@@ -108,7 +110,7 @@ const reviewSchema = new Schema<IReview>({
     default: [],
   },
   importedVideo: {
-    type: [importedVideoSchema],
+    type: [String],
     default: [],
   },
   tags: {

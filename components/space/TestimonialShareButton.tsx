@@ -33,7 +33,7 @@ export const TestimonialShareButton = ({
         onMouseLeave={() => setIsHovered(false)}
         className="relative"
       >
-        <Share2 className="h-6 w-6" />
+        <Share2 size={20} />
       </Button>
       {isHovered && (
         <span className="absolute top-full -right-1/2 mt-1 bg-black text-white text-sm px-2 py-1 rounded shadow whitespace-nowrap">

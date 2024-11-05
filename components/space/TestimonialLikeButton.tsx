@@ -49,9 +49,9 @@ export const TestimonialLikeButton = ({
       aria-label={liked ? "Unlike testimonial" : "Like testimonial"}
     >
       <Heart
-        className={`h-6 w-6 ${
-          liked ? "fill-red-500 text-red-500" : "text-black"
-        }`}
+        size={20}
+        className={` ${liked ? "fill-red-500 text-red-500" : "text-black"
+          }`}
       />
     </Button>
   );

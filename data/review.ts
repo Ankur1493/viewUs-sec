@@ -101,4 +101,3 @@ export const updateTestimonialLikeStatus = async ({ id, liked }: { id: string; l
     return { err: "Failed to update like status" };
   }
 };
-
