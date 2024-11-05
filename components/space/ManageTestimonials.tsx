@@ -37,6 +37,7 @@ export interface IReview {
   importedVideo?: string[];
   importedReviewType?: ImportedReviewTypeModel;
   tags?: string[] | null;
+  createdAt?: Date;
 }
 
 export const ManageTestimonials = ({
