@@ -12,7 +12,7 @@ import ReasonsToUse from "./ReasonsToUse";
 export const Landing = () => {
   return (
     <div className="flex flex-col items-center relative top-0 w-full transform">
-      <Navbar />
+      <Navbar active="none" />
       <div className="absolute z-0 top-20 w-full flex justify-center">
         <TriangleFeature />
       </div>
@@ -39,7 +39,7 @@ export const Landing = () => {
           <VideoSection
             heading="Hall of Fame"
             content="Highlight the authentic voices of your customers with the Wall of Love. Share genuine testimonials that reflect trust and satisfaction, building lasting connections and enhancing your brand's credibility."
-            videoSrc="/assets/videos/screen2.mp4"
+            videoSrc="/assets/videos/submitTextReview.mp4"
             buttonContent1="Start your journey"
             linkHref1="#"
             buttonContent2="Live Preview"
