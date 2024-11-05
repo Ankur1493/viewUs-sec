@@ -13,6 +13,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { deleteTestimonial } from "@/actions/testimonial";
+import { useParams } from "next/navigation";
+import { toast } from "sonner";
+import { revalidatePath } from "next/cache";
 
 interface TestimonialDeleteButtonProps {
   testimonialId: string;
@@ -21,9 +25,10 @@ interface TestimonialDeleteButtonProps {
 export const TestimonialDeleteButton = ({
   testimonialId,
 }: TestimonialDeleteButtonProps) => {
-  console.log(testimonialId);
   const [open, setOpen] = React.useState(false);
   const dialogContentRef = React.useRef<HTMLDivElement>(null);
+  const params = useParams()
+  const spaceSlug = params.slug as string;
 
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -44,11 +49,20 @@ export const TestimonialDeleteButton = ({
     };
   }, [open]);
 
+  const deleteKarTestimonial = async () => {
+    const response = await deleteTestimonial(testimonialId, spaceSlug)
+    if (response.status) {
+      toast("testimonial deleted")
+    } else {
+      toast.error(response.message)
+    }
+  }
+
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <div className="p-1 cursor-pointer">
-          <Trash2 className="h-6 w-6" />
+          <Trash2 size={20} />
         </div>
       </AlertDialogTrigger>
       <AlertDialogContent ref={dialogContentRef} className="bg-white">
@@ -62,7 +76,7 @@ export const TestimonialDeleteButton = ({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction className="bg-red-500 hover:bg-red-500 hover:bg-opacity-90">
-            <div>Delete</div>
+            <div onClick={deleteKarTestimonial}>Delete</div>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
