@@ -65,7 +65,7 @@ export const Landing = () => {
           <Features />
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center mt-24 font-bold text-center w-full bg-[#141111]">
+      <div className="flex flex-col justify-center items-center mt-24 font-bold text-center w-full bg-gradient-to-tr from-[#141111] to-gray-950">
         <BookCall />
       </div>
       <Footer />
