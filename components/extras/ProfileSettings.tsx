@@ -7,7 +7,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Save, Trash2, EyeOff, Eye } from "lucide-react";
+import { Save } from "lucide-react";
 import profileImage from "@/public/assets/images/profile.png";
 import {
   Form,
@@ -21,7 +21,6 @@ import { User } from "@prisma/client";
 import { profileSchema } from "@/schemas/user";
 import axios from "axios";
 import { toast } from "sonner";
-
 
 export const ProfileSettings = ({ user }: { user: User }) => {
   const cdn = process.env.NEXT_PUBLIC_CDN_NAME;
@@ -57,7 +56,6 @@ export const ProfileSettings = ({ user }: { user: User }) => {
     fileInputRef.current?.click();
   };
 
-
   const handleSaveChanges = async (data: z.infer<typeof profileSchema>) => {
     // Ensure the email is not modifiable
     data.email = user.email!;
@@ -86,7 +84,6 @@ export const ProfileSettings = ({ user }: { user: User }) => {
       console.error("Error saving profile:", error);
     }
   };
-
 
   return (
     <div className="w-full">
@@ -201,7 +198,6 @@ export const ProfileSettings = ({ user }: { user: User }) => {
             </Button>
           </form>
         </Form>
-
       </div>
     </div>
   );

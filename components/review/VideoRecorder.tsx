@@ -16,8 +16,10 @@ export const VideoRecorder = () => {
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    openCamera();
-
+    const chljaa = async () => {
+      await openCamera();
+    };
+    chljaa();
     return () => {
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((track) => track.stop());
@@ -28,16 +30,18 @@ export const VideoRecorder = () => {
   const openCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
         video: true,
       });
       streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        videoRef.current.muted = true;
         videoRef.current.play();
       }
     } catch (err) {
       setError("Error accessing the camera");
-      console.error(err);
+      console.log({ err });
     }
   };
 
@@ -102,7 +106,6 @@ export const VideoRecorder = () => {
   return (
     <div className="flex flex-col justify-start">
       {error && <p className="text-red-500 mb-4">{error}</p>}
-
       <div className="rounded-md overflow-hidden mb-2">
         <video
           ref={videoRef}
