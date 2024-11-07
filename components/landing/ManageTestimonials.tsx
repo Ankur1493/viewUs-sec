@@ -9,7 +9,7 @@ export const ManageTestimonials = () => {
 
   return (
     <div
-      className="bg-[#141111] text-white pt-28 p-10 space-y-10 overflow-x-hidden flex justify-center flex-col items-center"
+      className="bg-gradient-radial from-[#141111] to-gray-950 text-white pt-28 p-10 space-y-10 overflow-x-hidden flex justify-center flex-col items-center"
       ref={ref}
     >
       <section className="text-center space-y-4">
@@ -45,7 +45,7 @@ export const ManageTestimonials = () => {
           </div>
         </div>
 
-        <div className="col-span-1 grid grid-rows-3 gap-8 flex">
+        <div className="col-span-1 grid grid-rows-3 gap-8">
           <div className="rounded-lg flex items-end">
             <Image
               src="/assets/images/test3.webp"
