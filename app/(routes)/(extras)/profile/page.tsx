@@ -18,7 +18,7 @@ export default async function Profle() {
 
   return (
     <div>
-      <Profile user={userDetails} />
+      <Profile />
     </div>
   );
 }
