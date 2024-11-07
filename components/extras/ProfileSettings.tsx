@@ -89,13 +89,13 @@ export const ProfileSettings = ({ user }: { user: User }) => {
 
 
   return (
-    <div>
+    <div className="w-full">
       <div className="mb-2">
         <h2 className="text-lg font-semibold text-neutral-700 flex items-center">
           Profile
         </h2>
       </div>
-      <div className="w-1/2 ">
+      <div className="w-full ">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSaveChanges)}

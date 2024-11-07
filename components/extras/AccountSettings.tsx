@@ -113,7 +113,7 @@ export const AccountSettings = ({ user }: { user: User }) => {
         Account
       </h2>
       <AlertDialog>
-        <AlertDialogTrigger className="w-1/2">
+        <AlertDialogTrigger className="w-full">
           <div className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md border rounded-md text-sm font-medium">
             <Trash2 className="w-4 h-4 mr-2" />
             Change Password
@@ -224,7 +224,7 @@ export const AccountSettings = ({ user }: { user: User }) => {
         </AlertDialogContent>
       </AlertDialog>
       <AlertDialog>
-        <AlertDialogTrigger className="w-1/2">
+        <AlertDialogTrigger className="w-full">
           <div className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md bg-red-600 hover:bg-red-600 hover:bg-opacity-90 text-white rounded-md text-sm font-medium">
             <Trash2 className="w-4 h-4 mr-2" />
             Delete My Account
