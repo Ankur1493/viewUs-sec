@@ -16,7 +16,6 @@ import {
 import { deleteTestimonial } from "@/actions/testimonial";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
-import { revalidatePath } from "next/cache";
 
 interface TestimonialDeleteButtonProps {
   testimonialId: string;
@@ -27,7 +26,7 @@ export const TestimonialDeleteButton = ({
 }: TestimonialDeleteButtonProps) => {
   const [open, setOpen] = React.useState(false);
   const dialogContentRef = React.useRef<HTMLDivElement>(null);
-  const params = useParams()
+  const params = useParams();
   const spaceSlug = params.slug as string;
 
   React.useEffect(() => {
@@ -50,13 +49,13 @@ export const TestimonialDeleteButton = ({
   }, [open]);
 
   const deleteKarTestimonial = async () => {
-    const response = await deleteTestimonial(testimonialId, spaceSlug)
+    const response = await deleteTestimonial(testimonialId, spaceSlug);
     if (response.status) {
-      toast("testimonial deleted")
+      toast("testimonial deleted");
     } else {
-      toast.error(response.message)
+      toast.error(response.message);
     }
-  }
+  };
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
