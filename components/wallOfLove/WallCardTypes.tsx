@@ -8,11 +8,12 @@ interface WallCardTypesProps {
   desc: string;
   img: string;
   slug: WallData;
+  url: string;
 }
 
-export const WallCardTypes = ({ title, desc, img, slug }: WallCardTypesProps) => {
+export const WallCardTypes = ({ title, desc, img, slug, url }: WallCardTypesProps) => {
 
-  const { setPage } = useWallTypeStore()
+  const { setPage, setUrl } = useWallTypeStore()
 
   if (title.length === 0) {
     return (
@@ -25,7 +26,10 @@ export const WallCardTypes = ({ title, desc, img, slug }: WallCardTypesProps) =>
 
   return (
     <Card
-      onClick={() => setPage("editing", slug)}
+      onClick={() => {
+        setPage("editing", slug)
+        setUrl(url)
+      }}
       className="min-h-60 cursor-pointer shadow-xs hover:shadow-red-200 hover:shadow-sm"
     >
       <CardHeader>

@@ -89,6 +89,7 @@ export const WallCardTypesConstants: wallCardType[] = [
   {
     key: 5,
     title: "testing",
+    url: "lalala",
     slug: "fixed" as const,
     desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
     img: "/assets/images/test1.webp"
