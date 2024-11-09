@@ -25,7 +25,7 @@ export const Landing = () => {
           style={{ margin: 0 }}
         >
           <iframe
-            src="https://embed-viewus.netlify.app/w/embed-testimonials/carousal?animated=on&theme=&speed=high"
+            src="https://embed-viewus.netlify.app/w/embed-testimonials/carousal?animated=&theme=&speed=high"
             width="100%"
             height="100%"
             frameBorder="0"
@@ -72,7 +72,7 @@ export const Landing = () => {
           </p>
           <div className="w-[95%] md:w-[90%] h-screen rounded-xl">
             <iframe
-              src="https://embed-viewus.netlify.app/w/embed-testimonials?animated=on&theme=dark&speed=medium"
+              src="https://embed-viewus.netlify.app/w/embed-testimonials?animated=on&theme=light&speed=medium&columns=3"
               width="100%"
               height="100%"
               frameBorder="0"

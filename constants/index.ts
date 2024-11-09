@@ -41,3 +41,40 @@ export const freeFeatures: features[] = [
     desc: "Easily share your review form to your customers, for collecting reviews in as simple as 3 clicks"
   },
 ]
+
+export const WallCardTypesConstants = [
+  {
+    key: 1,
+    title: "Fixed",
+    url: "https://embed-viewus.netlify.app/w/embed-testimonials/",
+    desc: "A fixed grid layout structure for showcasing a selected and crucial reviews",
+    img: "/assets/images/test1.webp"
+  },
+  {
+    key: 2,
+    title: "Animated",
+    url: "https://embed-viewus.netlify.app/w/embed-testimonials?animated=on",
+    desc: "A animated grid layout structure for showcasing a lot of reviews which are important",
+    img: "/assets/images/test2.webp"
+  },
+  {
+    key: 3,
+    url: "https://embed-viewus.netlify.app/w/embed-testimonials/carousal",
+    title: "Carousel",
+    desc: "A carousel for you to have an showcase horizontaly and clear reviews",
+    img: "/assets/images/test3.webp"
+  },
+  {
+    key: 4,
+    url: "https://embed-viewus.netlify.app/w/embed-testimonials/carousal?animated=on",
+    title: "Carousel Animated",
+    desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
+    img: "/assets/images/test1.webp"
+  },
+  {
+    key: 5,
+    title: "",
+    desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
+    img: "/assets/images/test1.webp"
+  }
+]
