@@ -1,15 +1,18 @@
 import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
+import { useWallTypeStore, WallData } from "@/store/useWallTypeStore";
 
 interface WallCardTypesProps {
   title: string;
   desc: string;
   img: string;
-  url?: string;
+  slug: WallData;
 }
 
-export const WallCardTypes = ({ title, desc, img, url }: WallCardTypesProps) => {
+export const WallCardTypes = ({ title, desc, img, slug }: WallCardTypesProps) => {
+
+  const { setPage } = useWallTypeStore()
 
   if (title.length === 0) {
     return (
@@ -21,7 +24,10 @@ export const WallCardTypes = ({ title, desc, img, url }: WallCardTypesProps) => 
   }
 
   return (
-    <Card className="min-h-60 cursor-pointer shadow-xs hover:shadow-red-200 hover:shadow-sm">
+    <Card
+      onClick={() => setPage("editing", slug)}
+      className="min-h-60 cursor-pointer shadow-xs hover:shadow-red-200 hover:shadow-sm"
+    >
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{desc}</CardDescription>

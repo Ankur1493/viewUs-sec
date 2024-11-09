@@ -81,7 +81,7 @@ export function SpaceSideBar() {
     },
     {
       label: "Wall of Love",
-      href: "wall",
+      href: `/space/${slug}/wall`,
       icon: (
         <MessageCircleHeartIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
       ),

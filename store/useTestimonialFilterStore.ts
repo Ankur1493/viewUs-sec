@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { useEffect } from 'react';
 
 type FilterType = 'all' | 'text' | 'video' | 'imported' | 'liked';
 
@@ -22,5 +21,3 @@ export const useTestimonialFilterStore = create<TestimonialFilterState>((set) =>
     }
   },
 }));
-
-
