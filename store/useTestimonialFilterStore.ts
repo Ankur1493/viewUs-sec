@@ -12,10 +12,10 @@ export const useTestimonialFilterStore = create<TestimonialFilterState>((set) =>
   filter: 'all',
   setFilter: (filter) => {
     set({ filter });
-    localStorage.setItem('testimonialFilter', filter);
+    sessionStorage.setItem('testimonialFilter', filter);
   },
   initializeFilter: () => {
-    const savedFilter = (typeof window !== 'undefined' && localStorage.getItem('testimonialFilter')) as FilterType | null;
+    const savedFilter = (typeof window !== 'undefined' && sessionStorage.getItem('testimonialFilter')) as FilterType | null;
     if (savedFilter) {
       set({ filter: savedFilter });
     }

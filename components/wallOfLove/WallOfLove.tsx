@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { ArrowLeftIcon } from "lucide-react";
 import { EditWallOfLove } from "./EditWallOfLove";
 import { useEffect, useState } from "react";
+import { FinalWallOfLoveCodeCopy } from "./FinalWallOfLoveCodeCopy";
 
 export const WallOfLove = () => {
   const [loading, setLoading] = useState(true);
@@ -48,8 +49,7 @@ export const WallOfLove = () => {
       {
         page === "final" && (
           <div>
-            <Button onClick={() => setPage("editing", data)}>Go back <ArrowLeftIcon /> </Button>
-            <div>{page} ----- {data}</div>
+            <FinalWallOfLoveCodeCopy />
           </div>
         )
       }

@@ -21,24 +21,24 @@ export const useWallTypeStore = create<WallEditingPageState>((set) => ({
       page,
       data
     });
-    localStorage.setItem('wallPage', page);
-    localStorage.setItem('wallData', data === null ? "" : data);
-
+    sessionStorage.setItem('wallPage', page);
+    sessionStorage.setItem('wallData', data === null ? "" : data);
   },
   setUrl: (url: string) => {
     set({ url })
+    sessionStorage.setItem('urlData', url)
   },
   initializepage: () => {
     if (typeof window !== 'undefined') {
-      const savedPage = localStorage.getItem('wallPage') as PageData | null;
-      let wallData = localStorage.getItem('wallData') as WallData | null;
-
-      // Set `wallData` to `null` if an empty string is retrieved from localStorage
+      const savedPage = sessionStorage.getItem('wallPage') as PageData | null;
+      const wallData = sessionStorage.getItem('wallData') as WallData | null;
+      const urlData = sessionStorage.getItem('urlData') as string | null;
 
       if (savedPage) {
         set({
           page: savedPage,
-          data: wallData
+          data: wallData,
+          url: urlData,
         });
       }
     }

@@ -58,7 +58,7 @@ export const WallCardTypesConstants: wallCardType[] = [
     key: 1,
     title: "Fixed",
     slug: "fixed" as const,
-    url: "https://embed-viewus.netlify.app/w/embed-testimonials",
+    url: "https://embed-viewus.netlify.app/w/embed-testimonials?columns=3",
     desc: "A fixed grid layout structure for showcasing a selected and crucial reviews",
     img: "/assets/images/test1.webp"
   },

@@ -14,12 +14,10 @@ export const SelectBackground = () => {
   const { url, setUrl } = useWallTypeStore()
 
   useEffect(() => {
-    console.log("Selected color:", color)
     if (url) {
       const testUrl = new URL(url!)
       testUrl.searchParams.set("background", color.slice(1));
       setUrl(testUrl.toString())
-      console.log({ url, testUrl })
     }
   }, [color, url, setUrl])
 

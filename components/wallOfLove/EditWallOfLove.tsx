@@ -7,12 +7,13 @@ import { SelectBackground } from "./styleWallComponents/SelectBackground"
 export const EditWallOfLove = () => {
   const { url, setPage } = useWallTypeStore()
   const [loading, setLoading] = useState(true)
+  console.log({ url })
 
   return (
     <div>
       <Button onClick={() => setPage("all", null)}>Go back <ArrowLeftIcon /> </Button>
       <div className="flex gap-2">
-        <div className="w-1/4 bg-red-300">
+        <div className="w-1/4 ">
           <SelectBackground />
         </div>
 
