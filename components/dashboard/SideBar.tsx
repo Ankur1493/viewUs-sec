@@ -48,7 +48,7 @@ export function SideBar() {
   ];
 
   return (
-    <Sidebar className="rounded-r-xl">
+    <Sidebar>
       <SidebarHeader className="flex flex-col jutify-center items-center">
         <Logo />
         <Button className="w-[80%] py-5 shadow-md rounded-3xl">

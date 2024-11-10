@@ -13,12 +13,13 @@ export enum ImportedReviewType {
 }
 
 export interface IReview {
-  id?: string;
+  _id?: string;
   spaceId: string;
   slug: string;
   reviewType?: ReviewType;
   review: string;
   stars?: number;
+  liked: boolean;
   firstName?: string | null;
   lastName?: string | null;
   email?: string | null;
@@ -26,11 +27,25 @@ export interface IReview {
   company?: string | null;
   image?: string | null;
   importedImage?: string[];
+  //  importedVideo?: { videoUrl: string, status: string }[];
   importedVideo?: string[];
   importedReviewType?: ImportedReviewType;
   tags?: string[] | null;
 }
 
+/*
+const importedVideoSchema = new Schema({
+  videoUrl: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: ['processing', 'processed'],
+    required: true,
+  },
+});
+*/
 const reviewSchema = new Schema<IReview>({
   spaceId: {
     type: String,
@@ -54,6 +69,10 @@ const reviewSchema = new Schema<IReview>({
     type: Number,
     required: true,
     default: 5
+  },
+  liked: {
+    type: Boolean,
+    default: false,
   },
   firstName: {
     type: String,
@@ -96,6 +115,7 @@ const reviewSchema = new Schema<IReview>({
   },
   tags: {
     type: [String],
+    default: [],
     validate: {
       validator: function (tags: string[]) {
         return tags.length <= 3;  // Limit to 3 tags

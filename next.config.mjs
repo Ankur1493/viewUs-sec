@@ -38,6 +38,12 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "static.licdn.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

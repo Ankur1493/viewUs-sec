@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'URL is required' }, { status: 400 });
 
     const reqUrl = req.headers.get('referer') || 'No referrer found';
-    const spaceSlug = reqUrl.split("/space/")[1]
+    const spaceSlug = reqUrl.split("/space/")[1].split("/")[0];
 
     const spaceExists = await db.space.findUnique({
       where: {
@@ -62,6 +62,7 @@ export async function POST(req: Request) {
       reviewType: ReviewType.IMPORTED,
       importedReviewType: ImportedReviewType.PRODUCTHUNT,
       slug: spaceExists.slug,
+      liked: false,
       review: result.commentBody as string,
       firstName: result.authorName as string,
       image: result.profileImage as string,

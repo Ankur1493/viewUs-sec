@@ -44,7 +44,7 @@ const SpacePage = async ({
   }
 
   return (
-    <div className="flex flex-col justify-center h-full w-full px-4 pb-4">
+    <div className="flex flex-col justify-center pb-4">
       <div className="mb-3 px-7">
         {slug && (
           <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2 mb-2">

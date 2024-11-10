@@ -49,7 +49,7 @@ export const VideoSection = ({
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 100 },
     visible: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: -30 },
   };
@@ -65,11 +65,11 @@ export const VideoSection = ({
         initial="hidden"
         animate={isInView ? "visible" : "exit"}
       >
-        <div className="md:w-[90%] lg:w-[70%] flex flex-col gap-6">
-          <motion.div
-            className="flex flex-col gap-5 w-full"
-            variants={itemVariants}
-          >
+        <motion.div
+          className="md:w-[90%] lg:w-[70%] flex flex-col gap-6"
+          variants={itemVariants}
+        >
+          <motion.div className="flex flex-col gap-5 w-full">
             <h2 className="text-2xl lg:text-4xl font-bold text-black text-left">
               {heading}
             </h2>
@@ -77,10 +77,7 @@ export const VideoSection = ({
               {content}
             </p>
           </motion.div>
-          <motion.div
-            className="flex flex-col lg:flex-row gap-3 lg:gap-2 w-full"
-            variants={itemVariants}
-          >
+          <motion.div className="flex flex-col lg:flex-row gap-3 lg:gap-2 w-full">
             <Link href={linkHref1} className="flex-1">
               <Button className="flex w-full py-5 gap-2 rounded-xl shadow-xl border-2 font-semibold group">
                 <p>{buttonContent1}</p>
@@ -103,15 +100,10 @@ export const VideoSection = ({
               </Link>
             )}
           </motion.div>
-        </div>
+        </motion.div>
       </motion.div>
 
-      <motion.div
-        className="w-[95%] mt-12 md:mt-0 relative md:w-3/5 h-56 md:h-96 lg:h-[800px] mb-4 rounded-md shadow-[0_20px_60px_-15px_rgba(0,0,0,0.2)] border"
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "exit"}
-      >
+      <div className="w-[95%] mt-12 md:mt-0 relative md:w-3/5 h-56 md:h-96 lg:h-[800px] mb-4 rounded-md shadow-[0_20px_60px_-15px_rgba(0,0,0,0.2)] border">
         <video
           className="w-full h-full object-cover rounded-md"
           loop
@@ -122,7 +114,7 @@ export const VideoSection = ({
           <source src={videoSrc} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-      </motion.div>
+      </div>
     </div>
   );
 };
