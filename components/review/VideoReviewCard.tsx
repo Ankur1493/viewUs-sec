@@ -14,11 +14,13 @@ import { useReactMediaRecorder } from "react-media-recorder";
 export const VideoReviewCard = ({
   image,
   title,
+  spaceId,
 }: {
   image: string | null;
   title: string;
+  spaceId: string;
 }) => {
-  const { setSubmitButton, submitButton, setReviewButton } =
+  const { customerDetails, setSubmitButton, submitButton, setReviewButton } =
     useReviewPageStore();
 
   const [cameraAccessible, setCameraAccessible] = useState(true);
@@ -102,12 +104,25 @@ export const VideoReviewCard = ({
 
   const handleSubmitReview = async () => {
     console.log({ mediaBlobUrl });
+    console.log(customerDetails);
+    console.log(spaceId);
 
     // try {
-    //   const formData = new FormData("mediaBlobUrl", mediaBlobUrl);
+    // const formData = new FormData();
+    // formData.append("firstName", customerDetails.firstName);
+    // formData.append("lastName", customerDetails.lastName);
+    // formData.append("email", customerDetails.email);
+    // if (customerDetails.company)
+    //   formData.append("company", customerDetails?.company);
+    // if (customerDetails.jobTitle)
+    //   formData.append("jobTitle", customerDetails?.jobTitle);
+
+    // if (mediaBlobUrl) {
+    //   formData.append("review", mediaBlobUrl);
+    // }
 
     //   const response = await axios.post("/api/review/video", formData, {
-    //     headers: {},
+    //     headers: {"Content-Type": "multipart/form-data",},
     //   });
 
     //   console.log("Review submitted", response.data);

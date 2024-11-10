@@ -1,6 +1,17 @@
+import { WallData } from "@/store/useWallTypeStore";
+
 interface features {
   title: string;
   desc: string;
+}
+
+interface wallCardType {
+  key: number;
+  title: string;
+  slug: WallData;
+  url?: string;
+  desc: string;
+  img: string;
 }
 
 export const freeFeatures: features[] = [
@@ -40,4 +51,47 @@ export const freeFeatures: features[] = [
     title: "Share your customized form",
     desc: "Easily share your review form to your customers, for collecting reviews in as simple as 3 clicks"
   },
+]
+
+export const WallCardTypesConstants: wallCardType[] = [
+  {
+    key: 1,
+    title: "Fixed",
+    slug: "fixed" as const,
+    url: "https://embed-viewus.netlify.app/w/embed-testimonials?columns=3",
+    desc: "A fixed grid layout structure for showcasing a selected and crucial reviews",
+    img: "/assets/images/test1.webp"
+  },
+  {
+    key: 2,
+    title: "Animated",
+    slug: "animated" as const,
+    url: "https://embed-viewus.netlify.app/w/embed-testimonials?animated=on",
+    desc: "A animated grid layout structure for showcasing a lot of reviews which are important",
+    img: "/assets/images/test2.webp"
+  },
+  {
+    key: 3,
+    url: "https://embed-viewus.netlify.app/w/embed-testimonials/carousal",
+    title: "Carousel",
+    slug: "carousal" as const,
+    desc: "A carousel for you to have an showcase horizontaly and clear reviews",
+    img: "/assets/images/test3.webp"
+  },
+  {
+    key: 4,
+    url: "https://embed-viewus.netlify.app/w/embed-testimonials/carousal?animated=on",
+    title: "Carousel Animated" as const,
+    slug: "animated-carousal",
+    desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
+    img: "/assets/images/test1.webp"
+  },
+  {
+    key: 5,
+    title: "testing",
+    url: "lalala",
+    slug: "fixed" as const,
+    desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
+    img: "/assets/images/test1.webp"
+  }
 ]

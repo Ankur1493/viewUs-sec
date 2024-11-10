@@ -25,7 +25,7 @@ export const Landing = () => {
           style={{ margin: 0 }}
         >
           <iframe
-            src="http://localhost:5173/w/embed-testimonials/carousal?animated=on&theme=&speed=high"
+            src="https://embed-viewus.netlify.app/w/embed-testimonials/carousal?animated=on&theme=&speed=high"
             width="100%"
             height="100%"
             frameBorder="0"
@@ -36,7 +36,7 @@ export const Landing = () => {
             }}
           ></iframe>
         </div>
-        <div className="top-40 mt-28 lg:mt-64">
+        <div className="top-40 mt-28 lg:mt-24">
           <ReasonsToUse />
         </div>
         <div>
@@ -72,7 +72,7 @@ export const Landing = () => {
           </p>
           <div className="w-[95%] md:w-[90%] h-screen rounded-xl">
             <iframe
-              src="http://localhost:5173/w/embed-testimonials?animated=on&theme=dark&speed=medium"
+              src="https://embed-viewus.netlify.app/w/embed-testimonials?animated=on&theme=light&speed=medium&columns=3"
               width="100%"
               height="100%"
               frameBorder="0"
@@ -84,7 +84,7 @@ export const Landing = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center items-center mt-40 md:mt-44 pt-20 font-bold text-center w-full">
+        <div className="flex flex-col justify-center items-center mt-40 md:mt-24 pt-20 font-bold text-center w-full">
           <h2 className="w-[90%] lg:w-3/5 pb-12 text-4xl md:text-5xl lg:text-6xl">
             Forge Lasting Connections: From First Click to Loyal Customer
           </h2>
