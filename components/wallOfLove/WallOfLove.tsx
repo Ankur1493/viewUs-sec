@@ -8,10 +8,11 @@ import { ArrowLeftIcon } from "lucide-react";
 import { EditWallOfLove } from "./EditWallOfLove";
 import { useEffect, useState } from "react";
 import { FinalWallOfLoveCodeCopy } from "./FinalWallOfLoveCodeCopy";
+import { redirect } from "next/navigation";
 
 export const WallOfLove = () => {
   const [loading, setLoading] = useState(true);
-  const { page, data, setPage, initializepage } = useWallTypeStore();
+  const { page, initializepage } = useWallTypeStore();
 
   useEffect(() => {
     const loadPage = async () => {
@@ -28,32 +29,43 @@ export const WallOfLove = () => {
 
   return (
     <div>
-      {
-        page === "all" &&
-        <div className="flex flex-col gap-8">
-          <h1 className="text-4xl font-semibold">What kind of wall do you want to cook today??</h1>
-          <div className="w-full pr-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {WallCardTypesConstants.map((card) => (
-              <WallCardTypes key={card.key} title={card.title} desc={card.desc} img={card.img} slug={card.slug} url={card.url!} />
-            ))}
+      {page === "all" && (
+        <>
+          <Button
+            onClick={() => redirect("/space")}
+            className="bg-white text-black hover:bg-gray-100"
+          >
+            <ArrowLeftIcon />
+          </Button>
+          <div className="flex flex-col gap-8 px-20">
+            <h1 className="text-4xl font-semibold">
+              What kind of wall do you want to cook today??
+            </h1>
+            <div className="w-full pr-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+              {WallCardTypesConstants.map((card) => (
+                <WallCardTypes
+                  key={card.key}
+                  title={card.title}
+                  desc={card.desc}
+                  img={card.img}
+                  slug={card.slug}
+                  url={card.url!}
+                />
+              ))}
+            </div>
           </div>
+        </>
+      )}
+      {page === "editing" && (
+        <div className="overflow-y-hidden">
+          <EditWallOfLove />
         </div>
-      }
-      {
-        page === "editing" && (
-          <div>
-            <EditWallOfLove />
-          </div>
-        )
-      }
-      {
-        page === "final" && (
-          <div>
-            <FinalWallOfLoveCodeCopy />
-          </div>
-        )
-      }
+      )}
+      {page === "final" && (
+        <div>
+          <FinalWallOfLoveCodeCopy />
+        </div>
+      )}
     </div>
   );
 };
-

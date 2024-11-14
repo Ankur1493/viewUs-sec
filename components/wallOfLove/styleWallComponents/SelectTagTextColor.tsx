@@ -18,7 +18,7 @@ import { Plus } from "lucide-react";
 import { useWallTypeStore } from "@/store/useWallTypeStore";
 import { ChevronDown } from "lucide-react";
 
-export const SelectBackground = () => {
+export const SelectTagTextColor = () => {
   const [color, setColor] = useState("#000000");
   const [hexInput, setHexInput] = useState("#000000");
   const presetColors = ["#000000", "#FFD700", "#FFE135", "#FFFFFF", "#FF1493"];
@@ -28,7 +28,7 @@ export const SelectBackground = () => {
   useEffect(() => {
     if (url) {
       const testUrl = new URL(url!);
-      testUrl.searchParams.set(`background`, color.slice(1));
+      testUrl.searchParams.set(`tagText`, color.slice(1));
       setUrl(testUrl.toString());
     }
   }, [color, url, setUrl]);
@@ -56,10 +56,10 @@ export const SelectBackground = () => {
         onClick={() => setOpen(!open)}
       >
         <div className="flex flex-col">
-          <CardTitle className="text-md">Background Color</CardTitle>
+          <CardTitle className="text-md">Tag Text Color</CardTitle>
           {open && (
             <CardDescription className="text-xs">
-              Select a background color
+              Select a text color for tags
             </CardDescription>
           )}
         </div>

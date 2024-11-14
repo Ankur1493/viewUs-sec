@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Dashboard() {
   return (
-    <div>
+    <div className="px-4">
       <WallOfLove />
     </div>
   );
