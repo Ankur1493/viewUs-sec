@@ -21,6 +21,8 @@ const buttonVariants = cva(
         link: "bg-transparent text-[#009EE2] underline underline-offset-2 hover:bg-transparent hover:text-[#009EE2] p-0 shadow-none",
         main: "bg-purple-600 text-white [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-opacity-80",
         form: "bg-[#71D4FF] text-black rounded-3xl p-6 px-8 hover:bg-[#71D4FF] hover:bg-opacity-80 text-md",
+        formOutline:
+          "border border-[#71D4FF] text-black bg-background border-2 rounded-3xl text-[14px] px-[24px] shadow-sm hover:bg-accent hover:text-accent-foreground",
       },
       size: {
         default: "h-9 px-4 py-2",
