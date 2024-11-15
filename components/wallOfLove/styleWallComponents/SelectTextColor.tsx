@@ -56,7 +56,7 @@ export const SelectTextColor = () => {
         onClick={() => setOpen(!open)}
       >
         <div className="flex flex-col">
-          <CardTitle className="text-md">Text Color</CardTitle>
+          <CardTitle className="text-md font-medium">Text Color</CardTitle>
           {open && (
             <CardDescription className="text-xs">
               Select a text color

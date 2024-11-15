@@ -24,7 +24,7 @@ import {
   SidebarHeader,
   SidebarProvider,
 } from "@/components/ui/sidebar";
-import { useWallTypeStore } from "@/store/useWallTypeStore";
+// import { useWallTypeStore } from "@/store/useWallTypeStore";
 
 interface ColorSection {
   id: string;
@@ -151,7 +151,7 @@ export const ColorSidebar = () => {
       colorSections.map(({ id, defaultColor }) => [id, defaultColor])
     )
   );
-  const { url, setUrl } = useWallTypeStore();
+  // const { url, setUrl } = useWallTypeStore();
 
   // useEffect(() => {
   //   if (url) {

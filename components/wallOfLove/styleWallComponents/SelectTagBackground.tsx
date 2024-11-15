@@ -56,7 +56,9 @@ export const SelectTagBackground = () => {
         onClick={() => setOpen(!open)}
       >
         <div className="flex flex-col">
-          <CardTitle className="text-md">Tag Background Color</CardTitle>
+          <CardTitle className="text-md font-medium">
+            Tag Background Color
+          </CardTitle>
           {open && (
             <CardDescription className="text-xs">
               Select a background color for tags

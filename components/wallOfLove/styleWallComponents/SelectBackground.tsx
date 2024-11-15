@@ -56,7 +56,9 @@ export const SelectBackground = () => {
         onClick={() => setOpen(!open)}
       >
         <div className="flex flex-col">
-          <CardTitle className="text-md">Background Color</CardTitle>
+          <CardTitle className="text-md font-medium">
+            Background Color
+          </CardTitle>
           {open && (
             <CardDescription className="text-xs">
               Select a background color

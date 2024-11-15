@@ -18,7 +18,7 @@ import { Plus } from "lucide-react";
 import { useWallTypeStore } from "@/store/useWallTypeStore";
 import { ChevronDown } from "lucide-react";
 
-export const SelectStar = () => {
+export const SelectShadowColor = () => {
   const [color, setColor] = useState("#000000");
   const [hexInput, setHexInput] = useState("#000000");
   const presetColors = ["#000000", "#FFD700", "#FFE135", "#FFFFFF", "#FF1493"];
@@ -28,7 +28,7 @@ export const SelectStar = () => {
   useEffect(() => {
     if (url) {
       const testUrl = new URL(url!);
-      testUrl.searchParams.set(`star`, color.slice(1));
+      testUrl.searchParams.set(`shadow`, color.slice(1));
       setUrl(testUrl.toString());
     }
   }, [color, url, setUrl]);
@@ -56,10 +56,10 @@ export const SelectStar = () => {
         onClick={() => setOpen(!open)}
       >
         <div className="flex flex-col">
-          <CardTitle className="text-md font-medium">Star Color</CardTitle>
+          <CardTitle className="text-md font-medium">Shadow Color</CardTitle>
           {open && (
             <CardDescription className="text-xs">
-              Select color for stars
+              Select a shadow color
             </CardDescription>
           )}
         </div>

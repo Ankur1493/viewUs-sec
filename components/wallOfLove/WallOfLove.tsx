@@ -8,11 +8,12 @@ import { ArrowLeftIcon } from "lucide-react";
 import { EditWallOfLove } from "./EditWallOfLove";
 import { useEffect, useState } from "react";
 import { FinalWallOfLoveCodeCopy } from "./FinalWallOfLoveCodeCopy";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const WallOfLove = () => {
   const [loading, setLoading] = useState(true);
   const { page, initializepage } = useWallTypeStore();
+  const router = useRouter();
 
   useEffect(() => {
     const loadPage = async () => {
@@ -32,7 +33,7 @@ export const WallOfLove = () => {
       {page === "all" && (
         <>
           <Button
-            onClick={() => redirect("/space")}
+            onClick={() => router.push("/space/bakedui")}
             className="bg-white text-black hover:bg-gray-100"
           >
             <ArrowLeftIcon />
