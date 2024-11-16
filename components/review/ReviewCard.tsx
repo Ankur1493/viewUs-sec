@@ -55,7 +55,11 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
           companyReq={reviewForm.company_req}
         />
       ) : reviewButton == "Video" ? (
-        <VideoReviewCard title={reviewForm.title} image={reviewForm.image} />
+        <VideoReviewCard
+          title={reviewForm.title}
+          image={reviewForm.image}
+          spaceId={reviewForm.id}
+        />
       ) : (
         <Card className="max-w-[700px] px-[2%] border-none flex flex-col gap-4 shadow-none">
           <CardHeader className="flex flex-row gap-3">
