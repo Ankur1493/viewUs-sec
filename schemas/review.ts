@@ -10,3 +10,13 @@ export const textReviewSchema = z.object({
   company: z.string().nullable().optional().default(null),
   tags: z.array(z.string()).optional()
 })
+
+export const videoReviewSchema = z.object({
+  stars: z.number().min(1).max(5),
+  firstName: z.string().nullable().optional().default(null),
+  lastName: z.string().nullable().optional().default(null),
+  email: z.string().email(),
+  jobTitle: z.string().nullable().optional().default(null),
+  company: z.string().nullable().optional().default(null),
+  tags: z.array(z.string()).optional()
+})
