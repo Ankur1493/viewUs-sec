@@ -23,9 +23,9 @@ export const WallSidebar = () => {
   return (
     <div className="h-full text-white p-2 shadow-lg border rounded-md flex flex-col pb-2 overflow-y-hidden">
       <h2 className="text-black text-lg py-2 font-semibold text-center">
-        Wall of Love
+        Customize your <span className="block">Wall of Love</span>
       </h2>
-      <div className="space-y-4 flex-grow overflow-y-auto no-scrollbar">
+      <div className="space-y-2 flex-grow overflow-y-auto no-scrollbar border-t py-1">
         <SelectTheme />
         <SelectBackground />
         <SelectCardBackground />
@@ -63,7 +63,7 @@ export const WallSidebar = () => {
       <div className="bottom-0 flex gap-2 pt-6">
         <Button
           onClick={() => setPage("all", null)}
-          className="bg-white text-black hover:bg-gray-100 flex-1 flex gap-2 border shadow-xl"
+          className="bg-white text-black hover:bg-gray-100 flex-1 flex gap-2 border shadow-md"
         >
           <ArrowLeftIcon size={20} />
           Back

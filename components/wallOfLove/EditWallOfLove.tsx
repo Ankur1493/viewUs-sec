@@ -13,13 +13,13 @@ export const EditWallOfLove = () => {
     <div>
       <div className="flex pt-2">
         {showSidebar && (
-          <div className="fixed top-0 left-0 h-screen w-1/5 z-10 overflow-y-hidden">
+          <div className="fixed top-0 left-0 h-screen w-1/6 z-10 overflow-y-hidden">
             <WallSidebar />
           </div>
         )}
         <div
           className={`flex-grow h-full overflow-x-hidden ${
-            showSidebar ? "ml-[20%]" : "ml-0"
+            showSidebar ? "ml-[16%]" : "ml-0"
           }`}
         >
           <div className="w-full flex justify-center h-screen relative w-full">

@@ -3,7 +3,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const SpaceLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen h-full w-screen flex">
+    <div className="h-full w-screen flex">
       <div className="hidden md:flex flex-none md:w-1/6 border-none">
         <SpaceSideBar />
       </div>
