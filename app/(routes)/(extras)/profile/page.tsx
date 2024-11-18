@@ -6,19 +6,22 @@ import { redirect } from "next/navigation";
 
 export default async function Profle() {
   const session = await auth();
-  const user = session?.user
-  if (!user) redirect("/login")
+  const user = session?.user;
+  if (!user) redirect("/login");
 
-  const userDetails = await getUserById(user.id!)
+  const userDetails = await getUserById(user.id!);
   if (!userDetails) {
-    return (
-      <div>Can not find your profile, maybe try logging out</div>
-    )
+    return <div>Can not find your profile, maybe try logging out</div>;
   }
 
   return (
     <div>
-      <Profile />
+      <div className="flex flex-col px-16 w-full gap-12">
+        <div className="flex flex-col gap-6 w-full">
+          <h1 className="text-4xl font-bold text-black">User Profile</h1>
+        </div>
+        <Profile user={userDetails} />
+      </div>
     </div>
   );
 }

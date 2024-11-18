@@ -1,37 +1,4 @@
 "use client";
-// import { Card, CardHeader, CardTitle } from "../ui/card";
-// import { Button } from "../ui/button";
-
-// export const SettingDetails = () => {
-//   return (
-//     <div className="w-full flex items-center justify-center">
-//       <Card className="p-8 flex flex-col gap-2">
-//         <div className="flex gap-2">
-//           <Card className="border-dashed border-gray-500">
-//             <CardHeader>
-//               <CardTitle className="text-center font-medium text-md">
-//                 1 <span className="block">videos left</span>
-//               </CardTitle>
-//             </CardHeader>
-//           </Card>
-//           <Card className="border-dashed border-gray-500">
-//             <CardHeader>
-//               <CardTitle className="text-center font-medium text-md">
-//                 {" "}
-//                 12 <span className="block">Texts left</span>
-//               </CardTitle>
-//             </CardHeader>
-//           </Card>
-//         </div>
-//         <div className="w-full">
-//           <Button variant="main" className="w-full">
-//             Upgrade✨
-//           </Button>
-//         </div>
-//       </Card>
-//     </div>
-//   );
-// };
 
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
