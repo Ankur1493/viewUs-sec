@@ -13,8 +13,10 @@ export const Profile = ({ user }: { user: User }) => {
             <div className="md:w-1/3 bg-gradient-to-br from-purple-500 to-indigo-600 p-6 flex flex-col items-center justify-center space-y-4 text-white">
               <div className="w-16 h-16 rounded-full border-white bg-sky-100">
                 <Image
-                  src={user.image ? user.image : profile}
+                  src={user.image ? `https://d3eyp937ijscg0.cloudfront.net/${user.image}` : profile}
                   alt="logo"
+                  width={100}
+                  height={100}
                   className="w-full h-full rounded-full object-contain"
                 />
               </div>
