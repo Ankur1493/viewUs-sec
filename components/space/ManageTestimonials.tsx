@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { TestimonialCard } from "./TestimonialCard";
 import { FrownIcon } from "lucide-react";
-import { Skeleton } from "../ui/skeleton";
+import TestimonialSkeleton from "./TestimonialSkeleton";
 
 export enum ReviewType {
   TEXT = 0,
@@ -57,7 +57,12 @@ export const ManageTestimonials = ({
   }, []);
 
   if (loading) {
-    return <Skeleton className="w-1/2 h-48" />;
+    return (
+      <div className="px-6">
+        <TestimonialSkeleton />;
+        <TestimonialSkeleton />;
+      </div>
+    );
   }
 
   const filteredTestimonials = testimonials.filter((testimonial) => {
@@ -98,4 +103,3 @@ export const ManageTestimonials = ({
     </div>
   );
 };
-

@@ -192,7 +192,10 @@ export const ProfileSettings = ({ user }: { user: User }) => {
               )}
             />
 
-            <Button className="w-full shadow-md mt-24" type="submit">
+            <Button
+              className="w-full shadow-md mt-24 hover:opacity-100 opacity-90 hover:scale-105 transition-all duration-300 transform"
+              type="submit"
+            >
               <Save className="w-4 h-4 mr-2" />
               Save Changes
             </Button>

@@ -6,53 +6,69 @@ import { useWallTypeStore } from "@/store/useWallTypeStore";
 import { EditWallOfLove } from "./EditWallOfLove";
 import { useEffect, useState } from "react";
 import { FinalWallOfLoveCodeCopy } from "./FinalWallOfLoveCodeCopy";
+import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
+import { ArrowLeftIcon } from "lucide-react";
 
-export const WallOfLove = () => {
+interface WallOfLoveProps {
+  slug: string;
+}
+
+export const WallOfLove = ({ slug }: WallOfLoveProps) => {
   const [loading, setLoading] = useState(true);
   const { page, initializepage } = useWallTypeStore();
+  const router = useRouter();
 
   useEffect(() => {
     const loadPage = async () => {
       setLoading(true);
-      initializepage(); // Ensure initializepage completes before setting loading to false
+      initializepage();
       setLoading(false);
     };
     loadPage();
-  }, []);
+  }, [initializepage]);
 
   if (loading) {
-    return <div>Loading...</div>; // Display a loading indicator while loading is true
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
       {page === "all" && (
-        <div className="flex flex-col gap-8">
-          <h1 className="text-4xl font-semibold">
-            What kind of wall do you want to cook today??
-          </h1>
-          <div className="w-full pr-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {WallCardTypesConstants.map((card) => (
-              <WallCardTypes
-                key={card.key}
-                title={card.title}
-                desc={card.desc}
-                img={card.img}
-                slug={card.slug}
-                url={card.url!}
-              />
-            ))}
+        <>
+          <Button
+            onClick={() => router.push(`/space/${slug}`)}
+            className="fixed top-2 left-2 bg-white text-black hover:bg-gray-100 flex-1 flex gap-2 border shadow-sm px-6"
+          >
+            <ArrowLeftIcon size={25} />
+          </Button>
+          <div className="flex flex-col gap-8 px-20">
+            <h1 className="text-4xl font-semibold">
+              What kind of wall do you want to cook today??
+            </h1>
+            <div className="w-full pr-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+              {WallCardTypesConstants.map((card) => (
+                <WallCardTypes
+                  key={card.key}
+                  title={card.title}
+                  desc={card.desc}
+                  img={card.img}
+                  slug={card.slug}
+                  url={card.url!}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       )}
       {page === "editing" && (
-        <div>
+        <div className="overflow-y-hidden">
           <EditWallOfLove />
         </div>
       )}
       {page === "final" && (
         <div>
-          <FinalWallOfLoveCodeCopy />
+          <FinalWallOfLoveCodeCopy slug={slug} />
         </div>
       )}
     </div>

@@ -1,57 +1,79 @@
-import { WobbleCard } from "@/components/ui/wobble-card"
-import { Card, CardContent } from "../ui/card"
-import { PencilIcon, VideoIcon } from "lucide-react"
-import { Button } from "../ui/button"
+"use client";
 
-export const SettingDetails = () => {
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Video, MessageSquare, Zap } from "lucide-react";
+
+export default function SettingDetails() {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className=" w-full flex items-center justify-center flex-col gap-8">
-      <div className="grid grid-cols-2 gap-4 w-full">
-        <div>
-          <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-pink-600 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px]">
-            <div className="max-w-lg">
-              <h2 className="max-w-sm md:max-w-lg  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
-                <VideoIcon />1 Video Testimonials Left
-              </h2>
-              <p className="mt-4 max-w-[32rem] text-left  text-base/6 text-neutral-200">
-                If you want more video testimonials to boost your sales, Upgrade Now.
-                <span className="block">You would be surprised to know that video testimonials are proved to increase trust</span>
-              </p>
-            </div>
-          </WobbleCard>
-        </div>
-        <div>
-          <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-red-600 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px]">
-            <div className="max-w-lg">
-              <h2 className="max-w-sm md:max-w-lg  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
-                <PencilIcon /> 12 Text Testimonials Left
-              </h2>
-              <p className="mt-4 max-w-[32rem] text-left  text-base/6 text-neutral-200">
-                If you want more video testimonials to boost your sales, Upgrade Now.
-                <span className="block">You would be surprised to know that video testimonials are proved to increase trust</span>
-              </p>
-            </div>
-          </WobbleCard>
-        </div>
-      </div>
-      <div className="w-full">
-        <Card className="col-span-1 bg-violet-600 min-h-[300px] relative  h-full [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))]  sm:mx-0 sm:rounded-2xl overflow-hidden">
-          <CardContent className="p-6 pt-6 pb-0">
-            <h2 className="max-w-sm md:max-w-4xl  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
-              Easily manage all of your testimonials
-              <span className="block">from one place</span>
-            </h2>
-            <p className="mt-4 max-w-[32rem] text-left  text-base/6 text-neutral-200">
-              We have a enriched dashboard to let you manage these testimonials at
-              warp speed and let you focus on your product.
-            </p>
-            <Button className="w-full mt-4 bg-violet-950">
-              Upgrade Now
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-
+    <div className="w-full flex items-top justify-center p-4 h-fit">
+      <Card className="p-8 flex flex-col gap-4 w-full max-w-md shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <CardHeader>
+          <CardTitle className="text-3xl font-bold text-center text-purple-700">
+            Your Current Plan
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-6">
+          <div className="flex gap-4">
+            <Card className="border-dashed border-purple-300 flex-1 hover:bg-purple-50 transition-colors duration-200">
+              <CardHeader>
+                <CardTitle className="text-center font-medium text-lg flex flex-col items-center gap-2">
+                  <Video className="text-purple-500" />1{" "}
+                  <span className="block text-sm text-gray-600">
+                    video left
+                  </span>
+                </CardTitle>
+              </CardHeader>
+            </Card>
+            <Card className="border-dashed border-pink-300 flex-1 hover:bg-pink-50 transition-colors duration-200">
+              <CardHeader>
+                <CardTitle className="text-center font-medium text-lg flex flex-col items-center gap-2">
+                  <MessageSquare className="text-pink-500" />
+                  12{" "}
+                  <span className="block text-sm text-gray-600">
+                    texts left
+                  </span>
+                </CardTitle>
+              </CardHeader>
+            </Card>
+          </div>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div
+                  className="w-full"
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  <Button
+                    variant="default"
+                    className={`w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform ${
+                      isHovered ? "scale-105" : "scale-100"
+                    }`}
+                  >
+                    Upgrade{" "}
+                    <Zap
+                      className={`ml-2 ${isHovered ? "animate-pulse" : ""}`}
+                    />
+                  </Button>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Unlock unlimited videos and texts!</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </CardContent>
+      </Card>
     </div>
-  )
+  );
 }

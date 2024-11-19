@@ -11,7 +11,7 @@ import { Plus } from "lucide-react";
 import { useWallTypeStore } from "@/store/useWallTypeStore";
 import { WallSidebarWrapper } from "./WallSidebarWrapper";
 
-export const SelectBackground = () => {
+export const SelectTagBackground = () => {
   const [color, setColor] = useState("#000000");
   const [hexInput, setHexInput] = useState("#000000");
   const presetColors = ["#000000", "#FFD700", "#FFE135", "#FFFFFF", "#FF1493"];
@@ -20,7 +20,7 @@ export const SelectBackground = () => {
   useEffect(() => {
     if (url) {
       const testUrl = new URL(url!);
-      testUrl.searchParams.set(`background`, color.slice(1));
+      testUrl.searchParams.set(`tag`, color.slice(1));
       setUrl(testUrl.toString());
     }
   }, [color, url, setUrl]);
@@ -39,8 +39,8 @@ export const SelectBackground = () => {
 
   return (
     <WallSidebarWrapper
-      header="Background Color"
-      description="Select a background color"
+      header="Tag Background Color"
+      description="Select a background color for tags"
     >
       <div className="flex gap-2">
         <Popover>
