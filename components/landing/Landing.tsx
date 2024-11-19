@@ -25,7 +25,7 @@ export const Landing = () => {
           style={{ margin: 0 }}
         >
           <iframe
-            src="https://embed-viewus.netlify.app/w/embed-testimonials/carousal?animated=&theme=&speed=high"
+            src="https://embed-viewus.netlify.app/w/embed-testimonials/carousal?animated=on&theme=&speed=high"
             width="100%"
             height="100%"
             frameBorder="0"

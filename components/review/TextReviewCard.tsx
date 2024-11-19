@@ -63,7 +63,6 @@ export const TextReviewCard = ({
 
       if (customerDetails.image) {
         formData.append("image", customerDetails.image);
-        console.log(customerDetails.image);
       }
 
       const response = await axios.post("/api/review/text", formData, {
@@ -171,7 +170,7 @@ export const TextReviewCard = ({
                 <Video color="#009EE2" size={32} />
               </div>
 
-              <CardTitle className="text-center text-[#33313B] text-[16px] font-normal flex items-center font-[500] tracking-[2%]">
+              <CardTitle className="text-center text-[#33313B] text-[16px] font-normal flex items-center tracking-[2%]">
                 Or record a two minute video
               </CardTitle>
             </CardHeader>

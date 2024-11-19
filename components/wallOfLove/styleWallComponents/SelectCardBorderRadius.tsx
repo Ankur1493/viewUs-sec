@@ -21,19 +21,21 @@ export const SelectCardBorderRadius = () => {
       header="Card Border Radius"
       description="Select a border radius for your cards"
     >
-      {options.map((option) => (
-        <button
-          key={option}
-          className={`py-1 px-2 rounded-md text-xs ${
-            radius === option
-              ? "bg-primary text-white"
-              : "bg-gray-100 text-black"
-          }`}
-          onClick={() => handleRadiusChange(option)}
-        >
-          {option.charAt(0).toUpperCase() + option.slice(1)}
-        </button>
-      ))}
+      <div className="w-full flex flex-col gap-2">
+        {options.map((option) => (
+          <button
+            key={option}
+            className={`py-1 px-2 rounded-md text-xs ${
+              radius === option
+                ? "bg-primary text-white"
+                : "bg-gray-100 text-black"
+            }`}
+            onClick={() => handleRadiusChange(option)}
+          >
+            {option.charAt(0).toUpperCase() + option.slice(1)}
+          </button>
+        ))}
+      </div>
     </WallSidebarWrapper>
   );
 };

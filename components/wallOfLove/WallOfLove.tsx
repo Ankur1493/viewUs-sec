@@ -3,12 +3,12 @@
 import { WallCardTypesConstants } from "@/constants";
 import { WallCardTypes } from "./WallCardTypes";
 import { useWallTypeStore } from "@/store/useWallTypeStore";
-import { Button } from "../ui/button";
-import { ArrowLeftIcon } from "lucide-react";
 import { EditWallOfLove } from "./EditWallOfLove";
 import { useEffect, useState } from "react";
 import { FinalWallOfLoveCodeCopy } from "./FinalWallOfLoveCodeCopy";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
+import { ArrowLeftIcon } from "lucide-react";
 
 interface WallOfLoveProps {
   slug: string;

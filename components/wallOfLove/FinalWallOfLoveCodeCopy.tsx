@@ -30,7 +30,7 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
       await navigator.clipboard.writeText(url!);
       setIsCopied(true);
       toast("copied the URL");
-      setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+      setTimeout(() => setIsCopied(false), 2000);
     } catch (err) {
       toast("failed");
     }

@@ -21,19 +21,22 @@ export const SelectCardHeight = () => {
       header="Card Height"
       description="Select the height of the cards"
     >
-      {options.map((option) => (
-        <button
-          key={option}
-          className={`py-1 px-2 rounded-md text-xs ${
-            height === option
-              ? "bg-primary text-white"
-              : "bg-gray-100 text-black"
-          }`}
-          onClick={() => handleHeightChange(option)}
-        >
-          {option.charAt(0).toUpperCase() + option.slice(1)}
-        </button>
-      ))}
+      {" "}
+      <div className="w-full flex flex-col gap-2">
+        {options.map((option) => (
+          <button
+            key={option}
+            className={`py-1 px-2 rounded-md text-xs ${
+              height === option
+                ? "bg-primary text-white"
+                : "bg-gray-100 text-black"
+            }`}
+            onClick={() => handleHeightChange(option)}
+          >
+            {option.charAt(0).toUpperCase() + option.slice(1)}
+          </button>
+        ))}
+      </div>
     </WallSidebarWrapper>
   );
 };
