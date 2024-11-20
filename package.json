@@ -36,6 +36,7 @@
     "edge-cors": "^0.2.1",
     "framer-motion": "^11.11.5",
     "gsap": "^3.12.5",
+    "hls.js": "^1.5.17",
     "lucide-react": "^0.439.0",
     "mongodb": "^6.8.1",
     "mongoose": "^8.6.1",

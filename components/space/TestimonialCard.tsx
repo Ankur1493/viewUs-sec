@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import { Import, Pencil, Video, ChevronDown, ChevronUp } from "lucide-react";
+import { Import, Pencil, Video } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import starsSelected from "@/public/assets/images/star_selected.png";
 import twitter from "@/public/assets/images/twitter_logo.png";
@@ -33,12 +33,9 @@ type ImportedReviewType = keyof typeof importedReviewTypeImages;
 
 export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
   const [isExpanded, setIsExpanded] = useState(true);
+  setIsExpanded(true)
   const [ref, { height }] = useMeasure<HTMLDivElement>();
   const contentRef = useRef<HTMLDivElement>(null);
-
-  const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
 
   const numberOfStars = testimonial.stars ?? 0;
   const reviewTypeLabel: ImportedReviewType =
