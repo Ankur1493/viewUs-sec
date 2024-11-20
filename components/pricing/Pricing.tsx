@@ -11,7 +11,7 @@ export const Pricing = () => {
   const [period, setPeriod] = useState<"month" | "year">("month");
 
   return (
-    <div className="dark h-full w-full flex items-center justify-center  bg-gradient-to-tr from-[#141111] to-gray-950">
+    <div className="dark h-full w-full flex items-center justify-center  bg-[#141111]">
       <div className="container px-4 py-16 md:py-24">
         <div className="text-center">
           <h1 className="text-3xl md:text-6xl font-bold mb-4 text-white">
@@ -66,8 +66,8 @@ export const Pricing = () => {
             </CardHeader>
 
             <CardContent className="grid gap-6">
-              <Button className="bg-blue-500 hover:bg-blue-600 rounded-3xl py-6 text-base">
-                Will be coming Soon
+              <Button className="bg-blue-500 hover:bg-blue-600 rounded-3xl py-6 text-base font-semibold">
+                Coming Soon
               </Button>
               <ul className="grid gap-4 grid-cols-2 text-sm">
                 <li className="flex gap-3">

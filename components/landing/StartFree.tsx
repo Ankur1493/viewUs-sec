@@ -1,7 +1,6 @@
 import { freeFeatures } from "@/constants";
-import { CardDescription, CardHeader } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
-import StartFreeTitle from "./StartFreeTitles";
 import { Highlight } from "../Highlight";
 import { Star } from "lucide-react";
 
@@ -26,17 +25,26 @@ export const StartFree = () => {
       </div>
       <div className="grid grid-cols-3 gap-4">
         {freeFeatures.map((feature, index) => (
-          <div key={index} className="w-[350px] flex bg-opacity-75 shadow-none">
-            <div>
-              <Star size={25} fill="pink" className="text-sky-300" />
-            </div>
-            <CardHeader className="p-6 pt-0">
-              <StartFreeTitle title={feature.title} />
-              <CardDescription className="text-sm">
+          <Card
+            key={index}
+            className="w-[350px] flex bg-transparent shadow-none border-none"
+          >
+            <CardContent className="p-6 space-y-1">
+              <div className="flex flex-col gap-1 ">
+                <Star
+                  size={25}
+                  className="text-purple-500"
+                  fill="currentColor"
+                />
+                <h3 className="text-xl font-semibold text-gray-900">
+                  {feature.title}
+                </h3>
+              </div>
+              <p className={`text-gray-600 transition-opacity duration-300`}>
                 {feature.desc}
-              </CardDescription>
-            </CardHeader>
-          </div>
+              </p>
+            </CardContent>
+          </Card>
         ))}
       </div>
       <Link

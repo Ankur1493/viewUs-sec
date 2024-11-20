@@ -42,13 +42,14 @@ export const WallOfLove = ({ slug }: WallOfLoveProps) => {
           >
             <ArrowLeftIcon size={25} />
           </Button>
-          <div className="flex flex-col gap-8 px-20">
+          <div className="flex flex-col gap-8 px-40 pb-12">
             <h1 className="text-4xl font-semibold">
               What kind of wall do you want to cook today??
             </h1>
             <div className="w-full pr-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-              {WallCardTypesConstants.map((card) => (
+              {WallCardTypesConstants.map((card, index) => (
                 <WallCardTypes
+                  index={index}
                   key={card.key}
                   title={card.title}
                   desc={card.desc}

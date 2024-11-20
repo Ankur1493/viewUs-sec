@@ -15,9 +15,11 @@ export const DashboardNavbar = async () => {
 
   return (
     <div className="sticky top-0 h-[60px] w-full px-8 flex items-center justify-end gap-4 overflow-x-hidden">
-      <Button className="ml-2 px-2 text-sm bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-opacity-80">
-        ✨ Upgrade
-      </Button>
+      <Link href="/pricing">
+        <Button className="ml-2 px-2 text-sm bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-opacity-80">
+          ✨ Upgrade
+        </Button>
+      </Link>
       <Link href="/settings" className="cursor-pointer">
         <Settings className="cursor-pointer" />
       </Link>
