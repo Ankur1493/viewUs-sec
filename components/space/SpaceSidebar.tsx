@@ -127,17 +127,17 @@ export function SpaceSideBar() {
           <SidebarGroupContent className="flex flex-col jutify-center items-center">
             <SidebarMenu className="w-[80%]">
               <SidebarMenuItem>
-                <SidebarMenuButton
-                  className={cn(isImportedActive ? "bg-gray-100" : "")}
+                <Link
+                  href={`/space/${slug}/import`}
+                  className="flex items-center cursor-pointer"
                 >
-                  <Link
-                    href={`/space/${slug}/import`}
-                    className="flex items-center cursor-pointer"
+                  <SidebarMenuButton
+                    className={cn(isImportedActive ? "bg-gray-100" : "")}
                   >
                     <ImportIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />
                     <span className="ml-2">Import Testimonials</span>
-                  </Link>
-                </SidebarMenuButton>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
@@ -184,7 +184,7 @@ export function SpaceSideBar() {
 export const Logo = () => {
   return (
     <Link
-      href="#"
+      href="/dashboard"
       className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-4 relative z-20"
     >
       <div className="h-8 w-8 bg-black rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
@@ -201,7 +201,7 @@ export const Logo = () => {
 export const LogoIcon = () => {
   return (
     <Link
-      href="#"
+      href="/dashboard"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
       <div className="h-5 w-6 bg-black rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />

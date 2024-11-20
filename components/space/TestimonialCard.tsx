@@ -195,10 +195,16 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
                   <div className="text-gray-600 text-sm">
                     {testimonial.createdAt
                       ? new Date(testimonial.createdAt).toLocaleDateString(
-                          "en-GB"
+                          "en-US",
+                          {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          }
                         )
                       : ""}
                   </div>
+
                   <div className="flex">
                     <div className="flex justify-center items-center m-0">
                       <TestimonialDeleteButton

@@ -23,7 +23,7 @@ import axios from "axios";
 import { toast } from "sonner";
 
 export const ProfileSettings = ({ user }: { user: User }) => {
-  const cdn = process.env.NEXT_PUBLIC_CDN_NAME;
+  const cdn = process.env.CDN_NAME;
 
   const [imageKey] = useState(Date.now());
 
@@ -50,6 +50,11 @@ export const ProfileSettings = ({ user }: { user: User }) => {
       setSelectedImage(imageUrl);
       form.setValue("image", file, { shouldValidate: true });
     }
+  };
+
+  const handleUploadClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    fileInputRef.current?.click();
   };
 
   const handleChangeImage = () => {
@@ -108,7 +113,7 @@ export const ProfileSettings = ({ user }: { user: User }) => {
                 />
               </div>
               <Button
-                onClick={handleChangeImage}
+                onClick={handleUploadClick}
                 variant="outline"
                 className="shadow-md"
               >

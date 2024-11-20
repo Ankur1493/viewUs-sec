@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -56,12 +56,12 @@ export const AccountSettings = ({ user }: { user: User }) => {
 
   const handlePasswordChange =
     (prop: keyof PasswordFormState) =>
-      (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPasswordValues({
-          ...passwordValues,
-          [prop]: event.target.value,
-        });
-      };
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setPasswordValues({
+        ...passwordValues,
+        [prop]: event.target.value,
+      });
+    };
 
   const handleChangePassword = async () => {
     if (passwordValues.newPassword !== passwordValues.confirmPassword) {
@@ -91,8 +91,6 @@ export const AccountSettings = ({ user }: { user: User }) => {
     passwordValues.confirmPassword = "";
     console.log("Change password clicked");
   };
-
-
 
   const handleDeleteAccount = async () => {
     const response = await deleteUserProfile(user.id);
@@ -124,8 +122,8 @@ export const AccountSettings = ({ user }: { user: User }) => {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              You will not be able to change your password for next 2 hours,
-              we will also share a mail to confirm, if you have changed the
+              You will not be able to change your password for next 2 hours, we
+              will also share a mail to confirm, if you have changed the
               password, ignore that mail
             </AlertDialogDescription>
           </AlertDialogHeader>
@@ -189,9 +187,7 @@ export const AccountSettings = ({ user }: { user: User }) => {
             <Input
               placeholder="confirm password"
               onChange={handlePasswordChange("confirmPassword")}
-              type={
-                passwordValues.showConfirmPassword ? "text" : "password"
-              }
+              type={passwordValues.showConfirmPassword ? "text" : "password"}
               value={passwordValues.confirmPassword}
               className="pr-10"
             />
@@ -225,7 +221,7 @@ export const AccountSettings = ({ user }: { user: User }) => {
       </AlertDialog>
       <AlertDialog>
         <AlertDialogTrigger className="w-full">
-          <div className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md bg-red-600 hover:bg-red-600 hover:bg-opacity-90 text-white rounded-md text-sm font-medium">
+          <div className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md bg-red-600 hover:bg-red-600 opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-300 text-white rounded-md text-sm font-medium">
             <Trash2 className="w-4 h-4 mr-2" />
             Delete My Account
           </div>
@@ -235,8 +231,8 @@ export const AccountSettings = ({ user }: { user: User }) => {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete
-              your account and remove your data from our servers.
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -248,6 +244,5 @@ export const AccountSettings = ({ user }: { user: User }) => {
         </AlertDialogContent>
       </AlertDialog>
     </div>
-
-  )
-}
+  );
+};

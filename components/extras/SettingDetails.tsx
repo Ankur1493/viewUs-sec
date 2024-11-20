@@ -9,7 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Video, MessageSquare, Zap } from "lucide-react";
+import { Video, MessageSquare, Zap, Import, BookHeart } from "lucide-react";
 
 export default function SettingDetails() {
   const [isHovered, setIsHovered] = useState(false);
@@ -22,14 +22,14 @@ export default function SettingDetails() {
             Your Current Plan
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-6">
+        <CardContent className="flex flex-col gap-4">
           <div className="flex gap-4">
             <Card className="border-dashed border-purple-300 flex-1 hover:bg-purple-50 transition-colors duration-200">
               <CardHeader>
                 <CardTitle className="text-center font-medium text-lg flex flex-col items-center gap-2">
-                  <Video className="text-purple-500" />1{" "}
+                  <BookHeart className="text-purple-500" />1{" "}
                   <span className="block text-sm text-gray-600">
-                    video left
+                    spaces left
                   </span>
                 </CardTitle>
               </CardHeader>
@@ -37,7 +37,29 @@ export default function SettingDetails() {
             <Card className="border-dashed border-pink-300 flex-1 hover:bg-pink-50 transition-colors duration-200">
               <CardHeader>
                 <CardTitle className="text-center font-medium text-lg flex flex-col items-center gap-2">
-                  <MessageSquare className="text-pink-500" />
+                  <Import className="text-pink-500" />4{" "}
+                  <span className="block text-sm text-gray-600">
+                    imports left
+                  </span>
+                </CardTitle>
+              </CardHeader>
+            </Card>
+          </div>
+          <div className="flex gap-4">
+            <Card className="border-dashed border-pink-300 flex-1 hover:bg-pink-50 transition-colors duration-200">
+              <CardHeader>
+                <CardTitle className="text-center font-medium text-lg flex flex-col items-center gap-2">
+                  <Video className="text-pink-500" />2{" "}
+                  <span className="block text-sm text-gray-600">
+                    videos left
+                  </span>
+                </CardTitle>
+              </CardHeader>
+            </Card>
+            <Card className="border-dashed border-purple-300 flex-1 hover:bg-purple-50 transition-colors duration-200">
+              <CardHeader>
+                <CardTitle className="text-center font-medium text-lg flex flex-col items-center gap-2">
+                  <MessageSquare className="text-purple-500" />
                   12{" "}
                   <span className="block text-sm text-gray-600">
                     texts left
@@ -68,7 +90,7 @@ export default function SettingDetails() {
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Unlock unlimited videos and texts!</p>
+                <p>Unlock more videos and unlimited texts and imports!</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

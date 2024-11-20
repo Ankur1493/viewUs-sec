@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import axios from "axios";
-import { Heart } from "lucide-react";
+import { Heart, Router } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface TestimonialLikeButtonProps {
   testimonialId: string;
@@ -15,8 +16,10 @@ export const TestimonialLikeButton = ({
   testimonialId,
   initialLiked,
 }: TestimonialLikeButtonProps) => {
+  const router = useRouter();
   const [liked, setLiked] = useState(initialLiked);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const updateLikeStatus = async () => {
     setIsUpdating(true);
@@ -37,6 +40,9 @@ export const TestimonialLikeButton = ({
       console.error("Failed to update like status:", error);
     } finally {
       setIsUpdating(false);
+      startTransition(() => {
+        router.refresh();
+      });
     }
   };
 
@@ -45,13 +51,12 @@ export const TestimonialLikeButton = ({
       variant="ghost"
       size="icon"
       onClick={updateLikeStatus}
-      disabled={isUpdating}
+      disabled={isUpdating || isPending}
       aria-label={liked ? "Unlike testimonial" : "Like testimonial"}
     >
       <Heart
         size={20}
-        className={` ${liked ? "fill-red-500 text-red-500" : "text-black"
-          }`}
+        className={` ${liked ? "fill-red-500 text-red-500" : "text-black"}`}
       />
     </Button>
   );

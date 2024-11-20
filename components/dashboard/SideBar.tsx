@@ -95,7 +95,10 @@ export function SideBar() {
 }
 
 export const Logo = () => (
-  <Link href="#" className="flex gap-2 items-center text-sm text-black py-4">
+  <Link
+    href="/dashboard"
+    className="flex gap-2 items-center text-sm text-black py-4"
+  >
     <div className="h-8 w-8 bg-black rounded-br-lg" />
     <span className="font-bold text-2xl text-black">ViewUs</span>
   </Link>
