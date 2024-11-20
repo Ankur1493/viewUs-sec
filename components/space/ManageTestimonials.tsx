@@ -54,7 +54,7 @@ export const ManageTestimonials = ({
       setLoading(false);
     };
     loadPage();
-  }, []);
+  }, [initializeFilter]);
 
   if (loading) {
     return (

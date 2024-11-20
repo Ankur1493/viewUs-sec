@@ -5,10 +5,6 @@ import step1Image from "@/public/assets/images/test2.webp";
 import step2Image from "@/public/assets/images/test3.webp";
 import step3Image from "@/public/assets/images/HeroImage.png";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { number } from "zod";
 
 export default function OurProcess() {
   const steps = [

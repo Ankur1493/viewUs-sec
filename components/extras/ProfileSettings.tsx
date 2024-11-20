@@ -57,10 +57,6 @@ export const ProfileSettings = ({ user }: { user: User }) => {
     fileInputRef.current?.click();
   };
 
-  const handleChangeImage = () => {
-    fileInputRef.current?.click();
-  };
-
   const handleSaveChanges = async (data: z.infer<typeof profileSchema>) => {
     // Ensure the email is not modifiable
     data.email = user.email!;
