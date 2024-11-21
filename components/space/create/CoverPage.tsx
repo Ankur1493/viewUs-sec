@@ -57,7 +57,6 @@ export const CoverPage = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     //@ts-ignore
     setCoverPage(values)
-    console.log(values)
     router.push("/space/create?page=2")
   }
 
