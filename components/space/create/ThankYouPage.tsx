@@ -40,16 +40,16 @@ export const ThankYouPage = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setThankYou(values)
-    router.push("/space/create?page=6")
+    router.push("/space/create?page=7")
   }
 
   return (
     <div className="w-full max-h-screen h-full flex justify-center items-center gap-4">
       <div className="w-1/2 space-y-6">
         <div className="w-3/4">
-          <h1 className="text-2xl font-bold">Create your cover page</h1>
+          <h1 className="text-2xl font-bold">Create your Thank page</h1>
           <p>
-            This is the first page your users will see, so add a message to encourage them to leave a testimonial
+            Dekhlio yaha bhi bhai, tu hi hai
           </p>
 
           <Form {...form}>
@@ -95,7 +95,7 @@ export const ThankYouPage = () => {
           </div>
         </div>
         <div className="flex justify-between mt-6">
-          <Button onClick={() => { router.push("/space/create?page=4") }} variant="outline">Back</Button>
+          <Button onClick={() => { router.push("/space/create?page=5") }} variant="outline">Back</Button>
           <Button type="submit" onClick={form.handleSubmit(onSubmit)}>Next</Button>
         </div>
       </div>

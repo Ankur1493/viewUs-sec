@@ -49,8 +49,8 @@ export const TestimonialType = () => {
           preferred === "text" ? (<p>Written</p>) : (<p>Video</p>)
         }
         <div className="flex justify-between mt-6">
-          <Button onClick={() => { router.push("/space/create?page=2") }} variant="outline">Back</Button>
-          <Button onClick={() => { router.push("/space/create?page=4") }} >Next</Button>
+          <Button onClick={() => { router.push("/space/create?page=3") }} variant="outline">Back</Button>
+          <Button onClick={() => { router.push("/space/create?page=5") }} >Next</Button>
         </div>
       </div>
     </div>

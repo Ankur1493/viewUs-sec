@@ -19,17 +19,20 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
+import { useSpaceDataStore } from '@/store/useSpaceDataStore'
 
 const testimonialTypes = [
-  { page: '1', label: 'Cover Page' },
-  { page: '2', label: 'User Information' },
-  { page: '3', label: 'Testimonial Type' },
-  { page: '4', label: 'Testimonial Page' },
-  { page: '5', label: 'Thank You Page' },
-  { page: '6', label: 'Design' },
+  { page: '1', label: "Space Details" },
+  { page: '2', label: 'Cover Page' },
+  { page: '3', label: 'User Information' },
+  { page: '4', label: 'Testimonial Type' },
+  { page: '5', label: 'Testimonial Page' },
+  { page: '6', label: 'Thank You Page' },
+  { page: '7', label: 'Design' },
 ]
 
 export const SpaceCreateNavbar = () => {
+  const { spaceCreationDetails, coverPage, userInformation, testimonialType, testimonialPageType, thankyou, design } = useSpaceDataStore()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isSaveDialogOpen, setIsSaveDialogOpen] = useState(false)
   const router = useRouter()
@@ -52,16 +55,30 @@ export const SpaceCreateNavbar = () => {
   const handleExitConfirm = (confirm: boolean) => {
     setIsDialogOpen(false)
     if (confirm) {
-      router.push('/')
+      router.push('/dashboard')
     }
   }
 
   const handleSaveConfirm = (confirm: boolean) => {
     setIsSaveDialogOpen(false)
-    //also call saving space function
-    //update this route to go to space/${spaceslug}/form
+    //check for spaceCreationDetails
+    if (spaceCreationDetails.projectSlug === null || spaceCreationDetails.projectName === null) {
+      return router.push("/space/create?error=missingDetails")
+    }
+
+    console.log("here's the data")
+    console.log({
+      spaceCreationDetails,
+      coverPage,
+      userInformation,
+      testimonialType,
+      testimonialPageType,
+      thankyou,
+      design
+    })
+    //add a save call
     if (confirm) {
-      router.push('/space/bakedui')
+      router.push(`/space/${spaceCreationDetails.projectSlug}`)
     }
   }
 

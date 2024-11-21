@@ -57,7 +57,7 @@ export const CoverPage = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     //@ts-ignore
     setCoverPage(values)
-    router.push("/space/create?page=2")
+    router.push("/space/create?page=3")
   }
 
   return (
@@ -138,8 +138,9 @@ export const CoverPage = () => {
             <Button>{form.watch("btnText")}</Button>
           </div>
         </div>
-        <div className="flex justify-end mt-6">
-          <Button type="submit" className="w-full" onClick={form.handleSubmit(onSubmit)}>Next</Button>
+        <div className="flex justify-between mt-6">
+          <Button onClick={() => { router.push("/space/create?page=1") }} variant="outline">Back</Button>
+          <Button type="submit" onClick={form.handleSubmit(onSubmit)}>Next</Button>
         </div>
       </div>
     </div>

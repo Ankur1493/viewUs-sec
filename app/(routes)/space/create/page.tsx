@@ -6,24 +6,27 @@ import { TestimonialType } from "@/components/space/create/TestimonialType"
 import { TestimonialPage } from "@/components/space/create/TestimonialPage"
 import { ThankYouPage } from "@/components/space/create/ThankYouPage"
 import { DesignPage } from "@/components/space/create/DesignPage"
+import { SpaceCreationDetails } from '@/components/space/create/SpaceCreationDetails'
 
 export default function SpaceCreatePage({ searchParams }: { searchParams: { page?: string } }) {
   const page = parseInt(searchParams.page || '1')
-  const currentPage = isNaN(page) || page < 1 || page > 6 ? 1 : page
+  const currentPage = isNaN(page) || page < 1 || page > 7 ? 1 : page
 
   const renderPage = () => {
     switch (currentPage) {
       case 1:
-        return <CoverPage />
+        return <SpaceCreationDetails />
       case 2:
-        return <UserInformation />
+        return <CoverPage />
       case 3:
-        return <TestimonialType />
+        return <UserInformation />
       case 4:
-        return <TestimonialPage />
+        return <TestimonialType />
       case 5:
-        return <ThankYouPage />
+        return <TestimonialPage />
       case 6:
+        return <ThankYouPage />
+      case 7:
         return <DesignPage />
       default:
         return <CoverPage />
