@@ -6,6 +6,7 @@ export default function ArticlesPage() {
       <div className="flex flex-col items-center relative top-0 w-full transform">
         <Navbar active="articles" />
       </div>
+      <h1>hello</h1>
     </div>
   );
 }

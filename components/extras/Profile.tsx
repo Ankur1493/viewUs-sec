@@ -3,17 +3,30 @@ import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
 import profile from "@/public/assets/images/profile.png";
 import Image from "next/image";
+import { Pencil } from "lucide-react";
+import Link from "next/link";
 
 export const Profile = ({ user }: { user: User }) => {
+  console.log(user.image);
+
   return (
     <div className="w-full">
-      <Card className="w-full max-w-4xl overflow-hidden">
+      <Card className="relative w-full max-w-4xl">
+        <div className="absolute -right-2 -top-2 cursor-pointer hover:opacity-90">
+          <Link href="/settings">
+            <Pencil />
+          </Link>
+        </div>
         <CardContent className="p-0">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/3 bg-gradient-to-br from-purple-500 to-indigo-600 p-6 flex flex-col items-center justify-center space-y-4 text-white">
               <div className="w-16 h-16 rounded-full border-white bg-sky-100">
                 <Image
-                  src={user.image ? `https://d3eyp937ijscg0.cloudfront.net/${user.image}` : profile}
+                  src={
+                    user.image
+                      ? `https://d3eyp937ijscg0.cloudfront.net/${user.image}`
+                      : profile
+                  }
                   alt="logo"
                   width={100}
                   height={100}

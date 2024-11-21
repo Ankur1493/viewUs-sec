@@ -13,9 +13,8 @@ import { IReview, ReviewType } from "./ManageTestimonials";
 import { TestimonialLikeButton } from "@/components/space/TestimonialLikeButton";
 import { TestimonialDeleteButton } from "./TestimonialDeleteButton";
 import { TestimonialShareButton } from "./TestimonialShareButton";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { useMeasure } from "react-use";
-import { VideoPlayer } from "./VideoPlayer";
 
 const importedReviewTypeLabels = {
   0: "Twitter",
@@ -32,15 +31,15 @@ const importedReviewTypeImages = {
 type ImportedReviewType = keyof typeof importedReviewTypeImages;
 
 export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
-  const [isExpanded, setIsExpanded] = useState(true);
-  setIsExpanded(true)
+  // const [isExpanded, setIsExpanded] = useState(true);
+  const isExpanded = true;
   const [ref, { height }] = useMeasure<HTMLDivElement>();
   const contentRef = useRef<HTMLDivElement>(null);
 
   const numberOfStars = testimonial.stars ?? 0;
   const reviewTypeLabel: ImportedReviewType =
     importedReviewTypeLabels[
-    testimonial.importedReviewType as keyof typeof importedReviewTypeLabels
+      testimonial.importedReviewType as keyof typeof importedReviewTypeLabels
     ];
 
   return (
@@ -137,20 +136,15 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
           </div>
         </CardHeader>
         <CardContent
-          className={`flex-row w-full items-center ${isExpanded ? "pb-2" : "pb-8"
-            }`}
+          className={`flex-row w-full items-center ${
+            isExpanded ? "pb-2" : "pb-8"
+          }`}
         >
-          {
-            testimonial.reviewType === ReviewType.VIDEO ? (
-              <VideoPlayer />
-            ) : (
-              <p className="text-md tracking-wide text-justify font-medium pb-2">
-                {testimonial.review}
-              </p>
-            )
-          }
+          <p className="text-md tracking-wide text-justify font-medium pb-2">
+            {testimonial.review}
+          </p>
           {testimonial.importedImage &&
-            testimonial?.importedImage[0]?.length > 0 ? (
+          testimonial?.importedImage[0]?.length > 0 ? (
             <Image
               src={testimonial.importedImage[0]}
               alt={`${testimonial.importedReviewType} image`}
@@ -198,10 +192,16 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
                   <div className="text-gray-600 text-sm">
                     {testimonial.createdAt
                       ? new Date(testimonial.createdAt).toLocaleDateString(
-                        "en-GB"
-                      )
+                          "en-US",
+                          {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          }
+                        )
                       : ""}
                   </div>
+
                   <div className="flex">
                     <div className="flex justify-center items-center m-0">
                       <TestimonialDeleteButton
