@@ -29,15 +29,22 @@ interface TestimonialPageType {
   questions: string[];
 }
 
+interface ThankYou {
+  title: string;
+  description: string;
+}
+
 interface SpaceData {
   coverPage: CoverPage;
   userInformation: UserInformation;
   testimonialType: TestimonialType;
-  testimonialPageType: TestimonialPageType
+  testimonialPageType: TestimonialPageType;
+  thankyou: ThankYou;
   setCoverPage: (coverPage: CoverPage) => void;
   setUserInformation: (userInformation: UserInformation) => void;
   setTestimonialType: (testimonialType: TestimonialType) => void;
   setTestimonialPageType: (testimonialPageType: TestimonialPageType) => void;
+  setThankYou: (thankyou: ThankYou) => void;
 }
 
 export const useSpaceDataStore = create<SpaceData>((set) => ({
@@ -74,5 +81,10 @@ export const useSpaceDataStore = create<SpaceData>((set) => ({
       "What would you tell someone considering our product/service?",
     ]
   },
-  setTestimonialPageType: (testimonialPageType: TestimonialPageType) => set({ testimonialPageType })
+  setTestimonialPageType: (testimonialPageType: TestimonialPageType) => set({ testimonialPageType }),
+  thankyou: {
+    title: "Thanks for your feedback",
+    description: "We appreciate you taking the time to provide us a testimonial"
+  },
+  setThankYou: (thankyou: ThankYou) => set({ thankyou })
 }));
