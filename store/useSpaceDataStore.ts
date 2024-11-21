@@ -7,9 +7,20 @@ interface CoverPage {
   logo: File | string | null;
 }
 
+export interface UserInformation {
+  userPhoto: boolean;
+  firstName: boolean;
+  lastName: boolean;
+  email: boolean;
+  jobTitle: boolean;
+  company: boolean;
+}
+
 interface SpaceData {
   coverPage: CoverPage;
+  userInformation: UserInformation;
   setCoverPage: (coverPage: CoverPage) => void;
+  setUserInformation: (userInformation: UserInformation) => void;
 }
 
 export const useSpaceDataStore = create<SpaceData>((set) => ({
@@ -19,5 +30,14 @@ export const useSpaceDataStore = create<SpaceData>((set) => ({
     btnText: "Tell us about your experience",
     logo: null
   },
-  setCoverPage: (coverPage: CoverPage) => set({ coverPage })
+  setCoverPage: (coverPage: CoverPage) => set({ coverPage }),
+  userInformation: {
+    userPhoto: false,
+    firstName: true,
+    lastName: true,
+    email: true,
+    jobTitle: false,
+    company: false
+  },
+  setUserInformation: (userInformation: UserInformation) => set({ userInformation })
 }));
