@@ -16,11 +16,18 @@ export interface UserInformation {
   company: boolean;
 }
 
+interface TestimonialType {
+  text: boolean;
+  video: boolean;
+}
+
 interface SpaceData {
   coverPage: CoverPage;
   userInformation: UserInformation;
+  testimonialType: TestimonialType;
   setCoverPage: (coverPage: CoverPage) => void;
   setUserInformation: (userInformation: UserInformation) => void;
+  setTestimonialType: (testimonialType: TestimonialType) => void;
 }
 
 export const useSpaceDataStore = create<SpaceData>((set) => ({
@@ -39,5 +46,10 @@ export const useSpaceDataStore = create<SpaceData>((set) => ({
     jobTitle: false,
     company: false
   },
-  setUserInformation: (userInformation: UserInformation) => set({ userInformation })
+  setUserInformation: (userInformation: UserInformation) => set({ userInformation }),
+  testimonialType: {
+    text: true,
+    video: false,
+  },
+  setTestimonialType: (testimonialType: TestimonialType) => set({ testimonialType })
 }));

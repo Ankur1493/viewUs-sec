@@ -1,10 +1,10 @@
 "use client"
 
-import { useSpaceDataStore } from "@/store/useSpaceDataStore"
+import { useSpaceDataStore, UserInformation as UserInformationType } from "@/store/useSpaceDataStore"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
-import { UserInformation as UserInformationType } from "@/store/useSpaceDataStore"
+import { } from "@/store/useSpaceDataStore"
 import { useRouter } from "next/navigation"
 
 export const UserInformation = () => {
