@@ -61,7 +61,7 @@ export const SpaceCreateNavbar = () => {
     //also call saving space function
     //update this route to go to space/${spaceslug}/form
     if (confirm) {
-      router.push('/space/bakedUI')
+      router.push('/space/bakedui')
     }
   }
 
