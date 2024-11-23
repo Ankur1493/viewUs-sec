@@ -1,47 +1,48 @@
-import { Suspense } from 'react'
-import { SpaceCreateNavbar } from "@/components/space/create/SpaceCreateNavbar"
-import { CoverPage } from "@/components/space/create/CoverPage"
-import { UserInformation } from "@/components/space/create/UserInformation"
-import { TestimonialType } from "@/components/space/create/TestimonialType"
-import { TestimonialPage } from "@/components/space/create/TestimonialPage"
-import { ThankYouPage } from "@/components/space/create/ThankYouPage"
-import { DesignPage } from "@/components/space/create/DesignPage"
-import { SpaceCreationDetails } from '@/components/space/create/SpaceCreationDetails'
+import { Suspense } from "react";
+import { SpaceCreateNavbar } from "@/components/space/create/SpaceCreateNavbar";
+import { CoverPage } from "@/components/space/create/CoverPage";
+import { UserInformation } from "@/components/space/create/UserInformation";
+import { TestimonialType } from "@/components/space/create/TestimonialType";
+import { TestimonialPage } from "@/components/space/create/TestimonialPage";
+import { ThankYouPage } from "@/components/space/create/ThankYouPage";
+import { DesignPage } from "@/components/space/create/DesignPage";
+import { SpaceCreationDetails } from "@/components/space/create/SpaceCreationDetails";
 
-export default function SpaceCreatePage({ searchParams }: { searchParams: { page?: string } }) {
-  const page = parseInt(searchParams.page || '1')
-  const currentPage = isNaN(page) || page < 1 || page > 7 ? 1 : page
+export default function SpaceCreatePage({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
+  const page = parseInt(searchParams.page || "1");
+  const currentPage = isNaN(page) || page < 1 || page > 7 ? 1 : page;
 
   const renderPage = () => {
     switch (currentPage) {
       case 1:
-        return <SpaceCreationDetails />
+        return <SpaceCreationDetails />;
       case 2:
-        return <CoverPage />
+        return <CoverPage />;
       case 3:
-        return <UserInformation />
+        return <UserInformation />;
       case 4:
-        return <TestimonialType />
+        return <TestimonialType />;
       case 5:
-        return <TestimonialPage />
+        return <TestimonialPage />;
       case 6:
-        return <ThankYouPage />
+        return <ThankYouPage />;
       case 7:
-        return <DesignPage />
+        return <DesignPage />;
       default:
-        return <CoverPage />
+        return <CoverPage />;
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen w-full bg-[#F9FAFB]">
+    <div className="min-h-screen w-full bg-[#F9FAFB] overflow-hidden">
       <SpaceCreateNavbar />
-      <main className="p-4">
-        <Suspense fallback={<div>Loading...</div>}>
-          {renderPage()}
-        </Suspense>
+      <main className="px-4 pt-4 h-full">
+        <Suspense fallback={<div>Loading...</div>}>{renderPage()}</Suspense>
       </main>
     </div>
-  )
+  );
 }
-

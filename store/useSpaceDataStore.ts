@@ -1,5 +1,5 @@
 import { SpaceCreationDetails } from "@/components/space/create/SpaceCreationDetails";
-import { create } from "zustand"
+import { create } from "zustand";
 
 interface SpaceCreationDetails {
   projectName: string | null;
@@ -46,14 +46,14 @@ interface Design {
 }
 
 interface SpaceData {
-  spaceCreationDetails: SpaceCreationDetails
+  spaceCreationDetails: SpaceCreationDetails;
   coverPage: CoverPage;
   userInformation: UserInformation;
   testimonialType: TestimonialType;
   testimonialPageType: TestimonialPageType;
   thankyou: ThankYou;
   design: Design;
-  setSpaceCreationDetails: (spaceCreationDetails: SpaceCreationDetails) => void
+  setSpaceCreationDetails: (spaceCreationDetails: SpaceCreationDetails) => void;
   setCoverPage: (coverPage: CoverPage) => void;
   setUserInformation: (userInformation: UserInformation) => void;
   setTestimonialType: (testimonialType: TestimonialType) => void;
@@ -65,14 +65,21 @@ interface SpaceData {
 export const useSpaceDataStore = create<SpaceData>((set) => ({
   spaceCreationDetails: {
     projectName: null,
-    projectSlug: null
+    projectSlug: null,
   },
-  setSpaceCreationDetails: (spaceCreationDetails: SpaceCreationDetails) => set({ spaceCreationDetails }),
+  setSpaceCreationDetails: (spaceCreationDetails: SpaceCreationDetails) => {
+    set({ spaceCreationDetails });
+    sessionStorage.setItem(
+      "spaceCreationDetailData",
+      JSON.stringify(spaceCreationDetails)
+    );
+  },
   coverPage: {
     title: "Leave us a Testimonial",
-    description: "we want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!",
+    description:
+      "we want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!",
     btnText: "Tell us about your experience",
-    logo: null
+    logo: null,
   },
   setCoverPage: (coverPage: CoverPage) => set({ coverPage }),
   userInformation: {
@@ -81,17 +88,20 @@ export const useSpaceDataStore = create<SpaceData>((set) => ({
     lastName: true,
     email: true,
     jobTitle: false,
-    company: false
+    company: false,
   },
-  setUserInformation: (userInformation: UserInformation) => set({ userInformation }),
+  setUserInformation: (userInformation: UserInformation) =>
+    set({ userInformation }),
   testimonialType: {
     text: true,
     video: false,
   },
-  setTestimonialType: (testimonialType: TestimonialType) => set({ testimonialType }),
+  setTestimonialType: (testimonialType: TestimonialType) =>
+    set({ testimonialType }),
   testimonialPageType: {
     title: "Write a testimonial",
-    description: "Thanks for taking out some time to fill a review for us, cheers",
+    description:
+      "Thanks for taking out some time to fill a review for us, cheers",
     tags: [],
     questionHeader: "Reflect on your experience",
     questions: [
@@ -99,17 +109,19 @@ export const useSpaceDataStore = create<SpaceData>((set) => ({
       "What have you been able to achieve since using our product/service?",
       "What exceeded your expectations or surprised you the most?",
       "What would you tell someone considering our product/service?",
-    ]
+    ],
   },
-  setTestimonialPageType: (testimonialPageType: TestimonialPageType) => set({ testimonialPageType }),
+  setTestimonialPageType: (testimonialPageType: TestimonialPageType) =>
+    set({ testimonialPageType }),
   thankyou: {
     title: "Thanks for your feedback",
-    description: "We appreciate you taking the time to provide us a testimonial"
+    description:
+      "We appreciate you taking the time to provide us a testimonial",
   },
   setThankYou: (thankyou: ThankYou) => set({ thankyou }),
   design: {
     gradientType: 1,
-    btnColor: "#71D4FF"
+    btnColor: "#71D4FF",
   },
-  setDesign: (design: Design) => set({ design })
+  setDesign: (design: Design) => set({ design }),
 }));
