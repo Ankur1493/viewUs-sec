@@ -16,11 +16,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
-import { Badge } from "@/components/ui/badge";
-import { Trash2Icon, PlusCircle } from "lucide-react";
+import { Trash2Icon, PlusCircle, ChevronDown } from "lucide-react";
 import { WrittenTestimonialPreview } from "./preview/WrittenTestimonialPreview";
 import { VideoReviewPreview } from "./preview/VideoReviewPreview";
 import { cn } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useState } from "react";
 
 const DEFAULT_TAGS = [
   "Easy to use",
@@ -93,7 +99,6 @@ export const TestimonialPage = () => {
   }
 
   const toggleTag = (tag: string) => {
-    const sanitizedTag = sanitizeTag(tag);
     const currentTags = form.getValues("tags");
     const newTags = currentTags.includes(tag)
       ? currentTags.filter((t) => t !== tag)
@@ -127,6 +132,9 @@ export const TestimonialPage = () => {
       form.setValue("questions", [...currentQuestions, ""]);
     }
   };
+  const [view, setView] = useState<"text" | "video">(
+    testimonialType.text ? "text" : "video"
+  );
 
   return (
     <div className="w-full pl-2 max-h-screen h-[85vh] flex justify-center overflow-hidden gap-4">
@@ -200,7 +208,7 @@ export const TestimonialPage = () => {
                             <div
                               key={tag}
                               className={cn(
-                                "cursor-pointer text-[14px] font-normal px-[12px] py-[8px] rounded-full",
+                                "cursor-pointer text-[14px] font-normal px-2 py-1 rounded-full",
                                 isSelected
                                   ? "bg-[#71D4FF] text-[#222222]"
                                   : "bg-[#EAEBEC] text-[#5C5D5E]",
@@ -209,7 +217,10 @@ export const TestimonialPage = () => {
                                   : ""
                               )}
                               onClick={() => {
-                                if (form.watch("tags").length < 10)
+                                if (
+                                  form.watch("tags").length < 10 ||
+                                  isSelected
+                                )
                                   toggleTag(tag);
                               }}
                             >
@@ -221,7 +232,7 @@ export const TestimonialPage = () => {
                       {form.watch("tags").length < 10 && (
                         <div className="flex items-center gap-2 justify-center pt-2">
                           <PlusCircle
-                            className="h-8 w-8 mr-1 text-black border-transparent"
+                            className="h-8 w-8 mr-1 text-black border-transparent cursor-pointer"
                             fill="#D0D1D2"
                             onClick={() => {
                               const input = document.querySelector(
@@ -317,10 +328,37 @@ export const TestimonialPage = () => {
           </Form>
         </div>
       </div>
-      <div className="w-full h-[90%] sticky top-0">
+      <div className="relative w-full h-[90%]">
+        <div className="absolute z-50 top-2 w-full flex justify-center items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="secondary"
+                className="flex gap-2 rounded-full border"
+              >
+                {view.charAt(0).toUpperCase() + view.slice(1)}
+                <ChevronDown size={15} />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-32">
+              <DropdownMenuItem
+                onClick={() => setView("text")}
+                className="cursor-pointer"
+              >
+                Text
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setView("video")}
+                className="cursor-pointer"
+              >
+                Video
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
         <div className="w-full h-full flex flex-col">
           <div className="h-80%">
-            {testimonialType.text ? (
+            {view === "text" ? (
               <WrittenTestimonialPreview
                 title={form.watch("title")}
                 description={form.watch("description")}

@@ -69,7 +69,7 @@ export const TestimonialType = () => {
                 I prefer recorded testimonial
               </CardTitle>
               <CardDescription className="text-[#5C5D5E] font-normal text-[14px]">
-                Written testimonials can be upto 500 characters long.
+                Video can be uploaded upto 2 minutes.
               </CardDescription>
             </CardHeader>
           </Card>

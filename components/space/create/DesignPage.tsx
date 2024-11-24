@@ -26,6 +26,7 @@ import { CoverPagePreview } from "./preview/CoverPagePreview";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import { Plus } from "lucide-react";
 import { useState } from "react";
+import { SaveButton } from "./SaveButton";
 
 const defaultColors = ["#71D4FF", "#FF71D4", "#71FF9F", "#FFD471", "#7171FF"];
 
@@ -228,14 +229,7 @@ export const DesignPage = () => {
               >
                 Back
               </Button>
-              <Button
-                type="submit"
-                variant="form"
-                onClick={handleSubmit}
-                className=" px-20 py-4"
-              >
-                Finish
-              </Button>
+              <SaveButton variant="form" className="px-20 py-4" />
             </div>
           </div>
         </div>

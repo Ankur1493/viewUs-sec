@@ -31,6 +31,7 @@ const formSchema = z.object({
   }),
   logo: z
     .instanceof(File)
+    .nullable()
     .optional()
     .refine(
       (file) =>
@@ -60,7 +61,7 @@ export const CoverPage = () => {
       const imageUrl =
         typeof coverPageData.logo === "object"
           ? URL.createObjectURL(coverPageData.logo)
-          : coverPageData.logo; // handle it as a URL string
+          : coverPageData.logo;
       setLogoPreview(imageUrl);
     }
   }, [coverPageData.logo]);
@@ -75,7 +76,6 @@ export const CoverPage = () => {
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    //@ts-ignore
     setCoverPage({
       ...values,
       logo: values.logo ?? null,
@@ -147,7 +147,7 @@ export const CoverPage = () => {
               <FormField
                 control={form.control}
                 name="logo"
-                render={({ field }) => (
+                render={() => (
                   <FormItem>
                     <FormLabel>UPLOAD YOUR LOGO</FormLabel>
                     <FormControl>
