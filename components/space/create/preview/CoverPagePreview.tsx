@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { gradients } from "@/constants/gradients";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import {
   Card,
   CardContent,
@@ -9,12 +9,13 @@ import {
 } from "@/components/ui/card";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 interface CoverPagePreviewProps {
   title?: string;
   description?: string;
   btnText?: string;
-  logo?: string | null;
+  logo?: string | StaticImageData | File | null;
   btnColor?: string;
   gradientType?: number;
 }
@@ -28,6 +29,22 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
   gradientType,
 }) => {
   const { coverPage } = useSpaceDataStore();
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (logo instanceof File) {
+      const url = URL.createObjectURL(logo);
+      setLogoUrl(url);
+      return () => URL.revokeObjectURL(url);
+    } else if (typeof logo === "string") {
+      setLogoUrl(logo);
+    } else if (logo && "src" in logo) {
+      setLogoUrl(logo.src);
+    } else {
+      setLogoUrl(null);
+    }
+  }, [logo]);
+
   return (
     <div className="relative flex justify-center items-center w-full h-full bg-white">
       <div className="absolute bottom-0 left-0 w-full h-full pointer-events-none">
@@ -40,20 +57,19 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
         />
       </div>
       <Card className="max-w-[700px] px-[2%] border-none flex flex-col gap-4 shadow-none">
-        {logo ||
-          (coverPage.logo && (
-            <CardHeader className="flex flex-row gap-3">
-              <div className="relative w-[200px] h-[80px]">
-                <Image
-                  src={logo || coverPage.logo}
-                  alt="logo"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  sizes="200px"
-                />
-              </div>
-            </CardHeader>
-          ))}
+        {logoUrl && (
+          <CardHeader className="flex flex-row gap-3">
+            <div className="relative w-[200px] h-[80px]">
+              <Image
+                src={logoUrl}
+                alt="logo"
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="200px"
+              />
+            </div>
+          </CardHeader>
+        )}
         <CardContent>
           <div className="text-[#33313B] font-nromal text-5xl">
             {title || coverPage.title}

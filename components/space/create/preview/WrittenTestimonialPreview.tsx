@@ -93,7 +93,7 @@ export const WrittenTestimonialPreview = ({
             </button>
           </div>
 
-          {questions && (
+          {questions && questions?.length > 0 && (
             <div className="space-y-2 mt-4">
               <h4 className="font-medium">{questionHeader}</h4>
               <ul className="space-y-2 list-disc list-inside">

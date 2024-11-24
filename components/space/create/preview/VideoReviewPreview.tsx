@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
-import { Star, Video, Square, Pen } from "lucide-react";
+import { Star, Video, Pen } from "lucide-react";
 
 type TestimonialPreviewProps = {
   title?: string;
@@ -36,7 +36,7 @@ export const VideoReviewPreview = ({
                 </div>
               </div>
               <div className="text-[#33313B] font-normal text-4xl">{title}</div>
-              <div className="flex gap-1 ">
+              <div className="flex gap-1 pt-4">
                 {[...Array(5)].map((_, index) => (
                   <div key={index}>
                     <Star className="text-[#71D4FF]" fill="#71D4FF" />
@@ -80,7 +80,7 @@ export const VideoReviewPreview = ({
             </CardContent>
           </div>
           <aside className="basis-1/3 flex flex-col gap-6 ">
-            <div className="w-full flex flex-col items-center border border-gray-200 px-4 pt-4 rounded-lg">
+            <div className="w-full flex flex-col items-center border border-gray-200 px-4 py-4 rounded-lg">
               <div className="flex flex-col items-center gap-3">
                 <div className="flex justify-center items-center w-20 h-20 bg-[#E9F8FF] rounded-full">
                   <Pen className="text-[#71D4FF]" />
@@ -93,7 +93,7 @@ export const VideoReviewPreview = ({
                 Submit written Testimonial
               </button>
             </div>
-            {questions && (
+            {questions && questions?.length > 0 && (
               <>
                 <div className="space-y-2 mt-4">
                   <h4 className="font-medium">{questionHeader}</h4>
