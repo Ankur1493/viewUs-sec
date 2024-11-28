@@ -4,7 +4,8 @@ import sharp from "sharp"
 import { s3 } from "@/lib/aws";
 import { auth } from "@/auth"
 import { spaceSchema } from "@/schemas/space"
-import { createSpace, createSpaceDetails, getUserSpacesQty } from "@/data/space"
+import { getUserSpacesQty } from "@/data/space"
+import { db } from "@/lib/db";
 
 const bucketName = process.env.AWS_BUCKET_NAME!
 
@@ -73,22 +74,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Create the space
-    const space = await createSpace({
-      userId: user.id!,
-      slug: parsedData.data.spaceCreationDetails.projectSlug,
-      name: parsedData.data.spaceCreationDetails.projectName
-    });
-
-    if (!space) {
-      return NextResponse.json(
-        {
-          status: false,
-          message: "Failed to create space",
-        },
-        { status: 500 }
-      );
-    }
 
     let imageName = null
     if (image) {
@@ -104,44 +89,58 @@ export async function POST(req: Request) {
       // Upload the image to S3
       const params = {
         Bucket: bucketName,
-        Key: `space/${space.id}-${space.slug}-${space.name}-logo`,
+        Key: `space/${parsedData.data.spaceCreationDetails.projectSlug}-${parsedData.data.spaceCreationDetails.projectName}-logo`,
         Body: resizedBuffer,
         ContentType: fileType,
       };
 
       const command = new PutObjectCommand(params);
       await s3.send(command);
-      imageName = `space/${space.id}-${space.slug}-${space.name}-logo`
+      imageName = `space/${parsedData.data.spaceCreationDetails.projectSlug}-${parsedData.data.spaceCreationDetails.projectName}-logo`
     }
 
-    // Create space details with the spaceId
-    // @ts-ignore
-    const spaceDetails = await createSpaceDetails({
-      spaceId: space.id,
-      coverPageTitle: parsedData.data.coverPage.title,
-      coverPageBtnText: parsedData.data.coverPage.btnText,
-      coverPageDescription: parsedData.data.coverPage.description,
-      coverPageImageUrl: imageName,
-      userEmail: parsedData.data.userInformation.email,
-      userPhoto: parsedData.data.userInformation.userPhoto,
-      userCompany: parsedData.data.userInformation.company,
-      userJobTitle: parsedData.data.userInformation.jobTitle,
-      userLastName: parsedData.data.userInformation.lastName,
-      userFirstName: parsedData.data.userInformation.firstName,
-      testimonialTextType: parsedData.data.testimonialType.text,
-      testimonialVideoType: parsedData.data.testimonialType.video,
-      testimonialPageTitle: parsedData.data.testimonialPageType.title,
-      testimonialPageDescription: parsedData.data.testimonialPageType.description,
-      tags: parsedData.data.testimonialPageType.tags,
-      questions: parsedData.data.testimonialPageType.questions,
-      questionHeader: parsedData.data.testimonialPageType.questionHeader,
-      thankyouTitle: parsedData.data.thankyou.title,
-      thankyouMessage: parsedData.data.thankyou.description,
-      theme: parsedData.data.design.gradientType,
-      btnColor: parsedData.data.design.btnColor,
+
+    const result = await db.$transaction(async (tx) => {
+      const space = await tx.space.create({
+        data: {
+          userId: user.id!,
+          slug: parsedData.data.spaceCreationDetails.projectSlug,
+          name: parsedData.data.spaceCreationDetails.projectName,
+        },
+      });
+
+      await tx.spaceDetails.create({
+        data: {
+          spaceId: space.id,
+          coverPageTitle: parsedData.data.coverPage.title,
+          coverPageBtnText: parsedData.data.coverPage.btnText,
+          coverPageDescription: parsedData.data.coverPage.description,
+          coverPageImageUrl: imageName,
+          userEmail: parsedData.data.userInformation.email,
+          userPhoto: parsedData.data.userInformation.userPhoto,
+          userCompany: parsedData.data.userInformation.company,
+          userJobTitle: parsedData.data.userInformation.jobTitle,
+          userLastName: parsedData.data.userInformation.lastName,
+          userFirstName: parsedData.data.userInformation.firstName,
+          testimonialTextType: parsedData.data.testimonialType.text,
+          testimonialVideoType: parsedData.data.testimonialType.video,
+          testimonialPageTitle: parsedData.data.testimonialPageType.title,
+          testimonialPageDescription: parsedData.data.testimonialPageType.description,
+          tags: parsedData.data.testimonialPageType.tags,
+          questions: parsedData.data.testimonialPageType.questions,
+          questionHeader: parsedData.data.testimonialPageType.questionHeader,
+          thankyouTitle: parsedData.data.thankyou.title,
+          thankyouMessage: parsedData.data.thankyou.description,
+          theme: parsedData.data.design.gradientType,
+          btnColor: parsedData.data.design.btnColor,
+        }
+      });
+
+      return space;
     });
 
-    if (!spaceDetails) {
+
+    if (!result) {
       return NextResponse.json(
         {
           status: false,

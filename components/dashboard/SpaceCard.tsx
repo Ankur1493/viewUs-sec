@@ -20,18 +20,13 @@ export const SpaceCard = (space: SpaceWithReviewCount) => {
     >
       <Link href={`/space/${space.slug}`}>
         <CardHeader className="flex-row justify-start w-full  items-center group-hover:gap-1">
-          {
-            /*
-            <Image
-              src={space.i}
-              height={100}
-              width={100}
-              alt=""
-              className="w-[40px] rounded-full"
-            />
-             * */
-            "image is missing, needs to find a way written by Ankur, will have to update spaceCard, to not show image of the space"
-          }
+          <Image
+            src={`https://d3eyp937ijscg0.cloudfront.net/space/${space.slug}-${space.name}-logo`}
+            height={100}
+            width={100}
+            alt=""
+            className="w-[40px] rounded-full"
+          />
           <CardTitle className="text-3xl">{space.name}</CardTitle>
         </CardHeader>
         <CardContent>
