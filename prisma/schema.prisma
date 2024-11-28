@@ -59,26 +59,60 @@ model VerificationToken {
   @@unique([email,token])
 }
 
-model Space {
-  id        String   @id @default(cuid())
-  slug      String   @unique
-  userId    String
-  title     String
-  heading   String
-  image     String?  // Optional S3 URL
-  job_req   Boolean @default(false)
-  company_req  Boolean @default(false)
-  createdAt   DateTime @default(now())  // Automatically set on creation
-  updatedAt   DateTime @updatedAt       // Automatically updated on each update
 
-  user      User     @relation(fields: [userId], references: [id])
-  questions Question[]  // Relation to questions
+model Space {
+  id        String       @id @default(cuid())
+  slug      String       @unique
+  name      String 
+  userId    String
+  createdAt DateTime     @default(now()) // Automatically set on creation
+  updatedAt DateTime     @updatedAt      // Automatically updated on each update
+
+  user      User         @relation(fields: [userId], references: [id])
+  details   SpaceDetails? @relation
+
+  detailsId String? // Foreign key to SpaceDetails
 }
 
-model Question {
-  id        String   @id @default(cuid())
-  spaceId   String
-  question  String
+model SpaceDetails {
+  id                  String   @id @default(cuid())
+  spaceId             String   @unique
 
-  space     Space    @relation(fields: [spaceId], references: [id])
+  // Fields for coverPage
+  coverPageTitle      String
+  coverPageDescription   String
+  coverPageImageUrl   String?
+  coverPageBtnText    String
+
+  // Fields for userInformation
+  userPhoto           Boolean
+  userFirstName       Boolean 
+  userLastName        Boolean
+  userEmail           Boolean 
+  userJobTitle        Boolean
+  userCompany         Boolean
+
+  // Fields for testimonialType
+  testimonialTextType   Boolean 
+  testimonialVideoType   Boolean 
+
+  // Fields for testimonialPageType
+  testimonialPageTitle      String
+  testimonialPageDescription   String
+  tags                String[]
+  questionHeader      String
+  questions           String[]
+
+  // Fields for thankyou
+  thankyouTitle       String
+  thankyouMessage     String
+
+  // Fields for design
+  theme               Int 
+  btnColor            String
+
+  createdAt           DateTime @default(now()) // Automatically set on creation
+  updatedAt           DateTime @updatedAt      // Automatically updated on each update
+
+  space Space @relation(fields: [spaceId], references: [id]) // Link back to Space
 }

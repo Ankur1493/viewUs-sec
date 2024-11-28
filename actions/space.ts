@@ -9,9 +9,6 @@ export const getSpaceDetails = async (slug: string) => {
       where: {
         slug,
       },
-      include: {
-        questions: true,
-      },
     });
 
 
@@ -81,4 +78,3 @@ export const getUserSpaces = async (userId: string) => {
     return null;
   }
 };
-

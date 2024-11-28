@@ -139,7 +139,7 @@ export async function POST(req: NextRequest) {
       sendTextReviewSubmitted({
         email: spaceDetails.user.email,
         reviewCount: spaceReviews.data.textReviews,
-        spaceTitle: spaceDetails.title
+        spaceTitle: spaceDetails.name
       });
     }
 

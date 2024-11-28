@@ -7,7 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import {} from "@/store/useSpaceDataStore";
+import { } from "@/store/useSpaceDataStore";
 import { useRouter } from "next/navigation";
 import { UserInformationPreview } from "./preview/UserInformationPreview";
 import { cn } from "@/lib/utils";
@@ -22,7 +22,6 @@ export const UserInformation = () => {
       [field]: !userInformation[field],
     });
   };
-  //improve the preview section, also add image kinda section in preview
 
   return (
     <div className="w-full pl-2 max-h-screen h-[85vh] flex justify-center overflow-hidden gap-4">

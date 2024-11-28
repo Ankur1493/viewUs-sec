@@ -26,7 +26,7 @@ import { CoverPagePreview } from "./preview/CoverPagePreview";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { SaveButton } from "./SaveButton";
+import { SaveButton } from "./SaveSpaceButton";
 
 const defaultColors = ["#71D4FF", "#FF71D4", "#71FF9F", "#FFD471", "#7171FF"];
 
@@ -127,11 +127,10 @@ export const DesignPage = () => {
                             <button
                               key={gradient.id}
                               type="button"
-                              className={`w-10 h-10 rounded-full cursor-pointer transition-all ${
-                                field.value === gradient.id
+                              className={`w-10 h-10 rounded-full cursor-pointer transition-all ${field.value === gradient.id
                                   ? "ring-2 ring-offset-2 ring-blue-500"
                                   : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-500"
-                              }`}
+                                }`}
                               style={{ background: gradient.style }}
                               aria-label={`Select gradient ${gradient.id}`}
                               onClick={() => handleGradientSelect(gradient.id)}
@@ -155,11 +154,10 @@ export const DesignPage = () => {
                             <button
                               key={color}
                               type="button"
-                              className={`w-10 h-10 rounded-full cursor-pointer transition-all ${
-                                field.value === color
+                              className={`w-10 h-10 rounded-full cursor-pointer transition-all ${field.value === color
                                   ? "ring-2 ring-offset-2 ring-blue-500"
                                   : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-500"
-                              }`}
+                                }`}
                               style={{ backgroundColor: color }}
                               aria-label={`Select color ${color}`}
                               onClick={() => handleButtonColorChange(color)}

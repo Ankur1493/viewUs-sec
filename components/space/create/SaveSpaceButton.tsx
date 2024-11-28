@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
+import axios from "axios";
 
 type ButtonVariant =
   | "outline"
@@ -46,8 +47,10 @@ export const SaveButton = ({ className, variant }: SaveButtonProps) => {
     setIsSaveDialogOpen(true);
   };
 
-  const handleSaveConfirm = (confirm: boolean) => {
+  const handleSaveConfirm = async (confirm: boolean) => {
     setIsSaveDialogOpen(false);
+
+    // Validate required fields
     if (
       spaceCreationDetails.projectSlug === null ||
       spaceCreationDetails.projectName === null
@@ -55,21 +58,42 @@ export const SaveButton = ({ className, variant }: SaveButtonProps) => {
       return router.push("/space/create?error=missingDetails");
     }
 
-    console.log("here's the data");
-    console.log({
-      spaceCreationDetails,
-      coverPage,
-      userInformation,
-      testimonialType,
-      testimonialPageType,
-      thankyou,
-      design,
-    });
-    //add a save call
-    if (confirm) {
-      router.push(`/space/${spaceCreationDetails.projectSlug}`);
+    console.log("Preparing data...");
+
+    try {
+      // Create a FormData object
+      const formData = new FormData();
+
+      // Append fields
+      formData.append("spaceCreationDetails", JSON.stringify(spaceCreationDetails));
+      formData.append("coverPage", JSON.stringify(coverPage));
+      if (coverPage.logo) formData.append("logo", coverPage.logo);
+
+      formData.append("userInformation", JSON.stringify(userInformation));
+      formData.append("testimonialType", JSON.stringify(testimonialType));
+      formData.append("testimonialPageType", JSON.stringify(testimonialPageType));
+      formData.append("thankyou", JSON.stringify(thankyou));
+      formData.append("design", JSON.stringify(design));
+
+      // Send the request as FormData
+      const response = await axios.post("/api/space/create", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      // Handle the response
+      if (response.data.status === true) {
+        console.log("Request received successfully");
+        router.push(`/space/${spaceCreationDetails.projectSlug}`);
+      } else {
+        console.error("Failed to create space:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error sending data:", error);
     }
   };
+
 
   return (
     <div>

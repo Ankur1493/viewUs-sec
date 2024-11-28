@@ -19,7 +19,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
-import { SaveButton } from "./SaveButton";
+import { SaveButton } from "./SaveSpaceButton";
 
 const testimonialTypes = [
   { page: "1", label: "Space Details" },

@@ -10,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Question } from "@prisma/client";
 import useReviewPageStore from "@/store/useReviewPageStore";
 import { Video } from "lucide-react";
 import { TagSelection } from "./TagSelection";
@@ -18,12 +17,10 @@ import { useState } from "react";
 import { Starred } from "./Starred";
 
 export const TextReviewCard = ({
-  questions,
   image,
   title,
   spaceId,
 }: {
-  questions: Question[];
   image: string | null;
   title: string;
   spaceId: string;
@@ -111,11 +108,6 @@ export const TextReviewCard = ({
               Write a testimonial
             </div>
             <div className="mt-3">
-              <ul>
-                {questions.map((q: Question) => (
-                  <li key={q.id}>Q. {q.question} ?</li>
-                ))}
-              </ul>
             </div>
             <div className="mt-2">
               <Starred />
