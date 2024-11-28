@@ -36,11 +36,6 @@ const formSchema = z.object({
     }),
 });
 
-{
-  /*
-improve the preview along with create two seperate previews components, to showcase in this and the last component
-*/
-}
 
 export const SpaceCreationDetails = () => {
   const router = useRouter();
@@ -51,6 +46,16 @@ export const SpaceCreationDetails = () => {
     spaceCreationDetails: spaceCreationDetailsState,
     setSpaceCreationDetails,
   } = useSpaceDataStore();
+  const initializeSpaceData = useSpaceDataStore(
+    (state) => state.initializeSpaceData
+  );
+
+  useEffect(() => {
+    initializeSpaceData();
+    console.log("runned")
+  }, [initializeSpaceData]);
+
+
 
   useEffect(() => {
     if (paramsError === "missingDetails")

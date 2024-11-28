@@ -1,4 +1,3 @@
-import { SpaceCreationDetails } from "@/components/space/create/SpaceCreationDetails";
 import { create } from "zustand";
 
 interface SpaceCreationDetails {
@@ -60,28 +59,18 @@ interface SpaceData {
   setTestimonialPageType: (testimonialPageType: TestimonialPageType) => void;
   setThankYou: (thankyou: ThankYou) => void;
   setDesign: (design: Design) => void;
+  initializeSpaceData: () => void;
 }
 
-export const useSpaceDataStore = create<SpaceData>((set) => ({
-  spaceCreationDetails: {
-    projectName: null,
-    projectSlug: null,
-  },
-  setSpaceCreationDetails: (spaceCreationDetails: SpaceCreationDetails) => {
-    set({ spaceCreationDetails });
-    sessionStorage.setItem(
-      "spaceCreationDetailData",
-      JSON.stringify(spaceCreationDetails)
-    );
-  },
+// Default state
+const defaultSpaceData = {
+  spaceCreationDetails: { projectName: null, projectSlug: null },
   coverPage: {
     title: "Leave us a Testimonial",
-    description:
-      "we want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!",
+    description: "We want to share customer success stories on our website and would love for you to submit a written or video testimonial.",
     btnText: "Tell us about your experience",
     logo: null,
   },
-  setCoverPage: (coverPage: CoverPage) => set({ coverPage }),
   userInformation: {
     userPhoto: false,
     firstName: true,
@@ -90,18 +79,10 @@ export const useSpaceDataStore = create<SpaceData>((set) => ({
     jobTitle: false,
     company: false,
   },
-  setUserInformation: (userInformation: UserInformation) =>
-    set({ userInformation }),
-  testimonialType: {
-    text: true,
-    video: false,
-  },
-  setTestimonialType: (testimonialType: TestimonialType) =>
-    set({ testimonialType }),
+  testimonialType: { text: true, video: false },
   testimonialPageType: {
     title: "Write a testimonial",
-    description:
-      "Thanks for taking out some time to fill a review for us, cheers",
+    description: "Thanks for taking out some time to fill a review for us, cheers!",
     tags: [],
     questionHeader: "Reflect on your experience",
     questions: [
@@ -111,17 +92,68 @@ export const useSpaceDataStore = create<SpaceData>((set) => ({
       "What would you tell someone considering our product/service?",
     ],
   },
-  setTestimonialPageType: (testimonialPageType: TestimonialPageType) =>
-    set({ testimonialPageType }),
   thankyou: {
     title: "Thanks for your feedback",
-    description:
-      "We appreciate you taking the time to provide us a testimonial",
+    description: "We appreciate you taking the time to provide us a testimonial.",
   },
-  setThankYou: (thankyou: ThankYou) => set({ thankyou }),
-  design: {
-    gradientType: 1,
-    btnColor: "#71D4FF",
+  design: { gradientType: 1, btnColor: "#71D4FF" },
+};
+
+export const useSpaceDataStore = create<SpaceData>((set) => ({
+  ...defaultSpaceData,
+
+  setSpaceCreationDetails: (spaceCreationDetails) => {
+    set({ spaceCreationDetails });
+    sessionStorage.setItem("spaceCreationDetails", JSON.stringify(spaceCreationDetails));
   },
-  setDesign: (design: Design) => set({ design }),
+
+  setCoverPage: (coverPage) => {
+    set({ coverPage });
+    sessionStorage.setItem("coverPage", JSON.stringify(coverPage));
+  },
+
+  setUserInformation: (userInformation) => {
+    set({ userInformation });
+    sessionStorage.setItem("userInformation", JSON.stringify(userInformation));
+  },
+
+  setTestimonialType: (testimonialType) => {
+    set({ testimonialType });
+    sessionStorage.setItem("testimonialType", JSON.stringify(testimonialType));
+  },
+
+  setTestimonialPageType: (testimonialPageType) => {
+    set({ testimonialPageType });
+    sessionStorage.setItem("testimonialPageType", JSON.stringify(testimonialPageType));
+  },
+
+  setThankYou: (thankyou) => {
+    set({ thankyou });
+    sessionStorage.setItem("thankyou", JSON.stringify(thankyou));
+  },
+
+  setDesign: (design) => {
+    set({ design });
+    sessionStorage.setItem("design", JSON.stringify(design));
+  },
+
+  initializeSpaceData: () => {
+    const initializeState = (key: keyof SpaceData, defaultValue: any) => {
+      const storedValue = sessionStorage.getItem(key);
+      if (storedValue) {
+        set({ [key]: JSON.parse(storedValue) });
+      } else {
+        sessionStorage.setItem(key, JSON.stringify(defaultValue));
+      }
+    };
+
+    initializeState("spaceCreationDetails", defaultSpaceData.spaceCreationDetails);
+    initializeState("coverPage", defaultSpaceData.coverPage);
+    initializeState("userInformation", defaultSpaceData.userInformation);
+    initializeState("testimonialType", defaultSpaceData.testimonialType);
+    initializeState("testimonialPageType", defaultSpaceData.testimonialPageType);
+    initializeState("thankyou", defaultSpaceData.thankyou);
+    initializeState("design", defaultSpaceData.design);
+  },
 }));
+

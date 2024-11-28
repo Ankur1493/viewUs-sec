@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { ThankYouPagePreview } from "./preview/ThankYouPagePreview";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   title: z.string().max(100, {
@@ -29,6 +30,15 @@ const formSchema = z.object({
 
 export const ThankYouPage = () => {
   const { thankyou, setThankYou } = useSpaceDataStore();
+  const initializeSpaceData = useSpaceDataStore(
+    (state) => state.initializeSpaceData
+  );
+
+  useEffect(() => {
+    initializeSpaceData();
+    console.log("runned")
+  }, [initializeSpaceData]);
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({

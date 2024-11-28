@@ -43,6 +43,14 @@ const formSchema = z.object({
 export const CoverPage = () => {
   const { coverPage: coverPageData, setCoverPage } = useSpaceDataStore();
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const initializeSpaceData = useSpaceDataStore(
+    (state) => state.initializeSpaceData
+  );
+
+  useEffect(() => {
+    initializeSpaceData();
+    console.log("runned")
+  }, [initializeSpaceData]);
 
   const router = useRouter();
 

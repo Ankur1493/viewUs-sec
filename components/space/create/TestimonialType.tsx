@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,11 +16,22 @@ import { VideoReviewPreview } from "./preview/VideoReviewPreview";
 
 export const TestimonialType = () => {
   const router = useRouter();
+
   const { testimonialType, setTestimonialType, testimonialPageType } =
     useSpaceDataStore();
   const [preferred, setPreferred] = useState<"text" | "video">(
     testimonialType.text ? "text" : "video"
   );
+  const initializeSpaceData = useSpaceDataStore(
+    (state) => state.initializeSpaceData
+  );
+
+  useEffect(() => {
+    initializeSpaceData();
+    console.log("runned")
+  }, [initializeSpaceData]);
+
+
 
   return (
     <div className="w-full pl-2 max-h-screen h-[85vh] flex justify-center overflow-hidden gap-4">

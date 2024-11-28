@@ -39,6 +39,14 @@ const formSchema = z.object({
 
 export const DesignPage = () => {
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
+  const initializeSpaceData = useSpaceDataStore(
+    (state) => state.initializeSpaceData
+  );
+
+  useEffect(() => {
+    initializeSpaceData();
+    console.log("runned")
+  }, [initializeSpaceData]);
 
   const router = useRouter();
   const {
@@ -128,8 +136,8 @@ export const DesignPage = () => {
                               key={gradient.id}
                               type="button"
                               className={`w-10 h-10 rounded-full cursor-pointer transition-all ${field.value === gradient.id
-                                  ? "ring-2 ring-offset-2 ring-blue-500"
-                                  : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-500"
+                                ? "ring-2 ring-offset-2 ring-blue-500"
+                                : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-500"
                                 }`}
                               style={{ background: gradient.style }}
                               aria-label={`Select gradient ${gradient.id}`}
@@ -155,8 +163,8 @@ export const DesignPage = () => {
                               key={color}
                               type="button"
                               className={`w-10 h-10 rounded-full cursor-pointer transition-all ${field.value === color
-                                  ? "ring-2 ring-offset-2 ring-blue-500"
-                                  : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-500"
+                                ? "ring-2 ring-offset-2 ring-blue-500"
+                                : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-500"
                                 }`}
                               style={{ backgroundColor: color }}
                               aria-label={`Select color ${color}`}

@@ -50,6 +50,7 @@ export const SpaceCreateNavbar = () => {
     setIsDialogOpen(false);
     if (confirm) {
       router.push("/dashboard");
+      sessionStorage.clear()
     }
   };
 

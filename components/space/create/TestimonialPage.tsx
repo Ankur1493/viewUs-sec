@@ -26,7 +26,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const DEFAULT_TAGS = [
   "Easy to use",
@@ -92,6 +92,16 @@ export const TestimonialPage = () => {
       questions: testimonialPageType.questions,
     },
   });
+  const initializeSpaceData = useSpaceDataStore(
+    (state) => state.initializeSpaceData
+  );
+
+  useEffect(() => {
+    initializeSpaceData();
+    console.log("runned")
+  }, [initializeSpaceData]);
+
+
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setTestimonialPageType(values);

@@ -11,9 +11,19 @@ import { } from "@/store/useSpaceDataStore";
 import { useRouter } from "next/navigation";
 import { UserInformationPreview } from "./preview/UserInformationPreview";
 import { cn } from "@/lib/utils";
+import { useEffect } from "react";
 
 export const UserInformation = () => {
   const { userInformation, setUserInformation } = useSpaceDataStore();
+  const initializeSpaceData = useSpaceDataStore(
+    (state) => state.initializeSpaceData
+  );
+
+  useEffect(() => {
+    initializeSpaceData();
+    console.log("runned")
+  }, [initializeSpaceData]);
+
   const router = useRouter();
 
   const handleCheckboxChange = (field: keyof UserInformationType) => {

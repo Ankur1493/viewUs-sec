@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import axios from "axios";
+import { toast } from "sonner";
 
 type ButtonVariant =
   | "outline"
@@ -86,10 +87,24 @@ export const SaveButton = ({ className, variant }: SaveButtonProps) => {
       if (response.data.status === true) {
         console.log("Request received successfully");
         router.push(`/space/${spaceCreationDetails.projectSlug}`);
+        sessionStorage.clear()
       } else {
+        toast.error(response.data.message)
         console.error("Failed to create space:", response.data.message);
       }
     } catch (error) {
+      let errorMessage = "An unknown error occurred";
+
+      if (axios.isAxiosError(error)) {
+        // Axios-specific error handling
+        errorMessage = error.response?.data?.message || "Failed to process request";
+
+      } else if (error instanceof Error) {
+        // Generic JavaScript error handling
+        errorMessage = error.message;
+      }
+
+      toast.error(errorMessage);
       console.error("Error sending data:", error);
     }
   };
