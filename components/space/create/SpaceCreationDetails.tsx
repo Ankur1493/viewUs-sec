@@ -36,8 +36,12 @@ const formSchema = z.object({
     }),
 });
 
+interface SpaceCreationDetailsProps {
+  page: "edit" | "create"
+  disabled: boolean
+}
 
-export const SpaceCreationDetails = () => {
+export const SpaceCreationDetails = ({ page, disabled }: SpaceCreationDetailsProps) => {
   const router = useRouter();
   const params = useSearchParams();
   const paramsError = params.get("error");
@@ -68,6 +72,10 @@ export const SpaceCreationDetails = () => {
       projectName: spaceCreationDetailsState.projectName || "",
       projectSlug: spaceCreationDetailsState.projectSlug || "",
     },
+    values: {
+      projectName: spaceCreationDetailsState.projectName || "",
+      projectSlug: spaceCreationDetailsState.projectSlug || "",
+    }
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -79,7 +87,10 @@ export const SpaceCreationDetails = () => {
     ) {
     }
     setSpaceCreationDetails(values);
-    router.push("/space/create?page=2");
+    if (page === "create")
+      router.push("/space/create?page=2");
+    else
+      router.push(`/space/${spaceCreationDetailsState.projectSlug}/edit?page=2`)
   }
 
   return (
@@ -118,6 +129,7 @@ export const SpaceCreationDetails = () => {
                     <FormLabel>WRITE A DESCRIPTION</FormLabel>
                     <FormControl>
                       <Input
+                        disabled={disabled}
                         placeholder="Enter a unique slug for generating a URL for your space"
                         {...field}
                       />

@@ -40,7 +40,7 @@ const formSchema = z.object({
     ),
 });
 
-export const CoverPage = () => {
+export const CoverPage = ({ name, slug }: { name?: string | undefined, slug?: string | undefined }) => {
   const { coverPage: coverPageData, setCoverPage } = useSpaceDataStore();
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const initializeSpaceData = useSpaceDataStore(
@@ -62,6 +62,11 @@ export const CoverPage = () => {
       btnText: coverPageData.btnText,
       logo: null,
     },
+    values: {
+      title: coverPageData.title || "",
+      description: coverPageData.description || "",
+      btnText: coverPageData.btnText || '',
+    }
   });
 
   useEffect(() => {
@@ -173,6 +178,8 @@ export const CoverPage = () => {
         <div className="absolute inset-0 flex flex-col">
           <div className="flex-1 overflow-y-auto">
             <CoverPagePreview
+              name={name}
+              slug={slug}
               title={form.watch("title")}
               description={form.watch("description")}
               btnText={form.watch("btnText")}

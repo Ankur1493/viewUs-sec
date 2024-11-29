@@ -1,6 +1,7 @@
 import axios from "axios";
 import { FrownIcon } from "lucide-react";
 import { ManageTestimonials } from "@/components/space/ManageTestimonials";
+import SpaceInfo from "@/components/space/SpaceInfo";
 
 export const metadata = {
   title: "View Us - space",

@@ -12,6 +12,8 @@ import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 
 interface CoverPagePreviewProps {
+  name?: string | undefined;
+  slug?: string | undefined;
   title?: string;
   description?: string;
   btnText?: string;
@@ -21,6 +23,8 @@ interface CoverPagePreviewProps {
 }
 
 export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
+  name,
+  slug,
   title,
   description,
   btnText,
@@ -37,11 +41,15 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
       setLogoUrl(url);
       return () => URL.revokeObjectURL(url);
     } else if (typeof logo === "string") {
-      setLogoUrl(logo);
+      console.log({ slug, message: "aagya yaha" })
+      if (slug && logo === `space/${slug}-${name}-logo`)
+        setLogoUrl(`https://d3eyp937ijscg0.cloudfront.net/${logo}`);
+      else
+        setLogoUrl(logo)
     } else if (logo && "src" in logo) {
       setLogoUrl(logo.src);
     } else {
-      setLogoUrl(null);
+      setLogoUrl(null)
     }
   }, [logo]);
 

@@ -9,8 +9,10 @@ import { DesignPage } from "@/components/space/create/DesignPage";
 import { SpaceCreationDetails } from "@/components/space/create/SpaceCreationDetails";
 
 export default function SpaceCreatePage({
+  params,
   searchParams,
 }: {
+  params: { slug?: string }
   searchParams: { page?: string };
 }) {
   const page = parseInt(searchParams.page || "1");
@@ -19,7 +21,7 @@ export default function SpaceCreatePage({
   const renderPage = () => {
     switch (currentPage) {
       case 1:
-        return <SpaceCreationDetails />;
+        return <SpaceCreationDetails page="create" disabled={false} />;
       case 2:
         return <CoverPage />;
       case 3:

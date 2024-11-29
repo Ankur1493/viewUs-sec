@@ -9,6 +9,9 @@ export const getSpaceDetails = async (slug: string) => {
       where: {
         slug,
       },
+      include: {
+        details: true
+      }
     });
 
 

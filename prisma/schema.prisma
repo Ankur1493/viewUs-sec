@@ -1,10 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-// don't need the complete db modal here
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -24,9 +17,9 @@ model User {
   company       String?
   JobTitle      String?
   accounts      Account[]
-  spaces        Space[]  // Relation to spaces
-  createdAt   DateTime @default(now())  // Automatically set on creation
-  updatedAt   DateTime @updatedAt       // Automatically updated on each update
+  spaces        Space[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
  
   @@map("users")  
 }
@@ -55,64 +48,45 @@ model VerificationToken {
   email     String  @unique
   token     String  @unique
   expires   DateTime
-
   @@unique([email,token])
 }
-
 
 model Space {
   id        String       @id @default(cuid())
   slug      String       @unique
   name      String 
   userId    String
-  createdAt DateTime     @default(now()) // Automatically set on creation
-  updatedAt DateTime     @updatedAt      // Automatically updated on each update
-
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
   user      User         @relation(fields: [userId], references: [id])
-  details   SpaceDetails? @relation
-
-  detailsId String? // Foreign key to SpaceDetails
+  details   SpaceDetails?
 }
 
 model SpaceDetails {
   id                  String   @id @default(cuid())
   spaceId             String   @unique
-
-  // Fields for coverPage
   coverPageTitle      String
-  coverPageDescription   String
+  coverPageDescription String
   coverPageImageUrl   String?
   coverPageBtnText    String
-
-  // Fields for userInformation
   userPhoto           Boolean
   userFirstName       Boolean 
   userLastName        Boolean
   userEmail           Boolean 
   userJobTitle        Boolean
   userCompany         Boolean
-
-  // Fields for testimonialType
-  testimonialTextType   Boolean 
-  testimonialVideoType   Boolean 
-
-  // Fields for testimonialPageType
-  testimonialPageTitle      String
-  testimonialPageDescription   String
+  testimonialTextType Boolean 
+  testimonialVideoType Boolean 
+  testimonialPageTitle String
+  testimonialPageDescription String
   tags                String[]
   questionHeader      String
   questions           String[]
-
-  // Fields for thankyou
   thankyouTitle       String
   thankyouMessage     String
-
-  // Fields for design
   theme               Int 
   btnColor            String
-
-  createdAt           DateTime @default(now()) // Automatically set on creation
-  updatedAt           DateTime @updatedAt      // Automatically updated on each update
-
-  space Space @relation(fields: [spaceId], references: [id]) // Link back to Space
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  space               Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade)
 }
