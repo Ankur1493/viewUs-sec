@@ -23,7 +23,7 @@ export default function SpaceCreatePage({
       case 1:
         return <SpaceCreationDetails page="create" disabled={false} />;
       case 2:
-        return <CoverPage />;
+        return <CoverPage page="create" />;
       case 3:
         return <UserInformation />;
       case 4:
@@ -35,7 +35,7 @@ export default function SpaceCreatePage({
       case 7:
         return <DesignPage />;
       default:
-        return <CoverPage />;
+        return <CoverPage page="create" />;
     }
   };
 

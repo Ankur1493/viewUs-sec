@@ -30,7 +30,7 @@ export function EditSpaceWrapper({ currentPage, spaceDetail }: EditSpaceWrapperP
       case 1:
         return <SpaceCreationDetails disabled={true} page="edit" />;
       case 2:
-        return <CoverPage slug={spaceDetail.slug} name={spaceDetail.name} />;
+        return <CoverPage page="edit" slug={spaceDetail.slug} name={spaceDetail.name} />;
       case 3:
         return <UserInformation />;
       case 4:
@@ -42,7 +42,7 @@ export function EditSpaceWrapper({ currentPage, spaceDetail }: EditSpaceWrapperP
       case 7:
         return <DesignPage />;
       default:
-        return <CoverPage slug={spaceDetail.slug} name={spaceDetail.name} />;
+        return <CoverPage page='edit' slug={spaceDetail.slug} name={spaceDetail.name} />;
     }
   };
 

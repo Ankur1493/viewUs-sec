@@ -40,7 +40,8 @@ const formSchema = z.object({
     ),
 });
 
-export const CoverPage = ({ name, slug }: { name?: string | undefined, slug?: string | undefined }) => {
+export const CoverPage = ({ name, slug, page }: { name?: string | undefined, slug?: string | undefined, page: "edit" | "create" }) => {
+
   const { coverPage: coverPageData, setCoverPage } = useSpaceDataStore();
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const initializeSpaceData = useSpaceDataStore(
@@ -93,7 +94,10 @@ export const CoverPage = ({ name, slug }: { name?: string | undefined, slug?: st
       ...values,
       logo: values.logo ?? null,
     });
-    router.push("/space/create?page=3");
+    if (page === "create")
+      router.push("/space/create?page=3");
+    else
+      router.push(`/space/${slug}/edit?page=3`);
   }
 
   return (
@@ -190,7 +194,10 @@ export const CoverPage = ({ name, slug }: { name?: string | undefined, slug?: st
             <div className="flex gap-4">
               <Button
                 onClick={() => {
-                  router.push("/space/create?page=1");
+                  if (page === "create")
+                    router.push("/space/create?page=1");
+                  else
+                    router.push(`/space/${slug}/edit?page=1`);
                 }}
                 variant="outline"
                 className="border-[#DDDEDF] rounded-full px-20 py-4"
