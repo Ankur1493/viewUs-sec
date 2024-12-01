@@ -14,6 +14,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import { deleteSpace } from "@/actions/space";
+import { useRouter } from "next/navigation";
 
 interface SpaceDeleteButtonProps {
   spaceId: string;
@@ -22,6 +24,7 @@ interface SpaceDeleteButtonProps {
 export const SpaceDeleteButton = ({
   spaceId,
 }: SpaceDeleteButtonProps) => {
+  const router = useRouter()
   const [open, setOpen] = React.useState(false);
   const dialogContentRef = React.useRef<HTMLDivElement>(null);
 
@@ -43,7 +46,13 @@ export const SpaceDeleteButton = ({
   }, [open]);
 
   const deleteKarSpace = async () => {
-
+    const response = await deleteSpace(spaceId)
+    if (response) {
+      toast.success("space deleted successfully")
+      router.push("/dashboard")
+    } else {
+      toast.error("failed to delete")
+    }
   };
 
   return (

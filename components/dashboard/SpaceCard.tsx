@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Import, Pencil, Video } from 'lucide-react';
 import Link from "next/link";
 import { SpaceDeleteButton } from "./SpaceDeleteButton";
+import { SpaceEditButton } from "./SpaceEditButton";
+import { SpaceShareButton } from "./SpaceShareButton";
 
 interface SpaceWithReviewCount extends Space {
   reviewCounts: {
@@ -19,8 +21,8 @@ export const SpaceCard = (space: SpaceWithReviewCount) => {
       className="lg:w-full bg-gray-50 text-black shadow-sm hover:shadow-md transition-all duration-200 group relative"
     >
       <div className="absolute top-2 right-2 flex gap-1  p-4">
-        <SpaceDeleteButton spaceId={space.id} />
-        <SpaceDeleteButton spaceId={space.id} />
+        <SpaceShareButton slug={space.slug} />
+        <SpaceEditButton slug={space.slug} />
         <SpaceDeleteButton spaceId={space.id} />
       </div>
       <Link href={`/space/${space.slug}`}>

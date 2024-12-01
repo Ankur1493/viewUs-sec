@@ -1,0 +1,18 @@
+import React from "react";
+import { EditIcon } from "lucide-react";
+import Link from "next/link";
+
+interface SpaceDeleteButtonProps {
+  slug: string;
+}
+
+export const SpaceEditButton = ({
+  slug,
+}: SpaceDeleteButtonProps) => {
+
+  return (
+    <Link href={`/space/${slug}/edit`} className="p-1 cursor-pointer">
+      <EditIcon size={20} />
+    </Link>
+  );
+};
