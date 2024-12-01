@@ -19,7 +19,7 @@ export const SpaceCard = (space: SpaceWithReviewCount) => {
       className="w-[90%] lg:w-1/3  bg-gray-50 text-black shadow-sm hover:shadow-md transition-all duration-200 group"
     >
       <Link href={`/space/${space.slug}`}>
-        <CardHeader className="flex-row justify-start w-full  items-center group-hover:gap-1">
+        <CardHeader className="flex-row gap-1 justify-start w-full  items-center group-hover:gap-2 transition-all duration-300">
           <Image
             src={`https://d3eyp937ijscg0.cloudfront.net/space/${space.slug}-${space.name}-logo`}
             height={100}

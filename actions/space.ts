@@ -1,31 +1,55 @@
-"use server"
+"use server";
 import { db } from "@/lib/db";
 import { connectToMongo } from "@/lib/mongoose";
 import Review, { ReviewType } from "@/models/review_model";
 
-export const getSpaceDetails = async ({ slug, userId }: { slug: string, userId: string }) => {
+export const getSpaceDetails = async ({
+  slug,
+  userId,
+}: {
+  slug: string;
+  userId?: string;
+}) => {
   try {
     const space = await db.space.findUnique({
       where: {
         slug,
       },
       include: {
-        details: true
-      }
+        details: true,
+      },
     });
 
-    if (userId !== space?.userId) return null
+    if (userId !== space?.userId) return null;
 
     return space;
   } catch (error) {
     console.error("Error fetching space details:", error);
-    return null
+    return null;
+  }
+};
+
+export const getReviewFormDetails = async ({ slug }: { slug: string }) => {
+  try {
+    const space = await db.space.findUnique({
+      where: {
+        slug,
+      },
+      include: {
+        details: true,
+      },
+    });
+
+    return space;
+  } catch (error) {
+    console.error("Error fetching space details:", error);
+    return null;
   }
 };
 
 export const getUserSpaces = async (userId: string) => {
   try {
-    await connectToMongo()
+    await connectToMongo();
     const spaces = await db.space.findMany({
       where: {
         userId,

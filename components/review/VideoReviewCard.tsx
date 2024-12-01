@@ -3,25 +3,33 @@
 import Image from "next/image";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
 import React from "react";
 import useReviewPageStore from "@/store/useReviewPageStore";
 import { Starred } from "./Starred";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Video, Square, Play, Pause } from "lucide-react";
+import { Video, Square, Play, Pause, Pencil } from "lucide-react";
 import { useReactMediaRecorder } from "react-media-recorder";
+import { ReviewForm } from "@/types";
+import { Questions } from "./Questions";
+import { TagSelection } from "./TagSelection";
 
-export const VideoReviewCard = ({
-  image,
-  title,
-  spaceId,
-}: {
-  image: string | null;
-  title: string;
-  spaceId: string;
-}) => {
-  const { customerDetails, setSubmitButton, submitButton, setReviewButton, starred } =
-    useReviewPageStore();
+export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
+  const {
+    detailsButton,
+    customerDetails,
+    setSubmitButton,
+    submitButton,
+    setReviewButton,
+    starred,
+    setDetailsButton,
+  } = useReviewPageStore();
 
   const [cameraAccessible, setCameraAccessible] = useState(true);
   const [microphoneAccessible, setMicrophoneAccessible] = useState(true);
@@ -105,14 +113,16 @@ export const VideoReviewCard = ({
   const handleSubmitReview = async () => {
     console.log({ mediaBlobUrl });
     console.log(customerDetails);
-    console.log(spaceId);
 
     try {
       const formData = new FormData();
       formData.append("firstName", customerDetails.firstName);
       formData.append("lastName", customerDetails.lastName);
       formData.append("email", customerDetails.email);
-      formData.append("spaceId", spaceId);
+      formData.append(
+        "spaceId",
+        reviewForm.details ? reviewForm.details.spaceId : ""
+      );
       formData.append("stars", starred.toString());
       if (customerDetails.company)
         formData.append("company", customerDetails?.company);
@@ -128,9 +138,9 @@ export const VideoReviewCard = ({
           const videoBlob = await response.blob();
 
           // Create a File object from the Blob
-          const videoFile = new File([videoBlob], 'recorded-video.webm', {
-            type: 'video/webm',
-            lastModified: new Date().getTime()
+          const videoFile = new File([videoBlob], "recorded-video.webm", {
+            type: "video/webm",
+            lastModified: new Date().getTime(),
           });
 
           // Append the video file to formData
@@ -142,7 +152,7 @@ export const VideoReviewCard = ({
       }
 
       const response = await axios.post("/api/review/video", formData, {
-        headers: { "Content-Type": "multipart/form-data", },
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       setSubmitButton(!submitButton);
@@ -154,14 +164,16 @@ export const VideoReviewCard = ({
   };
 
   return (
-    <Card className="relative w-[80%] h-[95%] px-[2%] border-none shadow-none flex flex-col">
+    <Card className="relative w-[80%] h-full px-[2%] border-none shadow-none flex flex-col">
       <div className="flex flex-col">
         <CardHeader className="flex flex-row gap-3">
           <div className="flex">
             <Image
               src={
-                image !== null
-                  ? image
+                reviewForm.details
+                  ? reviewForm.details.coverPageImageUrl !== null
+                    ? reviewForm.details.coverPageImageUrl
+                    : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
                   : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
               }
               alt="logo"
@@ -172,32 +184,38 @@ export const VideoReviewCard = ({
           </div>
 
           <CardTitle className="text-center text-[#33313B] text-3xl font-normal flex items-center">
-            {title.toUpperCase()}
+            {reviewForm.name.toUpperCase()}
           </CardTitle>
         </CardHeader>
       </div>
-      <div className="flex flex-row mt-0">
+      <div className="flex flex-row mt-0 px-[2%]">
         <div className="flex flex-col gap-2 basis-8/12">
           <div>
-            <div className="text-[#33313B] font-nromal text-4xl px-[2%]">
+            <div className="text-[#33313B] font-nromal text-4xl">
               Record a video testimonial
             </div>
-            <div className="px-[2%] mt-4">
+            <div className="text-[#222222] font-[400] text-[16px]">
+              {reviewForm.details
+                ? reviewForm.details.testimonialPageDescription
+                : "Thanks for taking out some time to fill a review for us, cheers!"}
+            </div>
+            <div className="mt-4">
               <Starred />
             </div>
           </div>
-          <CardContent className="pb-1 w-[85%]">
+          <CardContent className="px-0 pb-1 w-[85%]">
             <div>
               <div
-                className={`${isExpanded
-                  ? "fixed inset-0 z-10 bg-black"
-                  : "w-full aspect-video"
-                  }`}
+                className={`${
+                  isExpanded
+                    ? "fixed inset-0 z-10 bg-black"
+                    : "w-full aspect-video"
+                }`}
               >
                 {!cameraAccessible ||
-                  status === "permission_denied" ||
-                  status === "no_specified_media_found" ||
-                  !microphoneAccessible ? (
+                status === "permission_denied" ||
+                status === "no_specified_media_found" ||
+                !microphoneAccessible ? (
                   <div className="flex flex-col gap-2 rounded-lg overflow-hidden items-center justify-center w-full h-full bg-zinc-700 text-white text-center p-4 aspect-video">
                     <p> {cameraAccessible ? "" : "Camera not accessible. "}</p>
                     <p>
@@ -206,10 +224,11 @@ export const VideoReviewCard = ({
                   </div>
                 ) : status === "recording" && previewStream ? (
                   <div
-                    className={` rounded-lg overflow-hidden fixed inset-4 z-10 mb-16 flex flex-col justify-content items-center ${isExpanded
-                      ? "fixed inset-4 z-10 mb-16"
-                      : "w-full aspect-video"
-                      }`}
+                    className={` rounded-lg overflow-hidden fixed inset-4 z-10 mb-16 flex flex-col justify-content items-center ${
+                      isExpanded
+                        ? "fixed inset-4 z-10 mb-16"
+                        : "w-full aspect-video"
+                    }`}
                   >
                     <video
                       ref={(video) => {
@@ -229,10 +248,11 @@ export const VideoReviewCard = ({
                   </div>
                 ) : status === "stopped" ? (
                   <div
-                    className={`z-10 rounded-lg overflow-hidden flex flex-col justify-content items-center ${isExpanded
-                      ? "fixed inset-4 z-10 mb-16"
-                      : " relative w-full aspect-video"
-                      }`}
+                    className={`z-10 rounded-lg overflow-hidden flex flex-col justify-content items-center ${
+                      isExpanded
+                        ? "fixed inset-4 z-10 mb-16"
+                        : " relative w-full aspect-video"
+                    }`}
                   >
                     {" "}
                     <video
@@ -273,14 +293,16 @@ export const VideoReviewCard = ({
                   </div>
                 ) : (
                   <div
-                    className={`bg-zinc-700 rounded-lg overflow-hidden transition-all duration-800  ${isExpanded
-                      ? "fixed inset-4 z-10 mb-16"
-                      : "w-full aspect-video"
-                      }`}
+                    className={`bg-zinc-700 rounded-lg overflow-hidden transition-all duration-800  ${
+                      isExpanded
+                        ? "fixed inset-4 z-10 mb-16"
+                        : "w-full aspect-video"
+                    }`}
                   >
                     <div
-                      className={`relative w-full h-full flex ${isExpanded ? "justify-end" : "justify-center"
-                        } flex-col items-center`}
+                      className={`relative w-full h-full flex ${
+                        isExpanded ? "justify-end" : "justify-center"
+                      } flex-col items-center`}
                     >
                       <Button
                         onClick={() => {
@@ -290,8 +312,9 @@ export const VideoReviewCard = ({
                             toggleExpanded();
                           }
                         }}
-                        className={`w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mb-4 hover:bg-red-600 transition-colors ${isExpanded ? "absolute bottom-4" : ""
-                          }`}
+                        className={`w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mb-4 hover:bg-red-600 transition-colors ${
+                          isExpanded ? "absolute bottom-4" : ""
+                        }`}
                       >
                         {startTimer ? (
                           <p className="text-white text-xl">{countdown}</p>
@@ -344,57 +367,42 @@ export const VideoReviewCard = ({
               </div>
             </div>
           </CardContent>
+          <TagSelection reviewForm={reviewForm} />
         </div>
         <div className="basis-2/6 flex flex-col gap-6 mb-12">
-          <div className="text-[24px] font-[500]">Tips for getting started</div>
-          <div className="flex gap-6">
-            <div className="inline-block">
-              <p className="w-[28px] h-[28px] flex items-center justify-center bg-[#EAEBEC] rounded-full text-[12px]">
-                1
-              </p>
-            </div>
-            <div>
-              <p className="text-[16px] font-[500]">Start with an intro</p>
-              <p className="text-[14px] font-[400] text-justify">
-                Give some background on your role and how you used our product.
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-6">
-            <div className="inline-block">
-              <p className="w-[28px] h-[28px] flex items-center justify-center bg-[#EAEBEC] rounded-full text-[12px]">
-                2
-              </p>
-            </div>
-            <div>
-              <p className="text-[16px] font-[500]">
-                Reflect on your experience
-              </p>
-              <p className="text-[14px] font-[400] text-justify">
-                {"We've provided some questions to help you get started."}
-              </p>
-              <ul className="list-disc pl-6 space-y-1 my-[16px] text-[14px] text-justify">
-                <li>What problems did we help you solve?</li>
-                <li>
-                  What have you been able to achieve since using our
-                  product/service?
-                </li>
-                <li>
-                  What has exceeded your expectations or surprised you the most?
-                </li>
-                <li>
-                  What would you tell someone considering our product/service?
-                </li>
-                <li>Who would you recommend us to?</li>
-              </ul>
-            </div>
-          </div>
+          <Card className="w-full flex flex-col items-center">
+            <CardHeader className="flex flex-col justify-center items-center gap-3">
+              <div className="flex justify-center items-center w-[80px] h-[80px] bg-[#E9F8FF] rounded-full">
+                <Pencil color="#009EE2" size={32} />
+              </div>
+
+              <CardTitle className="text-center text-[#33313B] text-[16px] font-normal flex items-center tracking-[2%]">
+                Or write a testimonial
+              </CardTitle>
+            </CardHeader>
+            <CardFooter className="flex flex-col">
+              <Button
+                className="border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
+                variant="outline"
+                onClick={() => {
+                  setReviewButton("Text");
+                }}
+              >
+                Write a Testimonial
+              </Button>
+            </CardFooter>
+          </Card>
+          <Questions reviewForm={reviewForm} />
           <div className="flex justify-between">
             <Button
               variant="link"
               className="text-black text-[14px] px-0 hover:text-gray-800"
               onClick={() => {
-                setReviewButton("Text");
+                reviewForm.details
+                  ? reviewForm.details.testimonialTextType
+                    ? setReviewButton("Text")
+                    : setDetailsButton(!detailsButton)
+                  : setDetailsButton(!detailsButton);
               }}
             >
               Back
