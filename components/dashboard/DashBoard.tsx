@@ -4,6 +4,7 @@ import { Video } from "lucide-react";
 import { CardWrapper } from "./CardWrapper";
 import { SpacesListed } from "@/components/dashboard/SpacesListed";
 import { SpacesLoadingSkeleton } from "../loaders/SpacesLoadingSkeleton";
+import Link from "next/link";
 
 export const DashBoard = () => {
   return (
@@ -22,7 +23,7 @@ export const DashBoard = () => {
               title="Current Plan"
               content="Basic"
               Icon={() => (
-                <Button className="ml-2 px-2 text-sm bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-opacity-80">
+                <Button className="ml-2 px-2 text-sm bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-purple-600  hover:bg-opacity-80">
                   ✨ Upgrade
                 </Button>
               )}
@@ -33,7 +34,7 @@ export const DashBoard = () => {
           <span className="font-medium">
             Start collecting testimonials in as little as 5 minutes.
           </span>
-          <Button className="rounded-3xl py-5 px-8">Create Project</Button>
+          <Link href="/space/create">         <Button className="rounded-3xl py-5 px-8">Create Project</Button></Link>
         </div>
         <div className="w-full pt-12">
           <Suspense fallback={<SpacesLoadingSkeleton />}>

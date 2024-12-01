@@ -23,12 +23,11 @@ import axios from "axios";
 import { toast } from "sonner";
 
 export const ProfileSettings = ({ user }: { user: User }) => {
-  const cdn = process.env.CDN_NAME;
-
   const [imageKey] = useState(Date.now());
 
-  const [selectedImage, setSelectedImage] = useState<string | null>();
-  user.image ? `${cdn}/${user.image}?v=${imageKey}` : null;
+  const [selectedImage, setSelectedImage] = useState<string | null>(
+    user.image ? `https://d3eyp937ijscg0.cloudfront.net/${user.image}?v=${imageKey}` : null
+  );
 
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
