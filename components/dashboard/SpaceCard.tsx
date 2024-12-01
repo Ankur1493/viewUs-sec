@@ -21,7 +21,7 @@ export const SpaceCard = (space: SpaceWithReviewCount) => {
       className="lg:w-full bg-gray-50 text-black shadow-sm hover:shadow-md transition-all duration-200 group relative"
     >
       <div className="absolute top-2 right-2 flex gap-1  p-4">
-        <SpaceShareButton slug={space.slug} />
+        <SpaceShareButton ShowUrl={false} slug={space.slug} />
         <SpaceEditButton slug={space.slug} />
         <SpaceDeleteButton spaceId={space.id} />
       </div>

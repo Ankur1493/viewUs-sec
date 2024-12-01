@@ -76,7 +76,7 @@ export function SpaceSideBar() {
   const PageLinks = [
     {
       label: "Your Public URL",
-      href: "/dashboard",
+      href: `/space/${slug}/public`,
       icon: <Link2 className="text-neutral-700 h-6 w-6 flex-shrink-0" />,
     },
     {
