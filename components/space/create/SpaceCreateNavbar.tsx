@@ -31,7 +31,7 @@ const testimonialTypes = [
   { page: "7", label: "Design" },
 ];
 
-export const SpaceCreateNavbar = () => {
+export const SpaceCreateNavbar = ({ id, slug, page }: { id?: string | undefined, slug?: string | undefined, page: "create" | "edit" }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -68,7 +68,10 @@ export const SpaceCreateNavbar = () => {
         <Select
           value={currentPage}
           onValueChange={(value) => {
-            router.push(`/space/create?page=${value}`);
+            if (page === "create")
+              router.push(`/space/create?page=${value}`);
+            else
+              router.push(`/space/${slug}/edit?page=${value}`)
           }}
         >
           <SelectTrigger className="w-[180px] border-none">
@@ -85,7 +88,7 @@ export const SpaceCreateNavbar = () => {
           </SelectContent>
         </Select>
         <div className="flex gap-2">
-          <SaveButton variant="outline" />
+          <SaveButton variant="outline" slug={slug} id={id} page={page} />
           <Button variant="outline" onClick={handleExit}>
             Exit
           </Button>

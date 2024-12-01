@@ -28,7 +28,7 @@ const formSchema = z.object({
   }),
 });
 
-export const ThankYouPage = () => {
+export const ThankYouPage = ({ slug, page }: { slug?: string | undefined, page: "edit" | "create" }) => {
   const { thankyou, setThankYou } = useSpaceDataStore();
   const initializeSpaceData = useSpaceDataStore(
     (state) => state.initializeSpaceData
@@ -47,11 +47,18 @@ export const ThankYouPage = () => {
       title: thankyou.title,
       description: thankyou.description,
     },
+    values: {
+      title: thankyou.title || "",
+      description: thankyou.description || "",
+    },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setThankYou(values);
-    router.push("/space/create?page=7");
+    if (page === "create")
+      router.push("/space/create?page=7");
+    else
+      router.push(`/space/${slug}/edit?page=7`);
   }
 
   return (
@@ -118,7 +125,10 @@ export const ThankYouPage = () => {
             <div className="flex justify-between gap-4">
               <Button
                 onClick={() => {
-                  router.push("/space/create?page=5");
+                  if (page === "create")
+                    router.push("/space/create?page=4");
+                  else
+                    router.push(`/space/${slug}/edit?page=4`);
                 }}
                 variant="outline"
                 className="border-[#DDDEDF] rounded-full px-20 py-4"

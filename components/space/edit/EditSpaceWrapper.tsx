@@ -32,15 +32,15 @@ export function EditSpaceWrapper({ currentPage, spaceDetail }: EditSpaceWrapperP
       case 2:
         return <CoverPage page="edit" slug={spaceDetail.slug} name={spaceDetail.name} />;
       case 3:
-        return <UserInformation />;
+        return <UserInformation page="edit" slug={spaceDetail.slug} />;
       case 4:
-        return <TestimonialType />;
+        return <TestimonialType page="edit" slug={spaceDetail.slug} />;
       case 5:
-        return <TestimonialPage />;
+        return <TestimonialPage page="edit" slug={spaceDetail.slug} />;
       case 6:
-        return <ThankYouPage />;
+        return <ThankYouPage page="edit" slug={spaceDetail.slug} />;
       case 7:
-        return <DesignPage />;
+        return <DesignPage id={spaceDetail.id} page="edit" slug={spaceDetail.slug} />;
       default:
         return <CoverPage page='edit' slug={spaceDetail.slug} name={spaceDetail.name} />;
     }

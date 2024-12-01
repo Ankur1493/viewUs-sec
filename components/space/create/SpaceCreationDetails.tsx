@@ -113,6 +113,7 @@ export const SpaceCreationDetails = ({ page, disabled }: SpaceCreationDetailsPro
                     <FormLabel>Project Name</FormLabel>
                     <FormControl>
                       <Input
+                        disabled={disabled}
                         placeholder="What is your project name"
                         {...field}
                       />

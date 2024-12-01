@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { SpaceCreateNavbar } from "@/components/space/create/SpaceCreateNavbar";
 import { getSpaceDetails } from "@/actions/space";
 import { EditSpaceWrapper } from "@/components/space/edit/EditSpaceWrapper";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export default async function SpaceCreatePage({
   params,
@@ -11,8 +13,12 @@ export default async function SpaceCreatePage({
   searchParams: { page?: string };
 }) {
   const page = parseInt(searchParams.page || "1");
-  const currentPage = isNaN(page) || page < 1 || page > 7 ? 1 : page;
-  const spaceDetails = await getSpaceDetails(params.slug)
+  const session = await auth();
+  const user = session?.user
+  if (!user) {
+    return redirect("/login")
+  }
+  const spaceDetails = await getSpaceDetails({ slug: params.slug, userId: user.id! })
   if (!spaceDetails) {
     return (
       <div>We are unable to found your space as of now, please try again later</div>
@@ -21,7 +27,7 @@ export default async function SpaceCreatePage({
 
   return (
     <div className="min-h-screen w-full bg-[#F9FAFB] overflow-hidden">
-      <SpaceCreateNavbar />
+      <SpaceCreateNavbar page="edit" id={spaceDetails.id} slug={spaceDetails.slug} />
       <main className="px-4 pt-4 h-full">
         <Suspense fallback={<div>Loading...</div>}>
           <EditSpaceWrapper spaceDetail={spaceDetails} currentPage={page} />

@@ -27,11 +27,14 @@ type ButtonVariant =
   | undefined;
 
 interface SaveButtonProps {
+  id?: string | undefined;
   className?: string;
   variant?: ButtonVariant;
+  page?: "create" | "edit";
+  slug?: string | undefined
 }
 
-export const SaveButton = ({ className, variant }: SaveButtonProps) => {
+export const SaveButton = ({ id, className, variant, page, slug }: SaveButtonProps) => {
   const router = useRouter();
   const {
     spaceCreationDetails,
@@ -56,10 +59,12 @@ export const SaveButton = ({ className, variant }: SaveButtonProps) => {
       spaceCreationDetails.projectSlug === null ||
       spaceCreationDetails.projectName === null
     ) {
-      return router.push("/space/create?error=missingDetails");
+      if (page === "create")
+        return router.push("/space/create?error=missingDetails");
+      else {
+        return router.push(`/space/${slug}?error=missingDetails`);
+      }
     }
-
-    console.log("Preparing data...");
 
     try {
       // Create a FormData object
@@ -76,8 +81,10 @@ export const SaveButton = ({ className, variant }: SaveButtonProps) => {
       formData.append("thankyou", JSON.stringify(thankyou));
       formData.append("design", JSON.stringify(design));
 
-      // Send the request as FormData
-      const response = await axios.post("/api/space/create", formData, {
+
+      const url = page === "create" ? "http://localhost:3000/api/space/create" : `http://localhost:3000/api/space/edit?id=${id}`
+
+      const response = await axios.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -14,7 +14,7 @@ import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import { WrittenTestimonialPreview } from "./preview/WrittenTestimonialPreview";
 import { VideoReviewPreview } from "./preview/VideoReviewPreview";
 
-export const TestimonialType = () => {
+export const TestimonialType = ({ slug, page }: { slug?: string | undefined, page: "edit" | "create" }) => {
   const router = useRouter();
 
   const { testimonialType, setTestimonialType, testimonialPageType } =
@@ -110,7 +110,10 @@ export const TestimonialType = () => {
             <div className="flex gap-4">
               <Button
                 onClick={() => {
-                  router.push("/space/create?page=3");
+                  if (page === "create")
+                    router.push("/space/create?page=3");
+                  else
+                    router.push(`/space/${slug}/edit?page=3`);
                 }}
                 variant="outline"
                 className="border-[#DDDEDF] rounded-full px-20 py-4"
@@ -121,7 +124,10 @@ export const TestimonialType = () => {
                 type="submit"
                 variant="form"
                 onClick={() => {
-                  router.push("/space/create?page=5");
+                  if (page === "create")
+                    router.push("/space/create?page=5");
+                  else
+                    router.push(`/space/${slug}/edit?page=5`);
                 }}
                 className=" px-20 py-4"
               >

@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { connectToMongo } from "@/lib/mongoose";
 import Review, { ReviewType } from "@/models/review_model";
 
-export const getSpaceDetails = async (slug: string) => {
+export const getSpaceDetails = async ({ slug, userId }: { slug: string, userId: string }) => {
   try {
     const space = await db.space.findUnique({
       where: {
@@ -14,6 +14,7 @@ export const getSpaceDetails = async (slug: string) => {
       }
     });
 
+    if (userId !== space?.userId) return null
 
     return space;
   } catch (error) {

@@ -13,7 +13,7 @@ import { UserInformationPreview } from "./preview/UserInformationPreview";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 
-export const UserInformation = () => {
+export const UserInformation = ({ slug, page }: { slug?: string | undefined, page: "edit" | "create" }) => {
   const { userInformation, setUserInformation } = useSpaceDataStore();
   const initializeSpaceData = useSpaceDataStore(
     (state) => state.initializeSpaceData
@@ -95,9 +95,11 @@ export const UserInformation = () => {
             <div className="flex gap-4">
               <Button
                 onClick={() => {
-                  router.push("/space/create?page=2");
-                }}
-                variant="outline"
+                  if (page === "create")
+                    router.push("/space/create?page=2");
+                  else
+                    router.push(`/space/${slug}/edit?page=2`);
+                }} variant="outline"
                 className="border-[#DDDEDF] rounded-full px-20 py-4"
               >
                 Back
@@ -106,7 +108,10 @@ export const UserInformation = () => {
                 type="submit"
                 variant="form"
                 onClick={() => {
-                  router.push("/space/create?page=4");
+                  if (page === "create")
+                    router.push("/space/create?page=4");
+                  else
+                    router.push(`/space/${slug}/edit?page=4`);
                 }}
                 className=" px-20 py-4"
               >

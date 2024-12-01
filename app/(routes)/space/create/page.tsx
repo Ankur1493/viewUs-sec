@@ -9,10 +9,8 @@ import { DesignPage } from "@/components/space/create/DesignPage";
 import { SpaceCreationDetails } from "@/components/space/create/SpaceCreationDetails";
 
 export default function SpaceCreatePage({
-  params,
   searchParams,
 }: {
-  params: { slug?: string }
   searchParams: { page?: string };
 }) {
   const page = parseInt(searchParams.page || "1");
@@ -25,15 +23,15 @@ export default function SpaceCreatePage({
       case 2:
         return <CoverPage page="create" />;
       case 3:
-        return <UserInformation />;
+        return <UserInformation page="create" />;
       case 4:
-        return <TestimonialType />;
+        return <TestimonialType page="create" />;
       case 5:
-        return <TestimonialPage />;
+        return <TestimonialPage page="create" />;
       case 6:
-        return <ThankYouPage />;
+        return <ThankYouPage page="create" />;
       case 7:
-        return <DesignPage />;
+        return <DesignPage page="create" />;
       default:
         return <CoverPage page="create" />;
     }
@@ -41,7 +39,7 @@ export default function SpaceCreatePage({
 
   return (
     <div className="min-h-screen w-full bg-[#F9FAFB] overflow-hidden">
-      <SpaceCreateNavbar />
+      <SpaceCreateNavbar page="create" />
       <main className="px-4 pt-4 h-full">
         <Suspense fallback={<div>Loading...</div>}>{renderPage()}</Suspense>
       </main>

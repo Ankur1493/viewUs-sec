@@ -69,15 +69,9 @@ const formSchema = z.object({
     message: "question cannot be more than 5",
   }),
 });
-
-{
-  /*
-improve the preview along with create two seperate previews components, to showcase in this and the last component
-*/
-}
 const sanitizeTag = (tag: string) => tag.trim();
 
-export const TestimonialPage = () => {
+export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, page: "edit" | "create" }) => {
   const { testimonialPageType, setTestimonialPageType, testimonialType } =
     useSpaceDataStore();
   const router = useRouter();
@@ -90,6 +84,14 @@ export const TestimonialPage = () => {
       questionHeader:
         testimonialPageType.questionHeader || "Tell us about your experience",
       questions: testimonialPageType.questions,
+    },
+    values: {
+      title: testimonialPageType.title || "",
+      description: testimonialPageType.description || "",
+      tags: testimonialPageType.tags || [],
+      questionHeader:
+        testimonialPageType.questionHeader || "",
+      questions: testimonialPageType.questions || [],
     },
   });
   const initializeSpaceData = useSpaceDataStore(
@@ -105,7 +107,10 @@ export const TestimonialPage = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setTestimonialPageType(values);
-    router.push("/space/create?page=6");
+    if (page === "create")
+      router.push("/space/create?page=6");
+    else
+      router.push(`/space/${slug}/edit?page=6`);
   }
 
   const toggleTag = (tag: string) => {
@@ -389,7 +394,12 @@ export const TestimonialPage = () => {
           <div className="p-4 flex justify-center items-center">
             <div className="flex justify-between gap-4">
               <Button
-                onClick={() => router.push("/space/create?page=4")}
+                onClick={() => {
+                  if (page === "create")
+                    router.push("/space/create?page=4");
+                  else
+                    router.push(`/space/${slug}/edit?page=4`);
+                }}
                 variant="outline"
                 className="border-[#DDDEDF] rounded-full px-20 py-4"
               >

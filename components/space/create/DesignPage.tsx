@@ -37,7 +37,7 @@ const formSchema = z.object({
   }),
 });
 
-export const DesignPage = () => {
+export const DesignPage = ({ id, slug, page }: { id?: string | undefined, slug?: string | undefined, page: "edit" | "create" }) => {
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const initializeSpaceData = useSpaceDataStore(
     (state) => state.initializeSpaceData
@@ -45,17 +45,11 @@ export const DesignPage = () => {
 
   useEffect(() => {
     initializeSpaceData();
-    console.log("runned")
+    console.log({ id })
   }, [initializeSpaceData]);
 
   const router = useRouter();
   const {
-    spaceCreationDetails,
-    coverPage,
-    userInformation,
-    testimonialType,
-    testimonialPageType,
-    thankyou,
     design,
     setDesign,
   } = useSpaceDataStore();
@@ -66,6 +60,11 @@ export const DesignPage = () => {
       gradientType: design.gradientType,
       btnColor: design.btnColor,
     },
+    values: {
+      gradientType: design.gradientType || 1,
+      btnColor: design.btnColor || "#71D4FF",
+    },
+
   });
 
   useEffect(() => {
@@ -84,30 +83,6 @@ export const DesignPage = () => {
     setIsColorPickerOpen(false);
   };
 
-  const handleSubmit = () => {
-    if (
-      spaceCreationDetails.projectSlug === null ||
-      spaceCreationDetails.projectName === null
-    ) {
-      return router.push("/space/create?error=missingDetails");
-    }
-
-    console.log("here's the data");
-    console.log({
-      spaceCreationDetails,
-      coverPage,
-      userInformation,
-      testimonialType,
-      testimonialPageType,
-      thankyou,
-      design,
-    });
-    //add a save call
-    //  if (confirm) {
-    router.push(`/space/${spaceCreationDetails.projectSlug}`);
-    //  }
-  };
-
   return (
     <div className="w-full pl-2 max-h-screen h-[85vh] flex justify-center overflow-hidden gap-4">
       <div className="max-w-[448px] h-full space-y-6 px-6 pt-5 overflow-y-auto">
@@ -122,7 +97,7 @@ export const DesignPage = () => {
               </p>
             </div>
             <Form {...form}>
-              <form onSubmit={handleSubmit} className="space-y-8 pt-2">
+              <form className="space-y-8 pt-2">
                 <FormField
                   control={form.control}
                   name="gradientType"
@@ -228,14 +203,17 @@ export const DesignPage = () => {
             <div className="flex gap-4">
               <Button
                 onClick={() => {
-                  router.push("/space/create?page=6");
+                  if (page === "create")
+                    router.push("/space/create?page=6");
+                  else
+                    router.push(`/space/${slug}/edit?page=6`);
                 }}
                 variant="outline"
                 className="border-[#DDDEDF] rounded-full px-20 py-4"
               >
                 Back
               </Button>
-              <SaveButton variant="form" className="px-20 py-4" />
+              <SaveButton id={id} page={page} slug={slug} variant="form" className="px-20 py-4" />
             </div>
           </div>
         </div>
