@@ -18,7 +18,6 @@ import {
   CircleCheckIcon,
   PencilIcon,
   VideoIcon,
-  Settings,
   Heart,
   Link2,
   MessageCircleHeartIcon,
@@ -30,6 +29,7 @@ import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
 import { useParams, usePathname } from "next/navigation";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
+import { HelpSupportModal } from "../dashboard/HelpSupportModal";
 
 export function SpaceSideBar() {
   const { slug } = useParams();
@@ -162,10 +162,7 @@ export function SpaceSideBar() {
       </SidebarContent>
       <SidebarFooter className="flex gap-3 jutify-center items-center">
         <SidebarMenuButton className="w-[80%]">
-          <Link href="#" className="flex items-center justify-center gap-1">
-            <Settings size={18} />
-            <span>Help and Support</span>
-          </Link>
+          <HelpSupportModal />
         </SidebarMenuButton>
         <Button
           onClick={(event) => {

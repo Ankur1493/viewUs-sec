@@ -1,18 +1,10 @@
-import { Space } from "@prisma/client";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Import, Pencil, Video } from 'lucide-react';
+import { Import, Pencil, Video } from "lucide-react";
 import Link from "next/link";
 import { SpaceDeleteButton } from "./SpaceDeleteButton";
 import { SpaceEditButton } from "./SpaceEditButton";
 import { SpaceShareButton } from "./SpaceShareButton";
-
-interface SpaceWithReviewCount extends Space {
-  reviewCounts: {
-    text: number;
-    video: number;
-    imported: number;
-  };
-}
+import { SpaceWithReviewCount } from "@/types";
 
 export const SpaceCard = (space: SpaceWithReviewCount) => {
   return (
@@ -26,7 +18,7 @@ export const SpaceCard = (space: SpaceWithReviewCount) => {
         <SpaceDeleteButton spaceId={space.id} />
       </div>
       <Link href={`/space/${space.slug}`}>
-        <CardHeader className="flex-row justify-start w-full items-center group-hover:gap-1">
+        <CardHeader className="flex-row gap-1 justify-start w-full  items-center group-hover:gap-2 transition-all duration-300">
           <CardTitle className="text-3xl">{space.name}</CardTitle>
         </CardHeader>
         <CardContent>
@@ -58,5 +50,3 @@ export const SpaceCard = (space: SpaceWithReviewCount) => {
     </Card>
   );
 };
-
-

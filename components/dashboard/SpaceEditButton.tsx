@@ -6,13 +6,12 @@ interface SpaceDeleteButtonProps {
   slug: string;
 }
 
-export const SpaceEditButton = ({
-  slug,
-}: SpaceDeleteButtonProps) => {
-
+export const SpaceEditButton = ({ slug }: SpaceDeleteButtonProps) => {
   return (
-    <Link href={`/space/${slug}/edit`} className="p-1 cursor-pointer">
-      <EditIcon size={20} />
-    </Link>
+    <div>
+      <Link href={`/space/${slug}/edit`} className="p-1 cursor-pointer">
+        <EditIcon size={20} />
+      </Link>
+    </div>
   );
 };

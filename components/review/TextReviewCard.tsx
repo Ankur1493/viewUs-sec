@@ -15,16 +15,10 @@ import { Video } from "lucide-react";
 import { TagSelection } from "./TagSelection";
 import { useState } from "react";
 import { Starred } from "./Starred";
+import { ReviewForm } from "@/types";
+import { Questions } from "./Questions";
 
-export const TextReviewCard = ({
-  image,
-  title,
-  spaceId,
-}: {
-  image: string | null;
-  title: string;
-  spaceId: string;
-}) => {
+export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
   //zustand state variables are called
   const {
     detailsButton,
@@ -48,7 +42,10 @@ export const TextReviewCard = ({
       formData.append("firstName", customerDetails.firstName);
       formData.append("lastName", customerDetails.lastName);
       formData.append("email", customerDetails.email);
-      formData.append("spaceId", spaceId);
+      formData.append(
+        "spaceId",
+        reviewForm.details ? reviewForm.details.spaceId : ""
+      );
       if (customerDetails.company)
         formData.append("company", customerDetails?.company);
       if (customerDetails.jobTitle)
@@ -88,8 +85,10 @@ export const TextReviewCard = ({
             <div className="flex">
               <Image
                 src={
-                  image !== null
-                    ? image
+                  reviewForm.details
+                    ? reviewForm.details.coverPageImageUrl !== null
+                      ? reviewForm.details.coverPageImageUrl
+                      : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
                     : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
                 }
                 alt="logo"
@@ -100,15 +99,21 @@ export const TextReviewCard = ({
             </div>
 
             <CardTitle className="text-center text-[#33313B] text-[24px] font-[500] flex items-center">
-              {title.toUpperCase()}
+              {reviewForm.name.toUpperCase()}
             </CardTitle>
           </CardHeader>
           <CardContent className="pb-0 w-[85%]">
             <div className="text-[#33313B] font-[500] text-[36px]">
-              Write a testimonial
+              {reviewForm.details
+                ? reviewForm.details.testimonialPageTitle
+                : ""}
             </div>
-            <div className="mt-3">
+            <div className="text-[#222222] font-[400] text-[16px]">
+              {reviewForm.details
+                ? reviewForm.details.testimonialPageDescription
+                : "Thanks for taking out some time to fill a review for us, cheers!"}
             </div>
+            <div className="mt-3"></div>
             <div className="mt-2">
               <Starred />
             </div>
@@ -131,7 +136,7 @@ export const TextReviewCard = ({
                 </div>
               ) : null}
             </div>
-            <TagSelection />
+            <TagSelection reviewForm={reviewForm} />
           </CardContent>
           <CardFooter className="w-[85%] flex justify-between mt-0">
             <Button
@@ -139,7 +144,13 @@ export const TextReviewCard = ({
               className="text-black text-[14px] px-0 hover:text-gray-800"
               onClick={() => {
                 setReviewButton("");
-                setDetailsButton(!detailsButton);
+                {
+                  reviewForm.details
+                    ? reviewForm.details.testimonialTextType
+                      ? setDetailsButton(!detailsButton)
+                      : setReviewButton("Video")
+                    : setReviewButton("Video");
+                }
               }}
             >
               Back
@@ -183,54 +194,8 @@ export const TextReviewCard = ({
               )}
             </CardFooter>
           </Card>
-          <div className="w-3/4 flex flex-col gap-4 font-satoshi mt-[20px]">
-            <div className="text-[24px] font-[500]">
-              Tips for getting started
-            </div>
-            <div className="flex gap-6">
-              <div className="inline-block">
-                <p className="w-[28px] h-[28px] flex items-center justify-center bg-[#EAEBEC] rounded-full text-[12px]">
-                  1
-                </p>
-              </div>
-              <div>
-                <p className="text-[16px] font-[500]">Start with an intro</p>
-                <p className="text-[14px] font-[400] text-justify">
-                  Give some background on your role and how you used our
-                  product.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-6">
-              <div className="inline-block">
-                <p className="w-[28px] h-[28px] flex items-center justify-center bg-[#EAEBEC] rounded-full text-[12px]">
-                  2
-                </p>
-              </div>
-              <div>
-                <p className="text-[16px] font-[500]">
-                  Reflect on your experience
-                </p>
-                <p className="text-[14px] font-[400] text-justify">
-                  {"We've provided some questions to help you get started."}
-                </p>
-                <ul className="list-disc pl-6 space-y-1 my-[16px] text-[14px] text-justify">
-                  <li>What problems did we help you solve?</li>
-                  <li>
-                    What have you been able to achieve since using our
-                    product/service?
-                  </li>
-                  <li>
-                    What has exceeded your expectations or surprised you the
-                    most?
-                  </li>
-                  <li>
-                    What would you tell someone considering our product/service?
-                  </li>
-                  <li>Who would you recommend us to?</li>
-                </ul>
-              </div>
-            </div>
+          <div className="w-3/4 ">
+            <Questions reviewForm={reviewForm} />
           </div>
         </div>
       </div>

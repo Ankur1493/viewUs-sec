@@ -15,28 +15,30 @@ export const Landing = () => {
       <div className="absolute z-0 top-20 w-full flex justify-center">
         <TriangleFeature />
       </div>
-      <div className="w-screen z-10 flex flex-col items-center md:mt-24 mt-12">
+      <div className="w-screen z-10 flex flex-col items-center md:mt-24 mt-12 gap-20">
         <HeroSection imageSrc="/assets/images/HeroImage.png" />
-        <div className="relative w-full my-8 top-16 md:top-28 lg:top-40">
+        <div className="w-full my-8 top-16 md:top-28 lg:top-40 mt-16">
           <ManageTestimonials />
         </div>
         <div
-          className="w-full h-screen mx-20 top-40 mt-28 lg:pt-64 "
+          className="w-full h-screen flex justify-center items-center mx-20  "
           style={{ margin: 0 }}
         >
-          <iframe
-            src="https://embed-viewus.netlify.app/w/embed-testimonials/carousal?animated=on&theme=&speed=high"
-            width="100%"
-            height="100%"
-            frameBorder="0"
-            scrolling="no"
-            style={{
-              border: "none",
-              height: "100%",
-            }}
-          ></iframe>
+          <div className="w-full h-full">
+            <iframe
+              src="http://localhost:5173/w/embed-testimonials/carousal"
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              scrolling="no"
+              style={{
+                border: "none",
+                height: "100%",
+              }}
+            ></iframe>
+          </div>
         </div>
-        <div className="top-40 mt-28 lg:mt-24">
+        <div>
           <ReasonsToUse />
         </div>
         <div>
@@ -72,7 +74,7 @@ export const Landing = () => {
           </p>
           <div className="w-[95%] md:w-[90%] h-screen rounded-xl">
             <iframe
-              src="https://embed-viewus.netlify.app/w/embed-testimonials?animated=on&theme=light&speed=medium&columns=3"
+              src="http://localhost:5173/w/embed-testimonials?animated=on&theme=&speed=slow&columns=3"
               width="100%"
               height="100%"
               frameBorder="0"
