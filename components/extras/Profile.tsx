@@ -7,7 +7,6 @@ import { Pencil } from "lucide-react";
 import Link from "next/link";
 
 export const Profile = ({ user }: { user: User }) => {
-  console.log(user.image);
 
   return (
     <div className="w-full">
@@ -104,45 +103,40 @@ export const Profile = ({ user }: { user: User }) => {
               )}
 
               <div className="bg-gradient-to-r from-purple-100 to-indigo-100 rounded-lg p-4">
-                <h2 className="text-xl font-semibold text-gray-700 mb-4">
-                  Current Plan Usage
-                </h2>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-white rounded-lg p-4 shadow-md">
                     <div className="flex items-center justify-between">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-8 w-8 text-purple-500"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
-                      </svg>
-                      <span className="text-3xl font-bold text-gray-700">
-                        1
+                      <span className="text-2xl font-bold text-gray-700">
+                        {user.createdAt
+                          ? new Date(user.createdAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            }
+                          )
+                          : ""}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-2">video left</p>
+                    <p className="text-sm text-gray-500 mt-2">Account Created on</p>
                   </div>
                   <div className="bg-white rounded-lg p-4 shadow-md">
                     <div className="flex items-center justify-between">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-8 w-8 text-indigo-500"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
                       <span className="text-3xl font-bold text-gray-700">
-                        12
+                        {user.updatedAt
+                          ? new Date(user.updatedAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            }
+                          )
+                          : ""}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-2">texts left</p>
+                    <p className="text-sm text-gray-500 mt-2">Account updated on</p>
                   </div>
                 </div>
               </div>

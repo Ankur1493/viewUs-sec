@@ -1,23 +1,23 @@
-import { Space } from "@prisma/client";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Import, Pencil, Video } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-
-interface SpaceWithReviewCount extends Space {
-  reviewCounts: {
-    text: number;
-    video: number;
-    imported: number;
-  };
-}
+import { SpaceDeleteButton } from "./SpaceDeleteButton";
+import { SpaceEditButton } from "./SpaceEditButton";
+import { SpaceShareButton } from "./SpaceShareButton";
+import Image from "next/image";
+import { SpaceWithReviewCount } from "@/types";
 
 export const SpaceCard = (space: SpaceWithReviewCount) => {
   return (
     <Card
       key={space.id}
-      className="w-[90%] lg:w-1/3  bg-gray-50 text-black shadow-sm hover:shadow-md transition-all duration-200 group"
+      className="lg:w-full bg-gray-50 text-black shadow-sm hover:shadow-md transition-all duration-200 group relative"
     >
+      <div className="absolute top-2 right-2 flex gap-1  p-4">
+        <SpaceShareButton ShowUrl={false} slug={space.slug} />
+        <SpaceEditButton slug={space.slug} />
+        <SpaceDeleteButton spaceId={space.id} />
+      </div>
       <Link href={`/space/${space.slug}`}>
         <CardHeader className="flex-row gap-1 justify-start w-full  items-center group-hover:gap-2 transition-all duration-300">
           <Image
@@ -30,25 +30,25 @@ export const SpaceCard = (space: SpaceWithReviewCount) => {
           <CardTitle className="text-3xl">{space.name}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-2 w-[70%] text-sm text-muted-foreground">
-            <div className="flex justify-between items-center">
-              <div className="flex gap-4">
-                <Video />
-                <p>Video Testimonials :- </p>
+          <div className="flex gap-4 w-[70%] text-sm text-muted-foreground">
+            <div className="flex justify-between gap-1 items-center">
+              <div className="flex gap-0.5">
+                <Video size={20} />
+                <p>Video - </p>
               </div>
               <p className="text-lg">{space.reviewCounts.video}</p>
             </div>
-            <div className="flex justify-between items-center">
-              <div className="flex gap-4">
-                <Pencil />
-                <p>Written Testimonials :- </p>
+            <div className="flex justify-between gap-1 items-center">
+              <div className="flex gap-0.5">
+                <Pencil size={20} />
+                <p>Written :- </p>
               </div>
               <p className="text-lg">{space.reviewCounts.text}</p>
             </div>
-            <div className="flex justify-between items-center">
-              <div className="flex gap-4">
-                <Import />
-                <p>Imported Testimonials :- </p>
+            <div className="flex justify-between gap-1 items-center">
+              <div className="flex gap-0.5">
+                <Import size={20} />
+                <p>Imported :- </p>
               </div>
               <p className="text-lg p-0">{space.reviewCounts.imported}</p>
             </div>

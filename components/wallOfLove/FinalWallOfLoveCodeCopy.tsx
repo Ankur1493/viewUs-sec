@@ -21,7 +21,7 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
 
   const handleRedirect = async () => {
     setRedirected(true);
-    await router.push(`/space/${slug}`);
+    router.push(`/space/${slug}`);
     setPage("all", null);
   };
 

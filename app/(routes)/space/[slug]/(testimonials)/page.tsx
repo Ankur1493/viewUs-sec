@@ -2,12 +2,17 @@ import axios from "axios";
 import { FrownIcon } from "lucide-react";
 import { ManageTestimonials } from "@/components/space/ManageTestimonials";
 import SpaceInfo from "@/components/space/SpaceInfo";
+import { ReviewType } from "@/models/review_model";
 
 export const metadata = {
   title: "View Us - space",
   description:
     "Ankur Sharma is a full stack developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
 };
+
+interface TestimonialType {
+  reviewType: ReviewType;
+}
 
 async function fetchTestimonials(slug: string) {
   const baseUrl =
@@ -33,6 +38,17 @@ const SpacePage = async ({
 }) => {
   const spaceTestimonials = await fetchTestimonials(slug);
 
+  const testimonialCounts = {
+    total: spaceTestimonials.length,
+    text: spaceTestimonials.filter((t: TestimonialType) => t.reviewType === 0)
+      .length,
+    video: spaceTestimonials.filter((t: TestimonialType) => t.reviewType === 1)
+      .length,
+    imported: spaceTestimonials.filter(
+      (t: TestimonialType) => t.reviewType === 2
+    ).length,
+  };
+
   if (spaceTestimonials.length === 0) {
     return (
       <div className="h-full w-full flex justify-center items-center">
@@ -46,11 +62,9 @@ const SpacePage = async ({
 
   return (
     <div className="flex flex-col justify-center pb-4">
-      <div className="mb-3 px-7">
+      <div className="mb-3 px-7 border-b">
         {slug && (
-          <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2 mb-2">
-            {slug}
-          </h2>
+          <SpaceInfo slug={slug} testimonialCounts={testimonialCounts} />
         )}
       </div>
       <ManageTestimonials testimonials={spaceTestimonials} />

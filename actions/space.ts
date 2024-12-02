@@ -1,7 +1,9 @@
 "use server";
+import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { connectToMongo } from "@/lib/mongoose";
 import Review, { ReviewType } from "@/models/review_model";
+import { revalidatePath } from "next/cache";
 
 export const getSpaceDetails = async ({
   slug,
@@ -101,6 +103,37 @@ export const getUserSpaces = async (userId: string) => {
     );
 
     return spacesWithReviewCounts;
+  } catch (error) {
+    console.error("Error fetching space details:", error);
+    return null;
+  }
+};
+
+export const deleteSpace = async (spaceId: string) => {
+  try {
+    const session = await auth();
+    const user = session?.user;
+
+    if (!user) return null;
+
+    const result = await db.$transaction([
+      db.spaceDetails.delete({
+        where: {
+          spaceId: spaceId,
+        },
+      }),
+      db.space.delete({
+        where: {
+          id: spaceId,
+          userId: user.id,
+        },
+      }),
+    ]);
+
+    if (!result) return null;
+
+    revalidatePath("/dashboard");
+    return result;
   } catch (error) {
     console.error("Error fetching space details:", error);
     return null;

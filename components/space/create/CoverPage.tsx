@@ -29,28 +29,28 @@ const formSchema = z.object({
   btnText: z.string().max(30, {
     message: "Button text must be 30 characters or less.",
   }),
-  logo: z
-    .instanceof(File)
-    .nullable()
-    .optional()
-    .refine(
-      (file) =>
-        !file || ["image/jpeg", "image/jpg", "image/png"].includes(file.type),
-      "Only .jpg or .png files are accepted."
-    ),
+  logo: z.any(),
 });
 
-export const CoverPage = ({ name, slug, page }: { name?: string | undefined, slug?: string | undefined, page: "edit" | "create" }) => {
-
+export const CoverPage = ({
+  name,
+  slug,
+  page,
+}: {
+  name?: string | undefined;
+  slug?: string | undefined;
+  page: "edit" | "create";
+}) => {
   const { coverPage: coverPageData, setCoverPage } = useSpaceDataStore();
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
+
   const initializeSpaceData = useSpaceDataStore(
     (state) => state.initializeSpaceData
   );
 
   useEffect(() => {
     initializeSpaceData();
-    console.log("runned")
+    console.log("runned");
   }, [initializeSpaceData]);
 
   const router = useRouter();
@@ -66,8 +66,8 @@ export const CoverPage = ({ name, slug, page }: { name?: string | undefined, slu
     values: {
       title: coverPageData.title || "",
       description: coverPageData.description || "",
-      btnText: coverPageData.btnText || '',
-    }
+      btnText: coverPageData.btnText || "",
+    },
   });
 
   useEffect(() => {
@@ -85,7 +85,7 @@ export const CoverPage = ({ name, slug, page }: { name?: string | undefined, slu
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setLogoPreview(imageUrl);
-      form.setValue("logo", file, { shouldValidate: true });
+      form.setValue("logo", file);
     }
   };
 
@@ -94,10 +94,8 @@ export const CoverPage = ({ name, slug, page }: { name?: string | undefined, slu
       ...values,
       logo: values.logo ?? null,
     });
-    if (page === "create")
-      router.push("/space/create?page=3");
-    else
-      router.push(`/space/${slug}/edit?page=3`);
+    if (page === "create") router.push("/space/create?page=3");
+    else router.push(`/space/${slug}/edit?page=3`);
   }
 
   return (
@@ -194,10 +192,8 @@ export const CoverPage = ({ name, slug, page }: { name?: string | undefined, slu
             <div className="flex gap-4">
               <Button
                 onClick={() => {
-                  if (page === "create")
-                    router.push("/space/create?page=1");
-                  else
-                    router.push(`/space/${slug}/edit?page=1`);
+                  if (page === "create") router.push("/space/create?page=1");
+                  else router.push(`/space/${slug}/edit?page=1`);
                 }}
                 variant="outline"
                 className="border-[#DDDEDF] rounded-full px-20 py-4"
