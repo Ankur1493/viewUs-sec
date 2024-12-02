@@ -4,7 +4,6 @@ import Link from "next/link";
 import { SpaceDeleteButton } from "./SpaceDeleteButton";
 import { SpaceEditButton } from "./SpaceEditButton";
 import { SpaceShareButton } from "./SpaceShareButton";
-import Image from "next/image";
 import { SpaceWithReviewCount } from "@/types";
 
 export const SpaceCard = (space: SpaceWithReviewCount) => {
@@ -20,13 +19,6 @@ export const SpaceCard = (space: SpaceWithReviewCount) => {
       </div>
       <Link href={`/space/${space.slug}`}>
         <CardHeader className="flex-row gap-1 justify-start w-full  items-center group-hover:gap-2 transition-all duration-300">
-          <Image
-            src={`https://d3eyp937ijscg0.cloudfront.net/space/${space.slug}-${space.name}-logo`}
-            height={100}
-            width={100}
-            alt=""
-            className="w-[40px] rounded-full"
-          />
           <CardTitle className="text-3xl">{space.name}</CardTitle>
         </CardHeader>
         <CardContent>

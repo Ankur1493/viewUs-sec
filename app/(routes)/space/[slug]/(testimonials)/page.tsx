@@ -24,7 +24,7 @@ async function fetchTestimonials(slug: string) {
     const response = await axios.get(baseUrl, {
       params: { slug },
     });
-    return response.data.reviews;
+    return response.data;
   } catch (error) {
     console.error("Error fetching testimonials:", error);
     return [];
@@ -36,8 +36,9 @@ const SpacePage = async ({
 }: {
   params: { slug: string };
 }) => {
-  const spaceTestimonials = await fetchTestimonials(slug);
-
+  const response = await fetchTestimonials(slug);
+  const { space } = response;
+  const spaceTestimonials = response.reviews;
   const testimonialCounts = {
     total: spaceTestimonials.length,
     text: spaceTestimonials.filter((t: TestimonialType) => t.reviewType === 0)
@@ -62,9 +63,9 @@ const SpacePage = async ({
 
   return (
     <div className="flex flex-col justify-center pb-4">
-      <div className="mb-3 px-7 border-b">
+      <div className="mb-3 px-7">
         {slug && (
-          <SpaceInfo slug={slug} testimonialCounts={testimonialCounts} />
+          <SpaceInfo space={space} testimonialCounts={testimonialCounts} />
         )}
       </div>
       <ManageTestimonials testimonials={spaceTestimonials} />
