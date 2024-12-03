@@ -19,6 +19,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { CoverPagePreview } from "./preview/CoverPagePreview";
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
+
 const formSchema = z.object({
   title: z.string().max(100, {
     message: "Title must be 100 characters or less.",
@@ -29,7 +32,24 @@ const formSchema = z.object({
   btnText: z.string().max(30, {
     message: "Button text must be 30 characters or less.",
   }),
-  logo: z.any(),
+  logo: z
+    .any()
+    .refine(
+      (file) => !file || file instanceof File || typeof file === "string",
+      "Invalid file"
+    )
+    .refine(
+      (file) => !file || typeof file === "string" || file.size <= MAX_FILE_SIZE,
+      `Max file size is 5MB.`
+    )
+    .refine(
+      (file) =>
+        !file ||
+        typeof file === "string" ||
+        ACCEPTED_IMAGE_TYPES.includes(file.type),
+      "Only .jpg, .jpeg, .png formats are supported."
+    )
+    .optional(),
 });
 
 export const CoverPage = ({
@@ -61,39 +81,67 @@ export const CoverPage = ({
       title: coverPageData.title,
       description: coverPageData.description,
       btnText: coverPageData.btnText,
-      logo: null,
+      logo: coverPageData.logo || undefined,
     },
-    values: {
-      title: coverPageData.title || "",
-      description: coverPageData.description || "",
-      btnText: coverPageData.btnText || "",
-    },
+    // values: {
+    //   title: coverPageData.title || "",
+    //   description: coverPageData.description || "",
+    //   btnText: coverPageData.btnText || "",
+    // },
   });
 
   useEffect(() => {
     if (coverPageData.logo) {
-      const imageUrl =
-        typeof coverPageData.logo === "object"
-          ? URL.createObjectURL(coverPageData.logo)
-          : coverPageData.logo;
-      setLogoPreview(imageUrl);
+      if (typeof coverPageData.logo === "string") {
+        setLogoPreview(coverPageData.logo);
+        form.setValue("logo", coverPageData.logo);
+      } else if (coverPageData.logo instanceof File) {
+        const url = URL.createObjectURL(coverPageData.logo);
+        setLogoPreview(url);
+        form.setValue("logo", coverPageData.logo);
+        return () => URL.revokeObjectURL(url);
+      }
     }
   }, [coverPageData.logo]);
 
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setLogoPreview(imageUrl);
-      form.setValue("logo", file);
+      const fileUrl = URL.createObjectURL(file);
+      setLogoPreview(fileUrl);
+      form.setValue("logo", file, { shouldValidate: true });
     }
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setCoverPage({
+    let logoToStore: string | File | null = null;
+
+    if (values.logo instanceof File) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target && typeof event.target.result === "string") {
+          logoToStore = event.target.result;
+          updateCoverPage(values, logoToStore);
+        }
+      };
+      reader.readAsDataURL(values.logo);
+    } else {
+      logoToStore = values.logo as string | null;
+      updateCoverPage(values, logoToStore);
+    }
+  }
+
+  function updateCoverPage(
+    values: z.infer<typeof formSchema>,
+    logo: string | File | null
+  ) {
+    const updatedCoverPage = {
       ...values,
-      logo: values.logo ?? null,
-    });
+      logo: logo,
+    };
+    setCoverPage(updatedCoverPage);
+    console.log("Form data to be sent:", updatedCoverPage);
+
     if (page === "create") router.push("/space/create?page=3");
     else router.push(`/space/${slug}/edit?page=3`);
   }

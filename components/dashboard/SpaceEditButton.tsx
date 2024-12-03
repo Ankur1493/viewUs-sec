@@ -8,7 +8,7 @@ interface SpaceDeleteButtonProps {
 
 export const SpaceEditButton = ({ slug }: SpaceDeleteButtonProps) => {
   return (
-    <div>
+    <div className="flex justify-center items-center">
       <Link href={`/space/${slug}/edit`} className="p-1 cursor-pointer">
         <EditIcon size={20} />
       </Link>
