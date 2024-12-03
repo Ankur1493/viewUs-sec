@@ -34,13 +34,19 @@ const formSchema = z.object({
   }),
   logo: z
     .any()
-    .refine((file) => !file || file instanceof File, "Invalid file")
     .refine(
-      (file) => !file || file.size <= MAX_FILE_SIZE,
+      (file) => !file || file instanceof File || typeof file === "string",
+      "Invalid file"
+    )
+    .refine(
+      (file) => !file || typeof file === "string" || file.size <= MAX_FILE_SIZE,
       `Max file size is 5MB.`
     )
     .refine(
-      (file) => !file || ACCEPTED_IMAGE_TYPES.includes(file.type),
+      (file) =>
+        !file ||
+        typeof file === "string" ||
+        ACCEPTED_IMAGE_TYPES.includes(file.type),
       "Only .jpg, .jpeg, .png formats are supported."
     )
     .optional(),
@@ -75,7 +81,7 @@ export const CoverPage = ({
       title: coverPageData.title,
       description: coverPageData.description,
       btnText: coverPageData.btnText,
-      logo: undefined,
+      logo: coverPageData.logo || undefined,
     },
     // values: {
     //   title: coverPageData.title || "",
@@ -88,6 +94,7 @@ export const CoverPage = ({
     if (coverPageData.logo) {
       if (typeof coverPageData.logo === "string") {
         setLogoPreview(coverPageData.logo);
+        form.setValue("logo", coverPageData.logo);
       } else if (coverPageData.logo instanceof File) {
         const url = URL.createObjectURL(coverPageData.logo);
         setLogoPreview(url);
@@ -107,15 +114,33 @@ export const CoverPage = ({
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setCoverPage({
+    let logoToStore: string | File | null = null;
+
+    if (values.logo instanceof File) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target && typeof event.target.result === "string") {
+          logoToStore = event.target.result;
+          updateCoverPage(values, logoToStore);
+        }
+      };
+      reader.readAsDataURL(values.logo);
+    } else {
+      logoToStore = values.logo as string | null;
+      updateCoverPage(values, logoToStore);
+    }
+  }
+
+  function updateCoverPage(
+    values: z.infer<typeof formSchema>,
+    logo: string | File | null
+  ) {
+    const updatedCoverPage = {
       ...values,
-      logo:
-        values.logo instanceof File
-          ? URL.createObjectURL(values.logo)
-          : coverPageData.logo,
-    });
-    console.log("Form data to be sent:", { logoPreview });
-    console.log("logo to be sent:", coverPageData.logo);
+      logo: logo,
+    };
+    setCoverPage(updatedCoverPage);
+    console.log("Form data to be sent:", updatedCoverPage);
 
     if (page === "create") router.push("/space/create?page=3");
     else router.push(`/space/${slug}/edit?page=3`);
