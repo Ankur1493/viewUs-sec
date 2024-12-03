@@ -1,11 +1,18 @@
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 import { SpaceSideBar } from "@/components/space/SpaceSidebar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
-const SpaceLayout = ({ children }: { children: React.ReactNode }) => {
+const SpaceLayout = async ({ children }: { children: React.ReactNode }) => {
+
+  const session = await auth()
+  const user = session?.user
+
+  if (!user) redirect("/login")
   return (
     <div className="h-full w-screen flex">
       <div className="hidden md:flex flex-none md:w-1/6 border-none">
-        <SpaceSideBar />
+        <SpaceSideBar email={user.email!} />
       </div>
       <div className="block md:hidden flex-none">
         <SidebarTrigger />

@@ -24,10 +24,13 @@ async function fetchTestimonials(slug: string) {
     const response = await axios.get(baseUrl, {
       params: { slug },
     });
+
+    if (!response.data.success) return null
+
     return response.data;
   } catch (error) {
     console.error("Error fetching testimonials:", error);
-    return [];
+    return null;
   }
 }
 
@@ -37,6 +40,16 @@ const SpacePage = async ({
   params: { slug: string };
 }) => {
   const response = await fetchTestimonials(slug);
+  if (!response || response === null) {
+    return (
+      <div className="h-full w-full flex justify-center items-center">
+        <div className="bg-[#E9F8FF] w-[80px] h-[80px] rounded-full flex justify-center items-center mx-6">
+          <FrownIcon color="#009EE2" size={30} />
+        </div>
+        <h1 className="text-3xl font-medium">We are facing a bit of an issue,please try again later</h1>
+      </div>
+    );
+  }
   const { space } = response;
   const spaceTestimonials = response.reviews;
   const testimonialCounts = {
