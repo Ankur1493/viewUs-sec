@@ -17,12 +17,13 @@ interface TestimonialType {
 async function fetchTestimonials(slug: string) {
   const baseUrl =
     process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/api/review/text"
-      : "http://viewus.in/api/review/text";
+      ? "http://localhost:3000/api/review"
+      : "http://viewus.in/api/review";
 
   try {
     const response = await axios.get(baseUrl, {
       params: { slug },
+      withCredentials: true
     });
 
     if (!response.data.success) return null
@@ -50,7 +51,7 @@ const SpacePage = async ({
       </div>
     );
   }
-  const { space } = response;
+  const { space, extraReviews } = response;
   const spaceTestimonials = response.reviews || [];
   const testimonialCounts = {
     total: spaceTestimonials.length,
@@ -78,7 +79,7 @@ const SpacePage = async ({
     <div className="flex flex-col justify-center pb-4">
       <div className="mb-3 px-7">
         {slug && (
-          <SpaceInfo space={space} testimonialCounts={testimonialCounts} />
+          <SpaceInfo space={space} extraTextReviews={extraReviews.text} extraVideoReviews={extraReviews.video} testimonialCounts={testimonialCounts} />
         )}
       </div>
       <ManageTestimonials testimonials={spaceTestimonials} />

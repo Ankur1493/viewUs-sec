@@ -8,15 +8,29 @@ const resend = new Resend(process.env.RESEND_API_KEY!);
 export async function sendTextReviewSubmitted({ email, reviewCount, spaceTitle }: { email: string, reviewCount: number, spaceTitle: string }) {
   try {
     // Send email asynchronously
-    const response = await resend.emails.send({
-      from: 'ViewUs <team@viewus.in>',
-      to: [email],
-      subject: "Review Received",
-      react: EmailTemplate({ firstName: 'View-Us', reviewCount, spaceTitle }),
-    });
-    if (response) {
-      console.log({ response, message: `mail sent ${new Date().toISOString()} ` })
+    if (reviewCount > 10) {
+      // create a condition to not show the review here and if it reaches more than 10, we will only store 3-4 more reviews at max
+      const response = await resend.emails.send({
+        from: 'ViewUs <team@viewus.in>',
+        to: [email],
+        subject: "Review Received",
+        react: EmailTemplate({ firstName: 'View-Us', reviewCount, spaceTitle }),
+      });
+      if (response) {
+        console.log({ response, message: `mail sent ${new Date().toISOString()} ` })
+      }
+    } else {
+      const response = await resend.emails.send({
+        from: 'ViewUs <team@viewus.in>',
+        to: [email],
+        subject: "Review Received",
+        react: EmailTemplate({ firstName: 'View-Us', reviewCount, spaceTitle }),
+      });
+      if (response) {
+        console.log({ response, message: `mail sent ${new Date().toISOString()} ` })
+      }
     }
+
   } catch (error) {
     console.error("Error sending email: ", error);
   }

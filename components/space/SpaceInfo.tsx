@@ -4,9 +4,12 @@ import { SpaceEditButton } from "../dashboard/SpaceEditButton";
 import { Space } from "@prisma/client";
 import { SpaceDeleteButton } from "../dashboard/SpaceDeleteButton";
 import { SpaceCopyButton } from "../dashboard/SpaceCopyButton";
+import { Button } from "../ui/button";
 
 interface SpaceInfoProps {
   space: Space;
+  extraTextReviews: number,
+  extraVideoReviews: number,
   testimonialCounts?: {
     total: number;
     text: number;
@@ -16,6 +19,8 @@ interface SpaceInfoProps {
 }
 
 export default function SpaceInfo({
+  extraTextReviews,
+  extraVideoReviews,
   space,
   testimonialCounts,
 }: SpaceInfoProps) {
@@ -34,6 +39,8 @@ export default function SpaceInfo({
                 {`http://localhost:3000/a/${space.slug}`}
               </Link>
             </p>
+            {extraTextReviews > 0 && (<div><p>You have {extraTextReviews} more text reviews</p><Button>Upgrade Now</Button></div>)}
+            {extraVideoReviews > 0 && (<div><p>You have {extraVideoReviews} more text reviews</p><Button>Upgrade Now</Button></div>)}
           </div>
         </div>
 

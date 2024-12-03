@@ -7,7 +7,6 @@ import { db } from "./lib/db"
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/login",
-    error: "/autherror"
   },
   events: {
     async linkAccount({ user }) {
