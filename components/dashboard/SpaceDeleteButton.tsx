@@ -21,10 +21,8 @@ interface SpaceDeleteButtonProps {
   spaceId: string;
 }
 
-export const SpaceDeleteButton = ({
-  spaceId,
-}: SpaceDeleteButtonProps) => {
-  const router = useRouter()
+export const SpaceDeleteButton = ({ spaceId }: SpaceDeleteButtonProps) => {
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const dialogContentRef = React.useRef<HTMLDivElement>(null);
 
@@ -46,19 +44,19 @@ export const SpaceDeleteButton = ({
   }, [open]);
 
   const deleteKarSpace = async () => {
-    const response = await deleteSpace(spaceId)
+    const response = await deleteSpace(spaceId);
     if (response) {
-      toast.success("space deleted successfully")
-      router.push("/dashboard")
+      toast.success("space deleted successfully");
+      router.push("/dashboard");
     } else {
-      toast.error("failed to delete")
+      toast.error("failed to delete");
     }
   };
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <div className="p-1 cursor-pointer">
+        <div className="p-1 cursor-pointer flex justify-center items-center">
           <Trash2 size={20} />
         </div>
       </AlertDialogTrigger>

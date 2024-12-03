@@ -38,7 +38,7 @@ const SpacePage = async ({
 }) => {
   const response = await fetchTestimonials(slug);
   const { space } = response;
-  const spaceTestimonials = response.reviews;
+  const spaceTestimonials = response.reviews || [];
   const testimonialCounts = {
     total: spaceTestimonials.length,
     text: spaceTestimonials.filter((t: TestimonialType) => t.reviewType === 0)

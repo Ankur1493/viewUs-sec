@@ -7,7 +7,7 @@ import { SpaceCopyButton } from "../dashboard/SpaceCopyButton";
 
 interface SpaceInfoProps {
   space: Space;
-  testimonialCounts: {
+  testimonialCounts?: {
     total: number;
     text: number;
     video: number;

@@ -17,14 +17,12 @@ interface CoverPagePreviewProps {
   title?: string;
   description?: string;
   btnText?: string;
-  logo?: string | StaticImageData | File | null;
+  logo?: string | File | null;
   btnColor?: string;
   gradientType?: number;
 }
 
 export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
-  name,
-  slug,
   title,
   description,
   btnText,
@@ -41,15 +39,9 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
       setLogoUrl(url);
       return () => URL.revokeObjectURL(url);
     } else if (typeof logo === "string") {
-      console.log({ slug, message: "aagya yaha" })
-      if (slug && logo === `space/${slug}-${name}-logo`)
-        setLogoUrl(`https://d3eyp937ijscg0.cloudfront.net/${logo}`);
-      else
-        setLogoUrl(logo)
-    } else if (logo && "src" in logo) {
-      setLogoUrl(logo.src);
+      setLogoUrl(logo);
     } else {
-      setLogoUrl(null)
+      setLogoUrl(null);
     }
   }, [logo]);
 
