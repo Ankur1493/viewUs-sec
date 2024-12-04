@@ -1,5 +1,6 @@
 import {
   Body,
+  Button,
   Container,
   Head,
   Heading,
@@ -12,21 +13,27 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-// interface ReviewSubmittedEmailTemplateProps {
+// interface ReviewReceivedEmailTemplateProps {
 //   firstName: string;
+//   reviewCount: number;
 //   spaceTitle: string;
+//   reviewerName: string;
 //   reviewType: "text" | "video";
+//   dashboardLink: string;
 // }
 
-export const ReviewSubmittedTemplate = () => (
-  // {
-  // firstName,
-  // spaceTitle,
-  // reviewType,
-  // }
+export const ReviewReceivedTemplate = () => (
+  //   {
+  //   firstName,
+  //   reviewCount,
+  //   spaceTitle,
+  //   reviewerName,
+  //   reviewType,
+  //   dashboardLink,
+  //   }
   <Html>
     <Head />
-    <Preview>Your review for BakedUi has been submitted</Preview>
+    <Preview>New text review received for BakedUi</Preview>
     <Tailwind
       config={{
         theme: {
@@ -55,22 +62,34 @@ export const ReviewSubmittedTemplate = () => (
           />
           <Container className="bg-white p-45 rounded-lg shadow-lg">
             <Heading className="text-2xl font-bold text-center text-gray-800 my-0 leading-8">
-              Thank You for Your Review, Udit!
+              New Review Received, Udit!
             </Heading>
             <Text className="text-base text-gray-600 mt-4 mb-6 text-center">
-              Your text review for &quot;BakedUi&quot; has been successfully
-              submitted.
+              You&apos;ve received a new text review for &quot;BakedUi&quot;
+              from Udit.
             </Text>
-            <Section className="bg-green-50 border border-green-100 rounded-lg p-6 mb-6">
-              <Text className="text-sm text-green-800 m-0">
-                We appreciate your feedback! Your review helps others make
-                informed decisions and improves the overall experience on
-                ViewUs.
+            <Section className="bg-blue-50 border border-blue-100 rounded-lg p-6 mb-6">
+              <Text className="text-sm text-blue-800 m-0">
+                Congratulations! You now have a total of 10 text reviews.
               </Text>
+              {/* {reviewCount >= 10 && (
+                <Text className="text-sm text-blue-800 mt-4 mb-0 font-semibold">
+                  You've reached 10 reviews! Consider upgrading your account to
+                  unlock more features.
+                </Text>
+              )} */}
+            </Section>
+            <Section className="text-center">
+              <Button
+                className="bg-brand text-white rounded-lg text-base font-semibold no-underline text-center px-[20px] py-[12px]"
+                href="http://localhost:3000/dashboards"
+              >
+                View Your Dashboard
+              </Button>
             </Section>
             <Text className="text-sm text-gray-600 mt-6 mb-0">
-              If you have any questions or need to make changes to your review,
-              please don&apos;t hesitate to contact our support team.
+              Keep up the great work! More reviews mean more visibility and
+              credibility for your space.
             </Text>
           </Container>
           <Text className="text-xs text-gray-400 mt-8 mb-4 text-center">
@@ -82,4 +101,4 @@ export const ReviewSubmittedTemplate = () => (
   </Html>
 );
 
-export default ReviewSubmittedTemplate;
+export default ReviewReceivedTemplate;
