@@ -1,7 +1,7 @@
 "use client";
 
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -19,9 +19,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { CoverPagePreview } from "./preview/CoverPagePreview";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
-
 const formSchema = z.object({
   title: z.string().max(100, {
     message: "Title must be 100 characters or less.",
@@ -32,24 +29,14 @@ const formSchema = z.object({
   btnText: z.string().max(30, {
     message: "Button text must be 30 characters or less.",
   }),
-  logo: z
-    .any()
-    .refine(
-      (file) => !file || file instanceof File || typeof file === "string",
-      "Invalid file"
-    )
-    .refine(
-      (file) => !file || typeof file === "string" || file.size <= MAX_FILE_SIZE,
-      `Max file size is 5MB.`
-    )
-    .refine(
-      (file) =>
-        !file ||
-        typeof file === "string" ||
-        ACCEPTED_IMAGE_TYPES.includes(file.type),
-      "Only .jpg, .jpeg, .png formats are supported."
-    )
-    .optional(),
+  // logo: z
+  //   .any()
+  //   .refine((file) => !file || file instanceof File, "Invalid file")
+  //   .refine(
+  //     (file) => !file || ACCEPTED_IMAGE_TYPES.includes(file.type),
+  //     "Only .jpg, .jpeg, .png formats are supported."
+  //   )
+  //   .optional(),
 });
 
 export const CoverPage = ({
@@ -62,7 +49,7 @@ export const CoverPage = ({
   page: "edit" | "create";
 }) => {
   const { coverPage: coverPageData, setCoverPage } = useSpaceDataStore();
-  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  // const [logoPreview, setLogoPreview] = useState<string | null>(null);
 
   const initializeSpaceData = useSpaceDataStore(
     (state) => state.initializeSpaceData
@@ -81,66 +68,51 @@ export const CoverPage = ({
       title: coverPageData.title,
       description: coverPageData.description,
       btnText: coverPageData.btnText,
-      logo: coverPageData.logo || undefined,
+      // logo: coverPageData.logo || undefined,
     },
-    // values: {
-    //   title: coverPageData.title || "",
-    //   description: coverPageData.description || "",
-    //   btnText: coverPageData.btnText || "",
-    // },
+    values: {
+      title: coverPageData.title || "",
+      description: coverPageData.description || "",
+      btnText: coverPageData.btnText || "",
+      // logo: coverPageData.logo || undefined,
+    },
   });
 
-  useEffect(() => {
-    if (coverPageData.logo) {
-      if (typeof coverPageData.logo === "string") {
-        setLogoPreview(coverPageData.logo);
-        form.setValue("logo", coverPageData.logo);
-      } else if (coverPageData.logo instanceof File) {
-        const url = URL.createObjectURL(coverPageData.logo);
-        setLogoPreview(url);
-        form.setValue("logo", coverPageData.logo);
-        return () => URL.revokeObjectURL(url);
-      }
-    }
-  }, [coverPageData.logo]);
+  // useEffect(() => {
+  //   if (coverPageData.logo) {
+  //     if (typeof coverPageData.logo === "string") {
+  //       setLogoPreview(coverPageData.logo);
+  //     } else if (coverPageData.logo instanceof File) {
+  //       const url = URL.createObjectURL(coverPageData.logo);
+  //       setLogoPreview(url);
+  //       form.setValue("logo", coverPageData.logo);
+  //       return () => URL.revokeObjectURL(url);
+  //     }
+  //   }
+  // }, [coverPageData.logo, form]);
 
-  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const fileUrl = URL.createObjectURL(file);
-      setLogoPreview(fileUrl);
-      form.setValue("logo", file, { shouldValidate: true });
-    }
-  };
+  // const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     const fileUrl = URL.createObjectURL(file);
+  //     console.log("helloo", fileUrl);
+
+  //     setLogoPreview(fileUrl);
+  //     form.setValue("logo", file, { shouldValidate: true });
+  //     setCoverPage({
+  //       ...coverPageData,
+  //       logo: file,
+  //     });
+  //   }
+  // };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    let logoToStore: string | File | null = null;
-
-    if (values.logo instanceof File) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target && typeof event.target.result === "string") {
-          logoToStore = event.target.result;
-          updateCoverPage(values, logoToStore);
-        }
-      };
-      reader.readAsDataURL(values.logo);
-    } else {
-      logoToStore = values.logo as string | null;
-      updateCoverPage(values, logoToStore);
-    }
-  }
-
-  function updateCoverPage(
-    values: z.infer<typeof formSchema>,
-    logo: string | File | null
-  ) {
-    const updatedCoverPage = {
+    // console.log("image to be sent:", values.logo);
+    // console.log("logo to be sent:", coverPageData.logo);
+    setCoverPage({
+      ...coverPageData,
       ...values,
-      logo: logo,
-    };
-    setCoverPage(updatedCoverPage);
-    console.log("Form data to be sent:", updatedCoverPage);
+    });
 
     if (page === "create") router.push("/space/create?page=3");
     else router.push(`/space/${slug}/edit?page=3`);
@@ -207,7 +179,7 @@ export const CoverPage = ({
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="logo"
                 render={() => (
@@ -219,7 +191,7 @@ export const CoverPage = ({
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
             </form>
           </Form>
         </div>
@@ -233,7 +205,7 @@ export const CoverPage = ({
               title={form.watch("title")}
               description={form.watch("description")}
               btnText={form.watch("btnText")}
-              logo={logoPreview}
+              // logo={logoPreview}
             />
           </div>
           <div className="p-4 flex justify-center items-center">

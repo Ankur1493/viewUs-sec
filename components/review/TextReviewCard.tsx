@@ -13,7 +13,7 @@ import {
 import useReviewPageStore from "@/store/useReviewPageStore";
 import { Video } from "lucide-react";
 import { TagSelection } from "./TagSelection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Starred } from "./Starred";
 import { ReviewForm } from "@/types";
 import { Questions } from "./Questions";
@@ -34,6 +34,10 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
   } = useReviewPageStore();
 
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    console.log(customerDetails);
+  });
 
   const handleSubmitReview = async () => {
     try {

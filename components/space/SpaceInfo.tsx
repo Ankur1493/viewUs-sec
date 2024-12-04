@@ -8,8 +8,8 @@ import { Button } from "../ui/button";
 
 interface SpaceInfoProps {
   space: Space;
-  extraTextReviews: number,
-  extraVideoReviews: number,
+  extraTextReviews: number;
+  extraVideoReviews: number;
   testimonialCounts?: {
     total: number;
     text: number;
@@ -39,8 +39,18 @@ export default function SpaceInfo({
                 {`http://localhost:3000/a/${space.slug}`}
               </Link>
             </p>
-            {extraTextReviews > 0 && (<div><p>You have {extraTextReviews} more text reviews</p><Button>Upgrade Now</Button></div>)}
-            {extraVideoReviews > 0 && (<div><p>You have {extraVideoReviews} more text reviews</p><Button>Upgrade Now</Button></div>)}
+            {extraTextReviews > 0 && (
+              <div>
+                <p>You have {extraTextReviews} more text reviews</p>
+                <Button>Upgrade Now</Button>
+              </div>
+            )}
+            {extraVideoReviews > 0 && (
+              <div>
+                <p>You have {extraVideoReviews} more text reviews</p>
+                <Button>Upgrade Now</Button>
+              </div>
+            )}
           </div>
         </div>
 

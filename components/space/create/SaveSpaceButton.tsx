@@ -31,10 +31,16 @@ interface SaveButtonProps {
   className?: string;
   variant?: ButtonVariant;
   page?: "create" | "edit";
-  slug?: string | undefined
+  slug?: string | undefined;
 }
 
-export const SaveButton = ({ id, className, variant, page, slug }: SaveButtonProps) => {
+export const SaveButton = ({
+  id,
+  className,
+  variant,
+  page,
+  slug,
+}: SaveButtonProps) => {
   const router = useRouter();
   const {
     spaceCreationDetails,
@@ -51,7 +57,7 @@ export const SaveButton = ({ id, className, variant, page, slug }: SaveButtonPro
     setIsSaveDialogOpen(true);
   };
 
-  const handleSaveConfirm = async (confirm: boolean) => {
+  const handleSaveConfirm = async () => {
     setIsSaveDialogOpen(false);
 
     // Validate required fields
@@ -71,18 +77,28 @@ export const SaveButton = ({ id, className, variant, page, slug }: SaveButtonPro
       const formData = new FormData();
 
       // Append fields
-      formData.append("spaceCreationDetails", JSON.stringify(spaceCreationDetails));
+      formData.append(
+        "spaceCreationDetails",
+        JSON.stringify(spaceCreationDetails)
+      );
       formData.append("coverPage", JSON.stringify(coverPage));
       if (coverPage.logo) formData.append("logo", coverPage.logo);
 
       formData.append("userInformation", JSON.stringify(userInformation));
       formData.append("testimonialType", JSON.stringify(testimonialType));
-      formData.append("testimonialPageType", JSON.stringify(testimonialPageType));
+      formData.append(
+        "testimonialPageType",
+        JSON.stringify(testimonialPageType)
+      );
       formData.append("thankyou", JSON.stringify(thankyou));
       formData.append("design", JSON.stringify(design));
 
+      console.log(coverPage);
 
-      const url = page === "create" ? "http://localhost:3000/api/space/create" : `http://localhost:3000/api/space/edit?id=${id}`
+      const url =
+        page === "create"
+          ? "http://localhost:3000/api/space/create"
+          : `http://localhost:3000/api/space/edit?id=${id}`;
 
       const response = await axios.post(url, formData, {
         headers: {
@@ -93,10 +109,10 @@ export const SaveButton = ({ id, className, variant, page, slug }: SaveButtonPro
       // Handle the response
       if (response.data.status === true) {
         console.log("Request received successfully");
-        router.push(`/space/${spaceCreationDetails.projectSlug}`);
-        sessionStorage.clear()
+        router.push(`/space/${spaceCreationDetails.projectSlug}/public`);
+        sessionStorage.clear();
       } else {
-        toast.error(response.data.message)
+        toast.error(response.data.message);
         console.error("Failed to create space:", response.data.message);
       }
     } catch (error) {
@@ -104,8 +120,8 @@ export const SaveButton = ({ id, className, variant, page, slug }: SaveButtonPro
 
       if (axios.isAxiosError(error)) {
         // Axios-specific error handling
-        errorMessage = error.response?.data?.message || "Failed to process request";
-
+        errorMessage =
+          error.response?.data?.message || "Failed to process request";
       } else if (error instanceof Error) {
         // Generic JavaScript error handling
         errorMessage = error.message;
@@ -115,7 +131,6 @@ export const SaveButton = ({ id, className, variant, page, slug }: SaveButtonPro
       console.error("Error sending data:", error);
     }
   };
-
 
   return (
     <div>
@@ -133,10 +148,10 @@ export const SaveButton = ({ id, className, variant, page, slug }: SaveButtonPro
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => handleSaveConfirm(false)}>
+            <Button variant="outline" onClick={() => handleSaveConfirm()}>
               No
             </Button>
-            <Button onClick={() => handleSaveConfirm(true)}>Yes</Button>
+            <Button onClick={() => handleSaveConfirm()}>Yes</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

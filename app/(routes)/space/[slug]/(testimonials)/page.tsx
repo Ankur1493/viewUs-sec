@@ -23,10 +23,10 @@ async function fetchTestimonials(slug: string) {
   try {
     const response = await axios.get(baseUrl, {
       params: { slug },
-      withCredentials: true
+      withCredentials: true,
     });
 
-    if (!response.data.success) return null
+    if (!response.data.success) return null;
 
     return response.data;
   } catch (error) {
@@ -47,7 +47,9 @@ const SpacePage = async ({
         <div className="bg-[#E9F8FF] w-[80px] h-[80px] rounded-full flex justify-center items-center mx-6">
           <FrownIcon color="#009EE2" size={30} />
         </div>
-        <h1 className="text-3xl font-medium">We are facing a bit of an issue,please try again later</h1>
+        <h1 className="text-3xl font-medium">
+          We are facing a bit of an issue,please try again later
+        </h1>
       </div>
     );
   }
@@ -79,7 +81,12 @@ const SpacePage = async ({
     <div className="flex flex-col justify-center pb-4">
       <div className="mb-3 px-7">
         {slug && (
-          <SpaceInfo space={space} extraTextReviews={extraReviews.text} extraVideoReviews={extraReviews.video} testimonialCounts={testimonialCounts} />
+          <SpaceInfo
+            space={space}
+            extraTextReviews={extraReviews.text}
+            extraVideoReviews={extraReviews.video}
+            testimonialCounts={testimonialCounts}
+          />
         )}
       </div>
       <ManageTestimonials testimonials={spaceTestimonials} />

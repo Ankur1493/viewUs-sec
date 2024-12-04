@@ -139,7 +139,6 @@ export const CustomerDetailCard = ({
       jobTitle: data.jobTitle,
       image: data.image,
     };
-
     setCustomerDetails(normalizedData);
     {
       reviewForm.details
