@@ -5,11 +5,12 @@ interface SpaceCreationDetails {
   projectSlug: string | null;
 }
 
+// have to update coverpage image
 interface CoverPage {
   title: string;
   description: string;
   btnText: string;
-  logo: File | string | null;
+  logo?: File | null | string | undefined;
 }
 
 export interface UserInformation {
@@ -67,7 +68,8 @@ const defaultSpaceData = {
   spaceCreationDetails: { projectName: null, projectSlug: null },
   coverPage: {
     title: "Leave us a Testimonial",
-    description: "We want to share customer success stories on our website and would love for you to submit a written or video testimonial.",
+    description:
+      "We want to share customer success stories on our website and would love for you to submit a written or video testimonial.",
     btnText: "Tell us about your experience",
     logo: null,
   },
@@ -82,7 +84,8 @@ const defaultSpaceData = {
   testimonialType: { text: true, video: false },
   testimonialPageType: {
     title: "Write a testimonial",
-    description: "Thanks for taking out some time to fill a review for us, cheers!",
+    description:
+      "Thanks for taking out some time to fill a review for us, cheers!",
     tags: [],
     questionHeader: "Reflect on your experience",
     questions: [
@@ -94,7 +97,8 @@ const defaultSpaceData = {
   },
   thankyou: {
     title: "Thanks for your feedback",
-    description: "We appreciate you taking the time to provide us a testimonial.",
+    description:
+      "We appreciate you taking the time to provide us a testimonial.",
   },
   design: { gradientType: 1, btnColor: "#71D4FF" },
 };
@@ -104,7 +108,10 @@ export const useSpaceDataStore = create<SpaceData>((set) => ({
 
   setSpaceCreationDetails: (spaceCreationDetails) => {
     set({ spaceCreationDetails });
-    sessionStorage.setItem("spaceCreationDetails", JSON.stringify(spaceCreationDetails));
+    sessionStorage.setItem(
+      "spaceCreationDetails",
+      JSON.stringify(spaceCreationDetails)
+    );
   },
 
   setCoverPage: (coverPage) => {
@@ -124,7 +131,10 @@ export const useSpaceDataStore = create<SpaceData>((set) => ({
 
   setTestimonialPageType: (testimonialPageType) => {
     set({ testimonialPageType });
-    sessionStorage.setItem("testimonialPageType", JSON.stringify(testimonialPageType));
+    sessionStorage.setItem(
+      "testimonialPageType",
+      JSON.stringify(testimonialPageType)
+    );
   },
 
   setThankYou: (thankyou) => {
@@ -147,13 +157,18 @@ export const useSpaceDataStore = create<SpaceData>((set) => ({
       }
     };
 
-    initializeState("spaceCreationDetails", defaultSpaceData.spaceCreationDetails);
+    initializeState(
+      "spaceCreationDetails",
+      defaultSpaceData.spaceCreationDetails
+    );
     initializeState("coverPage", defaultSpaceData.coverPage);
     initializeState("userInformation", defaultSpaceData.userInformation);
     initializeState("testimonialType", defaultSpaceData.testimonialType);
-    initializeState("testimonialPageType", defaultSpaceData.testimonialPageType);
+    initializeState(
+      "testimonialPageType",
+      defaultSpaceData.testimonialPageType
+    );
     initializeState("thankyou", defaultSpaceData.thankyou);
     initializeState("design", defaultSpaceData.design);
   },
 }));
-

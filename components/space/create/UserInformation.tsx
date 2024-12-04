@@ -7,13 +7,19 @@ import {
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { } from "@/store/useSpaceDataStore";
+import {} from "@/store/useSpaceDataStore";
 import { useRouter } from "next/navigation";
 import { UserInformationPreview } from "./preview/UserInformationPreview";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 
-export const UserInformation = ({ slug, page }: { slug?: string | undefined, page: "edit" | "create" }) => {
+export const UserInformation = ({
+  slug,
+  page,
+}: {
+  slug?: string | undefined;
+  page: "edit" | "create";
+}) => {
   const { userInformation, setUserInformation } = useSpaceDataStore();
   const initializeSpaceData = useSpaceDataStore(
     (state) => state.initializeSpaceData
@@ -21,7 +27,7 @@ export const UserInformation = ({ slug, page }: { slug?: string | undefined, pag
 
   useEffect(() => {
     initializeSpaceData();
-    console.log("runned")
+    console.log("runned");
   }, [initializeSpaceData]);
 
   const router = useRouter();
@@ -77,11 +83,8 @@ export const UserInformation = ({ slug, page }: { slug?: string | undefined, pag
         </div>
       </div>
       <div className="w-full h-[90%]">
-        {" "}
         <div className="w-full h-full flex flex-col">
-          {" "}
           <div className="h-80% w-full">
-            {" "}
             <UserInformationPreview
               userInformation={Object.fromEntries(
                 Object.entries(userInformation).map(([key, value]) => [
@@ -95,11 +98,10 @@ export const UserInformation = ({ slug, page }: { slug?: string | undefined, pag
             <div className="flex gap-4">
               <Button
                 onClick={() => {
-                  if (page === "create")
-                    router.push("/space/create?page=2");
-                  else
-                    router.push(`/space/${slug}/edit?page=2`);
-                }} variant="outline"
+                  if (page === "create") router.push("/space/create?page=2");
+                  else router.push(`/space/${slug}/edit?page=2`);
+                }}
+                variant="outline"
                 className="border-[#DDDEDF] rounded-full px-20 py-4"
               >
                 Back
@@ -108,10 +110,8 @@ export const UserInformation = ({ slug, page }: { slug?: string | undefined, pag
                 type="submit"
                 variant="form"
                 onClick={() => {
-                  if (page === "create")
-                    router.push("/space/create?page=4");
-                  else
-                    router.push(`/space/${slug}/edit?page=4`);
+                  if (page === "create") router.push("/space/create?page=4");
+                  else router.push(`/space/${slug}/edit?page=4`);
                 }}
                 className=" px-20 py-4"
               >

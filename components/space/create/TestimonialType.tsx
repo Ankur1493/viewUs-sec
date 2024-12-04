@@ -14,11 +14,21 @@ import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import { WrittenTestimonialPreview } from "./preview/WrittenTestimonialPreview";
 import { VideoReviewPreview } from "./preview/VideoReviewPreview";
 
-export const TestimonialType = ({ slug, page }: { slug?: string | undefined, page: "edit" | "create" }) => {
+export const TestimonialType = ({
+  slug,
+  page,
+}: {
+  slug?: string | undefined;
+  page: "edit" | "create";
+}) => {
   const router = useRouter();
 
-  const { testimonialType, setTestimonialType, testimonialPageType } =
-    useSpaceDataStore();
+  const {
+    coverPage,
+    testimonialType,
+    setTestimonialType,
+    testimonialPageType,
+  } = useSpaceDataStore();
   const [preferred, setPreferred] = useState<"text" | "video">(
     testimonialType.text ? "text" : "video"
   );
@@ -28,10 +38,9 @@ export const TestimonialType = ({ slug, page }: { slug?: string | undefined, pag
 
   useEffect(() => {
     initializeSpaceData();
-    console.log("runned")
+    console.log("runned");
+    console.log(coverPage);
   }, [initializeSpaceData]);
-
-
 
   return (
     <div className="w-full pl-2 max-h-screen h-[85vh] flex justify-center overflow-hidden gap-4">
@@ -110,10 +119,8 @@ export const TestimonialType = ({ slug, page }: { slug?: string | undefined, pag
             <div className="flex gap-4">
               <Button
                 onClick={() => {
-                  if (page === "create")
-                    router.push("/space/create?page=3");
-                  else
-                    router.push(`/space/${slug}/edit?page=3`);
+                  if (page === "create") router.push("/space/create?page=3");
+                  else router.push(`/space/${slug}/edit?page=3`);
                 }}
                 variant="outline"
                 className="border-[#DDDEDF] rounded-full px-20 py-4"
@@ -124,10 +131,8 @@ export const TestimonialType = ({ slug, page }: { slug?: string | undefined, pag
                 type="submit"
                 variant="form"
                 onClick={() => {
-                  if (page === "create")
-                    router.push("/space/create?page=5");
-                  else
-                    router.push(`/space/${slug}/edit?page=5`);
+                  if (page === "create") router.push("/space/create?page=5");
+                  else router.push(`/space/${slug}/edit?page=5`);
                 }}
                 className=" px-20 py-4"
               >

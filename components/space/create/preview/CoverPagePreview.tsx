@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { gradients } from "@/constants/gradients";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -23,6 +23,8 @@ interface CoverPagePreviewProps {
 }
 
 export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
+  name,
+  slug,
   title,
   description,
   btnText,
@@ -30,7 +32,7 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
   btnColor,
   gradientType,
 }) => {
-  const { coverPage } = useSpaceDataStore();
+  const { coverPage, spaceCreationDetails } = useSpaceDataStore();
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -39,7 +41,10 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
       setLogoUrl(url);
       return () => URL.revokeObjectURL(url);
     } else if (typeof logo === "string") {
-      setLogoUrl(logo);
+      console.log({ slug, message: "aagya yaha" });
+      if (slug && logo === `space/${slug}-${name}-logo`)
+        setLogoUrl(`https://d3eyp937ijscg0.cloudfront.net/${logo}`);
+      else setLogoUrl(logo);
     } else {
       setLogoUrl(null);
     }
@@ -57,6 +62,14 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
         />
       </div>
       <Card className="max-w-[700px] px-[2%] border-none flex flex-col gap-4 shadow-none">
+        <CardHeader>
+          <h2
+            className="text-3xl font-medium"
+            style={{ textTransform: "uppercase" }}
+          >
+            {spaceCreationDetails.projectName}
+          </h2>
+        </CardHeader>
         {logoUrl && (
           <CardHeader className="flex flex-row gap-3">
             <div className="relative w-[200px] h-[80px]">
