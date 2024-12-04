@@ -17,13 +17,13 @@ import {
   BookTextIcon,
   CircleDollarSignIcon,
   RssIcon,
-  Settings,
 } from "lucide-react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
+import { HelpSupportModal } from "./HelpSupportModal";
 
-export function SideBar() {
+export function SideBar({ email }: { email: string }) {
   const links = [
     {
       label: "Home",
@@ -75,10 +75,7 @@ export function SideBar() {
       </SidebarContent>
       <SidebarFooter className="flex gap-3 jutify-center items-center">
         <SidebarMenuButton className="w-[80%]">
-          <Link href="#" className="flex items-center justify-center gap-1">
-            <Settings size={18} />
-            <span>Help and Support</span>
-          </Link>
+          <HelpSupportModal email={email} />
         </SidebarMenuButton>
         <Button
           onClick={(event) => {
@@ -95,7 +92,10 @@ export function SideBar() {
 }
 
 export const Logo = () => (
-  <Link href="#" className="flex gap-2 items-center text-sm text-black py-4">
+  <Link
+    href="/dashboard"
+    className="flex gap-2 items-center text-sm text-black py-4"
+  >
     <div className="h-8 w-8 bg-black rounded-br-lg" />
     <span className="font-bold text-2xl text-black">ViewUs</span>
   </Link>

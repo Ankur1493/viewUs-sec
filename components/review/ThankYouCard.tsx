@@ -1,8 +1,9 @@
 import React from "react";
 import { Card, CardTitle, CardContent } from "../ui/card";
 import { PartyPopper } from "lucide-react";
+import { ReviewForm } from "@/types";
 
-export const ThankYouCard = () => {
+export const ThankYouCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
   return (
     <div className="flex items-center justify-center">
       <Card className="border-none shadow-none">
@@ -11,10 +12,14 @@ export const ThankYouCard = () => {
         </div>
         <CardContent className="p-6">
           <CardTitle className="text-[36px] font-[500] mb-4">
-            Thanks for the feedback!
+            {reviewForm.details
+              ? reviewForm.details.thankyouTitle
+              : "Thanks for the feedback!"}
           </CardTitle>
           <p className="text-[14px] font-[400]">
-            Thank you for submitting your review. We appreciate your feedback!
+            {reviewForm.details
+              ? reviewForm.details.thankyouMessage
+              : "We appreciate you taking the time to provide us a testimonial. "}
           </p>
         </CardContent>
       </Card>

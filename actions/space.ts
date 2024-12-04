@@ -1,30 +1,57 @@
-"use server"
+"use server";
+import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { connectToMongo } from "@/lib/mongoose";
 import Review, { ReviewType } from "@/models/review_model";
+import { revalidatePath } from "next/cache";
 
-export const getSpaceDetails = async (slug: string) => {
+export const getSpaceDetails = async ({
+  slug,
+  userId,
+}: {
+  slug: string;
+  userId?: string;
+}) => {
   try {
     const space = await db.space.findUnique({
       where: {
         slug,
       },
       include: {
-        questions: true,
+        details: true,
       },
     });
 
+    if (userId !== space?.userId) return null;
 
     return space;
   } catch (error) {
     console.error("Error fetching space details:", error);
-    return null
+    return null;
+  }
+};
+
+export const getReviewFormDetails = async ({ slug }: { slug: string }) => {
+  try {
+    const space = await db.space.findUnique({
+      where: {
+        slug,
+      },
+      include: {
+        details: true,
+      },
+    });
+
+    return space;
+  } catch (error) {
+    console.error("Error fetching space details:", error);
+    return null;
   }
 };
 
 export const getUserSpaces = async (userId: string) => {
   try {
-    await connectToMongo()
+    await connectToMongo();
     const spaces = await db.space.findMany({
       where: {
         userId,
@@ -82,3 +109,33 @@ export const getUserSpaces = async (userId: string) => {
   }
 };
 
+export const deleteSpace = async (spaceId: string) => {
+  try {
+    const session = await auth();
+    const user = session?.user;
+
+    if (!user) return null;
+
+    const result = await db.$transaction([
+      db.spaceDetails.delete({
+        where: {
+          spaceId: spaceId,
+        },
+      }),
+      db.space.delete({
+        where: {
+          id: spaceId,
+          userId: user.id,
+        },
+      }),
+    ]);
+
+    if (!result) return null;
+
+    revalidatePath("/dashboard");
+    return result;
+  } catch (error) {
+    console.error("Error fetching space details:", error);
+    return null;
+  }
+};

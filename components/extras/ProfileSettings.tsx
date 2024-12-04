@@ -23,12 +23,10 @@ import axios from "axios";
 import { toast } from "sonner";
 
 export const ProfileSettings = ({ user }: { user: User }) => {
-  const cdn = process.env.NEXT_PUBLIC_CDN_NAME;
-
   const [imageKey] = useState(Date.now());
 
   const [selectedImage, setSelectedImage] = useState<string | null>(
-    user.image ? `${cdn}/${user.image}?v=${imageKey}` : null
+    user.image ? `https://d3eyp937ijscg0.cloudfront.net/${user.image}?v=${imageKey}` : null
   );
 
   const form = useForm<z.infer<typeof profileSchema>>({
@@ -52,7 +50,8 @@ export const ProfileSettings = ({ user }: { user: User }) => {
     }
   };
 
-  const handleChangeImage = () => {
+  const handleUploadClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     fileInputRef.current?.click();
   };
 
@@ -108,7 +107,7 @@ export const ProfileSettings = ({ user }: { user: User }) => {
                 />
               </div>
               <Button
-                onClick={handleChangeImage}
+                onClick={handleUploadClick}
                 variant="outline"
                 className="shadow-md"
               >
@@ -192,7 +191,10 @@ export const ProfileSettings = ({ user }: { user: User }) => {
               )}
             />
 
-            <Button className="w-full shadow-md mt-24" type="submit">
+            <Button
+              className="w-full shadow-md mt-24 hover:opacity-100 opacity-90 hover:scale-105 transition-all duration-300 transform"
+              type="submit"
+            >
               <Save className="w-4 h-4 mr-2" />
               Save Changes
             </Button>

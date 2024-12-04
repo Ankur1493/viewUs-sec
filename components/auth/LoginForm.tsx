@@ -1,5 +1,5 @@
 "use client"
-import { useState, useTransition } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { AuthWrapper } from "@/components/auth/AuthWrapper"
 import { Button } from "@/components/ui/button"
 import {
@@ -17,10 +17,12 @@ import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { FormError } from "./FormError"
 import { login } from "@/actions/login"
+import { useSearchParams } from "next/navigation"
 
 export const LoginForm = () => {
 
   const [error, setError] = useState("")
+  const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -29,6 +31,18 @@ export const LoginForm = () => {
       password: ""
     },
   })
+
+  useEffect(() => {
+    const authError = searchParams.get("error")
+    if (authError) {
+      if (authError === "OAuthAccountNotLinked")
+        setError("Please login from same method")
+      else {
+        setError("please try again")
+      }
+    }
+  }, [])
+
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
     setError("")
     startTransition(() => {
@@ -71,7 +85,7 @@ export const LoginForm = () => {
               )}
             />
             <FormError message={error} />
-            <Button disabled={isPending} className="w-full bg-[#71D4FF] text-black rounded-3xl py-3 hover:bg-[#71D4FF] hover:bg-opacity-80"  type="submit">Login</Button>
+            <Button disabled={isPending} className="w-full bg-[#71D4FF] text-black rounded-3xl py-3 hover:bg-[#71D4FF] hover:bg-opacity-80" type="submit">Login</Button>
           </form>
         </Form>
       </AuthWrapper>

@@ -1,7 +1,12 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-export type WallData = 'fixed' | 'animated' | 'carousal' | 'animated-carousal' | null;
-type PageData = 'all' | 'editing' | 'final';
+export type WallData =
+  | "fixed"
+  | "animated"
+  | "carousal"
+  | "animated-carousal"
+  | null;
+type PageData = "all" | "editing" | "final";
 
 interface WallEditingPageState {
   page: PageData;
@@ -13,26 +18,26 @@ interface WallEditingPageState {
 }
 
 export const useWallTypeStore = create<WallEditingPageState>((set) => ({
-  page: 'all',
+  page: "all",
   data: null,
   url: null,
   setPage: (page: PageData, data: WallData) => {
     set({
       page,
-      data
+      data,
     });
-    sessionStorage.setItem('wallPage', page);
-    sessionStorage.setItem('wallData', data === null ? "" : data);
+    sessionStorage.setItem("wallPage", page);
+    sessionStorage.setItem("wallData", data === null ? "" : data);
   },
   setUrl: (url: string) => {
-    set({ url })
-    sessionStorage.setItem('urlData', url)
+    set({ url });
+    sessionStorage.setItem("urlData", url);
   },
   initializepage: () => {
-    if (typeof window !== 'undefined') {
-      const savedPage = sessionStorage.getItem('wallPage') as PageData | null;
-      const wallData = sessionStorage.getItem('wallData') as WallData | null;
-      const urlData = sessionStorage.getItem('urlData') as string | null;
+    if (typeof window !== "undefined") {
+      const savedPage = sessionStorage.getItem("wallPage") as PageData | null;
+      const wallData = sessionStorage.getItem("wallData") as WallData | null;
+      const urlData = sessionStorage.getItem("urlData") as string | null;
 
       if (savedPage) {
         set({
@@ -42,6 +47,5 @@ export const useWallTypeStore = create<WallEditingPageState>((set) => ({
         });
       }
     }
-  }
+  },
 }));
-

@@ -53,6 +53,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Space not found" }, { status: 404 });
     }
 
+    // Rest of the code remains the same (space reviews count and email notification)
+    const spaceReviews = await getSpaceReviewsLength(spaceId);
+    if (spaceReviews.err) {
+      return NextResponse.json({ success: false, message: "Could not retrieve space reviews" }, { status: 500 });
+    }
+
+    if (spaceReviews.data && spaceReviews.data?.videoReviews > 5) {
+      return NextResponse.json(
+        { success: false, message: "maximum testimonial limit reached" },
+        { status: 403 }
+      )
+    }
+
     let imageName = null;
     let videoName = null;
 
@@ -137,17 +150,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Failed to create review" }, { status: 500 });
     }
 
-    // Rest of the code remains the same (space reviews count and email notification)
-    const spaceReviews = await getSpaceReviewsLength(spaceId);
-    if (spaceReviews.err) {
-      return NextResponse.json({ success: false, message: "Could not retrieve space reviews" }, { status: 500 });
-    }
 
-    if (spaceReviews.success) {
+    if (spaceReviews.data) {
       sendTextReviewSubmitted({
         email: spaceDetails.user.email,
         reviewCount: spaceReviews.data.textReviews,
-        spaceTitle: spaceDetails.title
+        spaceTitle: spaceDetails.name
       });
     }
 

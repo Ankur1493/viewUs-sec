@@ -5,46 +5,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSpaceReviewsLength } from "@/data/review";
 import { sendTextReviewSubmitted } from "@/lib/mail";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
-import sharp from "sharp"
-import Review from "@/models/review_model";
+import sharp from "sharp";
 import { s3 } from "@/lib/aws";
 
-const bucketName = process.env.AWS_BUCKET_NAME!
-
-export async function GET(req: Request) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const slug = searchParams.get('slug');
-
-    if (!slug) {
-      return NextResponse.json(
-        { success: false, message: 'Missing spaceId parameter' },
-        { status: 400 }
-      );
-    }
-    const reviews = await Review.find({ slug }).sort({ createdAt: -1 });
-    if (!reviews) {
-      return NextResponse.json(
-        { success: false, message: 'Can not find your review' },
-        { status: 400 }
-      );
-    }
-
-
-    return NextResponse.json({ success: true, reviews }, { status: 200 });
-
-  } catch (err) {
-    console.log(err)
-    return NextResponse.json({
-      success: false,
-      message: "Internal server error",
-    }, { status: 500 });
-  }
-}
+const bucketName = process.env.AWS_BUCKET_NAME!;
 
 export async function POST(req: NextRequest) {
   try {
-
     const formData = await req.formData();
 
     // Extract the fields from formData
@@ -57,33 +24,65 @@ export async function POST(req: NextRequest) {
     const jobTitle = formData.get("jobTitle") || null;
     const company = formData.get("company") || null;
     const tags = formData.getAll("tags[]") || [];
-    const image = formData.get("image")
+    const image = formData.get("image");
 
     // Validate the spaceId
     if (!spaceId || typeof spaceId !== "string") {
-      return NextResponse.json({ success: false, error: "Invalid space ID" }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: "Invalid space ID" },
+        { status: 400 }
+      );
     }
 
     // Validate the review details using textReviewSchema
     const validatedFields = textReviewSchema.safeParse({
-      review, stars, firstName, lastName, email, jobTitle, company, tags
+      review,
+      stars,
+      firstName,
+      lastName,
+      email,
+      jobTitle,
+      company,
+      tags,
     });
 
     if (!validatedFields.success) {
-      return NextResponse.json({ success: false, message: "Invalid review fields", validatedFields }, { status: 400 });
+      return NextResponse.json(
+        { success: false, message: "Invalid review fields", validatedFields },
+        { status: 400 }
+      );
     }
 
     // Check if space exists
     const spaceDetails = await db.space.findUnique({
       where: { id: spaceId },
-      include: { user: true }
+      include: { user: true },
     });
 
     if (!spaceDetails) {
-      return NextResponse.json({ success: false, message: "Space not found" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, message: "Space not found" },
+        { status: 404 }
+      );
     }
 
-    let imageName = null
+    // Get space reviews count
+    const spaceReviews = await getSpaceReviewsLength(spaceId);
+    if (spaceReviews.err) {
+      return NextResponse.json(
+        { success: false, message: "Could not retrieve space reviews" },
+        { status: 500 }
+      );
+    }
+
+    if (spaceReviews.data && spaceReviews.data?.textReviews > 20) {
+      return NextResponse.json(
+        { success: false, message: "maximum testimonial limit reached" },
+        { status: 403 }
+      )
+    }
+
+    let imageName = null;
     if (image) {
       const file = image as File; // Explicitly cast image to File type
 
@@ -93,7 +92,9 @@ export async function POST(req: NextRequest) {
 
       // Convert the file to a buffer
       const buffer = Buffer.from(await file.arrayBuffer());
-      const resizedBuffer = await sharp(buffer).resize({ height: 50, width: 50, fit: "contain" }).toBuffer()
+      const resizedBuffer = await sharp(buffer)
+        .resize({ height: 50, width: 50, fit: "contain" })
+        .toBuffer();
 
       // Upload the image to S3
       const params = {
@@ -105,7 +106,7 @@ export async function POST(req: NextRequest) {
 
       const command = new PutObjectCommand(params);
       await s3.send(command);
-      imageName = `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`
+      imageName = `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`;
     }
 
     // Create the review without saving the image
@@ -125,13 +126,10 @@ export async function POST(req: NextRequest) {
     });
 
     if (!reviewCreated) {
-      return NextResponse.json({ success: false, message: "Failed to create review" }, { status: 500 });
-    }
-
-    // Get space reviews count
-    const spaceReviews = await getSpaceReviewsLength(spaceId);
-    if (spaceReviews.err) {
-      return NextResponse.json({ success: false, message: "Could not retrieve space reviews" }, { status: 500 });
+      return NextResponse.json(
+        { success: false, message: "Failed to create review" },
+        { status: 500 }
+      );
     }
 
     // Send email notification
@@ -139,21 +137,25 @@ export async function POST(req: NextRequest) {
       sendTextReviewSubmitted({
         email: spaceDetails.user.email,
         reviewCount: spaceReviews.data.textReviews,
-        spaceTitle: spaceDetails.title
+        spaceTitle: spaceDetails.name,
       });
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Review created successfully",
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Review created successfully",
+      },
+      { status: 200 }
+    );
   } catch (err) {
     console.error(err);
-    return NextResponse.json({
-      success: false,
-      message: "Internal server error",
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Internal server error",
+      },
+      { status: 500 }
+    );
   }
 }
-

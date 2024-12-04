@@ -1,5 +1,13 @@
-import { Space, Question } from "@prisma/client";
+import { Space, SpaceDetails } from "@prisma/client";
 
 export interface ReviewForm extends Space {
-  questions: Question[];
+  details: SpaceDetails | null;
+}
+
+export interface SpaceWithReviewCount extends Space {
+  reviewCounts: {
+    text: number;
+    video: number;
+    imported: number;
+  };
 }

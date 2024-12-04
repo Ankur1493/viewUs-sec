@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { TestimonialCard } from "./TestimonialCard";
 import { FrownIcon } from "lucide-react";
-import { Skeleton } from "../ui/skeleton";
+import TestimonialSkeleton from "./TestimonialSkeleton";
 
 export enum ReviewType {
   TEXT = 0,
@@ -37,6 +37,7 @@ export interface IReview {
   importedReviewType?: ImportedReviewTypeModel;
   tags?: string[] | null;
   createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export const ManageTestimonials = ({
@@ -54,10 +55,15 @@ export const ManageTestimonials = ({
       setLoading(false);
     };
     loadPage();
-  }, []);
+  }, [initializeFilter]);
 
   if (loading) {
-    return <Skeleton className="w-1/2 h-48" />;
+    return (
+      <div className="px-6">
+        <TestimonialSkeleton />;
+        <TestimonialSkeleton />;
+      </div>
+    );
   }
 
   const filteredTestimonials = testimonials.filter((testimonial) => {
@@ -75,6 +81,13 @@ export const ManageTestimonials = ({
     }
   });
 
+  if (filter === "liked") {
+    filteredTestimonials.sort((a: IReview, b: IReview) => {
+      const dataA = new Date(a.updatedAt || 0).getTime();
+      const dataB = new Date(b.updatedAt || 0).getTime();
+      return dataB - dataA;
+    });
+  }
   if (filteredTestimonials.length === 0) {
     return (
       <div className="w-full flex pt-52 justify-center items-center">
@@ -91,11 +104,10 @@ export const ManageTestimonials = ({
   return (
     <div className="w-full h-full px-6">
       <div className="flex flex-col gap-4">
-        {filteredTestimonials.map((testimonial) => (
+        {filteredTestimonials.reverse().map((testimonial) => (
           <TestimonialCard key={testimonial._id!} testimonial={testimonial} />
         ))}
       </div>
     </div>
   );
 };
-

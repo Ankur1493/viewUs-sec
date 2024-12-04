@@ -17,50 +17,50 @@ interface wallCardType {
 export const freeFeatures: features[] = [
   {
     title: "Upto 15 text testimonials",
-    desc: "you can collect 15 text testimonials as showcase them"
+    desc: "you can collect 15 text testimonials as showcase them",
   },
   {
     title: "2 video testimonials",
-    desc: "why 2? you may ask, we are in our early stages so only 2 so far, upgrade if you want more"
+    desc: "why 2? you may ask, we are in our early stages so only 2 so far, upgrade if you want more",
   },
   {
     title: "Share your customized form",
-    desc: "Easily share your review form to your customers, for collecting reviews in as simple as 3 clicks"
+    desc: "Easily share your review form to your customers, for collecting reviews in as simple as 3 clicks",
   },
   {
     title: "Wall of Love",
-    desc: "You can create a wall of love for embedding in your website, to increase trust"
+    desc: "You can create a wall of love for embedding in your website, to increase trust",
   },
   {
     title: "Personalized Support",
-    desc: "We are a team of 2, we try to reply to each query ourself within 24 hours"
+    desc: "We are a team of 2, we try to reply to each query ourself within 24 hours",
   },
   {
     title: "Constant upgrades",
-    desc: "We are regularly researching and working on new features to help you increase credibility"
+    desc: "We are regularly researching and working on new features to help you increase credibility",
   },
   {
     title: "2 video testimonials",
-    desc: "why 2? you may ask, we are in our early stages so only 2 so far, upgrade if you want more"
+    desc: "why 2? you may ask, we are in our early stages so only 2 so far, upgrade if you want more",
   },
   {
     title: "Upto 15 text testimonials",
-    desc: "you can collect 15 text testimonials as showcase them"
+    desc: "you can collect 15 text testimonials as showcase them",
   },
   {
     title: "Share your customized form",
-    desc: "Easily share your review form to your customers, for collecting reviews in as simple as 3 clicks"
+    desc: "Easily share your review form to your customers, for collecting reviews in as simple as 3 clicks",
   },
-]
+];
 
 export const WallCardTypesConstants: wallCardType[] = [
   {
     key: 1,
     title: "Fixed",
     slug: "fixed" as const,
-    url: "https://embed-viewus.netlify.app/w/embed-testimonials?columns=3",
+    url: "http://localhost:5173/w/embed-testimonials",
     desc: "A fixed grid layout structure for showcasing a selected and crucial reviews",
-    img: "/assets/images/test1.webp"
+    img: "/assets/images/grid_fixed.png",
   },
   {
     key: 2,
@@ -68,7 +68,7 @@ export const WallCardTypesConstants: wallCardType[] = [
     slug: "animated" as const,
     url: "https://embed-viewus.netlify.app/w/embed-testimonials?animated=on",
     desc: "A animated grid layout structure for showcasing a lot of reviews which are important",
-    img: "/assets/images/test2.webp"
+    img: "/assets/images/grid_animated.gif",
   },
   {
     key: 3,
@@ -76,7 +76,7 @@ export const WallCardTypesConstants: wallCardType[] = [
     title: "Carousel",
     slug: "carousal" as const,
     desc: "A carousel for you to have an showcase horizontaly and clear reviews",
-    img: "/assets/images/test3.webp"
+    img: "/assets/images/carousal_fixed.png",
   },
   {
     key: 4,
@@ -84,7 +84,7 @@ export const WallCardTypesConstants: wallCardType[] = [
     title: "Carousel Animated" as const,
     slug: "animated-carousal",
     desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
-    img: "/assets/images/test1.webp"
+    img: "/assets/images/carousal_animated.gif",
   },
   {
     key: 5,
@@ -92,6 +92,6 @@ export const WallCardTypesConstants: wallCardType[] = [
     url: "lalala",
     slug: "fixed" as const,
     desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
-    img: "/assets/images/test1.webp"
-  }
-]
+    img: "/assets/images/coming_soon.jpg",
+  },
+];

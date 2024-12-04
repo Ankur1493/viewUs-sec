@@ -7,10 +7,16 @@ export const metadata: Metadata = {
     "View us is build by us, to help you manage testimonials, import testimonials in the best way possible from popular social platforms",
 };
 
-export default function Dashboard() {
+interface PageProps {
+  params: { slug: string };
+}
+
+export default function Dashboard({ params }: PageProps) {
+  const { slug } = params;
+
   return (
-    <div>
-      <WallOfLove />
+    <div className="px-4">
+      <WallOfLove slug={slug} />
     </div>
   );
 }

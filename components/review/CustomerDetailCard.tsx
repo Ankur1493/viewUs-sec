@@ -26,19 +26,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRef } from "react";
 import useReviewPageStore from "@/store/useReviewPageStore";
-
-type CustomerDetailCardProps = {
-  jobReq: boolean;
-  companyReq: boolean;
-};
+import { ReviewForm } from "@/types";
 
 const FormSchema = z.object({
-  firstName: z.string().min(2, {
-    message: "name must be at least 2 characters.",
-  }),
-  lastName: z.string().min(2, {
-    message: "name must be at least 2 characters.",
-  }),
+  firstName: z
+    .string()
+    .min(2, {
+      message: "name must be at least 2 characters.",
+    })
+    .optional()
+    .or(z.literal("")),
+  lastName: z
+    .string()
+    .min(2, {
+      message: "name must be at least 2 characters.",
+    })
+    .optional()
+    .or(z.literal("")),
   image: z
     .any()
     .refine(
@@ -50,17 +54,22 @@ const FormSchema = z.object({
         !file || ["image/jpeg", "image/jpg", "image/png"].includes(file?.type),
       "Only .jpg or .png files are accepted."
     ),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
+  email: z
+    .string()
+    .email({
+      message: "Please enter a valid email address.",
+    })
+    .optional()
+    .or(z.literal("")),
   company: z.string().optional().or(z.literal("")),
   jobTitle: z.string().optional().or(z.literal("")),
 });
 
 export const CustomerDetailCard = ({
-  jobReq,
-  companyReq,
-}: CustomerDetailCardProps) => {
+  reviewForm,
+}: {
+  reviewForm: ReviewForm;
+}) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -105,9 +114,21 @@ export const CustomerDetailCard = ({
   }, [customerDetails, form]);
 
   const isFormValid =
-    !!form.watch("firstName") &&
-    !!form.watch("lastName") &&
-    !!form.watch("email");
+    (reviewForm.details && reviewForm.details.userFirstName
+      ? !!form.watch("firstName" as const)
+      : true) &&
+    (reviewForm.details && reviewForm.details.userLastName
+      ? !!form.watch("lastName" as const)
+      : true) &&
+    (reviewForm.details && reviewForm.details.userEmail
+      ? !!form.watch("email" as const)
+      : true) &&
+    (reviewForm.details && reviewForm.details.userJobTitle
+      ? !!form.watch("jobTitle" as const)
+      : true) &&
+    (reviewForm.details && reviewForm.details.userCompany
+      ? !!form.watch("company" as const)
+      : true);
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     const normalizedData = {
@@ -118,9 +139,15 @@ export const CustomerDetailCard = ({
       jobTitle: data.jobTitle,
       image: data.image,
     };
-
     setCustomerDetails(normalizedData);
-    setReviewButton("Text");
+    {
+      reviewForm.details
+        ? reviewForm.details.testimonialTextType
+          ? setReviewButton("Text")
+          : setReviewButton("Video")
+        : setReviewButton("Video");
+    }
+
     setDetailsButton(!detailsButton);
   };
 
@@ -160,7 +187,12 @@ export const CustomerDetailCard = ({
               name="image"
               render={({ fieldState }) => (
                 <FormItem>
-                  <FormLabel>Add a photo</FormLabel>
+                  <FormLabel>
+                    Add a photo{" "}
+                    {reviewForm.details && reviewForm.details.userPhoto && (
+                      <span className="text-red-500">*</span>
+                    )}
+                  </FormLabel>
                   <FormControl>
                     <div className="flex items-center space-x-4">
                       <div className="relative w-[64px] h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
@@ -213,7 +245,10 @@ export const CustomerDetailCard = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    First Name<span className="text-red-500">*</span>
+                    First Name
+                    {reviewForm.details && reviewForm.details.userFirstName && (
+                      <span className="text-red-500">*</span>
+                    )}
                   </FormLabel>
                   <FormControl>
                     <Input placeholder="Udit" {...field} className="h-[48px]" />
@@ -228,7 +263,10 @@ export const CustomerDetailCard = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Last Name<span className="text-red-500">*</span>
+                    Last Name
+                    {reviewForm.details && reviewForm.details.userLastName && (
+                      <span className="text-red-500">*</span>
+                    )}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -247,7 +285,10 @@ export const CustomerDetailCard = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Enter your email<span className="text-red-500">*</span>
+                    Enter your email
+                    {reviewForm.details && reviewForm.details.userEmail && (
+                      <span className="text-red-500">*</span>
+                    )}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -270,7 +311,11 @@ export const CustomerDetailCard = ({
                 <FormItem>
                   <FormLabel>
                     Company
-                    {companyReq ? <span className="text-red-500">*</span> : ""}
+                    {reviewForm.details && reviewForm.details.userCompany ? (
+                      <span className="text-red-500">*</span>
+                    ) : (
+                      ""
+                    )}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -290,7 +335,11 @@ export const CustomerDetailCard = ({
                 <FormItem>
                   <FormLabel>
                     Job Title
-                    {jobReq ? <span className="text-red-500">*</span> : ""}
+                    {reviewForm.details && reviewForm.details.userJobTitle ? (
+                      <span className="text-red-500">*</span>
+                    ) : (
+                      ""
+                    )}
                   </FormLabel>
                   <FormControl>
                     <Input

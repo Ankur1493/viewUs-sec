@@ -18,7 +18,6 @@ import {
   CircleCheckIcon,
   PencilIcon,
   VideoIcon,
-  Settings,
   Heart,
   Link2,
   MessageCircleHeartIcon,
@@ -30,8 +29,9 @@ import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
 import { useParams, usePathname } from "next/navigation";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
+import { HelpSupportModal } from "../dashboard/HelpSupportModal";
 
-export function SpaceSideBar() {
+export function SpaceSideBar({ email }: { email: string }) {
   const { slug } = useParams();
   const pathName = usePathname();
 
@@ -76,7 +76,7 @@ export function SpaceSideBar() {
   const PageLinks = [
     {
       label: "Your Public URL",
-      href: "/dashboard",
+      href: `/space/${slug}/public`,
       icon: <Link2 className="text-neutral-700 h-6 w-6 flex-shrink-0" />,
     },
     {
@@ -127,17 +127,17 @@ export function SpaceSideBar() {
           <SidebarGroupContent className="flex flex-col jutify-center items-center">
             <SidebarMenu className="w-[80%]">
               <SidebarMenuItem>
-                <SidebarMenuButton
-                  className={cn(isImportedActive ? "bg-gray-100" : "")}
+                <Link
+                  href={`/space/${slug}/import`}
+                  className="flex items-center cursor-pointer"
                 >
-                  <Link
-                    href={`/space/${slug}/import`}
-                    className="flex items-center cursor-pointer"
+                  <SidebarMenuButton
+                    className={cn(isImportedActive ? "bg-gray-100" : "")}
                   >
                     <ImportIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />
                     <span className="ml-2">Import Testimonials</span>
-                  </Link>
-                </SidebarMenuButton>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
@@ -162,10 +162,7 @@ export function SpaceSideBar() {
       </SidebarContent>
       <SidebarFooter className="flex gap-3 jutify-center items-center">
         <SidebarMenuButton className="w-[80%]">
-          <Link href="#" className="flex items-center justify-center gap-1">
-            <Settings size={18} />
-            <span>Help and Support</span>
-          </Link>
+          <HelpSupportModal email={email} />
         </SidebarMenuButton>
         <Button
           onClick={(event) => {
@@ -184,7 +181,7 @@ export function SpaceSideBar() {
 export const Logo = () => {
   return (
     <Link
-      href="#"
+      href="/dashboard"
       className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-4 relative z-20"
     >
       <div className="h-8 w-8 bg-black rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
@@ -201,7 +198,7 @@ export const Logo = () => {
 export const LogoIcon = () => {
   return (
     <Link
-      href="#"
+      href="/dashboard"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
       <div className="h-5 w-6 bg-black rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
