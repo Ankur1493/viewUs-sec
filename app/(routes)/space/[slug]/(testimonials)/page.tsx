@@ -17,14 +17,11 @@ interface TestimonialType {
 async function fetchTestimonials(slug: string) {
   const baseUrl =
     process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/api/review"
+      ? `http://localhost:3000/api/review/${slug}`
       : "http://viewus.in/api/review";
 
   try {
-    const response = await axios.get(baseUrl, {
-      params: { slug },
-      withCredentials: true,
-    });
+    const response = await axios.get(baseUrl);
 
     if (!response.data.success) return null;
 
