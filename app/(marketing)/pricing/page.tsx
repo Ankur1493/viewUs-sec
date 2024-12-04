@@ -1,5 +1,6 @@
 import { Footer } from "@/components/Footer";
-import { StartFree } from "@/components/landing/StartFree";
+import { BookCall } from "@/components/landing/BookCall";
+import { StartFree } from "@/components/pricing/StartFree";
 import Navbar from "@/components/Navbar";
 import { Pricing } from "@/components/pricing/Pricing";
 
@@ -12,6 +13,9 @@ export default function PricingPage() {
       </div>
       <div className="h-full w-screen flex items-center justify-center">
         <Pricing />
+      </div>
+      <div className="flex flex-col justify-center items-center font-bold text-center w-full bg-[#141111]">
+        <BookCall />
       </div>
       <Footer />
     </div>

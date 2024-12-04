@@ -20,6 +20,8 @@ const config: Config = {
       colors: {
         background: "hsl(var(--background))",
         secondBackground: "#E6E6E6",
+        blueBackground: "#E9F8FF",
+        blueButton: "#71D4FF",
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
