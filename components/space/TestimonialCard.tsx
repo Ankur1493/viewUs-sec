@@ -44,7 +44,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
 
   return (
     <AnimatePresence initial={false} key={testimonial._id!}>
-      <Card className="relative w-[98%] bg-gray-50 text-black shadow-sm hover:shadow-sm hover:shadow-sky-200 duration-200 group">
+      <Card className="relative w-full bg-gray-50 text-black shadow-sm hover:shadow-sm hover:shadow-sky-200 duration-200 group">
         {/* <div className="absolute -bottom-3 flex items-center justify-center w-full">
           <div
             className="bg-[#E9F8FF] rounded-full w-6 h-6 flex items-center justify-center border  cursor-pointer"
@@ -79,24 +79,26 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
                 />
               )}
               <div className="flex flex-col gap-1">
-                <h1 className="pl-1 text-xl">
-                  {testimonial.firstName} {testimonial.lastName}{" "}
+                <div className="flex flex-col lg:flex-row gap-1 md:gap-0 lg:gap-2">
+                  <h2 className="pl-1 text-lg lg:text-xl">
+                    {testimonial.firstName} {testimonial.lastName}
+                  </h2>
                   {testimonial.jobTitle && testimonial.company && (
-                    <span className="text-sm bg-yellow-200 px-2 bg-main p-1 rounded-md">
+                    <span className="text-xs w-fit lg:text-sm bg-yellow-200 px-2 bg-main p-1 rounded-md">
                       {testimonial.jobTitle}, {testimonial.company}
                     </span>
                   )}
                   {testimonial.jobTitle && !testimonial.company && (
-                    <span className="text-sm bg-yellow-200 px-2 bg-main p-1 rounded-md">
+                    <span className="text-xs w-fit lg:text-sm bg-yellow-200 px-2 bg-main p-1 rounded-md">
                       {testimonial.jobTitle}
                     </span>
                   )}
                   {!testimonial.jobTitle && testimonial.company && (
-                    <span className="text-sm bg-yellow-200 px-2 bg-main p-1 rounded-md">
+                    <span className="text-xs w-fit md:text-sm bg-yellow-200 px-2 bg-main p-1 rounded-md">
                       {testimonial.company}
                     </span>
                   )}
-                </h1>
+                </div>
                 <div className="flex">
                   {Array.from({ length: numberOfStars }, (_, index) => (
                     <Image

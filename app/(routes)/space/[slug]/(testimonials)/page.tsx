@@ -75,8 +75,8 @@ const SpacePage = async ({
   }
 
   return (
-    <div className="flex flex-col justify-center pb-4">
-      <div className="mb-3 px-7">
+    <div className="flex flex-col justify-center pb-4 md:pr-4">
+      <div className="mb-3 px-4 md:px-7">
         {slug && (
           <SpaceInfo
             space={space}

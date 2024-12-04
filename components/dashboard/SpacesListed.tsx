@@ -46,8 +46,10 @@ export const SpacesListed = async () => {
   return (
     <>
       <div className="w-full flex flex-col gap-4">
-        <h1 className="text-4xl font-medium">Active Projects</h1>
-        {userSpaces?.map((space) => <SpaceCard key={space.id} {...space} />)}
+        <h1 className="text-3xl md:text-4xl font-medium">Active Projects</h1>
+        <div className="flex flex-col gap-4">
+          {userSpaces?.map((space) => <SpaceCard key={space.id} {...space} />)}
+        </div>
       </div>
       <Suspense fallback={<div>{/*show a card here*/}</div>}>
         <UpdatesNotificationCard

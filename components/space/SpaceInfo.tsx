@@ -5,6 +5,8 @@ import { Space } from "@prisma/client";
 import { SpaceDeleteButton } from "../dashboard/SpaceDeleteButton";
 import { SpaceCopyButton } from "../dashboard/SpaceCopyButton";
 import { Button } from "../ui/button";
+import { ExternalLink } from "lucide-react";
+import { Separator } from "../ui/separator";
 
 interface SpaceInfoProps {
   space: Space;
@@ -25,38 +27,26 @@ export default function SpaceInfo({
   testimonialCounts,
 }: SpaceInfoProps) {
   return (
-    <header className="w-full space-y-1 lg:space-y-0 justify-between items-center mt-6  pr-6  py-3">
-      <div className="container mx-auto flex items-center justify-between">
+    <header className="w-full flex flex-col gap-4 space-y-1 lg:space-y-0 justify-between mt-6 py-3">
+      <div className="w-full mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <div className="flex flex-col justify-center">
             <h1 className="text-3xl font-bold">{space.name}</h1>
             <p className="text-sm text-gray-400  px-0 mx-0">
-              Public Url:{" "}
               <Link
                 href={`http://localhost:3000/a/${space.slug}`}
-                className="underline underline-offset-4 hover:text-gray-500"
+                className="underline underline-offset-4 hover:text-gray-500 flex  items-center justify-center gap-1"
               >
+                <ExternalLink size={15} />
                 {`http://localhost:3000/a/${space.slug}`}
               </Link>
             </p>
-            {extraTextReviews > 0 && (
-              <div>
-                <p>You have {extraTextReviews} more text reviews</p>
-                <Button>Upgrade Now</Button>
-              </div>
-            )}
-            {extraVideoReviews > 0 && (
-              <div>
-                <p>You have {extraVideoReviews} more text reviews</p>
-                <Button>Upgrade Now</Button>
-              </div>
-            )}
           </div>
         </div>
 
         <div className="flex flex-col gap-2 items-center space-x-4">
           <div className="w-full flex items-end justify-end">
-            <div className="w-fit flex justify-center items-center space-x-2 border rounded-md p-1">
+            <div className="flex justify-center items-center space-x-2 border rounded-md p-1">
               <div className="w-7 h-7 flex justify-center items-center hover:bg-gray-100 rounded-md">
                 <SpaceEditButton slug={space.slug} />
               </div>
@@ -68,32 +58,49 @@ export default function SpaceInfo({
               </div>
             </div>
           </div>
-          <div className="flex items-center space-x-2">
-            {testimonialCounts?.video && (
-              <div className="flex items-center space-x-2 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">
-                <Video className="w-4 h-4 text-blue-500" />
-                <span className="text-sm font-medium text-gray-700">
-                  {testimonialCounts.video}
-                </span>
-              </div>
-            )}
-            {testimonialCounts?.text && (
-              <div className="flex items-center space-x-2 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">
-                <MessageSquare className="w-4 h-4 text-green-500" />
-                <span className="text-sm font-medium text-gray-700">
-                  {testimonialCounts.text}
-                </span>
-              </div>
-            )}
-            {testimonialCounts?.imported && (
-              <div className="flex items-center space-x-2 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">
-                <Import className="w-4 h-4 text-green-500" />
-                <span className="text-sm font-medium text-gray-700">
-                  {testimonialCounts.text}
-                </span>
-              </div>
-            )}
-          </div>
+        </div>
+      </div>
+      <Separator className="mt-2" />
+      {extraTextReviews > 0 ||
+        (extraVideoReviews > 0 && <Separator className="my-2" />)}
+      <div className="flex justify-between">
+        <div className="flex items-start space-x-4">
+          {testimonialCounts?.video && (
+            <div className="flex items-center space-x-1 text-sm">
+              <Video className="w-4 h-4 text-blue-500" />
+              <span>{testimonialCounts.video}</span>
+            </div>
+          )}
+          {testimonialCounts?.text && (
+            <div className="flex items-center space-x-1 text-sm">
+              <MessageSquare className="w-4 h-4 text-green-500" />
+              <span>{testimonialCounts.text}</span>
+            </div>
+          )}
+          {testimonialCounts?.imported && (
+            <div className="flex items-center space-x-1 text-sm">
+              <Import className="w-4 h-4 text-yellow-500" />
+              <span>{testimonialCounts.imported}</span>
+            </div>
+          )}
+        </div>
+        <div>
+          {extraTextReviews > 0 && (
+            <div className="flex gap-2 items-center">
+              <p className="text-sm text-muted-foreground">
+                You have {extraTextReviews} more text reviews.
+              </p>
+              <Button variant="main">✨ Upgrade Now</Button>
+            </div>
+          )}
+          {extraVideoReviews > 0 && (
+            <div className="flex gap-2 items-center">
+              <p className="text-sm text-muted-foreground">
+                You have {extraVideoReviews} more video reviews.
+              </p>
+              <Button variant="main">✨Upgrade Now</Button>
+            </div>
+          )}
         </div>
       </div>
     </header>

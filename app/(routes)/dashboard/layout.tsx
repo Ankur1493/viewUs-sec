@@ -12,13 +12,13 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="relative min-h-screen h-full w-screen flex">
-      <div className="hidden md:flex flex-none md:w-1/6">
+      <div className="hidden md:flex flex-1">
         <SideBar email={user.email!} />
       </div>
       <div className="absolute top-3 left-2 block md:hidden flex-none z-50">
         <SidebarTrigger />
       </div>
-      <div className="flex-grow w-full md:w-5/6">
+      <div className="flex-grow w-full flex-3">
         <DashboardNavbar />
         {children}
       </div>
