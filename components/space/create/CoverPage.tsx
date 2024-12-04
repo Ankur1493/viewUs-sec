@@ -82,6 +82,11 @@ export const CoverPage = ({
     //   description: coverPageData.description || "",
     //   btnText: coverPageData.btnText || "",
     // },
+    // values: {
+    //   title: coverPageData.title || "",
+    //   description: coverPageData.description || "",
+    //   btnText: coverPageData.btnText || "",
+    // },
   });
 
   useEffect(() => {
@@ -107,13 +112,34 @@ export const CoverPage = ({
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setCoverPage({
+    let logoToStore: string | File | null = null;
+
+    if (values.logo instanceof File) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target && typeof event.target.result === "string") {
+          logoToStore = event.target.result;
+          updateCoverPage(values, logoToStore);
+        }
+      };
+      reader.readAsDataURL(values.logo);
+    } else {
+      logoToStore = values.logo as string | null;
+      updateCoverPage(values, logoToStore);
+    }
+  }
+
+  function updateCoverPage(
+    values: z.infer<typeof formSchema>,
+    logo: string | File | null
+  ) {
+    const updatedCoverPage = {
       ...values,
       logo:
         values.logo instanceof File
           ? URL.createObjectURL(values.logo)
           : coverPageData.logo,
-    });
+    };
     console.log("Form data to be sent:", { logoPreview });
     console.log("logo to be sent:", coverPageData.logo);
 

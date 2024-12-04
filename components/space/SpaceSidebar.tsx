@@ -31,7 +31,7 @@ import { useParams, usePathname } from "next/navigation";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { HelpSupportModal } from "../dashboard/HelpSupportModal";
 
-export function SpaceSideBar() {
+export function SpaceSideBar({ email }: { email: string }) {
   const { slug } = useParams();
   const pathName = usePathname();
 
@@ -162,7 +162,7 @@ export function SpaceSideBar() {
       </SidebarContent>
       <SidebarFooter className="flex gap-3 jutify-center items-center">
         <SidebarMenuButton className="w-[80%]">
-          <HelpSupportModal />
+          <HelpSupportModal email={email} />
         </SidebarMenuButton>
         <Button
           onClick={(event) => {

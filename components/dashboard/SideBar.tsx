@@ -23,7 +23,7 @@ import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
 import { HelpSupportModal } from "./HelpSupportModal";
 
-export function SideBar() {
+export function SideBar({ email }: { email: string }) {
   const links = [
     {
       label: "Home",
@@ -75,7 +75,7 @@ export function SideBar() {
       </SidebarContent>
       <SidebarFooter className="flex gap-3 jutify-center items-center">
         <SidebarMenuButton className="w-[80%]">
-          <HelpSupportModal />
+          <HelpSupportModal email={email} />
         </SidebarMenuButton>
         <Button
           onClick={(event) => {

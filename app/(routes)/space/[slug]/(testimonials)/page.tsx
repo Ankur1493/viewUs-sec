@@ -17,17 +17,21 @@ interface TestimonialType {
 async function fetchTestimonials(slug: string) {
   const baseUrl =
     process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/api/review/text"
-      : "http://viewus.in/api/review/text";
+      ? "http://localhost:3000/api/review"
+      : "http://viewus.in/api/review";
 
   try {
     const response = await axios.get(baseUrl, {
       params: { slug },
+      withCredentials: true,
     });
+
+    if (!response.data.success) return null;
+
     return response.data;
   } catch (error) {
     console.error("Error fetching testimonials:", error);
-    return [];
+    return null;
   }
 }
 
@@ -37,7 +41,19 @@ const SpacePage = async ({
   params: { slug: string };
 }) => {
   const response = await fetchTestimonials(slug);
-  const { space } = response;
+  if (!response || response === null) {
+    return (
+      <div className="h-full w-full flex justify-center items-center">
+        <div className="bg-[#E9F8FF] w-[80px] h-[80px] rounded-full flex justify-center items-center mx-6">
+          <FrownIcon color="#009EE2" size={30} />
+        </div>
+        <h1 className="text-3xl font-medium">
+          We are facing a bit of an issue,please try again later
+        </h1>
+      </div>
+    );
+  }
+  const { space, extraReviews } = response;
   const spaceTestimonials = response.reviews || [];
   const testimonialCounts = {
     total: spaceTestimonials.length,
@@ -65,7 +81,12 @@ const SpacePage = async ({
     <div className="flex flex-col justify-center pb-4">
       <div className="mb-3 px-7">
         {slug && (
-          <SpaceInfo space={space} testimonialCounts={testimonialCounts} />
+          <SpaceInfo
+            space={space}
+            extraTextReviews={extraReviews.text}
+            extraVideoReviews={extraReviews.video}
+            testimonialCounts={testimonialCounts}
+          />
         )}
       </div>
       <ManageTestimonials testimonials={spaceTestimonials} />

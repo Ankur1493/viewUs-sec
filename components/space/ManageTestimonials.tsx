@@ -104,7 +104,7 @@ export const ManageTestimonials = ({
   return (
     <div className="w-full h-full px-6">
       <div className="flex flex-col gap-4">
-        {filteredTestimonials.map((testimonial) => (
+        {filteredTestimonials.reverse().map((testimonial) => (
           <TestimonialCard key={testimonial._id!} testimonial={testimonial} />
         ))}
       </div>

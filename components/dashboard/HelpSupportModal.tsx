@@ -18,8 +18,9 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { HelpCircleIcon, Settings } from "lucide-react";
+import sendSupportAndHelpMail from "@/actions/support";
 
-export function HelpSupportModal() {
+export function HelpSupportModal({ email }: { email: string }) {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
@@ -44,14 +45,14 @@ export function HelpSupportModal() {
           <span>Help and Support</span>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-white">
-        <DialogHeader>
-          <DialogTitle className="flex items-center justify-center text-2xl font-bold text-primary">
-            <HelpCircleIcon className="mr-2 h-6 w-6" />
+      <DialogContent className="sm:max-w-[425px] flex flex-col gap-16 md:max-w-[700px] h-1/2 bg-white">
+        <DialogHeader className="space-y-0">
+          <DialogTitle className="flex items-center justify-center text-4xl font-bold text-primary">
+            <HelpCircleIcon className="mr-2" size={30} />
             How Can We Help?
           </DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-8">
           <Select value={subject} onValueChange={setSubject}>
             <SelectTrigger>
               <SelectValue placeholder="Select a subject" />
@@ -71,11 +72,13 @@ export function HelpSupportModal() {
           </Select>
           <Textarea
             placeholder="Type your message here"
+            className="h-3/4"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={4}
           />
-          <Button type="submit" className="w-full" disabled={!isFormValid}>
+          <Button type="submit" className="w-full" onClick={async () => { await sendSupportAndHelpMail({ email: email!, message: message, type: subject }) }}
+            disabled={!isFormValid}>
             Submit
           </Button>
         </form>

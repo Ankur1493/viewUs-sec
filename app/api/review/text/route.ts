@@ -6,68 +6,9 @@ import { getSpaceReviewsLength } from "@/data/review";
 import { sendTextReviewSubmitted } from "@/lib/mail";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import sharp from "sharp";
-import Review from "@/models/review_model";
 import { s3 } from "@/lib/aws";
 
 const bucketName = process.env.AWS_BUCKET_NAME!;
-
-export async function GET(req: Request) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const slug = searchParams.get("slug");
-
-    if (!slug) {
-      return NextResponse.json(
-        { success: false, message: "Missing spaceId parameter" },
-        { status: 400 }
-      );
-    }
-
-    // Use Promise.all to run both queries concurrently
-    const [space, reviews] = await Promise.all([
-      db.space.findUnique({
-        where: {
-          slug,
-        },
-      }),
-      Review.find({ slug }).sort({ createdAt: -1 }),
-    ]);
-
-    // Check if either space or reviews are null
-    if (!space) {
-      return NextResponse.json(
-        { success: false, message: "Space not found" },
-        { status: 404 }
-      );
-    }
-
-    if (!reviews || reviews.length === 0) {
-      return NextResponse.json(
-        { success: false, message: "No reviews found" },
-        { status: 404 }
-      );
-    }
-
-    // Return both space and reviews if both exist
-    return NextResponse.json(
-      {
-        success: true,
-        space,
-        reviews,
-      },
-      { status: 200 }
-    );
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Internal server error",
-      },
-      { status: 500 }
-    );
-  }
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -125,6 +66,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Get space reviews count
+    const spaceReviews = await getSpaceReviewsLength(spaceId);
+    if (spaceReviews.err) {
+      return NextResponse.json(
+        { success: false, message: "Could not retrieve space reviews" },
+        { status: 500 }
+      );
+    }
+
+    if (spaceReviews.data && spaceReviews.data?.textReviews > 20) {
+      return NextResponse.json(
+        { success: false, message: "maximum testimonial limit reached" },
+        { status: 403 }
+      )
+    }
+
     let imageName = null;
     if (image) {
       const file = image as File; // Explicitly cast image to File type
@@ -171,15 +128,6 @@ export async function POST(req: NextRequest) {
     if (!reviewCreated) {
       return NextResponse.json(
         { success: false, message: "Failed to create review" },
-        { status: 500 }
-      );
-    }
-
-    // Get space reviews count
-    const spaceReviews = await getSpaceReviewsLength(spaceId);
-    if (spaceReviews.err) {
-      return NextResponse.json(
-        { success: false, message: "Could not retrieve space reviews" },
         { status: 500 }
       );
     }
