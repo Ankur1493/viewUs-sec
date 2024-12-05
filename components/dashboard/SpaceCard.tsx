@@ -22,11 +22,11 @@ export const SpaceCard = (space: SpaceWithReviewCount) => {
           <CardTitle className="text-3xl">{space.name}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex gap-4 w-[70%] text-sm text-muted-foreground">
+          <div className="flex flex-col md:flex-row gap-4 w-full lg:w-[70%] text-sm text-muted-foreground">
             <div className="flex justify-between gap-1 items-center">
               <div className="flex gap-0.5">
                 <Video size={20} />
-                <p>Video - </p>
+                <p>Video :- </p>
               </div>
               <p className="text-lg">{space.reviewCounts.video}</p>
             </div>

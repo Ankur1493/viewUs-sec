@@ -42,7 +42,7 @@ export const SelectCardBackground = () => {
       header="Card Background Color"
       description="Select a background color for cards"
     >
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Popover>
           <PopoverTrigger asChild>
             <Button

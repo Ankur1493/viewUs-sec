@@ -4,22 +4,19 @@ import { SpaceSideBar } from "@/components/space/SpaceSidebar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const SpaceLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await auth();
+  const user = session?.user;
 
-  const session = await auth()
-  const user = session?.user
-
-  if (!user) redirect("/login")
+  if (!user) redirect("/login");
   return (
-    <div className="h-full w-screen flex">
-      <div className="hidden md:flex flex-none md:w-1/6 border-none">
+    <div className="relative w-screen flex">
+      <div className="hidden md:flex flex-none flex-1 border-none">
         <SpaceSideBar email={user.email!} />
       </div>
-      <div className="block md:hidden flex-none">
+      <div className="absolute top-3 left-2 block md:hidden">
         <SidebarTrigger />
       </div>
-      <div className="flex-grow w-full h-full md:w-5/6 overflow-x-hidden">
-        {children}
-      </div>
+      <div className="flex-grow flex-3 pt-12">{children}</div>
     </div>
   );
 };

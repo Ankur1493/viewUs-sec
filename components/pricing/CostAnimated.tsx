@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import React, { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 export const CostAnimated = ({ period }: { period: "month" | "year" }) => {
-  const sectionRef = useRef(null)
-  const isInView = useInView(sectionRef, { once: true, amount: 0.5 })
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.5 });
 
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -17,34 +17,37 @@ export const CostAnimated = ({ period }: { period: "month" | "year" }) => {
         staggerChildren: 0.2,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
-  }
+  };
 
   const lineVariants = {
     hidden: { scaleX: 0 },
     visible: { scaleX: 1, transition: { duration: 0.3, delay: 0.7 } },
-  }
+  };
 
   const newPriceVariants = {
     hidden: { opacity: 0, x: -20 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: 1 } },
-  }
+  };
 
   return (
-    <div className="p-8 ">
+    <div className="p-8 w-full">
       <motion.div
         ref={sectionRef}
-        className="flex items-baseline relative"
+        className="flex items-baseline relative items-center justify-center"
         variants={containerVariants}
         initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
+        animate={isInView ? "visible" : "hidden"}
       >
         <motion.div className="relative" variants={itemVariants}>
-          <span className="text-6xl font-bold text-white pr-3" aria-hidden="true">
+          <span
+            className="text-5xl md:text-6xl font-bold text-white pr-3"
+            aria-hidden="true"
+          >
             {period === "month" ? "$25" : "$250"}
           </span>
           <motion.div
@@ -54,7 +57,7 @@ export const CostAnimated = ({ period }: { period: "month" | "year" }) => {
           />
         </motion.div>
         <motion.span
-          className="text-6xl font-bold text-blue-400"
+          className="text-5xl md:text-6xl font-bold text-blue-400"
           variants={newPriceVariants}
           aria-label="New price: $20 per month"
         >
@@ -65,5 +68,5 @@ export const CostAnimated = ({ period }: { period: "month" | "year" }) => {
         </motion.span>
       </motion.div>
     </div>
-  )
-}
+  );
+};

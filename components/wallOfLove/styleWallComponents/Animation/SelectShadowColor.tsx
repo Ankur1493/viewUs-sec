@@ -42,7 +42,7 @@ export const SelectShadowColor = () => {
       header="Shadow Color"
       description="Select a shadow color"
     >
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Popover>
           <PopoverTrigger asChild>
             <Button

@@ -7,14 +7,14 @@ import { Star } from "lucide-react";
 export const StartFree = () => {
   return (
     <div className="my-12 flex flex-col gap-8 justify-center items-center min-h-[500px]">
-      <div className="flex flex-col items-center gap-4 justify-center">
+      <div className="flex flex-col items-center gap-4 justify-center px-8">
         <h2 className="text-sky-500 text-2xl font-medium">Start for free</h2>
-        <h1 className="text-7xl text-black font-bold">0$/month</h1>
+        <h1 className="text-5xl md:text-7xl text-black font-bold">0$/month</h1>
         <div className="text-[16px] text-center text-gray-700">
-          <p>
+          <p className="text-center flex flex-col items-center">
             We provide a generous free tier, you can sign up and try our entire
             platform for free and
-            <Highlight className="ml-1 text-yellow-400">
+            <Highlight className="ml-1 w-fit block text-yellow-400">
               you will love it
             </Highlight>
           </p>
@@ -23,7 +23,7 @@ export const StartFree = () => {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {freeFeatures.map((feature, index) => (
           <Card
             key={index}

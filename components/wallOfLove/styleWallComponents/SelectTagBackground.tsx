@@ -42,7 +42,7 @@ export const SelectTagBackground = () => {
       header="Tag Background Color"
       description="Select a background color for tags"
     >
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Popover>
           <PopoverTrigger asChild>
             <Button

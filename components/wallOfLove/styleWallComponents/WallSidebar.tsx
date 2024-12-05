@@ -6,7 +6,7 @@ import { SelectTagBackground } from "@/components/wallOfLove/styleWallComponents
 import { SelectTagTextColor } from "@/components/wallOfLove/styleWallComponents/SelectTagTextColor";
 import { Button } from "@/components/ui/button";
 import { useWallTypeStore } from "@/store/useWallTypeStore";
-import { ChevronRight, ArrowLeftIcon } from "lucide-react";
+import { ChevronRight, ArrowLeftIcon, X } from "lucide-react";
 import { SelectBorderRadius } from "./SelectBorderRadius";
 import { SelectCardBorderRadius } from "./SelectCardBorderRadius";
 import { SelectTheme } from "./SelectTheme";
@@ -17,13 +17,24 @@ import { SelectColumns } from "./Grid/SelectColumns";
 import { SelectAlignCard } from "./Carousal/SelectAlignCard";
 import { SelectCardHeight } from "./Carousal/SelectCardHeight";
 
-export const WallSidebar = () => {
+interface SidebarToggleProps {
+  onClick: () => void;
+  isSidebarOpen: boolean;
+}
+
+export const WallSidebar = ({ onClick, isSidebarOpen }: SidebarToggleProps) => {
   const { data, setPage } = useWallTypeStore();
 
   return (
-    <div className="h-full text-white p-2 shadow-lg border rounded-md flex flex-col pb-2 overflow-y-hidden">
-      <h2 className="text-black text-lg py-2 font-semibold text-center">
-        Customize your <span className="block">Wall of Love</span>
+    <div className=" relative h-full text-white lg:p-2 shadow-lg border rounded-md flex flex-col pb-2 overflow-y-hidden">
+      {isSidebarOpen && (
+        <div className="absolute top-1 right-1 ">
+          <X size={15} onClick={onClick} color="black" />{" "}
+        </div>
+      )}
+      <h2 className="text-black text-base lg:text-lg py-2 font-semibold text-center">
+        Customize your{" "}
+        <span className="block md:inline lg:block">Wall of Love</span>
       </h2>
       <div className="space-y-2 flex-grow overflow-y-auto no-scrollbar border-t py-1">
         <SelectTheme />
@@ -60,7 +71,7 @@ export const WallSidebar = () => {
           </>
         ) : null}
       </div>
-      <div className="bottom-0 flex gap-2 pt-6">
+      <div className="bottom-0 flex flex-col lg:flex-row gap-2 pt-6 px-2 lg:px-0">
         <Button
           onClick={() => setPage("all", null)}
           className="bg-white text-black hover:bg-gray-100 flex-1 flex gap-2 border shadow-md"
