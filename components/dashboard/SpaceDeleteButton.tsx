@@ -60,7 +60,10 @@ export const SpaceDeleteButton = ({ spaceId }: SpaceDeleteButtonProps) => {
           <Trash2 size={20} />
         </div>
       </AlertDialogTrigger>
-      <AlertDialogContent ref={dialogContentRef} className="bg-white">
+      <AlertDialogContent
+        ref={dialogContentRef}
+        className="bg-white w-[350px] rounded md:w-full"
+      >
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
