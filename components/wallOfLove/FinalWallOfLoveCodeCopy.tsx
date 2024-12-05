@@ -37,16 +37,18 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
   };
 
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-7 md:px-4 md:pr-6">
       <Card>
         <CardHeader>
-          <CardTitle>Copy the Wall of Love Code</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-xl md:text-2xl">
+            Copy the Wall of Love Code
+          </CardTitle>
+          <CardDescription className="text-xs md:text-sm">
             Paste this code where you want to showcase this wall
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-between">
-          <code className="bg-muted px-2 py-1 rounded-md flex-grow mr-2 overflow-x-auto">
+          <code className="bg-muted text-muted-foreground text-xs md:text-lg px-2 py-1 rounded-md flex-grow mr-2 overflow-x-auto">
             {url}
           </code>
           <Button

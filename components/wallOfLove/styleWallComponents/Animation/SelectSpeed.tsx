@@ -26,7 +26,7 @@ export const SelectSpeed = () => {
         {options.map((option) => (
           <button
             key={option}
-            className={`py-1 px-2 rounded-md text-xs ${
+            className={`py-1 px-2 rounded-md text-[10px] lg:text-xs ${
               radius === option
                 ? "bg-primary text-white"
                 : "bg-gray-100 text-black"

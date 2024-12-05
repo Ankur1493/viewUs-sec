@@ -22,11 +22,11 @@ export const SelectTheme = () => {
       header="Theme"
       description="Select a theme for your wall of love"
     >
-      <div className="flex gap-2 py-0">
+      <div className="flex flex-col lg:flex-row gap-2 py-0">
         {options.map((option) => (
           <Button
             key={option}
-            className={`p-0 py-1 flex-1 rounded-md text-xs ${
+            className={`p-0 py-1 flex-1 rounded-md text-[10px] lg:text-xs ${
               theme === option
                 ? "bg-primary text-white"
                 : "bg-gray-100 text-black hover:bg-gray-200"

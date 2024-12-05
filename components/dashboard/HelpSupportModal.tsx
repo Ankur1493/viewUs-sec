@@ -45,9 +45,9 @@ export function HelpSupportModal({ email }: { email: string }) {
           <span>Help and Support</span>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] flex flex-col gap-16 md:max-w-[700px] h-1/2 bg-white">
+      <DialogContent className="sm:max-w-[425px] flex flex-col gap-10 md:gap-16 md:max-w-[600px] md:h-1/2 h-3/5 lg:h-3/5 bg-white py-8">
         <DialogHeader className="space-y-0">
-          <DialogTitle className="flex items-center justify-center text-4xl font-bold text-primary">
+          <DialogTitle className="flex items-center justify-center text-2xl md:text-4xl font-bold text-primary">
             <HelpCircleIcon className="mr-2" size={30} />
             How Can We Help?
           </DialogTitle>
@@ -72,13 +72,23 @@ export function HelpSupportModal({ email }: { email: string }) {
           </Select>
           <Textarea
             placeholder="Type your message here"
-            className="h-3/4"
             value={message}
+            className="md:h-[200px] lg:h-[150px]"
             onChange={(e) => setMessage(e.target.value)}
             rows={4}
           />
-          <Button type="submit" className="w-full" onClick={async () => { await sendSupportAndHelpMail({ email: email!, message: message, type: subject }) }}
-            disabled={!isFormValid}>
+          <Button
+            type="submit"
+            className="w-full"
+            onClick={async () => {
+              await sendSupportAndHelpMail({
+                email: email!,
+                message: message,
+                type: subject,
+              });
+            }}
+            disabled={!isFormValid}
+          >
             Submit
           </Button>
         </form>
