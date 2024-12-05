@@ -7,7 +7,6 @@ import { Pencil } from "lucide-react";
 import Link from "next/link";
 
 export const Profile = ({ user }: { user: User }) => {
-
   return (
     <div className="w-full">
       <Card className="relative w-full max-w-4xl">
@@ -17,8 +16,8 @@ export const Profile = ({ user }: { user: User }) => {
           </Link>
         </div>
         <CardContent className="p-0">
-          <div className="flex flex-col md:flex-row">
-            <div className="md:w-1/3 bg-gradient-to-br from-purple-500 to-indigo-600 p-6 flex flex-col items-center justify-center space-y-4 text-white">
+          <div className="flex flex-col lg:flex-row">
+            <div className="lg:w-1/3 bg-gradient-to-br from-purple-500 to-indigo-600 p-6 flex flex-col items-center justify-center space-y-4 text-white">
               <div className="w-16 h-16 rounded-full border-white bg-sky-100">
                 <Image
                   src={
@@ -38,7 +37,7 @@ export const Profile = ({ user }: { user: User }) => {
               </Badge>
             </div>
 
-            <div className="md:w-2/3 p-6 space-y-6">
+            <div className="lg:w-2/3 p-6 space-y-6">
               <div className="space-y-2">
                 <h2 className="text-xl font-semibold text-gray-700">
                   Contact Information
@@ -109,34 +108,38 @@ export const Profile = ({ user }: { user: User }) => {
                       <span className="text-2xl font-bold text-gray-700">
                         {user.createdAt
                           ? new Date(user.createdAt).toLocaleDateString(
-                            "en-US",
-                            {
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            }
-                          )
+                              "en-US",
+                              {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              }
+                            )
                           : ""}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-2">Account Created on</p>
+                    <p className="text-sm text-gray-500 mt-2">
+                      Account Created on
+                    </p>
                   </div>
                   <div className="bg-white rounded-lg p-4 shadow-md">
                     <div className="flex items-center justify-between">
                       <span className="text-3xl font-bold text-gray-700">
                         {user.updatedAt
                           ? new Date(user.updatedAt).toLocaleDateString(
-                            "en-US",
-                            {
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            }
-                          )
+                              "en-US",
+                              {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              }
+                            )
                           : ""}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-2">Account updated on</p>
+                    <p className="text-sm text-gray-500 mt-2">
+                      Account updated on
+                    </p>
                   </div>
                 </div>
               </div>
