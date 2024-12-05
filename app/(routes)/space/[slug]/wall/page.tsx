@@ -15,7 +15,7 @@ export default function Dashboard({ params }: PageProps) {
   const { slug } = params;
 
   return (
-    <div className="px-4">
+    <div className="px-4 pt-20">
       <WallOfLove slug={slug} />
     </div>
   );

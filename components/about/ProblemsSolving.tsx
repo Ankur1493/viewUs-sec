@@ -34,7 +34,7 @@ export default function OurProcess() {
   return (
     <section className="px-4 py-12">
       <div className=" mx-auto">
-        <h1 className="text-6xl font-bold text-center mb-12">
+        <h1 className="text-4xl md:text-6xl font-bold text-center mb-12">
           Simplifying Your Journey, Step by Step
         </h1>
 
@@ -42,7 +42,7 @@ export default function OurProcess() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className={`flex items-center ${
+              className={`flex flex-col gap-2 md:flex-row  items-center ${
                 index % 2 !== 0 ? "md:flex-row-reverse" : ""
               }`}
             >
@@ -51,16 +51,20 @@ export default function OurProcess() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="flex-1 px-4 flex items-center gap-4"
+                className="flex-1 px-1 md:px-4 flex items-center gap-4"
               >
                 <div>
-                  <h2 className="text-9xl font-bold flex items-center justify-center">
+                  <h2 className="text-6xl md:text-9xl font-bold flex items-center justify-center">
                     {step.number}
                   </h2>
                 </div>
                 <div>
-                  <h2 className="text-3xl font-bold mb-6">{step.title}</h2>
-                  <p className="text-gray-600">{step.description}</p>
+                  <h2 className="text-xl md:text-2xl font-bold md:mb-6">
+                    {step.title}
+                  </h2>
+                  <p className="text-gray-600 text-sm md:text-md">
+                    {step.description}
+                  </p>
                 </div>
               </motion.div>
               <motion.div
@@ -68,7 +72,7 @@ export default function OurProcess() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="relative h-[400px] rounded-2xl overflow-hidden flex-1"
+                className="relative w-full overflow-hidden h-[400px] rounded-2xl md:flex-1"
               >
                 <Image
                   src={step.image}

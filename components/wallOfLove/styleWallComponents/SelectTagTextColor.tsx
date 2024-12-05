@@ -42,7 +42,7 @@ export const SelectTagTextColor = () => {
       header="Tag Text Color"
       description="Select a text color for tags"
     >
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Popover>
           <PopoverTrigger asChild>
             <Button

@@ -1,11 +1,14 @@
-import { Skeleton } from "../ui/skeleton"
+import { SpaceListCard } from "./SpaceListCard";
 
 export const SpacesLoadingSkeleton = () => {
   return (
-    <div className="flex flex-row space-x-3">
-      <Skeleton className="h-[250px] w-[350px] rounded-xl" />
-      <Skeleton className="h-[250px] w-[350px] rounded-xl" />
-      <Skeleton className="h-[250px] w-[350px] rounded-xl" />
+    <div className=" flex flex-col gap-[24px]">
+      <div className="w-full">
+        <h2 className="text-3xl md:text-4xl font-medium">Active Projects</h2>
+      </div>
+      <div className="flex flex-row space-x-3">
+        <SpaceListCard />
+      </div>
     </div>
-  )
-}
+  );
+};

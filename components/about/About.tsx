@@ -13,7 +13,7 @@ export const About = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full px-56">
+    <div className="min-h-screen w-full md:px-4 lg:px-56">
       <section className="px-4 py-20 md:pt-32">
         <div className="mx-auto text-center">
           <motion.div

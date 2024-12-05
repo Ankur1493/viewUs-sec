@@ -57,7 +57,7 @@ export const BookCall = () => {
           </AccordionItem>
         </Accordion>
         <div className="flex items-center justify-center">
-          <Card className="h-[300px] lg:min-h-[350px] border-dashed border-gray-950">
+          <Card className="h-[300px] bg-gray-200 lg:min-h-[350px] border-dashed border-gray-950">
             <CardHeader>
               <CardTitle>Have a call with us</CardTitle>
             </CardHeader>
