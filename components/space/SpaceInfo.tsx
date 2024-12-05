@@ -28,7 +28,7 @@ export default function SpaceInfo({
 }: SpaceInfoProps) {
   return (
     <header className="w-full flex flex-col gap-4 space-y-1 lg:space-y-0 justify-between mt-6 py-3">
-      <div className="w-full mx-auto flex items-center justify-between">
+      <div className="w-full mx-auto flex items-start md:items-center justify-between">
         <div className="flex items-center space-x-4">
           <div className="flex flex-col justify-center">
             <h1 className="text-3xl font-bold">{space.name}</h1>
@@ -44,7 +44,7 @@ export default function SpaceInfo({
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 items-center space-x-4">
+        <div className="flex flex-col gap-2 items-start space-x-4">
           <div className="w-full flex items-end justify-end">
             <div className="flex justify-center items-center space-x-2 border rounded-md p-1">
               <div className="w-7 h-7 flex justify-center items-center hover:bg-gray-100 rounded-md">
