@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { TestimonialCard } from "./TestimonialCard";
-import { FrownIcon } from "lucide-react";
+import { FrownIcon } from 'lucide-react';
 import TestimonialSkeleton from "./TestimonialSkeleton";
 
 export enum ReviewType {
@@ -57,38 +57,39 @@ export const ManageTestimonials = ({
     loadPage();
   }, [initializeFilter]);
 
+  const filteredAndSortedTestimonials = useMemo(() => {
+    return testimonials
+      .filter((testimonial) => {
+        switch (filter) {
+          case "text":
+            return testimonial.reviewType === ReviewType.TEXT;
+          case "video":
+            return testimonial.reviewType === ReviewType.VIDEO;
+          case "imported":
+            return testimonial.reviewType === ReviewType.IMPORTED;
+          case "liked":
+            return testimonial.liked;
+          default:
+            return true;
+        }
+      })
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt || 0).getTime();
+        const dateB = new Date(b.createdAt || 0).getTime();
+        return dateB - dateA; // Descending order
+      });
+  }, [testimonials, filter]);
+
   if (loading) {
     return (
       <div className="px-6">
-        <TestimonialSkeleton />;
-        <TestimonialSkeleton />;
+        <TestimonialSkeleton />
+        <TestimonialSkeleton />
       </div>
     );
   }
 
-  const filteredTestimonials = testimonials.filter((testimonial) => {
-    switch (filter) {
-      case "text":
-        return testimonial.reviewType === ReviewType.TEXT;
-      case "video":
-        return testimonial.reviewType === ReviewType.VIDEO;
-      case "imported":
-        return testimonial.reviewType === ReviewType.IMPORTED;
-      case "liked":
-        return testimonial.liked;
-      default:
-        return true;
-    }
-  });
-
-  if (filter === "liked") {
-    filteredTestimonials.sort((a: IReview, b: IReview) => {
-      const dataA = new Date(a.updatedAt || 0).getTime();
-      const dataB = new Date(b.updatedAt || 0).getTime();
-      return dataB - dataA;
-    });
-  }
-  if (filteredTestimonials.length === 0) {
+  if (filteredAndSortedTestimonials.length === 0) {
     return (
       <div className="w-full flex pt-52 justify-center items-center">
         <div className="bg-[#E9F8FF] w-[80px] h-[80px] rounded-full flex justify-center items-center mx-6">
@@ -104,10 +105,12 @@ export const ManageTestimonials = ({
   return (
     <div className="w-full h-full px-2 md:px-6">
       <div className="flex flex-col gap-4">
-        {filteredTestimonials.reverse().map((testimonial) => (
+        {filteredAndSortedTestimonials.map((testimonial) => (
           <TestimonialCard key={testimonial._id!} testimonial={testimonial} />
         ))}
       </div>
     </div>
   );
 };
+
+

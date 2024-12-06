@@ -72,7 +72,7 @@ export const ReviewReceivedTemplate = ({
               </Text>
               {reviewCount >= 10 && (
                 <Text className="text-sm text-blue-800 mt-4 mb-0 font-semibold">
-                  You've reached 10 reviews! Consider upgrading your account to
+                  You have reached 10 reviews! Consider upgrading your account to
                   unlock more features.
                   we will only store 2-3 more reviews
                 </Text>

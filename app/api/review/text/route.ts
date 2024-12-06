@@ -7,7 +7,6 @@ import { sendTextReviewSubmitted } from "@/lib/mail";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import sharp from "sharp";
 import { s3 } from "@/lib/aws";
-import { validateHeaderName } from "http";
 
 const bucketName = process.env.AWS_BUCKET_NAME!;
 
