@@ -16,7 +16,7 @@ export default async function SettingsPage() {
   }
 
   return (
-    <div className="flex px-16 w-full gap-16">
+    <div className="flex flex-col py-8 lg:flex-row px-8 md:px-16 w-full gap-16 pb-4">
       <div className="flex flex-col gap-6 w-full">
         <h1 className="text-4xl font-bold text-black">Settings</h1>
         <div className="flex flex-col gap-4">

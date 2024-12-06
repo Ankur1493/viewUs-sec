@@ -37,6 +37,8 @@ export function SpaceSideBar({ email }: { email: string }) {
 
   const { filter, setFilter } = useTestimonialFilterStore();
   const isImportedActive = pathName.includes("import");
+  const isPublicActive = pathName.includes("public");
+  const isWallActive = pathName.includes("wall");
 
   const inboxLinks = [
     {
@@ -77,10 +79,12 @@ export function SpaceSideBar({ email }: { email: string }) {
     {
       label: "Your Public URL",
       href: `/space/${slug}/public`,
+      key: "public",
       icon: <Link2 className="text-neutral-700 h-6 w-6 flex-shrink-0" />,
     },
     {
       label: "Wall of Love",
+      key: "wall",
       href: `/space/${slug}/wall`,
       icon: (
         <MessageCircleHeartIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
@@ -106,7 +110,10 @@ export function SpaceSideBar({ email }: { email: string }) {
                       onClick={link.onClick}
                       className={cn(
                         "p-2 rounded-md",
-                        filter === link.key && !isImportedActive
+                        filter === link.key &&
+                          !isImportedActive &&
+                          !isPublicActive &&
+                          !isWallActive
                           ? "bg-gray-100"
                           : "bg-transparent"
                       )}
@@ -146,16 +153,24 @@ export function SpaceSideBar({ email }: { email: string }) {
           <SidebarGroupLabel>Pages</SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col jutify-center items-center">
             <SidebarMenu className="w-[80%]">
-              {PageLinks.map((link, idx) => (
-                <SidebarMenuItem key={idx}>
-                  <SidebarMenuButton asChild>
-                    <Link href={link.href}>
-                      {link.icon}
-                      <span>{link.label}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {PageLinks.map((link, idx) => {
+                const isActive =
+                  (link.key === "public" && isPublicActive) ||
+                  (link.key === "wall" && isWallActive);
+                return (
+                  <SidebarMenuItem key={idx}>
+                    <SidebarMenuButton
+                      asChild
+                      className={cn(isActive ? "bg-gray-100" : "")}
+                    >
+                      <Link href={link.href}>
+                        {link.icon}
+                        <span>{link.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

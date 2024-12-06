@@ -22,7 +22,7 @@ export default function PublicURLPage({
 }) {
   return (
     <div className="flex h-fit px-2 md:px-6 py-12 pt-16">
-      <Card className="md:px-8 py-6">
+      <Card className="md:px-8 py-6 w-full">
         <CardHeader>
           <div className="bg-[#E9F8FF] w-[70px] h-[70px] rounded-full flex justify-center items-center">
             <PartyPopper color="#009EE2" size={30} />

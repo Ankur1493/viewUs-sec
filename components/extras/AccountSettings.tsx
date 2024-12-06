@@ -118,7 +118,7 @@ export const AccountSettings = ({ user }: { user: User }) => {
           </div>
         </AlertDialogTrigger>
 
-        <AlertDialogContent className="bg-white shadow-md">
+        <AlertDialogContent className="bg-white shadow-md w-[350px] rounded md:w-full">
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -227,7 +227,7 @@ export const AccountSettings = ({ user }: { user: User }) => {
           </div>
         </AlertDialogTrigger>
 
-        <AlertDialogContent className="bg-white shadow-md">
+        <AlertDialogContent className="bg-white shadow-md w-[350px] rounded md:w-full">
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>

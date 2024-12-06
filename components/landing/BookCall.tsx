@@ -109,7 +109,9 @@ export const BookCall = () => {
             Book your spot, Let us help you
           </h1>
         </div>
-        <Cal calLink="ankur-sharma/15min"></Cal>
+        <div className="max-h-[600px] overflow-y-auto scrollbar-hidden">
+          <Cal calLink="ankur-sharma/15min"></Cal>
+        </div>
       </div>
     </div>
   );

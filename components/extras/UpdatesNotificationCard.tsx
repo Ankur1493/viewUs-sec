@@ -20,7 +20,7 @@ export const UpdatesNotificationCard: React.FC<NotificationCardProps> = ({
   return (
     <Card
       className={cn(
-        "fixed bg-gradient-to-bl from-blue-100 to-blue-500 bottom-0 md:bottom-4 md:rounded-l-2xl rounded-b-none md:rounded md:rounded-bl-2xl md:rounded-tr-2xl md:rounded-tl-2xl border border-blueButton right-0 w-full md:right-4 max-w-[450px] md:w-[450px] h-[300px] shadow-lg",
+        "fixed bg-gradient-to-bl from-blue-100 to-blue-500 bottom-2 md:bottom-4 md:rounded-l-2xl md:rounded md:rounded-bl-2xl md:rounded-tr-2xl md:rounded-tl-2xl border border-blueButton right-2 md:right-4 w-[300px] md:w-[450px] h-[300px] shadow-lg",
         status === true ? "hidden" : "block"
       )}
     >
