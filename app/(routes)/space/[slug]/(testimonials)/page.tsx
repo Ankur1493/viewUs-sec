@@ -1,8 +1,8 @@
-import axios from "axios";
 import { FrownIcon } from "lucide-react";
 import { ManageTestimonials } from "@/components/space/ManageTestimonials";
 import SpaceInfo from "@/components/space/SpaceInfo";
 import { ReviewType } from "@/models/review_model";
+import { getSpaceReviews } from "@/actions/testimonial";
 
 export const metadata = {
   title: "View Us - space",
@@ -15,15 +15,10 @@ interface TestimonialType {
 }
 
 async function fetchTestimonials(slug: string) {
-  const baseUrl =
-    process.env.NODE_ENV === "development"
-      ? `http://localhost:3000/api/review/${slug}`
-      : "http://viewus.in/api/review";
-
   try {
-    const response = await axios.get(baseUrl);
+    const response = await getSpaceReviews(slug);
 
-    if (!response.data.success) return null;
+    if (!response.success) return null;
 
     return response.data;
   } catch (error) {

@@ -8,6 +8,21 @@ export const generateVerificationTokens = async (email: string) => {
 
   const existingToken = await getEmailVerificationTokenByEmail(email)
   if (existingToken) {
+    const isTokenStillValid = (token: { expires: Date }) => {
+      if (!token.expires) return false;
+      const now = new Date();
+      const expirationTime = new Date(token.expires);
+      const timeDifference = expirationTime.getTime() - now.getTime();
+      const minutesDifference = timeDifference / (1000 * 60);
+      return minutesDifference > 59;
+    }
+
+    if (isTokenStillValid(existingToken)) {
+      console.log("bhej to dia bc")
+      return null;
+    }
+
+    // Delete the existing token if it's expired
     await db.verificationToken.delete({
       where: {
         id: existingToken.id

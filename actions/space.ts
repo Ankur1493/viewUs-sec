@@ -4,6 +4,34 @@ import { db } from "@/lib/db";
 import { connectToMongo } from "@/lib/mongoose";
 import Review, { ReviewType } from "@/models/review_model";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+export const verifyUserSpace = async ({ slug }: { slug: string }) => {
+  try {
+    const session = await auth()
+    const user = session?.user
+
+    if (!user) {
+      return redirect("/login")
+    }
+    console.log("runned")
+
+    const status = await db.space.findUnique({
+      where: {
+        slug,
+        userId: user.id
+      }
+    })
+    if (status) {
+      return true
+    }
+
+    return false
+  } catch (err) {
+    console.log(err)
+    return null
+  }
+}
 
 export const getSpaceDetails = async ({
   slug,

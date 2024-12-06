@@ -12,18 +12,16 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-// interface ReviewSubmittedEmailTemplateProps {
-//   firstName: string;
-//   spaceTitle: string;
-//   reviewType: "text" | "video";
-// }
+interface ReviewSubmittedEmailTemplateProps {
+  firstName: string;
+  spaceTitle: string;
+}
 
-export const ReviewSubmittedTemplate = () => (
-  // {
-  // firstName,
-  // spaceTitle,
-  // reviewType,
-  // }
+export const ReviewSubmittedTemplate = ({
+  firstName,
+  spaceTitle,
+}: ReviewSubmittedEmailTemplateProps) => (
+
   <Html>
     <Head />
     <Preview>Your review for BakedUi has been submitted</Preview>
@@ -55,10 +53,10 @@ export const ReviewSubmittedTemplate = () => (
           />
           <Container className="bg-white p-45 rounded-lg shadow-lg">
             <Heading className="text-2xl font-bold text-center text-gray-800 my-0 leading-8">
-              Thank You for Your Review, Udit!
+              Thank You for Your Review, {firstName}!
             </Heading>
             <Text className="text-base text-gray-600 mt-4 mb-6 text-center">
-              Your text review for &quot;BakedUi&quot; has been successfully
+              Your review for &quot;{spaceTitle}&quot; has been successfully
               submitted.
             </Text>
             <Section className="bg-green-50 border border-green-100 rounded-lg p-6 mb-6">

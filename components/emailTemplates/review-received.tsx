@@ -13,24 +13,22 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-// interface ReviewReceivedEmailTemplateProps {
-//   firstName: string;
-//   reviewCount: number;
-//   spaceTitle: string;
-//   reviewerName: string;
-//   reviewType: "text" | "video";
-//   dashboardLink: string;
-// }
+export interface ReviewReceivedEmailTemplateProps {
+  firstName: string;
+  reviewCount: number;
+  spaceTitle: string;
+  reviewerName: string;
+  reviewType: "text" | "video";
+}
 
-export const ReviewReceivedTemplate = () => (
-  //   {
-  //   firstName,
-  //   reviewCount,
-  //   spaceTitle,
-  //   reviewerName,
-  //   reviewType,
-  //   dashboardLink,
-  //   }
+export const ReviewReceivedTemplate = ({
+  firstName,
+  reviewCount,
+  spaceTitle,
+  reviewerName,
+  reviewType,
+}: ReviewReceivedEmailTemplateProps
+) => (
   <Html>
     <Head />
     <Preview>New text review received for BakedUi</Preview>
@@ -62,22 +60,23 @@ export const ReviewReceivedTemplate = () => (
           />
           <Container className="bg-white p-45 rounded-lg shadow-lg">
             <Heading className="text-2xl font-bold text-center text-gray-800 my-0 leading-8">
-              New Review Received, Udit!
+              New Review Received, {firstName}!
             </Heading>
             <Text className="text-base text-gray-600 mt-4 mb-6 text-center">
-              You&apos;ve received a new text review for &quot;BakedUi&quot;
-              from Udit.
+              You&apos;ve received a new {reviewType} review for &quot;{spaceTitle}&quot;
+              from {reviewerName}.
             </Text>
             <Section className="bg-blue-50 border border-blue-100 rounded-lg p-6 mb-6">
               <Text className="text-sm text-blue-800 m-0">
                 Congratulations! You now have a total of 10 text reviews.
               </Text>
-              {/* {reviewCount >= 10 && (
+              {reviewCount >= 10 && (
                 <Text className="text-sm text-blue-800 mt-4 mb-0 font-semibold">
-                  You've reached 10 reviews! Consider upgrading your account to
+                  You have reached 10 reviews! Consider upgrading your account to
                   unlock more features.
+                  we will only store 2-3 more reviews
                 </Text>
-              )} */}
+              )}
             </Section>
             <Section className="text-center">
               <Button
