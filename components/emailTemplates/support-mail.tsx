@@ -12,18 +12,18 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-// interface EmailTemplateProps {
-//   message: string;
-//   email: string;
-//   type: string;
-// }
+interface EmailTemplateProps {
+  message: string;
+  email: string;
+  type: string;
+}
 
-export const SupportMailTemplate = () => (
-  // {
-  // message,
-  // email,
-  // type,
-  // }
+export const SupportMailTemplate = ({
+  message,
+  email,
+  type,
+}: EmailTemplateProps
+) => (
   <Html>
     <Head />
     <Preview>ViewUs Support Request</Preview>
@@ -66,18 +66,18 @@ export const SupportMailTemplate = () => (
                 Request Details:
               </Text>
               <Text className="text-sm text-blue-800 mt-2 mb-0">
-                <strong>Email:</strong> ankursharma1493@gmail.com
+                <strong>Email:</strong>{email}
                 {/* {email} */}
               </Text>
               <Text className="text-sm text-blue-800 mt-2 mb-0">
-                <strong>Type:</strong> Support
+                <strong>Type:</strong>{type}
                 {/* {type} */}
               </Text>
               <Text className="text-sm text-blue-800 mt-2 mb-0">
                 <strong>Message:</strong>
               </Text>
               <Text className="text-sm text-blue-800 mt-1 mb-0 italic">
-                {/* {message} */}
+                {message}
                 &quot;Ar vai sahi lg rha hai kya ye? ya nhi?&quot;
               </Text>
             </Section>
