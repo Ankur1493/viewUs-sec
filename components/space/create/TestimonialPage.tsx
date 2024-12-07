@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
-import { Trash2Icon, PlusCircle, ChevronDown } from "lucide-react";
+import { Trash2Icon, PlusCircle, ChevronDown, Menu, X } from "lucide-react";
 import { WrittenTestimonialPreview } from "./preview/WrittenTestimonialPreview";
 import { VideoReviewPreview } from "./preview/VideoReviewPreview";
 import { cn } from "@/lib/utils";
@@ -71,7 +71,13 @@ const formSchema = z.object({
 });
 const sanitizeTag = (tag: string) => tag.trim();
 
-export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, page: "edit" | "create" }) => {
+export const TestimonialPage = ({
+  slug,
+  page,
+}: {
+  slug?: string | undefined;
+  page: "edit" | "create";
+}) => {
   const { testimonialPageType, setTestimonialPageType, testimonialType } =
     useSpaceDataStore();
   const router = useRouter();
@@ -89,8 +95,7 @@ export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, pag
       title: testimonialPageType.title || "",
       description: testimonialPageType.description || "",
       tags: testimonialPageType.tags || [],
-      questionHeader:
-        testimonialPageType.questionHeader || "",
+      questionHeader: testimonialPageType.questionHeader || "",
       questions: testimonialPageType.questions || [],
     },
   });
@@ -98,19 +103,17 @@ export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, pag
     (state) => state.initializeSpaceData
   );
 
+  const [isHidden, setIsHidden] = useState(true);
+
   useEffect(() => {
     initializeSpaceData();
-    console.log("runned")
+    console.log("runned");
   }, [initializeSpaceData]);
-
-
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setTestimonialPageType(values);
-    if (page === "create")
-      router.push("/space/create?page=6");
-    else
-      router.push(`/space/${slug}/edit?page=6`);
+    if (page === "create") router.push("/space/create?page=6");
+    else router.push(`/space/${slug}/edit?page=6`);
   }
 
   const toggleTag = (tag: string) => {
@@ -152,15 +155,26 @@ export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, pag
   );
 
   return (
-    <div className="w-full pl-2 max-h-screen h-[85vh] flex justify-center overflow-hidden gap-4">
-      <div className="max-w-[448px] h-full space-y-6 px-6 pt-5 overflow-y-auto scrollbar-hidden">
-        <div className="flex-grow">
-          <h2 className="text-[36px] font-medium">
-            Let’s work on your testimonial page
+    <div className="reltive w-full pl-2 max-h-screen h-[85vh] lg:flex justify-center overflow-hidden gap-4">
+      <div
+        className="absolute lg:hidden right-0 z-50"
+        onClick={() => setIsHidden(!isHidden)}
+      >
+        {isHidden ? <Menu /> : <X />}
+      </div>
+      <div
+        className={cn(
+          " h-full space-y-6 px-6 pt-5 overflow-y-auto scrollbar-hidden  lg:items-start flex justify-center",
+          isHidden ? "hidden lg:block" : ""
+        )}
+      >
+        <div className="flex-grow max-w-[448px]">
+          <h2 className="text-2xl md:text-[36px] font-medium leading-8 md:py-2 ">
+            Let&apos;s work on your testimonial page
           </h2>
-          <p className="text-[16px] font-normal">
-            Add a message and choose what you want to include on your customers’
-            testimonials.
+          <p className="text-sm md:text-[16px] font-normal pt-4 lg:pt-2">
+            Add a message and choose what you want to include on your
+            customers&apos; testimonials.
           </p>
 
           <Form {...form}>
@@ -192,6 +206,7 @@ export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, pag
                       <FormLabel>WRITE A DESCRIPTION</FormLabel>
                       <FormControl>
                         <Textarea
+                          className="text-sm md:text-md"
                           placeholder="We want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!"
                           {...field}
                         />
@@ -223,7 +238,7 @@ export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, pag
                             <div
                               key={tag}
                               className={cn(
-                                "cursor-pointer text-[14px] font-normal px-2 py-1 rounded-full",
+                                "cursor-pointer text-sm md:text-[14px] font-normal px-2 py-1 rounded-full",
                                 isSelected
                                   ? "bg-[#71D4FF] text-[#222222]"
                                   : "bg-[#EAEBEC] text-[#5C5D5E]",
@@ -343,7 +358,7 @@ export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, pag
           </Form>
         </div>
       </div>
-      <div className="relative w-full h-[90%]">
+      <div className="md:flex-1 relative h-full">
         <div className="absolute z-50 top-2 w-full flex justify-center items-center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -371,8 +386,8 @@ export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, pag
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="w-full h-full flex flex-col">
-          <div className="h-80%">
+        <div className="md:absolute md:inset-0 flex flex-col h-full">
+          <div className="flex-1 overflow-y-auto">
             {view === "text" ? (
               <WrittenTestimonialPreview
                 title={form.watch("title")}
@@ -395,13 +410,11 @@ export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, pag
             <div className="flex justify-between gap-4">
               <Button
                 onClick={() => {
-                  if (page === "create")
-                    router.push("/space/create?page=4");
-                  else
-                    router.push(`/space/${slug}/edit?page=4`);
+                  if (page === "create") router.push("/space/create?page=4");
+                  else router.push(`/space/${slug}/edit?page=4`);
                 }}
                 variant="outline"
-                className="border-[#DDDEDF] rounded-full px-20 py-4"
+                className="border-[#DDDEDF] rounded-full px-12 md:px-20 py-4"
               >
                 Back
               </Button>
@@ -409,7 +422,7 @@ export const TestimonialPage = ({ slug, page }: { slug?: string | undefined, pag
                 type="submit"
                 variant="form"
                 onClick={form.handleSubmit(onSubmit)}
-                className=" px-20 py-4"
+                className=" px-12 md:px-20 py-4"
               >
                 Next
               </Button>

@@ -61,8 +61,6 @@ export default function SpaceInfo({
         </div>
       </div>
       <Separator className="mt-2" />
-      {extraTextReviews > 0 ||
-        (extraVideoReviews > 0 && <Separator className="my-2" />)}
       <div className="flex justify-between">
         <div className="flex items-start space-x-4">
           {testimonialCounts?.video && testimonialCounts?.video >= 0 && (
@@ -88,7 +86,8 @@ export default function SpaceInfo({
           {extraTextReviews > 0 && (
             <div className="flex gap-2 items-center">
               <p className="text-sm text-muted-foreground">
-                You have {extraTextReviews} more text reviews.
+                You have {extraTextReviews} extra text reviews. Please upgrade
+                to see it 👉
               </p>
               <Button variant="main">✨ Upgrade Now</Button>
             </div>
@@ -96,7 +95,8 @@ export default function SpaceInfo({
           {extraVideoReviews > 0 && (
             <div className="flex gap-2 items-center">
               <p className="text-sm text-muted-foreground">
-                You have {extraVideoReviews} more video reviews.
+                You have {extraVideoReviews} extra video reviews. Please upgrade
+                to see it 👉
               </p>
               <Button variant="main">✨Upgrade Now</Button>
             </div>

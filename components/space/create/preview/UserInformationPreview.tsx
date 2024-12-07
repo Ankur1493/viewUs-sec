@@ -26,23 +26,26 @@ export const UserInformationPreview: React.FC<PreviewSectionProps> = ({
   }, []);
   return (
     <div className="flex justify-center items-center w-full h-[75vh] bg-white">
-      <Card className="relative w-[550px] px-[2%] h-full overflow-y-auto scrollbar-hidden border-none shadow-none font-satoshi">
+      <Card className="relative w-[550px] px-[2%] h-full overflow-y-auto scrollbar-hidden border-none shadow-none font-satoshi ">
         <CardHeader>
-          <CardTitle className="text-left text-[#33313B] text-[36px] font-[500]">
+          <CardTitle className="text-left text-[#33313B] text-2xl md:text-[36px] font-[500]">
             Tell us about Yourself
           </CardTitle>
-          <CardDescription className="text-[#222222] font-[400] text-[16px] leading-[24px]">
+          <CardDescription className="text-[#222222] font-[400] text-sm md:text-[16px] leading-[24px]">
             This information may be displayed with your testimonial.
           </CardDescription>
         </CardHeader>
         <CardContent className="text-[14px]">
           <div className="flex items-center space-x-4">
-            <div className="relative w-[64px] h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
+            <div className="relative w-[50px] h-[50px] md:w-[64px] md:h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
               <Image src={profile} alt="Profile" width={28} height={28} />
             </div>
 
             <div className="flex flex-col">
-              <Button variant="outline" className="rounded-3xl border-gray-400">
+              <Button
+                variant="outline"
+                className="rounded-3xl  border-gray-400 text-sm "
+              >
                 Add photo
                 {userInformation.userPhoto && (
                   <span className="text-red-500">*</span>
@@ -54,7 +57,7 @@ export const UserInformationPreview: React.FC<PreviewSectionProps> = ({
             {(
               Object.entries(userInformation) as [
                 keyof typeof userInformation,
-                boolean
+                boolean,
               ][]
             )
               .filter(([key]) => key !== "userPhoto")
@@ -66,7 +69,7 @@ export const UserInformationPreview: React.FC<PreviewSectionProps> = ({
                   </Label>
                   <input
                     type={key === "email" ? "email" : "text"}
-                    className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm h-[48px]"
+                    className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm md:h-[48px]"
                     placeholder={key.replace(/([A-Z])/g, " $1").trim()}
                     disabled
                   />

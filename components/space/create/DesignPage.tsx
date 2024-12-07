@@ -24,9 +24,10 @@ import {
 
 import { CoverPagePreview } from "./preview/CoverPagePreview";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
-import { Plus } from "lucide-react";
+import { Menu, Plus, X } from "lucide-react";
 import { useState } from "react";
 import { SaveButton } from "./SaveSpaceButton";
+import { cn } from "@/lib/utils";
 
 const defaultColors = ["#71D4FF", "#FF71D4", "#71FF9F", "#FFD471", "#7171FF"];
 
@@ -37,22 +38,29 @@ const formSchema = z.object({
   }),
 });
 
-export const DesignPage = ({ id, slug, page }: { id?: string | undefined, slug?: string | undefined, page: "edit" | "create" }) => {
+export const DesignPage = ({
+  id,
+  slug,
+  page,
+}: {
+  id?: string | undefined;
+  slug?: string | undefined;
+  page: "edit" | "create";
+}) => {
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const initializeSpaceData = useSpaceDataStore(
     (state) => state.initializeSpaceData
   );
 
+  const [isHidden, setIsHidden] = useState(true);
+
   useEffect(() => {
     initializeSpaceData();
-    console.log({ id })
+    console.log({ id });
   }, [initializeSpaceData]);
 
   const router = useRouter();
-  const {
-    design,
-    setDesign,
-  } = useSpaceDataStore();
+  const { design, setDesign } = useSpaceDataStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,7 +72,6 @@ export const DesignPage = ({ id, slug, page }: { id?: string | undefined, slug?:
       gradientType: design.gradientType || 1,
       btnColor: design.btnColor || "#71D4FF",
     },
-
   });
 
   useEffect(() => {
@@ -84,15 +91,26 @@ export const DesignPage = ({ id, slug, page }: { id?: string | undefined, slug?:
   };
 
   return (
-    <div className="w-full pl-2 max-h-screen h-[85vh] flex justify-center overflow-hidden gap-4">
-      <div className="max-w-[448px] h-full space-y-6 px-6 pt-5 overflow-y-auto">
-        <div className="flex-grow">
+    <div className="reltive w-full pl-2 max-h-screen h-[85vh] lg:flex justify-center overflow-hidden gap-4">
+      <div
+        className="absolute lg:hidden right-0 z-50"
+        onClick={() => setIsHidden(!isHidden)}
+      >
+        {isHidden ? <Menu /> : <X />}
+      </div>
+      <div
+        className={cn(
+          " h-full space-y-6 px-6 pt-5 overflow-y-auto flex items-center justify-center lg:items-start",
+          isHidden ? "hidden lg:block" : ""
+        )}
+      >
+        <div className="flex-grow max-w-[448px]">
           <div className="w-full">
             <div className="space-y-1">
-              <div className="text-[36px] font-medium">
+              <div className="text-2xl md:text-[36px] font-medium leading-10">
                 Last step! Add the finishing touches to your form
               </div>
-              <p className="text-[16px] font-normal pb-4">
+              <p className="text-sm md:text-[16px] font-normal pb-4">
                 Choose a style that matches your brand and personality
               </p>
             </div>
@@ -110,10 +128,11 @@ export const DesignPage = ({ id, slug, page }: { id?: string | undefined, slug?:
                             <button
                               key={gradient.id}
                               type="button"
-                              className={`w-10 h-10 rounded-full cursor-pointer transition-all ${field.value === gradient.id
-                                ? "ring-2 ring-offset-2 ring-blue-500"
-                                : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-500"
-                                }`}
+                              className={`w-6 h-6 md:w-10 md:h-10 rounded-full cursor-pointer transition-all ${
+                                field.value === gradient.id
+                                  ? "ring-2 ring-offset-2 ring-blue-500"
+                                  : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-500"
+                              }`}
                               style={{ background: gradient.style }}
                               aria-label={`Select gradient ${gradient.id}`}
                               onClick={() => handleGradientSelect(gradient.id)}
@@ -137,10 +156,11 @@ export const DesignPage = ({ id, slug, page }: { id?: string | undefined, slug?:
                             <button
                               key={color}
                               type="button"
-                              className={`w-10 h-10 rounded-full cursor-pointer transition-all ${field.value === color
-                                ? "ring-2 ring-offset-2 ring-blue-500"
-                                : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-500"
-                                }`}
+                              className={`w-6 h-6 md:w-10 md:h-10  rounded-full cursor-pointer transition-all ${
+                                field.value === color
+                                  ? "ring-2 ring-offset-2 ring-blue-500"
+                                  : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-500"
+                              }`}
                               style={{ backgroundColor: color }}
                               aria-label={`Select color ${color}`}
                               onClick={() => handleButtonColorChange(color)}
@@ -153,7 +173,7 @@ export const DesignPage = ({ id, slug, page }: { id?: string | undefined, slug?:
                             <PopoverTrigger asChild>
                               <button
                                 type="button"
-                                className="w-10 h-10 rounded-full cursor-pointer border-2 border-dashed border-gray-300 flex items-center justify-center hover:border-gray-400 transition-colors"
+                                className="w-6 h-6 md:w-10 md:h-10  rounded-full cursor-pointer border-2 border-dashed border-gray-300 flex items-center justify-center hover:border-gray-400 transition-colors"
                                 aria-label="Add custom color"
                               >
                                 <Plus className="w-6 h-6 text-gray-500" />
@@ -173,12 +193,12 @@ export const DesignPage = ({ id, slug, page }: { id?: string | undefined, slug?:
                           </Popover>
                         </div>
                       </FormControl>
-                      <div className="flex items-center gap-2 mt-2">
+                      <div className="flex items-center gap-2 pt-3 mt-2 md:pt-0">
                         <div
-                          className="w-6 h-6 rounded-full border border-gray-300"
+                          className="w-5 h-5 md:w-6 md:h-6 rounded-full border border-gray-300"
                           style={{ backgroundColor: field.value }}
                         ></div>
-                        <span className="text-sm font-medium">
+                        <span className="text-xs md:text-sm font-medium">
                           {field.value}
                         </span>
                       </div>
@@ -191,8 +211,8 @@ export const DesignPage = ({ id, slug, page }: { id?: string | undefined, slug?:
           </div>
         </div>
       </div>
-      <div className="flex-1 relative">
-        <div className="absolute inset-0 flex flex-col">
+      <div className="md:flex-1 md:relative h-full">
+        <div className="md:absolute md:inset-0 h-full flex flex-col">
           <div className="flex-1 overflow-y-auto">
             <CoverPagePreview
               btnColor={form.watch("btnColor")}
@@ -203,17 +223,21 @@ export const DesignPage = ({ id, slug, page }: { id?: string | undefined, slug?:
             <div className="flex gap-4">
               <Button
                 onClick={() => {
-                  if (page === "create")
-                    router.push("/space/create?page=6");
-                  else
-                    router.push(`/space/${slug}/edit?page=6`);
+                  if (page === "create") router.push("/space/create?page=6");
+                  else router.push(`/space/${slug}/edit?page=6`);
                 }}
                 variant="outline"
-                className="border-[#DDDEDF] rounded-full px-20 py-4"
+                className="border-[#DDDEDF] rounded-full px-12 md:px-20 py-4"
               >
                 Back
               </Button>
-              <SaveButton id={id} page={page} slug={slug} variant="form" className="px-20 py-4" />
+              <SaveButton
+                id={id}
+                page={page}
+                slug={slug}
+                variant="form"
+                className="px-12 md:px-20 py-4"
+              />
             </div>
           </div>
         </div>

@@ -18,12 +18,12 @@ export const VideoReviewPreview = ({
   questions,
 }: TestimonialPreviewProps) => {
   return (
-    <div className="relative flex justify-center items-center w-full h-[75vh] bg-white p-6">
+    <div className="relative flex justify-center items-center w-full h-[75vh] bg-white p-6 md:px-0 lg:px-6">
       {" "}
-      <Card className="w-full h-full px-[2%] border-none shadow-none flex flex-col">
-        <div className="flex flex-row mt-0">
-          <div className="flex flex-col gap-2 basis-2/3">
-            <div className="px-6">
+      <Card className="w-full h-full px-[2%] border-none shadow-none flex flex-col md:justify-center lg:justify-start md:overflow-y-hidden">
+        <div className="flex flex-col gap-12 md:gap-0 md:flex-row mt-0">
+          <div className="flex flex-col gap-2 md:basis-3/5 lg:basis-2/3">
+            <div className="lg:px-6">
               <div className="flex flex-col">
                 <div className="flex">
                   <Image
@@ -35,8 +35,10 @@ export const VideoReviewPreview = ({
                   />
                 </div>
               </div>
-              <div className="text-[#33313B] font-normal text-4xl">{title}</div>
-              <div className="flex gap-1 pt-4">
+              <div className="text-[#33313B] font-normal text-2xl md:text-4xl">
+                {title}
+              </div>
+              <div className="flex gap-1 md:pt-4">
                 {[...Array(5)].map((_, index) => (
                   <div key={index}>
                     <Star className="text-[#71D4FF]" fill="#71D4FF" />
@@ -44,7 +46,7 @@ export const VideoReviewPreview = ({
                 ))}
               </div>
             </div>
-            <CardContent className="pb-1 w-[85%]">
+            <CardContent className="pb-1 px-0 lg:px-6 md:w-[85%]">
               <div>
                 <div className="w-full aspect-video">
                   <div
@@ -54,9 +56,9 @@ export const VideoReviewPreview = ({
                       className={`relative w-full h-full flex ${"justify-center"} flex-col items-center`}
                     >
                       <Button
-                        className={`w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mb-4 hover:bg-red-600 transition-colors`}
+                        className={`w-16 h-16 md:w-20 md:h-20 bg-red-500 rounded-full flex items-center justify-center mb-4 hover:bg-red-600 transition-colors`}
                       >
-                        <Video className="w-8 h-8 text-white" />
+                        <Video className="w-6 h-6 md:w-8 md:h-8 text-white" />
                       </Button>
                     </div>
                   </div>
@@ -77,10 +79,17 @@ export const VideoReviewPreview = ({
                   </div>
                 </div>
               )}
+              <div className="pt-2 md:hidden">
+                <Button variant="formOutline" className="w-full">
+                  <p className="text-gray-500 flex gap-1 items-center">
+                    or Write a testimonial <Pen size={16} />
+                  </p>
+                </Button>
+              </div>
             </CardContent>
           </div>
-          <aside className="basis-1/3 flex flex-col gap-6 ">
-            <div className="w-full flex flex-col items-center border border-gray-200 px-4 py-4 rounded-lg">
+          <aside className="md:basis-2/5 lg:basis-1/3 flex flex-col gap-6 ">
+            <div className="hidden w-full md:flex flex-col items-center border border-gray-200 px-4 py-4 rounded-lg">
               <div className="flex flex-col items-center gap-3">
                 <div className="flex justify-center items-center w-20 h-20 bg-[#E9F8FF] rounded-full">
                   <Pen className="text-[#71D4FF]" />
