@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form"
 import { FormError } from "./FormError"
 import { login } from "@/actions/login"
 import { useSearchParams } from "next/navigation"
+import Link from "next/link"
 
 export const LoginForm = () => {
 
@@ -55,7 +56,7 @@ export const LoginForm = () => {
 
   return (
     <div className="w-screen min-h-screen h-full flex justify-center items-center z-10">
-      <AuthWrapper headerLabel="Welcome Back" backLabel="Don't have an account?" backLabel2="Register Now" backLabelHref="/register">
+      <AuthWrapper headerLabel="Welcome Back" backLabel="Don't have an account?" backLabel2="Register Now" backLabelHref="/register" oauth={true}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -76,7 +77,10 @@ export const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <div className="flex w-full justify-between">
+                    <FormLabel>Password</FormLabel>
+                    <Link href={"/forget-password"} className="text-xs text-red-500">Forgot Password?</Link>
+                  </div>
                   <FormControl>
                     <Input type="password" placeholder="How dare you ask me my password" {...field} />
                   </FormControl>

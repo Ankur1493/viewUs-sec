@@ -43,7 +43,7 @@ export const RegisterForm = () => {
 
   return (
     <div className="w-screen min-h-screen h-full flex justify-center items-center">
-      <AuthWrapper headerLabel="Create an Account!!" backLabel="Already have an account?" backLabel2="Sign In" backLabelHref="/login">
+      <AuthWrapper headerLabel="Create an Account!!" backLabel="Already have an account?" backLabel2="Sign In" backLabelHref="/login" oauth={true}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
