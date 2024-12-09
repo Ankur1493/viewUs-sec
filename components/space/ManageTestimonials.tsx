@@ -85,7 +85,13 @@ export const ManageTestimonials = ({
     filteredTestimonials.sort((a: IReview, b: IReview) => {
       const dataA = new Date(a.updatedAt || 0).getTime();
       const dataB = new Date(b.updatedAt || 0).getTime();
-      return dataB - dataA;
+      return dataA - dataB;
+    });
+  } else {
+    filteredTestimonials.sort((a: IReview, b: IReview) => {
+      const dataA = new Date(a.createdAt || 0).getTime();
+      const dataB = new Date(b.createdAt || 0).getTime();
+      return dataA - dataB;
     });
   }
   if (filteredTestimonials.length === 0) {

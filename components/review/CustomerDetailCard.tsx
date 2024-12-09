@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
+  CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -167,20 +168,21 @@ export const CustomerDetailCard = ({
   };
 
   return (
-    <Card className="relative w-[550px] px-[2%] h-[80%] border-none shadow-none font-satoshi">
+    <Card className="relative w-[550px] mt-10 md:mt-0 px-[2%] h-[90vh] border-none shadow-none font-satoshi">
       <CardHeader>
-        <CardTitle className="text-left text-[#33313B] text-[36px] font-[500]">
+        <CardTitle className="text-left text-[#33313B] text-3xl md:text-[36px] font-[500]">
           Tell us about yourself
         </CardTitle>
-        <CardDescription className="text-[#222222] font-[400] text-[16px] leading-[24px]">
+        <CardDescription className="text-[#222222] font-[400] text-sm md:text-[16px] leading-[24px]">
           This information may be displayed with your testimonial.
         </CardDescription>
       </CardHeader>
-      <CardContent className="text-[14px]">
+      <CardContent className="text-[14px] h-[60vh] overflow-y-auto scrollbar-hidden">
         <Form {...form}>
           <form
+            id="personalInfoForm"
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-[40px] mt-3"
+            className="w-full space-y-[25px] md:space-y-[40px] mt-3"
           >
             <FormField
               control={form.control}
@@ -352,21 +354,22 @@ export const CustomerDetailCard = ({
                 </FormItem>
               )}
             />
-            <div className="flex justify-end">
-              <Button
-                type="submit"
-                variant="form"
-                disabled={!isFormValid}
-                className={`w-3/12 py-5 ${
-                  !isFormValid ? "cursor-not-allowed" : "cursor-pointer"
-                }`}
-              >
-                Continue
-              </Button>
-            </div>
           </form>
         </Form>
       </CardContent>
+      <CardFooter className="flex justify-end items-center pb-0 pt-6">
+        <Button
+          form="personalInfoForm"
+          type="submit"
+          variant="form"
+          disabled={!isFormValid}
+          className={`w-3/12 py-5 ${
+            !isFormValid ? "cursor-not-allowed" : "cursor-pointer"
+          }`}
+        >
+          Continue
+        </Button>
+      </CardFooter>
     </Card>
   );
 };

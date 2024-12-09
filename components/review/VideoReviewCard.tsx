@@ -164,8 +164,8 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
   };
 
   return (
-    <Card className="relative w-[80%] h-full px-[2%] border-none shadow-none flex flex-col">
-      <div className="flex flex-col">
+    <Card className="relative w-[85%] md:w-full lg:w-[85%] h-full px-[2%] border-none shadow-none flex flex-col">
+      {/* <div className="flex flex-col">
         <CardHeader className="flex flex-row gap-3">
           <div className="flex">
             <Image
@@ -183,27 +183,27 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
             />
           </div>
 
-          <CardTitle className="text-center text-[#33313B] text-3xl font-normal flex items-center">
-            {reviewForm.name.toUpperCase()}
-          </CardTitle>
+          
         </CardHeader>
-      </div>
-      <div className="flex flex-row mt-0 px-[2%]">
+      </div> */}
+      <div className="flex flex-col gap-12 md:gap-0 md:flex-row mt-24 px-[2%]">
         <div className="flex flex-col gap-2 basis-8/12">
           <div>
-            <div className="text-[#33313B] font-nromal text-4xl">
-              Record a video testimonial
+            <div className="text-[#33313B] font-[500] text-3xl md:text-[36px]">
+              {reviewForm.details
+                ? reviewForm.details.testimonialPageTitle
+                : ""}
             </div>
-            <div className="text-[#222222] font-[400] text-[16px]">
+            {/* <div className="text-[#222222] font-[400] text-[16px]">
               {reviewForm.details
                 ? reviewForm.details.testimonialPageDescription
                 : "Thanks for taking out some time to fill a review for us, cheers!"}
-            </div>
-            <div className="mt-4">
+            </div> */}
+            <div>
               <Starred />
             </div>
           </div>
-          <CardContent className="px-0 pb-1 w-[85%]">
+          <CardContent className="px-0 pb-1 w-full md:w-[90%] lg:w-[85%]">
             <div>
               <div
                 className={`${
@@ -241,9 +241,9 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                     />
                     <Button
                       onClick={stopRecording}
-                      className={`absolute w-20 h-20 bg-red-500 z-20 rounded-full bottom-4 flex items-center justify-center mb-4 hover:bg-red-600 transition-colors "absolute bottom-4"`}
+                      className={`absolute w-12 h-12 md:w-20 md:h-20 bg-red-500 z-20 rounded-full bottom-4 flex items-center justify-center mb-4 hover:bg-red-600 transition-colors "absolute bottom-4"`}
                     >
-                      <Square className="w-8 h-8 text-white fill-white" />
+                      <Square className="w-5 h-5 md:w-8 md:h-8 text-white fill-white" />
                     </Button>
                   </div>
                 ) : status === "stopped" ? (
@@ -273,18 +273,18 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                             setIsPlaying(!isPlaying);
                           }
                         }}
-                        className=" w-20 h-20 bg-red-500 z-20 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
+                        className="w-12 h-12 md:w-20 md:h-20 bg-red-500 z-20 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
                       >
                         {isPlaying ? (
-                          <Pause className="w-8 h-8 text-white fill-white" />
+                          <Pause className="w-5 h-5 md:w-8 md:h-8 text-white fill-white" />
                         ) : (
-                          <Play className="w-8 h-8 rounded-[2px] text-white fill-white" />
+                          <Play className="w-5 h-5 md:w-8 md:h-8 rounded-[2px] text-white fill-white" />
                         )}
                       </Button>
                       {isExpanded && (
                         <Button
                           onClick={startRecording}
-                          className={`w-[160px] h-[50px] p-[16px] bg-white text-black rounded-[100px] flex items-center justify-center mb-4 hover:bg-gray-100 transition-colors text-[20px] font-medium leading-6`}
+                          className={`md:w-[160px] md:h-[50px] p-[16px] bg-white text-black rounded-[100px] flex items-center justify-center hover:bg-gray-100 transition-colors text-sm md:text-[20px] font-medium leading-6`}
                         >
                           Start Over
                         </Button>
@@ -312,18 +312,18 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                             toggleExpanded();
                           }
                         }}
-                        className={`w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mb-4 hover:bg-red-600 transition-colors ${
+                        className={`w-16 h-16 md:w-20 md:h-20 bg-red-500 rounded-full flex items-center justify-center mb-4 hover:bg-red-600 transition-colors ${
                           isExpanded ? "absolute bottom-4" : ""
                         }`}
                       >
                         {startTimer ? (
                           <p className="text-white text-xl">{countdown}</p>
                         ) : (
-                          <Video className="w-8 h-8 text-white" />
+                          <Video className="w-6 h-6 md:w-8 md:h-8 text-white" />
                         )}
                       </Button>
                       {!isExpanded && (
-                        <p className="text-white text-lg">
+                        <p className="text-white text-base md:text-lg">
                           Click here to start recording
                         </p>
                       )}
@@ -331,23 +331,23 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                   </div>
                 )}
                 {isExpanded && (
-                  <div className="fixed bottom-6 left-4 right-4 flex justify-center items-center">
+                  <div className="fixed bottom-14 md:bottom-6 left-4 right-4 flex justify-center items-center">
                     {startTimer ? (
-                      <p className="text-white text-lg">
+                      <p className="text-white text-sm md:text-lg">
                         {" "}
                         Your video is starting in...
                       </p>
                     ) : status === "idle" ? (
-                      <p className="text-white text-lg">
+                      <p className="text-white text-sm md:text-lg">
                         Lights, camera, action!
                       </p>
                     ) : (
                       ""
                     )}
-                    <div className="absolute right-0 flex gap-2">
+                    <div className="absolute -bottom-12 md:bottom-0 right-0 flex gap-2">
                       <Button
                         variant="formOutline"
-                        className="w-[120px] h-[36px] text-white hover:bg-transparent hover:text-gray-200"
+                        className="md:w-[120px] md:h-[36px] text-white hover:bg-transparent hover:text-gray-200 text-sm md:text-lg"
                         disabled={status === "recording" || startTimer}
                         onClick={resetStates}
                       >
@@ -355,7 +355,7 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                       </Button>
                       <Button
                         variant="form"
-                        className="w-[120px] h-[36px]"
+                        className="md:w-[120px] md:h-[36px] text-sm md:text-lg"
                         disabled={status === "recording" || startTimer}
                         onClick={toggleExpanded}
                       >
@@ -369,20 +369,32 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
           </CardContent>
           <TagSelection reviewForm={reviewForm} />
         </div>
-        <div className="basis-2/6 flex flex-col gap-6 mb-12">
-          <Card className="w-full flex flex-col items-center">
-            <CardHeader className="flex flex-col justify-center items-center gap-3">
+        <div className="md:hidden">
+          {" "}
+          <Button
+            className="w-full border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
+            variant="outline"
+            onClick={() => {
+              setReviewButton("Text");
+            }}
+          >
+            Write a Testimonial
+          </Button>
+        </div>
+        <div className="w-full md:basis-2/6 flex flex-col gap-6 lg:pr-12 pb-12 md:pb-0">
+          <Card className="hidden w-full md:flex flex-col items-center">
+            <CardHeader className="w-full flex flex-col justify-center items-center gap-3">
               <div className="flex justify-center items-center w-[80px] h-[80px] bg-[#E9F8FF] rounded-full">
                 <Pencil color="#009EE2" size={32} />
               </div>
 
-              <CardTitle className="text-center text-[#33313B] text-[16px] font-normal flex items-center tracking-[2%]">
+              <CardTitle className="w-full text-center text-[#33313B] text-[16px] font-normal flex items-center justify-center tracking-[2%]">
                 Or write a testimonial
               </CardTitle>
             </CardHeader>
-            <CardFooter className="flex flex-col">
+            <CardFooter className="w-full flex flex-col">
               <Button
-                className="border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
+                className=" border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
                 variant="outline"
                 onClick={() => {
                   setReviewButton("Text");
@@ -415,7 +427,7 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                 handleSubmitReview();
               }}
             >
-              Continue
+              Submit
             </Button>
           </div>
         </div>
