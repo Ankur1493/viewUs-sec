@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +13,7 @@ import React from "react";
 import useReviewPageStore from "@/store/useReviewPageStore";
 import { Starred } from "./Starred";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Video, Square, Play, Pause, Pencil } from "lucide-react";
+import { Video, Square, Play, Pause, Pencil, AlertCircle } from "lucide-react";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { ReviewForm } from "@/types";
 import { Questions } from "./Questions";
@@ -37,6 +36,8 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
   const [countdown, setCountdown] = useState(3);
   const [startTimer, setStartTimer] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
+
   // const [progress, setProgress] = useState(0);
 
   const {
@@ -66,6 +67,13 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
     setIsPlaying(false);
     // setProgress(0);
     clearBlobUrl();
+    console.log("yahan aagya", mediaStream);
+
+    if (mediaStream) {
+      mediaStream.getTracks().forEach((track) => track.stop());
+      setMediaStream(null);
+      console.log("yahan bhi aagya", mediaStream);
+    }
     if (progressIntervalRef.current) {
       clearInterval(progressIntervalRef.current);
     }
@@ -95,19 +103,47 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
       });
   }, []);
 
-  const startRecord = () => {
+  const startRecord = async () => {
     setStartTimer(true);
-    const timer = setInterval(() => {
+    const timer = setInterval(async () => {
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          startRecording();
           setStartTimer(false);
+          startRecording();
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
+  };
+
+  const stopRecordingVideo = () => {
+    stopRecording();
+
+    if (mediaStream) {
+      mediaStream.getTracks().forEach((track) => {
+        console.log(`Stopping track: ${track.kind}`);
+        track.stop();
+      });
+      setMediaStream(null);
+    }
+
+    if (previewStream) {
+      const tracks = previewStream.getTracks();
+      tracks.forEach((track) => track.stop());
+    }
+
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        stream.getTracks().forEach((track) => track.stop());
+      })
+      .catch((error) => {
+        console.error("Error stopping fallback stream:", error);
+      });
+
+    console.log("Recording stopped, and all tracks are released.");
   };
 
   const handleSubmitReview = async () => {
@@ -163,6 +199,8 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
     }
   };
 
+  const isValid = mediaBlobUrl && starred > 0;
+
   return (
     <Card className="relative w-[85%] md:w-full lg:w-[85%] h-full px-[2%] border-none shadow-none flex flex-col">
       {/* <div className="flex flex-col">
@@ -199,7 +237,7 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                 ? reviewForm.details.testimonialPageDescription
                 : "Thanks for taking out some time to fill a review for us, cheers!"}
             </div> */}
-            <div>
+            <div className="mt-6">
               <Starred />
             </div>
           </div>
@@ -216,10 +254,22 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                 status === "permission_denied" ||
                 status === "no_specified_media_found" ||
                 !microphoneAccessible ? (
-                  <div className="flex flex-col gap-2 rounded-lg overflow-hidden items-center justify-center w-full h-full bg-zinc-700 text-white text-center p-4 aspect-video">
-                    <p> {cameraAccessible ? "" : "Camera not accessible. "}</p>
-                    <p>
-                      {microphoneAccessible ? "" : "Microphone not accessible."}
+                  <div className="flex flex-col items-center justify-center w-full h-full min-h-[200px] bg-zinc-800 text-white text-center p-6 rounded-lg shadow-lg overflow-hidden ">
+                    <AlertCircle className="w-12 h-12 mb-4 text-red-500" />
+                    <div className="space-y-2">
+                      {!cameraAccessible && (
+                        <p className="text-lg font-semibold">
+                          Camera not accessible
+                        </p>
+                      )}
+                      {!microphoneAccessible && (
+                        <p className="text-lg font-semibold">
+                          Microphone not accessible
+                        </p>
+                      )}
+                    </div>
+                    <p className="mt-4 text-sm text-zinc-400">
+                      Please check your browser settings and try again
                     </p>
                   </div>
                 ) : status === "recording" && previewStream ? (
@@ -240,7 +290,7 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                       className="object-cover w-full h-full"
                     />
                     <Button
-                      onClick={stopRecording}
+                      onClick={stopRecordingVideo}
                       className={`absolute w-12 h-12 md:w-20 md:h-20 bg-red-500 z-20 rounded-full bottom-4 flex items-center justify-center mb-4 hover:bg-red-600 transition-colors "absolute bottom-4"`}
                     >
                       <Square className="w-5 h-5 md:w-8 md:h-8 text-white fill-white" />
@@ -422,6 +472,7 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
             <Button
               type="submit"
               variant="form"
+              disabled={!isValid}
               className="text-[14px] p-0 py-2 px-4"
               onClick={() => {
                 handleSubmitReview();

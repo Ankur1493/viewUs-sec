@@ -1,7 +1,4 @@
-"use client";
-
 import axios from "axios";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,7 +10,6 @@ import {
 import useReviewPageStore from "@/store/useReviewPageStore";
 import { Video } from "lucide-react";
 import { TagSelection } from "./TagSelection";
-import { useEffect, useState } from "react";
 import { Starred } from "./Starred";
 import { ReviewForm } from "@/types";
 import { Questions } from "./Questions";
@@ -32,12 +28,6 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
     starred,
     selectedTags,
   } = useReviewPageStore();
-
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    console.log(customerDetails);
-  });
 
   const handleSubmitReview = async () => {
     try {
@@ -75,7 +65,6 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
       setSubmitButton(!submitButton);
     } catch (err) {
       console.error("Error submitting review", err);
-      setError(true);
     }
   };
 
@@ -115,7 +104,7 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                 ? reviewForm.details.testimonialPageDescription
                 : "Thanks for taking out some time to fill a review for us, cheers!"}
             </div> */}
-            <div>
+            <div className="mt-6">
               <Starred />
             </div>
           </div>
@@ -134,7 +123,7 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                 {500 - textReview.length} / 500 characters left
               </div>
               {textReview.trim().length < 30 ? (
-                <div className="text-left text-sm text-red-500">
+                <div className="text-left text-xs text-red-500">
                   Please write at least 30 characters.
                 </div>
               ) : null}

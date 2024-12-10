@@ -177,12 +177,12 @@ export const CustomerDetailCard = ({
           This information may be displayed with your testimonial.
         </CardDescription>
       </CardHeader>
-      <CardContent className="text-[14px] h-[60vh] overflow-y-auto scrollbar-hidden">
+      <CardContent className="text-[14px] h-[63vh] overflow-y-auto scrollbar-hidden">
         <Form {...form}>
           <form
             id="personalInfoForm"
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-[25px] md:space-y-[40px] mt-3"
+            className="w-full space-y-[25px] md:space-y-[25px] mt-3"
           >
             <FormField
               control={form.control}
