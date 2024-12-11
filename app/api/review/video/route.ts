@@ -153,9 +153,13 @@ export async function POST(req: NextRequest) {
 
     if (spaceReviews.data) {
       sendTextReviewSubmitted({
+        firstName: spaceDetails.user.name || "",
+        reviewerName: validatedFields.data.firstName || "",
+        reviewerEmail: validatedFields.data.email,
         email: spaceDetails.user.email,
         reviewCount: spaceReviews.data.textReviews,
-        spaceTitle: spaceDetails.name
+        spaceTitle: spaceDetails.name,
+        reviewType: "text"
       });
     }
 

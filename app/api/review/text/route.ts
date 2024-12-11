@@ -135,9 +135,13 @@ export async function POST(req: NextRequest) {
     // Send email notification
     if (spaceReviews.success) {
       sendTextReviewSubmitted({
+        firstName: spaceDetails.user.name || "",
+        reviewerName: validatedFields.data.firstName || "",
+        reviewerEmail: validatedFields.data.email,
         email: spaceDetails.user.email,
         reviewCount: spaceReviews.data.textReviews,
         spaceTitle: spaceDetails.name,
+        reviewType: "text"
       });
     }
 

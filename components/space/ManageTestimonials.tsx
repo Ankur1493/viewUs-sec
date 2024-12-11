@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { TestimonialCard } from "./TestimonialCard";
 import { FrownIcon } from "lucide-react";
@@ -57,11 +57,34 @@ export const ManageTestimonials = ({
     loadPage();
   }, [initializeFilter]);
 
+  const filteredAndSortedTestimonials = useMemo(() => {
+    return testimonials
+      .filter((testimonial) => {
+        switch (filter) {
+          case "text":
+            return testimonial.reviewType === ReviewType.TEXT;
+          case "video":
+            return testimonial.reviewType === ReviewType.VIDEO;
+          case "imported":
+            return testimonial.reviewType === ReviewType.IMPORTED;
+          case "liked":
+            return testimonial.liked;
+          default:
+            return true;
+        }
+      })
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt || 0).getTime();
+        const dateB = new Date(b.createdAt || 0).getTime();
+        return dateB - dateA; // Descending order
+      });
+  }, [testimonials, filter]);
+
   if (loading) {
     return (
       <div className="px-6">
-        <TestimonialSkeleton />;
-        <TestimonialSkeleton />;
+        <TestimonialSkeleton />
+        <TestimonialSkeleton />
       </div>
     );
   }
@@ -110,7 +133,7 @@ export const ManageTestimonials = ({
   return (
     <div className="w-full h-full px-2 md:px-6">
       <div className="flex flex-col gap-4">
-        {filteredTestimonials.reverse().map((testimonial) => (
+        {filteredAndSortedTestimonials.map((testimonial) => (
           <TestimonialCard key={testimonial._id!} testimonial={testimonial} />
         ))}
       </div>

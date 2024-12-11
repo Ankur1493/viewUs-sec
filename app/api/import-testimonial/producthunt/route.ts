@@ -9,7 +9,8 @@ export async function POST(req: Request) {
   try {
 
     const session = await auth();
-    if (!session) {
+    const user = session?.user
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized access' }, { status: 401 });
     }
 
@@ -22,7 +23,8 @@ export async function POST(req: Request) {
 
     const spaceExists = await db.space.findUnique({
       where: {
-        slug: spaceSlug
+        slug: spaceSlug,
+        userId: user.id
       }
     })
 
