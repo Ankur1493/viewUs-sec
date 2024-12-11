@@ -71,7 +71,7 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
   const isValid = textReview.trim().length >= 30 && starred > 0;
 
   return (
-    <Card className="relative w-[85%] md:w-full lg:w-[85%] h-full px-[2%] border-none shadow-none flex flex-col">
+    <Card className="relative w-full lg:w-[85%] h-full px-[2%] border-none shadow-none flex flex-col">
       {/* <div className="flex flex-col">
         <CardHeader className="flex flex-row gap-3">
           <div className="flex">
@@ -113,7 +113,7 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
               <textarea
                 name="textReview"
                 id="text"
-                className="w-full border border-gray-400 rounded-lg h-48 p-3 text-sm md:text-base"
+                className="w-full border border-gray-400 rounded-lg h-64 p-3 text-sm md:text-base"
                 placeholder="What did you use our product for? What did you like about your experience?"
                 value={textReview}
                 onChange={(e) => setTextReview(e.target.value)}
@@ -130,17 +130,6 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
             </div>
           </CardContent>
           <TagSelection reviewForm={reviewForm} />
-        </div>
-        <div className="md:hidden">
-          <Button
-            className="w-full border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
-            variant="outline"
-            onClick={() => {
-              setReviewButton("Video");
-            }}
-          >
-            Or record Video Testimonial
-          </Button>
         </div>
         <div className="w-full md:basis-2/6 flex flex-col gap-6 lg:pr-12 pb-12 md:pb-0">
           <Card className="hidden w-full md:flex flex-col items-center">
@@ -166,6 +155,17 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
             </CardFooter>
           </Card>
           <Questions reviewForm={reviewForm} />
+          <div className="md:hidden">
+            <Button
+              className="w-full border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
+              variant="outline"
+              onClick={() => {
+                setReviewButton("Video");
+              }}
+            >
+              Or record Video Testimonial
+            </Button>
+          </div>
           <div className="flex justify-between">
             <Button
               variant="link"

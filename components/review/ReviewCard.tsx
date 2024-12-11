@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,8 +25,8 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
         submitButton ||
         reviewButton === "Text" ||
         reviewButton === "Video") && (
-        <div className="absolute top-2 left-6  lg:left-[170px] lg:top-[40px] flex items-center gap-3 z-10">
-          <Image
+        <div className="absolute top-2 left-6 md:top-6 md:left-8  lg:left-[170px] lg:top-[40px] flex items-center gap-3 z-10">
+          {/* <Image
             src={
               reviewForm.details
                 ? reviewForm.details.coverPageImageUrl !== null
@@ -39,7 +38,7 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
             height={40}
             width={40}
             className="rounded-full"
-          />
+          /> */}
           <CardTitle className="text-[#33313B] text-[24px] font-normal">
             {reviewForm.name.toUpperCase()}
           </CardTitle>
@@ -57,7 +56,7 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
         <Card className="md:max-w-[600px] lg:max-w-[700px] px-[2%] border-none flex flex-col gap-4 shadow-none">
           <CardHeader className="flex flex-row gap-3">
             <div className="flex">
-              <Image
+              {/* <Image
                 src={
                   reviewForm.details
                     ? reviewForm.details.coverPageImageUrl !== null
@@ -69,7 +68,10 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
                 height={60}
                 width={60}
                 className="rounded-full"
-              />
+              /> */}
+              <CardTitle className="text-[#33313B] text-[24px] font-normal">
+                {reviewForm.name.toUpperCase()}
+              </CardTitle>
             </div>
           </CardHeader>
           <CardContent>

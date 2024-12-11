@@ -55,6 +55,7 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const recordingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const toggleExpanded = useCallback(() => {
     setIsExpanded(!isExpanded);
@@ -111,6 +112,9 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
           clearInterval(timer);
           setStartTimer(false);
           startRecording();
+          recordingTimeoutRef.current = setTimeout(() => {
+            stopRecordingVideo();
+          }, 120000);
           return 0;
         }
         return prev - 1;
@@ -119,6 +123,10 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
   };
 
   const stopRecordingVideo = () => {
+    if (recordingTimeoutRef.current) {
+      clearTimeout(recordingTimeoutRef.current);
+    }
+
     stopRecording();
 
     if (mediaStream) {
@@ -202,7 +210,7 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
   const isValid = mediaBlobUrl && starred > 0;
 
   return (
-    <Card className="relative w-[85%] md:w-full lg:w-[85%] h-full px-[2%] border-none shadow-none flex flex-col">
+    <Card className="relative w-full lg:w-[85%] h-full px-[2%] border-none shadow-none flex flex-col">
       {/* <div className="flex flex-col">
         <CardHeader className="flex flex-row gap-3">
           <div className="flex">
@@ -419,18 +427,6 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
           </CardContent>
           <TagSelection reviewForm={reviewForm} />
         </div>
-        <div className="md:hidden">
-          {" "}
-          <Button
-            className="w-full border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
-            variant="outline"
-            onClick={() => {
-              setReviewButton("Text");
-            }}
-          >
-            Write a Testimonial
-          </Button>
-        </div>
         <div className="w-full md:basis-2/6 flex flex-col gap-6 lg:pr-12 pb-12 md:pb-0">
           <Card className="hidden w-full md:flex flex-col items-center">
             <CardHeader className="w-full flex flex-col justify-center items-center gap-3">
@@ -455,6 +451,17 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
             </CardFooter>
           </Card>
           <Questions reviewForm={reviewForm} />
+          <div className="md:hidden">
+            <Button
+              className="w-full border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
+              variant="outline"
+              onClick={() => {
+                setReviewButton("Text");
+              }}
+            >
+              Write a Testimonial
+            </Button>
+          </div>
           <div className="flex justify-between">
             <Button
               variant="link"

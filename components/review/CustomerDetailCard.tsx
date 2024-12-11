@@ -72,6 +72,10 @@ export const CustomerDetailCard = ({
   reviewForm: ReviewForm;
 }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isTopShadowVisible, setIsTopShadowVisible] = useState(false);
+  const [isBottomShadowVisible, setIsBottomShadowVisible] = useState(true);
+  const contentRef = useRef<HTMLDivElement>(null);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
@@ -92,6 +96,27 @@ export const CustomerDetailCard = ({
     setCustomerDetails,
     customerDetails,
   } = useReviewPageStore();
+
+  const handleScroll = () => {
+    if (contentRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = contentRef.current;
+      setIsTopShadowVisible(scrollTop > 0);
+      setIsBottomShadowVisible(scrollTop + clientHeight < scrollHeight);
+    }
+  };
+
+  useEffect(() => {
+    const contentElement = contentRef.current;
+    if (contentElement) {
+      contentElement.addEventListener("scroll", handleScroll);
+      handleScroll();
+    }
+    return () => {
+      if (contentElement) {
+        contentElement.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (customerDetails.image) {
@@ -177,185 +202,207 @@ export const CustomerDetailCard = ({
           This information may be displayed with your testimonial.
         </CardDescription>
       </CardHeader>
-      <CardContent className="text-[14px] h-[63vh] overflow-y-auto scrollbar-hidden">
-        <Form {...form}>
-          <form
-            id="personalInfoForm"
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-[25px] md:space-y-[25px] mt-3"
-          >
-            <FormField
-              control={form.control}
-              name="image"
-              render={({ fieldState }) => (
-                <FormItem>
-                  <FormLabel>
-                    Add a photo{" "}
-                    {reviewForm.details && reviewForm.details.userPhoto && (
-                      <span className="text-red-500">*</span>
+      <CardContent className="relative text-[14px] h-[60vh] md:h-[67vh] lg:h-[63vh] overflow-y-auto scrollbar-hidden">
+        <div
+          className={`absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white to-transparent z-10 transition-opacity duration-300 ${
+            isTopShadowVisible ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <div
+          ref={contentRef}
+          className="h-full overflow-y-auto scrollbar-hidden pr-4"
+          onScroll={handleScroll}
+        >
+          <Form {...form}>
+            <form
+              id="personalInfoForm"
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-full space-y-[25px] md:space-y-[25px] mt-3"
+            >
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ fieldState }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Add a photo{" "}
+                      {reviewForm.details && reviewForm.details.userPhoto && (
+                        <span className="text-red-500">*</span>
+                      )}
+                    </FormLabel>
+                    <FormControl>
+                      <div className="flex items-center space-x-4">
+                        <div className="relative w-[64px] h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
+                          {selectedImage ? (
+                            <Image
+                              src={selectedImage}
+                              alt="Selected Image"
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          ) : (
+                            <Image
+                              src={profile}
+                              alt="Profile"
+                              width={28}
+                              height={28}
+                            />
+                          )}
+                        </div>
+
+                        <div className="flex flex-col">
+                          <Button
+                            variant="outline"
+                            onClick={handleUploadClick}
+                            className="rounded-3xl border-gray-400"
+                          >
+                            {selectedImage ? "Upload Again" : "Upload photo"}
+                          </Button>
+
+                          <input
+                            ref={fileInputRef}
+                            id="image-upload"
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={handleImageChange}
+                          />
+                        </div>
+                      </div>
+                    </FormControl>
+                    {fieldState.error && (
+                      <FormMessage>{fieldState.error.message}</FormMessage>
                     )}
-                  </FormLabel>
-                  <FormControl>
-                    <div className="flex items-center space-x-4">
-                      <div className="relative w-[64px] h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
-                        {selectedImage ? (
-                          <Image
-                            src={selectedImage}
-                            alt="Selected Image"
-                            layout="fill"
-                            objectFit="cover"
-                          />
-                        ) : (
-                          <Image
-                            src={profile}
-                            alt="Profile"
-                            width={28}
-                            height={28}
-                          />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      First Name
+                      {reviewForm.details &&
+                        reviewForm.details.userFirstName && (
+                          <span className="text-red-500">*</span>
                         )}
-                      </div>
-
-                      <div className="flex flex-col">
-                        <Button
-                          variant="outline"
-                          onClick={handleUploadClick}
-                          className="rounded-3xl border-gray-400"
-                        >
-                          {selectedImage ? "Upload Again" : "Upload photo"}
-                        </Button>
-
-                        <input
-                          ref={fileInputRef}
-                          id="image-upload"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={handleImageChange}
-                        />
-                      </div>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Udit"
+                        {...field}
+                        className="h-[48px]"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Last Name
+                      {reviewForm.details &&
+                        reviewForm.details.userLastName && (
+                          <span className="text-red-500">*</span>
+                        )}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Kapoor"
+                        {...field}
+                        className="h-[48px]"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Enter your email
+                      {reviewForm.details && reviewForm.details.userEmail && (
+                        <span className="text-red-500">*</span>
+                      )}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="udit123@gmail.com"
+                        {...field}
+                        className="h-[48px]"
+                      />
+                    </FormControl>
+                    <div className="text-xs pt-0 font-light">
+                      Your email will not be shared publically
                     </div>
-                  </FormControl>
-                  {fieldState.error && (
-                    <FormMessage>{fieldState.error.message}</FormMessage>
-                  )}
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    First Name
-                    {reviewForm.details && reviewForm.details.userFirstName && (
-                      <span className="text-red-500">*</span>
-                    )}
-                  </FormLabel>
-                  <FormControl>
-                    <Input placeholder="Udit" {...field} className="h-[48px]" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Last Name
-                    {reviewForm.details && reviewForm.details.userLastName && (
-                      <span className="text-red-500">*</span>
-                    )}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Kapoor"
-                      {...field}
-                      className="h-[48px]"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Enter your email
-                    {reviewForm.details && reviewForm.details.userEmail && (
-                      <span className="text-red-500">*</span>
-                    )}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="udit123@gmail.com"
-                      {...field}
-                      className="h-[48px]"
-                    />
-                  </FormControl>
-                  <div className="text-xs pt-0 font-light">
-                    Your email will not be shared publically
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="company"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Company
-                    {reviewForm.details && reviewForm.details.userCompany ? (
-                      <span className="text-red-500">*</span>
-                    ) : (
-                      ""
-                    )}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Apple"
-                      {...field}
-                      className="h-[48px]"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="jobTitle"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Job Title
-                    {reviewForm.details && reviewForm.details.userJobTitle ? (
-                      <span className="text-red-500">*</span>
-                    ) : (
-                      ""
-                    )}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Software Developer"
-                      {...field}
-                      className="h-[48px]"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="company"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Company
+                      {reviewForm.details && reviewForm.details.userCompany ? (
+                        <span className="text-red-500">*</span>
+                      ) : (
+                        ""
+                      )}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Apple"
+                        {...field}
+                        className="h-[48px]"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="jobTitle"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Job Title
+                      {reviewForm.details && reviewForm.details.userJobTitle ? (
+                        <span className="text-red-500">*</span>
+                      ) : (
+                        ""
+                      )}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Software Developer"
+                        {...field}
+                        className="h-[48px]"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+        </div>
+        <div
+          className={`absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent z-10 transition-opacity duration-300 ${
+            isBottomShadowVisible ? "opacity-100" : "opacity-0"
+          }`}
+        />
       </CardContent>
       <CardFooter className="flex justify-end items-center pb-0 pt-6">
         <Button
@@ -363,7 +410,7 @@ export const CustomerDetailCard = ({
           type="submit"
           variant="form"
           disabled={!isFormValid}
-          className={`w-3/12 py-5 ${
+          className={`w-3/12 py-5 px-4 ${
             !isFormValid ? "cursor-not-allowed" : "cursor-pointer"
           }`}
         >
