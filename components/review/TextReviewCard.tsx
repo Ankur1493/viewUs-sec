@@ -1,7 +1,4 @@
-"use client";
-
 import axios from "axios";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,7 +10,6 @@ import {
 import useReviewPageStore from "@/store/useReviewPageStore";
 import { Video } from "lucide-react";
 import { TagSelection } from "./TagSelection";
-import { useEffect, useState } from "react";
 import { Starred } from "./Starred";
 import { ReviewForm } from "@/types";
 import { Questions } from "./Questions";
@@ -32,12 +28,6 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
     starred,
     selectedTags,
   } = useReviewPageStore();
-
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    console.log(customerDetails);
-  });
 
   const handleSubmitReview = async () => {
     try {
@@ -75,57 +65,55 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
       setSubmitButton(!submitButton);
     } catch (err) {
       console.error("Error submitting review", err);
-      setError(true);
     }
   };
 
   const isValid = textReview.trim().length >= 30 && starred > 0;
 
   return (
-    <Card className="relative w-[90%] h-[95%] px-[2%] border-none shadow-none flex flex-col gap-4">
-      <div className="flex flex-row">
-        <div className="basis-2/3">
-          <CardHeader className="flex flex-row gap-3">
-            <div className="flex">
-              <Image
-                src={
-                  reviewForm.details
-                    ? reviewForm.details.coverPageImageUrl !== null
-                      ? reviewForm.details.coverPageImageUrl
-                      : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
+    <Card className="relative w-full lg:w-[85%] h-full px-[2%] border-none shadow-none flex flex-col">
+      {/* <div className="flex flex-col">
+        <CardHeader className="flex flex-row gap-3">
+          <div className="flex">
+            <Image
+              src={
+                reviewForm.details
+                  ? reviewForm.details.coverPageImageUrl !== null
+                    ? reviewForm.details.coverPageImageUrl
                     : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
-                }
-                alt="logo"
-                height={40}
-                width={40}
-                className="rounded-full"
-              />
-            </div>
-
-            <CardTitle className="text-center text-[#33313B] text-[24px] font-[500] flex items-center">
-              {reviewForm.name.toUpperCase()}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pb-0 w-[85%]">
-            <div className="text-[#33313B] font-[500] text-[36px]">
+                  : "https://ui.aceternity.com/_next/image?url=%2Flogo-dark.png&w=64&q=75"
+              }
+              alt="logo"
+              height={50}
+              width={50}
+              className="rounded-full"
+            />
+          </div>
+        </CardHeader>
+      </div> */}
+      <div className="flex flex-col gap-12 md:gap-0 md:flex-row mt-24 px-[2%]">
+        <div className="flex flex-col gap-2 basis-8/12">
+          <div>
+            <div className="text-[#33313B] font-[500] text-3xl md:text-[36px]">
               {reviewForm.details
                 ? reviewForm.details.testimonialPageTitle
                 : ""}
             </div>
-            <div className="text-[#222222] font-[400] text-[16px]">
+            {/* <div className="text-[#222222] font-[400] text-[16px]">
               {reviewForm.details
                 ? reviewForm.details.testimonialPageDescription
                 : "Thanks for taking out some time to fill a review for us, cheers!"}
-            </div>
-            <div className="mt-3"></div>
-            <div className="mt-2">
+            </div> */}
+            <div className="mt-6">
               <Starred />
             </div>
+          </div>
+          <CardContent className="px-0 pb-1 w-full md:w-[90%] lg:w-[85%]">
             <div>
               <textarea
                 name="textReview"
                 id="text"
-                className="w-full border border-gray-400 rounded-lg h-48 p-3 text-base"
+                className="w-full border border-gray-400 rounded-lg h-64 p-3 text-sm md:text-base"
                 placeholder="What did you use our product for? What did you like about your experience?"
                 value={textReview}
                 onChange={(e) => setTextReview(e.target.value)}
@@ -135,14 +123,50 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                 {500 - textReview.length} / 500 characters left
               </div>
               {textReview.trim().length < 30 ? (
-                <div className="text-left text-sm text-red-500">
+                <div className="text-left text-xs text-red-500">
                   Please write at least 30 characters.
                 </div>
               ) : null}
             </div>
-            <TagSelection reviewForm={reviewForm} />
           </CardContent>
-          <CardFooter className="w-[85%] flex justify-between mt-0">
+          <TagSelection reviewForm={reviewForm} />
+        </div>
+        <div className="w-full md:basis-2/6 flex flex-col gap-6 lg:pr-12 pb-12 md:pb-0">
+          <Card className="hidden w-full md:flex flex-col items-center">
+            <CardHeader className="flex flex-col justify-center items-center gap-3">
+              <div className="flex justify-center items-center w-[80px] h-[80px] bg-[#E9F8FF] rounded-full">
+                <Video color="#009EE2" size={32} />
+              </div>
+
+              <CardTitle className="text-center text-[#33313B] text-[16px] font-normal flex items-center tracking-[2%]">
+                Or record a two minute video
+              </CardTitle>
+            </CardHeader>
+            <CardFooter className="flex flex-col">
+              <Button
+                className="border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
+                variant="outline"
+                onClick={() => {
+                  setReviewButton("Video");
+                }}
+              >
+                Record Video Testimonial
+              </Button>
+            </CardFooter>
+          </Card>
+          <Questions reviewForm={reviewForm} />
+          <div className="md:hidden">
+            <Button
+              className="w-full border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
+              variant="outline"
+              onClick={() => {
+                setReviewButton("Video");
+              }}
+            >
+              Or record Video Testimonial
+            </Button>
+          </div>
+          <div className="flex justify-between">
             <Button
               variant="link"
               className="text-black text-[14px] px-0 hover:text-gray-800"
@@ -168,38 +192,6 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
             >
               Submit
             </Button>
-          </CardFooter>
-        </div>
-        <div className="basis-1/3 flex flex-col gap-5 pt-5">
-          <Card className="w-3/4 flex flex-col items-center">
-            <CardHeader className="flex flex-col justify-center items-center gap-3">
-              <div className="flex justify-center items-center w-[80px] h-[80px] bg-[#E9F8FF] rounded-full">
-                <Video color="#009EE2" size={32} />
-              </div>
-
-              <CardTitle className="text-center text-[#33313B] text-[16px] font-normal flex items-center tracking-[2%]">
-                Or record a two minute video
-              </CardTitle>
-            </CardHeader>
-            <CardFooter className="flex flex-col">
-              <Button
-                className="border-[#71D4FF] text-black border-2 rounded-3xl text-[14px] px-[24px]"
-                variant="outline"
-                onClick={() => {
-                  setReviewButton("Video");
-                }}
-              >
-                Record Video Testimonial
-              </Button>
-              {error && (
-                <div className="text-sm text-red-400">
-                  Failed to submit your review, Please try again
-                </div>
-              )}
-            </CardFooter>
-          </Card>
-          <div className="w-3/4 ">
-            <Questions reviewForm={reviewForm} />
           </div>
         </div>
       </div>

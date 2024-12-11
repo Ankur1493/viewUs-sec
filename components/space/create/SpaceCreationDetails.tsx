@@ -37,11 +37,14 @@ const formSchema = z.object({
 });
 
 interface SpaceCreationDetailsProps {
-  page: "edit" | "create"
-  disabled: boolean
+  page: "edit" | "create";
+  disabled: boolean;
 }
 
-export const SpaceCreationDetails = ({ page, disabled }: SpaceCreationDetailsProps) => {
+export const SpaceCreationDetails = ({
+  page,
+  disabled,
+}: SpaceCreationDetailsProps) => {
   const router = useRouter();
   const params = useSearchParams();
   const paramsError = params.get("error");
@@ -56,10 +59,8 @@ export const SpaceCreationDetails = ({ page, disabled }: SpaceCreationDetailsPro
 
   useEffect(() => {
     initializeSpaceData();
-    console.log("runned")
+    console.log("runned");
   }, [initializeSpaceData]);
-
-
 
   useEffect(() => {
     if (paramsError === "missingDetails")
@@ -75,7 +76,7 @@ export const SpaceCreationDetails = ({ page, disabled }: SpaceCreationDetailsPro
     values: {
       projectName: spaceCreationDetailsState.projectName || "",
       projectSlug: spaceCreationDetailsState.projectSlug || "",
-    }
+    },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -87,16 +88,17 @@ export const SpaceCreationDetails = ({ page, disabled }: SpaceCreationDetailsPro
     ) {
     }
     setSpaceCreationDetails(values);
-    if (page === "create")
-      router.push("/space/create?page=2");
+    if (page === "create") router.push("/space/create?page=2");
     else
-      router.push(`/space/${spaceCreationDetailsState.projectSlug}/edit?page=2`)
+      router.push(
+        `/space/${spaceCreationDetailsState.projectSlug}/edit?page=2`
+      );
   }
 
   return (
     <div className="w-full max-h-screen h-full flex justify-center items-center gap-4">
-      <div className="w-1/2 space-y-6">
-        <div className="w-3/4">
+      <div className="md:w-3/4 my-6 lg:w-1/2 space-y-6">
+        <div className="w-full">
           <h1 className="text-2xl font-bold">It is really simple</h1>
           <p>
             This page will not be visible to your customers, it is for creating
@@ -104,7 +106,10 @@ export const SpaceCreationDetails = ({ page, disabled }: SpaceCreationDetailsPro
           </p>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-8 mt-8"
+            >
               <FormField
                 control={form.control}
                 name="projectName"
@@ -145,7 +150,7 @@ export const SpaceCreationDetails = ({ page, disabled }: SpaceCreationDetailsPro
         {error && <p className="text-sm text-red-600">*{error}*</p>}
         <Button
           type="submit"
-          className="w-full"
+          className="w-full rounded-md"
           onClick={form.handleSubmit(onSubmit)}
         >
           Next

@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import { WrittenTestimonialPreview } from "./preview/WrittenTestimonialPreview";
 import { VideoReviewPreview } from "./preview/VideoReviewPreview";
+import { Menu, X } from "lucide-react";
 
 export const TestimonialType = ({
   slug,
@@ -36,6 +37,8 @@ export const TestimonialType = ({
     (state) => state.initializeSpaceData
   );
 
+  const [isHidden, setIsHidden] = useState(true);
+
   useEffect(() => {
     initializeSpaceData();
     console.log("runned");
@@ -43,15 +46,26 @@ export const TestimonialType = ({
   }, [initializeSpaceData]);
 
   return (
-    <div className="w-full pl-2 max-h-screen h-[85vh] flex justify-center overflow-hidden gap-4">
-      <div className="max-w-[448px] h-full space-y-6 px-6 pt-5 overflow-y-auto">
-        <div className="flex-grow">
-          <h2 className="text-[36px] font-medium">
+    <div className="relative w-full pl-2 max-h-screen h-[85vh] lg:flex justify-center overflow-hidden gap-4">
+      <div
+        className="absolute lg:hidden right-0 z-50"
+        onClick={() => setIsHidden(!isHidden)}
+      >
+        {isHidden ? <Menu /> : <X />}
+      </div>
+      <div
+        className={cn(
+          " h-full space-y-6 px-6 pt-5 overflow-y-auto flex items-center justify-center lg:items-start",
+          isHidden ? "hidden lg:block" : ""
+        )}
+      >
+        <div className="flex-grow max-w-[448px] md:h-full flex flex-col justify-center lg:justify-start">
+          <h2 className=" text-2xl md:text-[36px] font-medium md:leading-9 py-3 md:py-0">
             What kind of testimonial are you looking for?
           </h2>
-          <p className="text-[16px] font-normal pt-1">
-            This determines which type of testimonial we’ll ask your customers
-            to leave first.{" "}
+          <p className="text-sm md:text-[16px] font-normal md:pt-4 ">
+            This determines which type of testimonial we&apos;ll ask your
+            customers to leave first.{" "}
           </p>
           <div className="flex flex-col gap-2 py-4 ">
             <Card
@@ -65,10 +79,10 @@ export const TestimonialType = ({
               }}
             >
               <CardHeader>
-                <CardTitle className="font-medium text-[20px]">
+                <CardTitle className="font-medium text-[16px] md:text-[20px]">
                   I prefer something written
                 </CardTitle>
-                <CardDescription className="text-[#5C5D5E] font-normal text-[14px]">
+                <CardDescription className="text-[#5C5D5E] font-normal text-sm md:text-[14px]">
                   Written testimonials can be upto 500 characters long.
                 </CardDescription>
               </CardHeader>
@@ -85,18 +99,18 @@ export const TestimonialType = ({
             }}
           >
             <CardHeader>
-              <CardTitle className="font-medium text-[20px]">
+              <CardTitle className="font-medium text-[16px] md:text-[20px]">
                 I prefer recorded testimonial
               </CardTitle>
-              <CardDescription className="text-[#5C5D5E] font-normal text-[14px]">
+              <CardDescription className="text-[#5C5D5E] font-normal text-sm md:text-[14px]">
                 Video can be uploaded upto 2 minutes.
               </CardDescription>
             </CardHeader>
           </Card>
         </div>
       </div>
-      <div className="flex-1 relative">
-        <div className="absolute inset-0 flex flex-col">
+      <div className="md:flex-1 h-full md:relative">
+        <div className="md:absolute md:inset-0 flex flex-col h-full">
           <div className="flex-1 overflow-y-auto">
             {preferred === "text" ? (
               <WrittenTestimonialPreview
@@ -123,7 +137,7 @@ export const TestimonialType = ({
                   else router.push(`/space/${slug}/edit?page=3`);
                 }}
                 variant="outline"
-                className="border-[#DDDEDF] rounded-full px-20 py-4"
+                className="border-[#DDDEDF] rounded-full px-12 md:px-20 py-4"
               >
                 Back
               </Button>
@@ -134,7 +148,7 @@ export const TestimonialType = ({
                   if (page === "create") router.push("/space/create?page=5");
                   else router.push(`/space/${slug}/edit?page=5`);
                 }}
-                className=" px-20 py-4"
+                className="px-12 md:px-20 py-4"
               >
                 Next
               </Button>
