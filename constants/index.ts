@@ -39,18 +39,6 @@ export const freeFeatures: features[] = [
     title: "Constant upgrades",
     desc: "We are regularly researching and working on new features to help you increase credibility",
   },
-  {
-    title: "2 video testimonials",
-    desc: "why 2? you may ask, we are in our early stages so only 2 so far, upgrade if you want more",
-  },
-  {
-    title: "Upto 15 text testimonials",
-    desc: "you can collect 15 text testimonials as showcase them",
-  },
-  {
-    title: "Share your customized form",
-    desc: "Easily share your review form to your customers, for collecting reviews in as simple as 3 clicks",
-  },
 ];
 
 export const WallCardTypesConstants: wallCardType[] = [
