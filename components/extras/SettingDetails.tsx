@@ -3,10 +3,9 @@ import { Video, MessageSquare, Zap, Import, BookHeart } from "lucide-react";
 import Link from "next/link";
 
 export default function SettingDetails() {
-
   return (
-    <div className="w-full flex items-top justify-center p-4 h-fit">
-      <Card className="p-8 flex flex-col gap-4 w-full max-w-md shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div className="w-full flex items-top justify-center lg:p-4 h-fit">
+      <Card className="lg:p-8 flex flex-col gap-4 w-full max-w-md shadow-lg hover:shadow-xl transition-shadow duration-300">
         <CardHeader className="p-4">
           <CardTitle className="text-3xl font-bold text-center text-purple-700">
             Subscribe to PRO for
@@ -24,7 +23,8 @@ export default function SettingDetails() {
             <Card className="border-dashed border-pink-300  flex-1 hover:bg-pink-50 transition-colors duration-200">
               <CardHeader className="p-0 px-2 py-6">
                 <CardTitle className="text-center font-medium text-lg flex flex-col items-center gap-2">
-                  <Import className="text-pink-500" />Infinte Imports
+                  <Import className="text-pink-500" />
+                  Infinte Imports
                 </CardTitle>
               </CardHeader>
             </Card>
@@ -51,10 +51,7 @@ export default function SettingDetails() {
             className={`w-full flex justify-center items-center bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform group"
               }`}
           >
-            Upgrade{" "}
-            <Zap
-              className="ml-2 group-hover:animate-pulse"
-            />
+            Upgrade <Zap className="ml-2 group-hover:animate-pulse" />
           </Link>
         </CardContent>
       </Card>

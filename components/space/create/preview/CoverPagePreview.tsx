@@ -62,9 +62,9 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
         />
       </div>
       <Card className="max-w-[700px] px-[2%] border-none flex flex-col gap-4 shadow-none">
-        <CardHeader>
+        <CardHeader className="pb-0 md:pb-6">
           <h2
-            className="text-3xl font-medium"
+            className="text-xl md:text-3xl font-medium"
             style={{ textTransform: "uppercase" }}
           >
             {spaceCreationDetails.projectName}
@@ -84,10 +84,12 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
           </CardHeader>
         )}
         <CardContent>
-          <div className="text-[#33313B] font-nromal text-5xl">
+          <div className="text-[#33313B] font-nromal text-3xl md:text-5xl">
             {title || coverPage.title}
           </div>
-          <div className="mt-5">{description || coverPage.description}</div>
+          <div className="mt-5 text-sm">
+            {description || coverPage.description}
+          </div>
         </CardContent>
         <CardFooter className="flex">
           <Button

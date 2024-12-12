@@ -3,12 +3,13 @@
 import React, { useEffect, useRef } from 'react';
 import Hls from 'hls.js';
 
-export const VideoPlayer = () => {
+export const VideoPlayer = ({ videoLink }: { videoLink: string }) => {
 
   const videoRef = useRef(null);
 
-  const videoUrl =
-    'https://d3eyp937ijscg0.cloudfront.net/videos/cm2do1ckp0000zg2h70xfszha-bakedui-uditkapoor060@gmail.com';
+  console.log({ videoLink })
+  const videoUrl = `https://d3eyp937ijscg0.cloudfront.net/${videoLink}/playlist.m3u8`
+
 
   useEffect(() => {
     const video = videoRef.current;
@@ -40,6 +41,7 @@ export const VideoPlayer = () => {
         ref={videoRef}
         width='640'
         height='360'
+        controls={true}
         style={{ maxWidth: '100%' }}
       ></video>
     </div>

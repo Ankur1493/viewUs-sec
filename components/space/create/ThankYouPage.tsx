@@ -17,7 +17,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { ThankYouPagePreview } from "./preview/ThankYouPagePreview";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   title: z.string().max(100, {
@@ -28,15 +30,23 @@ const formSchema = z.object({
   }),
 });
 
-export const ThankYouPage = ({ slug, page }: { slug?: string | undefined, page: "edit" | "create" }) => {
+export const ThankYouPage = ({
+  slug,
+  page,
+}: {
+  slug?: string | undefined;
+  page: "edit" | "create";
+}) => {
   const { thankyou, setThankYou } = useSpaceDataStore();
   const initializeSpaceData = useSpaceDataStore(
     (state) => state.initializeSpaceData
   );
 
+  const [isHidden, setIsHidden] = useState(true);
+
   useEffect(() => {
     initializeSpaceData();
-    console.log("runned")
+    console.log("runned");
   }, [initializeSpaceData]);
 
   const router = useRouter();
@@ -55,18 +65,29 @@ export const ThankYouPage = ({ slug, page }: { slug?: string | undefined, page: 
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setThankYou(values);
-    if (page === "create")
-      router.push("/space/create?page=7");
-    else
-      router.push(`/space/${slug}/edit?page=7`);
+    if (page === "create") router.push("/space/create?page=7");
+    else router.push(`/space/${slug}/edit?page=7`);
   }
 
   return (
-    <div className="w-full pl-2 max-h-screen h-[85vh] flex justify-center overflow-hidden gap-4">
-      <div className="max-w-[448px] h-full space-y-6 px-6 pt-5 overflow-y-auto">
-        <div className="flex-grow">
-          <h1 className="text-[36px] font-medium">Create your Thank page</h1>
-          <p className="text-[16px] font-normal pt-4">
+    <div className="relative w-full pl-2 max-h-screen h-[85vh] lg:flex justify-center overflow-hidden gap-4">
+      <div
+        className="absolute lg:hidden right-0 z-50"
+        onClick={() => setIsHidden(!isHidden)}
+      >
+        {isHidden ? <Menu /> : <X />}
+      </div>
+      <div
+        className={cn(
+          " h-full space-y-6 px-6 pt-5 overflow-y-auto flex items-center justify-center lg:items-start",
+          isHidden ? "hidden lg:block" : ""
+        )}
+      >
+        <div className="flex-grow max-w-[448px]">
+          <h1 className="text-2xl md:text-[36px] font-medium">
+            Create your Thank page
+          </h1>
+          <p className="text-sm md:text-[16px] font-normal pt-4">
             This is the first page your users will see, so add a message to
             encourage them to leave a testimonial.{" "}
           </p>
@@ -81,7 +102,7 @@ export const ThankYouPage = ({ slug, page }: { slug?: string | undefined, page: 
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[14px] p-2">
+                    <FormLabel className="text-sm md:text-[14px] p-2">
                       ADD A PAGE TITLE
                     </FormLabel>
                     <FormControl>
@@ -96,11 +117,12 @@ export const ThankYouPage = ({ slug, page }: { slug?: string | undefined, page: 
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[14px] p-2">
+                    <FormLabel className="text-sm md:text-[14px] p-2">
                       WRITE A DESCRIPTION
                     </FormLabel>
                     <FormControl>
                       <Textarea
+                        className="text-sm md:text-md"
                         placeholder="We want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!"
                         {...field}
                       />
@@ -113,8 +135,8 @@ export const ThankYouPage = ({ slug, page }: { slug?: string | undefined, page: 
           </Form>
         </div>
       </div>
-      <div className="flex-1 relative">
-        <div className="absolute inset-0 flex flex-col">
+      <div className="md:flex-1 md:relative h-full">
+        <div className="md:absolute md:inset-0 h-full flex flex-col">
           <div className="flex-1 overflow-y-auto">
             <ThankYouPagePreview
               title={form.watch("title")}
@@ -125,13 +147,11 @@ export const ThankYouPage = ({ slug, page }: { slug?: string | undefined, page: 
             <div className="flex justify-between gap-4">
               <Button
                 onClick={() => {
-                  if (page === "create")
-                    router.push("/space/create?page=4");
-                  else
-                    router.push(`/space/${slug}/edit?page=4`);
+                  if (page === "create") router.push("/space/create?page=4");
+                  else router.push(`/space/${slug}/edit?page=4`);
                 }}
                 variant="outline"
-                className="border-[#DDDEDF] rounded-full px-20 py-4"
+                className="border-[#DDDEDF] rounded-full px-12 md:px-20 py-4"
               >
                 Back
               </Button>
@@ -139,7 +159,7 @@ export const ThankYouPage = ({ slug, page }: { slug?: string | undefined, page: 
                 type="submit"
                 variant="form"
                 onClick={form.handleSubmit(onSubmit)}
-                className=" px-20 py-4"
+                className="px-12 md:px-20 py-4"
               >
                 Next
               </Button>

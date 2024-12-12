@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,9 +21,12 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
 
   return (
     <>
-      {(detailsButton || submitButton) && (
-        <div className="absolute top-5 left-5 flex items-center gap-3">
-          <Image
+      {(detailsButton ||
+        submitButton ||
+        reviewButton === "Text" ||
+        reviewButton === "Video") && (
+        <div className="absolute top-2 left-6 md:top-6 md:left-8  lg:left-[170px] lg:top-[40px] flex items-center gap-3 z-10">
+          {/* <Image
             src={
               reviewForm.details
                 ? reviewForm.details.coverPageImageUrl !== null
@@ -36,7 +38,7 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
             height={40}
             width={40}
             className="rounded-full"
-          />
+          /> */}
           <CardTitle className="text-[#33313B] text-[24px] font-normal">
             {reviewForm.name.toUpperCase()}
           </CardTitle>
@@ -51,10 +53,10 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
       ) : reviewButton == "Video" ? (
         <VideoReviewCard reviewForm={reviewForm} />
       ) : (
-        <Card className="max-w-[700px] px-[2%] border-none flex flex-col gap-4 shadow-none">
+        <Card className="md:max-w-[600px] lg:max-w-[700px] px-[2%] border-none flex flex-col gap-4 shadow-none">
           <CardHeader className="flex flex-row gap-3">
             <div className="flex">
-              <Image
+              {/* <Image
                 src={
                   reviewForm.details
                     ? reviewForm.details.coverPageImageUrl !== null
@@ -66,20 +68,19 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
                 height={60}
                 width={60}
                 className="rounded-full"
-              />
+              /> */}
+              <CardTitle className="text-[#33313B] text-[24px] font-normal">
+                {reviewForm.name.toUpperCase()}
+              </CardTitle>
             </div>
-
-            <CardTitle className="text-center text-[#33313B] text-4xl font-normal flex items-center">
-              {reviewForm.name.toUpperCase()}
-            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-[#33313B] font-nromal text-5xl">
+            <div className="text-[#33313B] font-nromal text-3xl md:text-5xl">
               {reviewForm.details
                 ? reviewForm.details.coverPageTitle
                 : "Leave us a Testimonial"}
             </div>
-            <div className="mt-5">
+            <div className="mt-5 text-sm md: text-base">
               {reviewForm.details
                 ? reviewForm.details.coverPageDescription
                 : "We want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!"}
@@ -95,10 +96,12 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
               style={{
                 backgroundColor: reviewForm.details
                   ? reviewForm.details.btnColor
-                  : "Tell us about your experience",
+                  : "",
               }}
             >
-              {reviewForm.details ? reviewForm.details.coverPageBtnText : "T"}
+              {reviewForm.details
+                ? reviewForm.details.coverPageBtnText
+                : "Tell us about your experience"}
             </Button>
           </CardFooter>
         </Card>

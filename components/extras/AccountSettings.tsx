@@ -20,6 +20,7 @@ import { signOut } from "next-auth/react";
 import { toast } from "sonner";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { SpinnerLoader } from "../loaders/Loader";
 
 interface PasswordFormState {
   oldPassword: string;
@@ -32,6 +33,8 @@ interface PasswordFormState {
 
 export const AccountSettings = ({ user }: { user: User }) => {
   const router = useRouter();
+  const [isPasswordLoading, setIsPasswordLoading] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [passwordValues, setPasswordValues] = useState<PasswordFormState>({
     oldPassword: "",
     newPassword: "",
@@ -64,6 +67,7 @@ export const AccountSettings = ({ user }: { user: User }) => {
     };
 
   const handleChangePassword = async () => {
+    setIsPasswordLoading(true);
     if (passwordValues.newPassword !== passwordValues.confirmPassword) {
       // toast passwords are not matching
       console.log("new and confirm password are wrong");
@@ -90,9 +94,11 @@ export const AccountSettings = ({ user }: { user: User }) => {
     passwordValues.newPassword = "";
     passwordValues.confirmPassword = "";
     console.log("Change password clicked");
+    setIsPasswordLoading(false);
   };
 
   const handleDeleteAccount = async () => {
+    setIsDeleteLoading(true);
     const response = await deleteUserProfile(user.id);
     if (response.status) {
       toast.success("Account deleted successfully");
@@ -103,6 +109,7 @@ export const AccountSettings = ({ user }: { user: User }) => {
       toast.error("Sorry, unable to process your changes!");
       console.log(response.message);
     }
+    setIsDeleteLoading(false);
   };
 
   return (
@@ -111,14 +118,23 @@ export const AccountSettings = ({ user }: { user: User }) => {
         Account
       </h2>
       <AlertDialog>
-        <AlertDialogTrigger className="w-full">
+        <AlertDialogTrigger className="w-full" disabled={isPasswordLoading}>
           <div className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md border rounded-md text-sm font-medium">
-            <Trash2 className="w-4 h-4 mr-2" />
-            Change Password
+            {isPasswordLoading ? (
+              <>
+                <SpinnerLoader size="small" className="mr-2" />
+                Loading...
+              </>
+            ) : (
+              <>
+                <Trash2 className="w-4 h-4 mr-2" />
+                Change Password
+              </>
+            )}
           </div>
         </AlertDialogTrigger>
 
-        <AlertDialogContent className="bg-white shadow-md">
+        <AlertDialogContent className="bg-white shadow-md w-[350px] rounded md:w-full">
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -220,14 +236,23 @@ export const AccountSettings = ({ user }: { user: User }) => {
         </AlertDialogContent>
       </AlertDialog>
       <AlertDialog>
-        <AlertDialogTrigger className="w-full">
+        <AlertDialogTrigger className="w-full" disabled={isDeleteLoading}>
           <div className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md bg-red-600 hover:bg-red-600 opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-300 text-white rounded-md text-sm font-medium">
-            <Trash2 className="w-4 h-4 mr-2" />
-            Delete My Account
+            {isDeleteLoading ? (
+              <>
+                <SpinnerLoader size="small" className="mr-2" />
+                Loading...
+              </>
+            ) : (
+              <>
+                <Trash2 className="w-4 h-4 mr-2" />
+                Delete My Account
+              </>
+            )}
           </div>
         </AlertDialogTrigger>
 
-        <AlertDialogContent className="bg-white shadow-md">
+        <AlertDialogContent className="bg-white shadow-md w-[350px] rounded md:w-full">
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -238,7 +263,10 @@ export const AccountSettings = ({ user }: { user: User }) => {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction className="bg-red-600 hover:bg-red-600 hover:bg-opacity-90">
-              <div onClick={handleDeleteAccount}>Delete</div>
+              <div onClick={handleDeleteAccount} className="flex">
+                <Trash2 className="w-4 h-4 mr-2" />
+                Delete
+              </div>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

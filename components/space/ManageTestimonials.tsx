@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { TestimonialCard } from "./TestimonialCard";
-import { FrownIcon } from 'lucide-react';
+import { FrownIcon } from "lucide-react";
 import TestimonialSkeleton from "./TestimonialSkeleton";
 
 export enum ReviewType {
@@ -89,7 +89,35 @@ export const ManageTestimonials = ({
     );
   }
 
-  if (filteredAndSortedTestimonials.length === 0) {
+  const filteredTestimonials = testimonials.filter((testimonial) => {
+    switch (filter) {
+      case "text":
+        return testimonial.reviewType === ReviewType.TEXT;
+      case "video":
+        return testimonial.reviewType === ReviewType.VIDEO;
+      case "imported":
+        return testimonial.reviewType === ReviewType.IMPORTED;
+      case "liked":
+        return testimonial.liked;
+      default:
+        return true;
+    }
+  });
+
+  if (filter === "liked") {
+    filteredTestimonials.sort((a: IReview, b: IReview) => {
+      const dataA = new Date(a.updatedAt || 0).getTime();
+      const dataB = new Date(b.updatedAt || 0).getTime();
+      return dataA - dataB;
+    });
+  } else {
+    filteredTestimonials.sort((a: IReview, b: IReview) => {
+      const dataA = new Date(a.createdAt || 0).getTime();
+      const dataB = new Date(b.createdAt || 0).getTime();
+      return dataA - dataB;
+    });
+  }
+  if (filteredTestimonials.length === 0) {
     return (
       <div className="w-full flex pt-52 justify-center items-center">
         <div className="bg-[#E9F8FF] w-[80px] h-[80px] rounded-full flex justify-center items-center mx-6">
@@ -112,5 +140,3 @@ export const ManageTestimonials = ({
     </div>
   );
 };
-
-

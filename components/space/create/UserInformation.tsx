@@ -11,7 +11,8 @@ import {} from "@/store/useSpaceDataStore";
 import { useRouter } from "next/navigation";
 import { UserInformationPreview } from "./preview/UserInformationPreview";
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
 
 export const UserInformation = ({
   slug,
@@ -24,6 +25,8 @@ export const UserInformation = ({
   const initializeSpaceData = useSpaceDataStore(
     (state) => state.initializeSpaceData
   );
+
+  const [isHidden, setIsHidden] = useState(true);
 
   useEffect(() => {
     initializeSpaceData();
@@ -40,13 +43,24 @@ export const UserInformation = ({
   };
 
   return (
-    <div className="w-full pl-2 max-h-screen h-[85vh] flex justify-center overflow-hidden gap-4">
-      <div className="max-w-[448px] h-full space-y-6 px-6 pt-5 overflow-y-auto">
-        <div className="flex-grow">
-          <h1 className="text-[36px] font-medium">
+    <div className="relative w-full pl-2 max-h-screen h-[85vh] lg:flex justify-center overflow-hidden gap-4">
+      <div
+        className="absolute lg:hidden right-0 z-50"
+        onClick={() => setIsHidden(!isHidden)}
+      >
+        {isHidden ? <Menu /> : <X />}
+      </div>
+      <div
+        className={cn(
+          "h-full space-y-6 px-6 pt-5 overflow-y-auto  flex items-center justify-center lg:items-start ",
+          isHidden ? "hidden lg:block" : ""
+        )}
+      >
+        <div className="flex-grow max-w-[448px] space-y-6">
+          <h1 className="text-2xl md:text-[36px] font-medium">
             What info do you want to collect from your users?
           </h1>
-          <p className="text-muted-foreground pt-2 font-normal text-[16px]">
+          <p className="text-muted-foreground pt-2 font-normal text-sm md:text-[16px]">
             This information can be displayed with customer testimonials. User
             emails will remain private for safety concerns.
           </p>
@@ -55,12 +69,12 @@ export const UserInformation = ({
             {(
               Object.entries(userInformation) as [
                 keyof UserInformationType,
-                boolean
+                boolean,
               ][]
             ).map(([key, value]) => (
               <div
                 key={key}
-                className="flex items-center justify-between bg-white p-4 rounded-lg "
+                className="flex items-center justify-between bg-white p-3 md:p-4 rounded-lg "
               >
                 <Label>
                   {" "}
@@ -82,9 +96,9 @@ export const UserInformation = ({
           </div>
         </div>
       </div>
-      <div className="w-full h-[90%]">
-        <div className="w-full h-full flex flex-col">
-          <div className="h-80% w-full">
+      <div className="md:flex-1 md:relative h-full">
+        <div className="md:absolute md:inset-0 h-full flex flex-col">
+          <div className="flex-1 overflow-y-auto">
             <UserInformationPreview
               userInformation={Object.fromEntries(
                 Object.entries(userInformation).map(([key, value]) => [
@@ -102,7 +116,7 @@ export const UserInformation = ({
                   else router.push(`/space/${slug}/edit?page=2`);
                 }}
                 variant="outline"
-                className="border-[#DDDEDF] rounded-full px-20 py-4"
+                className="border-[#DDDEDF] rounded-full px-12 md:px-20 py-4"
               >
                 Back
               </Button>
@@ -113,7 +127,7 @@ export const UserInformation = ({
                   if (page === "create") router.push("/space/create?page=4");
                   else router.push(`/space/${slug}/edit?page=4`);
                 }}
-                className=" px-20 py-4"
+                className="px-12 md:px-20 py-4"
               >
                 Next
               </Button>
