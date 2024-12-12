@@ -2,11 +2,16 @@ import { verifyUserSpace } from "@/actions/space";
 import { DashboardNavbar } from "@/components/dashboard/DashboardNavbar";
 import { redirect } from "next/navigation";
 
-const SpaceLayout = async ({ children, params }: { children: React.ReactNode, params: { slug: string } }) => {
-
-  const userSpaceStatus = await verifyUserSpace({ slug: params.slug })
+const SpaceLayout = async ({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { slug: string };
+}) => {
+  const userSpaceStatus = await verifyUserSpace({ slug: params.slug });
   if (!userSpaceStatus) {
-    return redirect("/login")
+    return redirect("/login");
   }
 
   return (

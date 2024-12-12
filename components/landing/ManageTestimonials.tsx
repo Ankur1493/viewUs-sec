@@ -48,7 +48,7 @@ export const ManageTestimonials = () => {
         <div className="col-span-1 grid grid-rows-3 gap-8">
           <div className="rounded-lg flex items-end">
             <Image
-              src="/assets/images/test3.webp"
+              src="/assets/images/dashboard.png"
               alt="Image 2"
               layout="responsive"
               width={300}
@@ -58,7 +58,7 @@ export const ManageTestimonials = () => {
           </div>
           <div className="rounded-lg">
             <Image
-              src="/assets/images/test2.webp"
+              src="/assets/images/importTestimonials.png"
               alt="Image 3"
               layout="responsive"
               width={300}
@@ -66,14 +66,14 @@ export const ManageTestimonials = () => {
               className="rounded-md"
             />
           </div>
-          <div className="rounded-lg flex items-start">
+          <div className="rounded-lg flex items-start overflow-hidden">
             <Image
-              src="/assets/images/test3.webp"
-              alt="Image 4"
+              src="/assets/images/testimonialsPage.png"
+              alt="A preview of the testimonials page"
               layout="responsive"
               width={300}
               height={300}
-              className="rounded-md"
+              className="rounded-lg object-cover"
             />
           </div>
         </div>
@@ -81,7 +81,7 @@ export const ManageTestimonials = () => {
         <div className="col-span-2 grid grid-rows-2 gap-8">
           <div className="col-span-2 row-span-2">
             <Image
-              src="/assets/images/test1.webp"
+              src="/assets/images/wallOfLovePage.png"
               alt="Image 5"
               layout="responsive"
               width={500}
@@ -91,7 +91,7 @@ export const ManageTestimonials = () => {
           </div>
           <div className="row-span-1 col-span-1 rounded-lg">
             <Image
-              src="/assets/images/test3.webp"
+              src="/assets/images/reviewPage.png"
               alt="Image 6"
               layout="responsive"
               width={500}
@@ -101,7 +101,7 @@ export const ManageTestimonials = () => {
           </div>
           <div className="row-span-1 col-span-1 rounded-lg">
             <Image
-              src="/assets/images/test2.webp"
+              src="/assets/images/dashboard.png"
               alt="Image 7"
               layout="responsive"
               width={500}
@@ -112,7 +112,7 @@ export const ManageTestimonials = () => {
 
           <div className="col-span-2 row-span-2 rounded-lg">
             <Image
-              src="/assets/images/test1.webp"
+              src="/assets/images/testimonialsPage.png"
               alt="Image 8"
               layout="responsive"
               width={800}
