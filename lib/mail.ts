@@ -3,6 +3,7 @@ import { ReviewSubmittedTemplate } from "@/components/emailTemplates/review-subm
 import ReviewReceivedTemplate from "@/components/emailTemplates/review-received";
 import { VerificationEmailTemplate } from "@/components/emailTemplates/verification-mail";
 import { Resend } from "resend";
+import { ForgetPasswordEmailTemplate } from "@/components/emailTemplates/forget-password";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
@@ -59,20 +60,20 @@ export async function sendTextReviewSubmitted({
 
 export async function sendVerificationMail(
   {
-    //   email,
-    //   token,
-    // }: {
-    //   email: string;
-    //   token: string;
+    email,
+    token,
+  }: {
+    email: string;
+    token: string;
   }
 ) {
   try {
     // Send email asynchronously
     const response = await resend.emails.send({
       from: "ViewUs <team@viewus.in>",
-      to: ["uditkapoor060@gmail.com"],
-      subject: "Review Received",
-      react: VerificationEmailTemplate(),
+      to: [email],
+      subject: "Verify your account",
+      react: VerificationEmailTemplate(token),
     });
     if (response) {
       console.log({
@@ -99,13 +100,40 @@ export async function sendSupportMail({
     const response = await resend.emails.send({
       from: "ViewUs <team@viewus.in>",
       to: [
-        // "ankursharma1493@gmail.com",
+        "ankursharma1493@gmail.com",
         "uditkapoor060@gmail.com",
-        // "team@viewus.in",
+        "team@viewus.in",
       ],
-      subject: "Review Received",
+      subject: "Support mail",
       react: SupportMailTemplate({ email, message, type }),
       // { email, message, type }
+    });
+    if (response) {
+      console.log({
+        response,
+        message: `mail sent ${new Date().toISOString()} `,
+      });
+    }
+  } catch (error) {
+    console.error("Error sending email: ", error);
+  }
+}
+
+export async function sendForgetVerificationToken({
+  email,
+  token,
+}: {
+  email: string;
+  token: string;
+}
+) {
+  try {
+    // Send email asynchronously
+    const response = await resend.emails.send({
+      from: "ViewUs <team@viewus.in>",
+      to: [email],
+      subject: "Reset your password",
+      react: ForgetPasswordEmailTemplate(token),
     });
     if (response) {
       console.log({

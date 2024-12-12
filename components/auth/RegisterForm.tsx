@@ -46,6 +46,7 @@ export const RegisterForm = () => {
         backLabel="Already have an account?"
         backLabel2="Sign In"
         backLabelHref="/login"
+        oauth={true}
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

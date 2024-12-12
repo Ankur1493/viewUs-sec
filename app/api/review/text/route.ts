@@ -82,6 +82,7 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    const randomNumber = Math.floor(Math.random() * 1000) + 50
     let imageName = null;
     if (image) {
       const file = image as File; // Explicitly cast image to File type
@@ -99,14 +100,14 @@ export async function POST(req: NextRequest) {
       // Upload the image to S3
       const params = {
         Bucket: bucketName,
-        Key: `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`, // You can customize the path here
+        Key: `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}-${randomNumber}`,
         Body: resizedBuffer,
         ContentType: fileType,
       };
 
       const command = new PutObjectCommand(params);
       await s3.send(command);
-      imageName = `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`;
+      imageName = `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}-${randomNumber}`;
     }
 
     // Create the review without saving the image

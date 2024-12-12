@@ -18,9 +18,11 @@ import { useForm } from "react-hook-form";
 import { FormError } from "./FormError";
 import { login } from "@/actions/login";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { SpinnerLoader } from "../loaders/Loader";
 
 export const LoginForm = () => {
+  ``;
   const [error, setError] = useState("");
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
@@ -59,6 +61,7 @@ export const LoginForm = () => {
         backLabel="Don't have an account?"
         backLabel2="Register Now"
         backLabelHref="/register"
+        oauth={true}
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -83,7 +86,15 @@ export const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <div className="flex w-full justify-between">
+                    <FormLabel>Password</FormLabel>
+                    <Link
+                      href={"/forget-password"}
+                      className="text-xs text-red-500"
+                    >
+                      Forgot Password?
+                    </Link>
+                  </div>
                   <FormControl>
                     <Input
                       type="password"

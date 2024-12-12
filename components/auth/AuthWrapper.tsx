@@ -14,6 +14,7 @@ interface AuthWrapperProps {
   backLabel: string;
   backLabel2: string;
   backLabelHref: string;
+  oauth: boolean;
 }
 
 export const AuthWrapper = ({
@@ -22,6 +23,7 @@ export const AuthWrapper = ({
   backLabel,
   backLabel2,
   backLabelHref,
+  oauth,
 }: AuthWrapperProps) => {
   return (
     <Card className="w-full mx-3 md:w-3/5 xl:mx-0 xl:w-1/4 flex  flex-col border-none">
@@ -30,12 +32,16 @@ export const AuthWrapper = ({
       </CardHeader>
       <CardContent>
         {children}
-        <div className="flex flex-row w-full items-center justify-center gap-2 mt-4 text-[#D0D1D2]">
-          <div className="w-[40%] border h-[2px]"></div>
-          <div className="text-[#838485]">or</div>
-          <div className="w-[40%] border h-[2px]"></div>
-        </div>
-        <OauthButton />
+        {oauth && (
+          <>
+            <div className="flex flex-row w-full items-center justify-center gap-2 mt-4 text-[#D0D1D2]">
+              <div className="w-[40%] border h-[2px]"></div>
+              <div className="text-[#838485]">or</div>
+              <div className="w-[40%] border h-[2px]"></div>
+            </div>
+            <OauthButton />
+          </>
+        )}
       </CardContent>
 
       <CardFooter>
