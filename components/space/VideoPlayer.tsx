@@ -7,6 +7,7 @@ export const VideoPlayer = ({ videoLink }: { videoLink: string }) => {
 
   const videoRef = useRef(null);
 
+  console.log({ videoLink })
   const videoUrl = `https://d3eyp937ijscg0.cloudfront.net/${videoLink}/playlist.m3u8`
 
 
@@ -19,6 +20,7 @@ export const VideoPlayer = ({ videoLink }: { videoLink: string }) => {
       hls.attachMedia(video);
 
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play();
       });
 
       return () => {
@@ -28,6 +30,7 @@ export const VideoPlayer = ({ videoLink }: { videoLink: string }) => {
       // For Safari or other HLS-supported browsers
       video.src = videoUrl;
       video.addEventListener('loadedmetadata', () => {
+        video.play();
       });
     }
   }, [videoUrl]);

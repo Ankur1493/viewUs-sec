@@ -68,6 +68,7 @@ export async function POST(req: NextRequest) {
 
     let imageName = null;
     let videoName = null;
+    const randomNumber = Math.floor(Math.random() * 1000) + 50
 
     // Handle image upload (same as before)
     if (image) {
@@ -81,14 +82,14 @@ export async function POST(req: NextRequest) {
 
       const imageParams = {
         Bucket: bucketName,
-        Key: `videoReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`,
+        Key: `videoReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}-${randomNumber}`,
         Body: resizedBuffer,
         ContentType: fileType,
       };
 
       const imageCommand = new PutObjectCommand(imageParams);
       await s3.send(imageCommand);
-      imageName = `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`;
+      imageName = `textReviews/${spaceId}-${spaceDetails.slug}-${email}-${fileName}-${randomNumber}`;
     }
 
     // Handle video upload
@@ -119,14 +120,14 @@ export async function POST(req: NextRequest) {
 
       const videoParams = {
         Bucket: secondaryBucketName,
-        Key: `videos/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`,
+        Key: `videos/${spaceId}-${spaceDetails.slug}-${email}-${fileName}-${randomNumber}`,
         Body: buffer,
         ContentType: fileType,
       };
 
       const videoCommand = new PutObjectCommand(videoParams);
       await s3.send(videoCommand);
-      videoName = `videos/${spaceId}-${spaceDetails.slug}-${email}-${fileName}`;
+      videoName = `videos/${spaceId}-${spaceDetails.slug}-${email}-${fileName}-${randomNumber}`;
     }
 
     // Create the review with both image and video

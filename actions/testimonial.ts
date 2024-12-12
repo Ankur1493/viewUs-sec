@@ -27,6 +27,7 @@ export const deleteTestimonial = async (id: string, spaceSlug: string) => {
       }
     })
 
+
     if (!validUser) {
       return ({
         status: false,
