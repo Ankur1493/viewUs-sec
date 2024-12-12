@@ -10,21 +10,31 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { loginSchema } from "@/schemas/login"
+import { resetSchema } from "@/schemas/login"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
+import { generatePasswordResetVerificationTokens } from "@/lib/tokens"
+import { toast } from "sonner"
+import { useState } from "react"
 
 export const ForgetPasswordForm = () => {
 
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+  const [status, setStatus] = useState(false)
+
+  const form = useForm<z.infer<typeof resetSchema>>({
+    resolver: zodResolver(resetSchema),
     defaultValues: {
       email: "",
     },
   })
 
-  const onSubmit = (values: z.infer<typeof loginSchema>) => {
+  const onSubmit = async (values: z.infer<typeof resetSchema>) => {
+    const mailSent = await generatePasswordResetVerificationTokens(values.email)
+    if (!mailSent) {
+      toast.error("failed to send token, try again later")
+    }
+    setStatus(true)
   }
 
   return (
@@ -45,7 +55,7 @@ export const ForgetPasswordForm = () => {
                 </FormItem>
               )}
             />
-            <Button className="w-full bg-[#71D4FF] text-black rounded-3xl py-3 hover:bg-[#71D4FF] hover:bg-opacity-80" type="submit">Login</Button>
+            <Button className="w-full bg-[#71D4FF] text-black rounded-3xl py-3 hover:bg-[#71D4FF] hover:bg-opacity-80" type="submit" disabled={status}>Send Link</Button>
           </form>
         </Form>
       </AuthWrapper>
