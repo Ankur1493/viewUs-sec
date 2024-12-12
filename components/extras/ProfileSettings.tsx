@@ -21,12 +21,16 @@ import { User } from "@prisma/client";
 import { profileSchema } from "@/schemas/user";
 import axios from "axios";
 import { toast } from "sonner";
+import { SpinnerLoader } from "../loaders/Loader";
 
 export const ProfileSettings = ({ user }: { user: User }) => {
   const [imageKey] = useState(Date.now());
+  const [isLoading, setIsLoading] = useState(false);
 
   const [selectedImage, setSelectedImage] = useState<string | null>(
-    user.image ? `https://d3eyp937ijscg0.cloudfront.net/${user.image}?v=${imageKey}` : null
+    user.image
+      ? `https://d3eyp937ijscg0.cloudfront.net/${user.image}?v=${imageKey}`
+      : null
   );
 
   const form = useForm<z.infer<typeof profileSchema>>({
@@ -58,6 +62,7 @@ export const ProfileSettings = ({ user }: { user: User }) => {
   const handleSaveChanges = async (data: z.infer<typeof profileSchema>) => {
     // Ensure the email is not modifiable
     data.email = user.email!;
+    setIsLoading(true);
 
     // Convert the form data to FormData to handle image uploads
     const formData = new FormData();
@@ -81,6 +86,8 @@ export const ProfileSettings = ({ user }: { user: User }) => {
     } catch (error) {
       toast.error("Sorry, unable to process your changes!");
       console.error("Error saving profile:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -194,9 +201,20 @@ export const ProfileSettings = ({ user }: { user: User }) => {
             <Button
               className="w-full shadow-md mt-24 hover:opacity-100 opacity-90 hover:scale-105 transition-all duration-300 transform"
               type="submit"
+              disabled={isLoading}
             >
-              <Save className="w-4 h-4 mr-2" />
-              Save Changes
+              {" "}
+              {isLoading ? (
+                <>
+                  <SpinnerLoader size="small" className="mr-2" />
+                  Loading...
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4 mr-2" />
+                  Save Changes
+                </>
+              )}
             </Button>
           </form>
         </Form>
