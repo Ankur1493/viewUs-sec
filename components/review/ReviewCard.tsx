@@ -14,10 +14,17 @@ import { TextReviewCard } from "./TextReviewCard";
 import { VideoReviewCard } from "./VideoReviewCard";
 import { CustomerDetailCard } from "./CustomerDetailCard";
 import { ThankYouCard } from "./ThankYouCard";
+import { usePostHog } from "posthog-js/react";
+import { useEffect } from "react";
 
 export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
   const { reviewButton, setDetailsButton, detailsButton, submitButton } =
     useReviewPageStore();
+  const posthog = usePostHog()
+
+  useEffect(() => {
+    posthog.capture("review form opened")
+  }, [])
 
   return (
     <>
@@ -25,8 +32,8 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
         submitButton ||
         reviewButton === "Text" ||
         reviewButton === "Video") && (
-        <div className="absolute top-2 left-6 md:top-6 md:left-8  lg:left-[170px] lg:top-[40px] flex items-center gap-3 z-10">
-          {/* <Image
+          <div className="absolute top-2 left-6 md:top-6 md:left-8  lg:left-[170px] lg:top-[40px] flex items-center gap-3 z-10">
+            {/* <Image
             src={
               reviewForm.details
                 ? reviewForm.details.coverPageImageUrl !== null
@@ -39,11 +46,11 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
             width={40}
             className="rounded-full"
           /> */}
-          <CardTitle className="text-[#33313B] text-[24px] font-normal">
-            {reviewForm.name.toUpperCase()}
-          </CardTitle>
-        </div>
-      )}
+            <CardTitle className="text-[#33313B] text-[24px] font-normal">
+              {reviewForm.name.toUpperCase()}
+            </CardTitle>
+          </div>
+        )}
       {submitButton ? (
         <ThankYouCard reviewForm={reviewForm} />
       ) : reviewButton === "Text" ? (
@@ -80,7 +87,7 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
                 ? reviewForm.details.coverPageTitle
                 : "Leave us a Testimonial"}
             </div>
-            <div className="mt-5 text-sm md: text-base">
+            <div className="mt-5 text-sm">
               {reviewForm.details
                 ? reviewForm.details.coverPageDescription
                 : "We want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!"}
