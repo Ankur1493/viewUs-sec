@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import logo from "@/public/assets/images/logo.png";
+
 import {
   Sidebar,
   SidebarContent,
@@ -30,6 +32,7 @@ import { Button } from "../ui/button";
 import { useParams, usePathname } from "next/navigation";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { HelpSupportModal } from "../dashboard/HelpSupportModal";
+import Image from "next/image";
 
 export function SpaceSideBar({ email }: { email: string }) {
   const { slug } = useParams();
@@ -199,7 +202,9 @@ export const Logo = () => {
       href="/dashboard"
       className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-4 relative z-20"
     >
-      <div className="h-8 w-8 bg-black rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <div className="relative w-10 h-10">
+        <Image src={logo} alt="Logo" layout="fill" objectFit="cover" />
+      </div>{" "}
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

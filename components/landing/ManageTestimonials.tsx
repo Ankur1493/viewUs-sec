@@ -9,7 +9,7 @@ export const ManageTestimonials = () => {
 
   return (
     <div
-      className="bg-gradient-radial from-[#141111] to-gray-950 text-white pt-28 p-10 space-y-10 overflow-x-hidden flex justify-center flex-col items-center"
+      className="bg-gradient-radial from-[#141111] to-gray-950 text-white py-28 p-10 space-y-10 overflow-x-hidden flex justify-center flex-col items-center"
       ref={ref}
     >
       <section className="text-center space-y-4">
@@ -45,7 +45,7 @@ export const ManageTestimonials = () => {
           </div>
         </div>
 
-        <div className="col-span-1 grid grid-rows-3 gap-8">
+        <div className="col-span-1 flex flex-col items-center justify-center gap-4">
           <div className="rounded-lg flex items-end">
             <Image
               src="/assets/images/dashboard.png"
@@ -76,9 +76,19 @@ export const ManageTestimonials = () => {
               className="rounded-lg object-cover"
             />
           </div>
+          <div className="rounded-lg flex items-start overflow-hidden">
+            <Image
+              src="/assets/images/wallOfLovePage.png"
+              alt="A preview of the testimonials page"
+              layout="responsive"
+              width={300}
+              height={300}
+              className="rounded-lg object-cover"
+            />
+          </div>
         </div>
 
-        <div className="col-span-2 grid grid-rows-2 gap-8">
+        <div className="col-span-2 grid grid-rows-2 gap-4">
           <div className="col-span-2 row-span-2">
             <Image
               src="/assets/images/wallOfLovePage.png"

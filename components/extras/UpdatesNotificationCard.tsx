@@ -24,26 +24,26 @@ export const UpdatesNotificationCard: React.FC<NotificationCardProps> = ({
         status === true ? "hidden" : "block"
       )}
     >
-      <CardContent className="p-4 h-full pt-8">
+      <CardContent className="p-4 h-full pt-8 md:pt-0 md:px-0">
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-1 right-1 z-10 text-blue-800 hover:text-blue-900 hover:bg-blue-200/50"
+          className="absolute top-1 right-1 z-10 text-black hover:text-black hover:bg-blue-200/50"
           onClick={() => setStatus(true)}
         >
           <X className="h-4 w-4" />
         </Button>
         <div className="flex flex-col gap-5 items-start h-full">
-          <div className="hidden md:block w-full h-1/2 relative">
+          <div className="hidden md:block w-full h-2/3 relative">
             <Image
               src={imageUrl}
               alt="Notification"
               layout="fill"
-              className="object-cover"
+              className="object-cover rounded-t-2xl"
             />
           </div>
 
-          <p className="text-sm md:text-base text-blue-900 font-medium">
+          <p className="text-sm md:text-base text-black md:px-4 font-medium">
             {message}
           </p>
         </div>

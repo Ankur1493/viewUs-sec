@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import logo from "@/public/assets/images/logo.png";
+
 import {
   Sidebar,
   SidebarContent,
@@ -22,6 +24,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
 import { HelpSupportModal } from "./HelpSupportModal";
+import Image from "next/image";
 
 export function SideBar({ email }: { email: string }) {
   const links = [
@@ -96,7 +99,9 @@ export const Logo = () => (
     href="/dashboard"
     className="flex gap-2 items-center text-sm text-black py-4"
   >
-    <div className="h-8 w-8 bg-black rounded-br-lg" />
+    <div className="relative w-10 h-10">
+      <Image src={logo} alt="Logo" layout="fill" objectFit="cover" />
+    </div>{" "}
     <span className="font-bold text-2xl text-black">ViewUs</span>
   </Link>
 );

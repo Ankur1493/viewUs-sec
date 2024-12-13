@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import step1Image from "@/public/assets/images/test2.webp";
-import step2Image from "@/public/assets/images/test3.webp";
-import step3Image from "@/public/assets/images/HeroImage.png";
+import step1Image from "@/public/assets/images/reviewPageMod.png";
+import step2Image from "@/public/assets/images/testimonialsPageMod.png";
+import step3Image from "@/public/assets/images/wallOfLovePageMod.png";
 import Image from "next/image";
 
 export default function OurProcess() {
@@ -77,8 +77,8 @@ export default function OurProcess() {
                 <Image
                   src={step.image}
                   alt={`${step.title} Illustration`}
-                  fill
-                  className="object-cover"
+                  layout="fill"
+                  className="w-full h-full object-cover"
                 />
               </motion.div>
             </div>

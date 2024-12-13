@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import logo from "@/public/assets/images/logo1.png";
+import logo from "@/public/assets/images/logo.png";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
@@ -41,8 +41,10 @@ const Navbar = ({ active }: { active: string }) => {
       } `}
     >
       <Link href="/">
-        <div className="flex items-center gap-2">
-          <Image src={logo} alt="logo" width={50} height={50} />
+        <div className="flex items-center">
+          <div className="relative w-10 h-10">
+            <Image src={logo} alt="Logo" layout="fill" objectFit="cover" />
+          </div>{" "}
           <span className="font-semibold">ViewUs</span>
         </div>
       </Link>
