@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import logo from "@/public/assets/images/logo.png";
 
 import {
   Sidebar,
@@ -93,9 +92,7 @@ export const Logo = () => (
     href="/dashboard"
     className="flex gap-2 items-center text-sm text-black py-4"
   >
-    <div className="relative w-10 h-10">
-      <Image src={logo} alt="Logo" layout="fill" objectFit="cover" />
-    </div>{" "}
+    <Image src="/assets/images/logo1.png" height={40} width={40} alt="logo" />
     <span className="font-bold text-2xl text-black">ViewUs</span>
   </Link>
 );

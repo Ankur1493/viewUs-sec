@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import logo from "@/public/assets/images/logo.png";
 
 import {
   Sidebar,
@@ -202,9 +201,7 @@ export const Logo = () => {
       href="/dashboard"
       className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-4 relative z-20"
     >
-      <div className="relative w-10 h-10">
-        <Image src={logo} alt="Logo" layout="fill" objectFit="cover" />
-      </div>{" "}
+      <LogoIcon />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -217,11 +214,8 @@ export const Logo = () => {
 };
 export const LogoIcon = () => {
   return (
-    <Link
-      href="/dashboard"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-    >
-      <div className="h-5 w-6 bg-black rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+    <Link href="/dashboard">
+      <Image src="/assets/images/logo1.png" height={40} width={40} alt="logo" />
     </Link>
   );
 };
