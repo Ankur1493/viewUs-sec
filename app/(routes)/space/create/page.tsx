@@ -18,12 +18,15 @@ export default async function SpaceCreatePage({
 }) {
 
   const session = await auth()
-  if (!session) return redirect("/login")
 
-  const user = await getUserById(session?.user?.id!)
-  if (!user) return redirect("/login")
+  const userId = session?.user?.id
+  if (!userId) {
+    return redirect("/login")
+  }
 
-  if (!user.emailVerified) {
+  const user = await getUserById(userId!)
+
+  if (!user || !user.emailVerified) {
     return redirect("/verify?route=create-space")
   }
 

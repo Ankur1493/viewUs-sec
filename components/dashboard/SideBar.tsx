@@ -22,6 +22,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
 import { HelpSupportModal } from "./HelpSupportModal";
+import Image from "next/image";
 
 export function SideBar({ email }: { email: string }) {
   const links = [
@@ -96,7 +97,7 @@ export const Logo = () => (
     href="/dashboard"
     className="flex gap-2 items-center text-sm text-black py-4"
   >
-    <div className="h-8 w-8 bg-black rounded-br-lg" />
+    <Image src="/assets/images/logo1.png" height={40} width={40} alt="logo" />
     <span className="font-bold text-2xl text-black">ViewUs</span>
   </Link>
 );
