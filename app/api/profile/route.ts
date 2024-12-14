@@ -6,6 +6,7 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { CreateInvalidationCommand } from "@aws-sdk/client-cloudfront"
 import sharp from "sharp";
 import { s3, cloudFrontObject } from "@/lib/aws";
+import { ratelimit } from "@/lib/ratelimit";
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,6 +21,17 @@ export async function POST(req: NextRequest) {
         data: null,
         message: "Please log in first",
       }, { status: 401 });
+    }
+
+    const { success } = await ratelimit.limit(user.id!)
+
+    if (!success) {
+      return NextResponse.json({
+        success: false,
+        data: null,
+        message: "Limit reached, try again in few seconds",
+      }, { status: 429 });
+
     }
 
     const formData = await req.formData();

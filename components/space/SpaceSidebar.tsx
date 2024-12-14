@@ -30,6 +30,7 @@ import { Button } from "../ui/button";
 import { useParams, usePathname } from "next/navigation";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { HelpSupportModal } from "../dashboard/HelpSupportModal";
+import Image from "next/image";
 
 export function SpaceSideBar({ email }: { email: string }) {
   const { slug } = useParams();
@@ -199,7 +200,7 @@ export const Logo = () => {
       href="/dashboard"
       className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-4 relative z-20"
     >
-      <div className="h-8 w-8 bg-black rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <LogoIcon />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -214,9 +215,8 @@ export const LogoIcon = () => {
   return (
     <Link
       href="/dashboard"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
-      <div className="h-5 w-6 bg-black rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <Image src="/assets/images/logo1.png" height={40} width={40} alt="logo" />
     </Link>
   );
 };

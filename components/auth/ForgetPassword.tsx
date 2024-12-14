@@ -14,7 +14,7 @@ import { resetSchema } from "@/schemas/login"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
-import { generatePasswordResetVerificationTokens } from "@/lib/tokens"
+import { generatePasswordResetVerificationTokens } from "@/actions/tokens"
 import { toast } from "sonner"
 import { useState } from "react"
 

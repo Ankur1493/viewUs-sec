@@ -5,6 +5,7 @@ import { s3 } from "@/lib/aws";
 import { auth } from "@/auth"
 import { spaceSchema } from "@/schemas/space"
 import { db } from "@/lib/db";
+import { ratelimit } from "@/lib/ratelimit";
 
 const bucketName = process.env.AWS_BUCKET_NAME!
 
@@ -21,6 +22,17 @@ export async function POST(req: Request) {
         },
         { status: 400 }
       );
+    }
+
+    const { success } = await ratelimit.limit(user.id!)
+
+    if (!success) {
+      return NextResponse.json({
+        success: false,
+        errors: "Limit reached, try again in few seconds",
+        message: "Limit reached, try again in few seconds",
+      }, { status: 429 });
+
     }
 
     const { searchParams } = new URL(req.url);

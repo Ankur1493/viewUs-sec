@@ -53,7 +53,7 @@ export const TestimonialDeleteButton = ({
     if (response.status) {
       toast("testimonial deleted");
     } else {
-      toast.error(response.message);
+      toast(response.message);
     }
   };
 

@@ -4,7 +4,7 @@ import type { NextAuthConfig } from "next-auth"
 import bcrypt from "bcryptjs"
 import { loginSchema } from "./schemas/login";
 import { getUserByEmail } from "./data/user";
-import { generateVerificationTokens } from "./lib/tokens";
+import { generateVerificationTokens } from "@/actions/tokens";
 
 export default {
   providers: [Credenitals({
