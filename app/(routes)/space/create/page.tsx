@@ -7,12 +7,26 @@ import { TestimonialPage } from "@/components/space/create/TestimonialPage";
 import { ThankYouPage } from "@/components/space/create/ThankYouPage";
 import { DesignPage } from "@/components/space/create/DesignPage";
 import { SpaceCreationDetails } from "@/components/space/create/SpaceCreationDetails";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { getUserById } from "@/data/user";
 
-export default function SpaceCreatePage({
+export default async function SpaceCreatePage({
   searchParams,
 }: {
   searchParams: { page?: string };
 }) {
+
+  const session = await auth()
+  if (!session) return redirect("/login")
+
+  const user = await getUserById(session?.user?.id!)
+  if (!user) return redirect("/login")
+
+  if (!user.emailVerified) {
+    return redirect("/verify?route=create-space")
+  }
+
   const page = parseInt(searchParams.page || "1");
   const currentPage = isNaN(page) || page < 1 || page > 7 ? 1 : page;
 

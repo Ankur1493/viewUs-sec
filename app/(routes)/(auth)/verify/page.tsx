@@ -6,13 +6,13 @@ import { redirect } from "next/navigation";
 import { PartyPopper, TriangleAlert } from "lucide-react";
 import { VerifyCard } from "@/components/auth/VerifyCard";
 
-export default async function VerifyPage({ searchParams }: { searchParams: { error: string, token: string } }) {
+export default async function VerifyPage({ searchParams }: { searchParams: { error: string, token: string, route: string } }) {
   const session = await auth();
   const user = session?.user
   if (!user) {
     return redirect("/login")
   }
-  const { token, error } = searchParams;
+  const { token, error, route } = searchParams;
 
   if (error) {
     return (
@@ -52,12 +52,11 @@ export default async function VerifyPage({ searchParams }: { searchParams: { err
   if (userDetails && userDetails.emailVerified) {
     return redirect("/dashboard")
   }
-  //todo ---- add rate limiting on this sending verification mail
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
       <div className="bg-[#E9F8FF] p-5 rounded-full"><PartyPopper color="#009EE2" size={30} /></div>
-      <VerifyCard title="Thanks!" content="Click on the verification link shared via email to" mail={user?.email ?? ""} />
+      <VerifyCard title={route === "create-space" ? "Verify!" : "Thanks!"} content={route === "create-space" ? "You need to verify first before creating a space!" : "Click on the verification link shared via email to"} mail={user?.email ?? ""} />
     </div>
   )
 }
