@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { auth } from "@/auth";
 import { updateTestimonialLikeStatus } from "@/data/review";
 import { ratelimit } from "@/lib/ratelimit";
