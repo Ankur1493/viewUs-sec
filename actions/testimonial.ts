@@ -5,6 +5,7 @@ import { db } from "@/lib/db"
 import Review from "@/models/review_model"
 import { revalidatePath } from "next/cache"
 import { connectToMongo } from "@/lib/mongoose";
+import { ratelimit } from "@/lib/ratelimit"
 
 
 export const deleteTestimonial = async (id: string, spaceSlug: string) => {
@@ -16,6 +17,16 @@ export const deleteTestimonial = async (id: string, spaceSlug: string) => {
       return ({
         status: false,
         message: "you need to login before deleting a testimonial",
+        data: null,
+      })
+    }
+
+    const { success } = await ratelimit.limit(user.id!)
+
+    if (!success) {
+      return ({
+        status: false,
+        message: "Limit reached, try again in few seconds",
         data: null,
       })
     }

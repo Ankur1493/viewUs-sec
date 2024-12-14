@@ -1,8 +1,9 @@
 "use server"
+
 import { getEmailVerificationTokenByEmail } from "@/data/verificationToken";
 import { v4 as uuid } from "uuid"
 import { db } from "@/lib/db";
-import { sendForgetVerificationToken, sendVerificationMail } from "./mail";
+import { sendForgetVerificationToken, sendVerificationMail } from "@/lib/mail";
 
 export const generateVerificationTokens = async (email: string) => {
 
