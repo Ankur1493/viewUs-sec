@@ -14,7 +14,7 @@ export const DashboardNavbar = async () => {
   const session = await auth();
 
   return (
-    <div className="sticky z-10 top-0 h-[60px] w-full px-2 md:px-8 flex items-center justify-end gap-4 overflow-x-hidden">
+    <div className="sticky bg-white/30 backdrop-blur-md z-10 top-0 h-[60px] w-full px-2 md:px-8 flex items-center justify-end gap-4 overflow-x-hidden">
       <Link href="/pricing">
         <Button className="px-2 text-sm bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-opacity-80">
           ✨ Upgrade

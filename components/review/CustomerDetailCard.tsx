@@ -404,13 +404,13 @@ export const CustomerDetailCard = ({
           }`}
         />
       </CardContent>
-      <CardFooter className="flex justify-end items-center pb-0 pt-6">
+      <CardFooter className="flex justify-end items-center md:pb-0 md:pt-6">
         <Button
           form="personalInfoForm"
           type="submit"
           variant="form"
           disabled={!isFormValid}
-          className={`w-3/12 py-5 px-4 ${
+          className={`w-3/12 py-5 px-4 text-xs md:text-[14px] ${
             !isFormValid ? "cursor-not-allowed" : "cursor-pointer"
           }`}
         >

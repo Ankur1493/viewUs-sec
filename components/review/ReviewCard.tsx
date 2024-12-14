@@ -61,7 +61,7 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
         <VideoReviewCard reviewForm={reviewForm} />
       ) : (
         <Card className="md:max-w-[600px] lg:max-w-[700px] px-[2%] border-none flex flex-col gap-4 shadow-none">
-          <CardHeader className="flex flex-row gap-3">
+          <CardHeader className="flex flex-row gap-3 py-0">
             <div className="flex">
               {/* <Image
                 src={
@@ -76,7 +76,7 @@ export default function ReviewCard({ reviewForm }: { reviewForm: ReviewForm }) {
                 width={60}
                 className="rounded-full"
               /> */}
-              <CardTitle className="text-[#33313B] text-[24px] font-normal">
+              <CardTitle className="text-[#33313B] text-5xl font-medium">
                 {reviewForm.name.toUpperCase()}
               </CardTitle>
             </div>

@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+
 import {
   Sidebar,
   SidebarContent,
@@ -213,9 +214,7 @@ export const Logo = () => {
 };
 export const LogoIcon = () => {
   return (
-    <Link
-      href="/dashboard"
-    >
+    <Link href="/dashboard">
       <Image src="/assets/images/logo1.png" height={40} width={40} alt="logo" />
     </Link>
   );

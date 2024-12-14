@@ -20,11 +20,11 @@ export function Features() {
           </p>
         </div>
         <Image
-          src="/assets/images/test1.webp"
+          src="/assets/images/testimonialsPageMod.png"
           width={500}
           height={500}
           alt="linear demo image"
-          className="absolute -right-10 md:-right-[40%] lg:-right-[20%] -bottom-10 object-contain rounded-2xl"
+          className="absolute -right-10 md:-right-[40%] lg:-right-[10%] -bottom-40 object-contain rounded-2xl"
         />
       </WobbleCard>
 
@@ -42,7 +42,7 @@ export function Features() {
           </p>
         </div>
         <Image
-          src="/assets/images/test2.webp"
+          src="/assets/images/reviewPageMod.png"
           width={500}
           height={500}
           alt="linear demo image"
@@ -78,11 +78,11 @@ export function Features() {
           </p>
         </div>
         <Image
-          src="/assets/images/test1.webp"
+          src="/assets/images/importTestimonialsMod.png"
           width={500}
           height={500}
           alt="linear demo image"
-          className="absolute -right-10 md:-right-[40%] lg:-right-[20%] -bottom-10 object-contain rounded-2xl"
+          className="absolute -right-10 md:-right-[40%] lg:-right-[10%] -bottom-40 object-contain rounded-2xl"
         />
       </WobbleCard>
     </div>

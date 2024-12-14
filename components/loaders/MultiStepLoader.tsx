@@ -3,25 +3,16 @@ import { MultiStepLoader as Loader } from "../ui/multi-step-loader";
 
 const loadingStates = [
   {
-    text: "Add your personal information",
+    text: "Processing your review",
   },
   {
-    text: "select a text/video review",
+    text: "Keep waiting until your review is submitting",
   },
   {
-    text: "Write a text testimonial",
+    text: "Your review means a lot",
   },
   {
-    text: "Or record a video testimonial",
-  },
-  {
-    text: "Give some star ratings",
-  },
-  {
-    text: "Add some tags",
-  },
-  {
-    text: "Share your feedback!",
+    text: "Thankyou for submitting a review",
   },
 ];
 

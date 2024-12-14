@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import logo from "@/public/assets/images/logo1.png";
+import logo from "@/public/assets/images/logo.png";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";

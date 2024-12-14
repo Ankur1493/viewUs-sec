@@ -149,19 +149,19 @@ const ReasonsToUse: React.FC = () => {
       title: "Best Pricing — Maximize Your ROI with Flexible Plans",
       content:
         "ViewUs offers feature-rich testimonial tools at competitive rates. Our flexible plans let you scale with ease, ensuring maximum impact without breaking the bank.",
-      image: "/assets/images/card1.png",
+      image: "/assets/images/card3.png",
     },
     {
       title: "Personalized Support - Guidance at every step",
       content:
         "Our dedicated team provides expert assistance, helping you set up and optimize your testimonials to resonate with your audience and enhance credibility.",
-      image: "/assets/images/card2.png",
+      image: "/assets/images/support.png",
     },
     {
       title: "Boost Your Sales Performance with Real reviews",
       content:
         "Showcase authentic customer testimonials to build trust and attract new clients. With ViewUs, real feedback becomes a powerful tool to drive sales growth.",
-      image: "/assets/images/card3.png",
+      image: "/assets/images/boostSales.png",
     },
   ];
 
@@ -234,7 +234,7 @@ const ReasonsToUse: React.FC = () => {
             key={index}
             ref={addToCardRefs}
             className={cn(
-              "relative rounded-2xl shadow-lg bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-300 text-black text-left lg:max-w-[400px] place-items-center overflow-hidden pb-0",
+              "relative rounded-2xl shadow-lg bg-gradient-to-br from-pink-100 to-pink-50 border border-gray-300 text-black text-left lg:max-w-[400px] place-items-center overflow-hidden pb-0",
               index === 2 ? "md:col-span-2 lg:col-span-1" : "lg:col-span-1"
             )}
           >
@@ -252,7 +252,7 @@ const ReasonsToUse: React.FC = () => {
                 alt={card.title}
                 width={800}
                 height={800}
-                className="object-cover z-10 absolute md:w-[350px] md:h-[350px]"
+                className="object-cover z-10 absolute md:w-[350px] md:h-[300px]"
               />
               <div
                 className={cn(
@@ -260,8 +260,8 @@ const ReasonsToUse: React.FC = () => {
                   index == 0
                     ? "-bottom-[800px] -right-[270px] md:-bottom-[800px] md:-right-[460px] lg:-bottom-[800px] lg:-right-[665px]"
                     : index == 1
-                    ? "-bottom-[800px] -right-[270px] md:-bottom-[800px] md:-right-[100px] lg:-bottom-[800px] lg:-right-[250px]"
-                    : "-bottom-[800px] -right-[270px] md:-bottom-[760px] md:-right-[100px] lg:-bottom-[800px] lg:right-[163px]"
+                      ? "-bottom-[800px] -right-[270px] md:-bottom-[800px] md:-right-[100px] lg:-bottom-[800px] lg:-right-[250px]"
+                      : "-bottom-[800px] -right-[270px] md:-bottom-[760px] md:-right-[100px] lg:-bottom-[800px] lg:right-[163px]"
                 )}
               ></div>
             </CardContent>

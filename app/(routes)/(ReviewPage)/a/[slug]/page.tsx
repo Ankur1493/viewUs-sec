@@ -1,6 +1,7 @@
 import { getReviewFormDetails } from "@/actions/space";
 import ReviewCard from "@/components/review/ReviewCard";
 import { Metadata } from "next";
+import { gradients } from "@/constants/gradients";
 
 export async function generateMetadata({
   params,
@@ -35,7 +36,16 @@ export default async function ReviewPage({
   }
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
+    <div className="flex relative justify-center items-center w-screen min-h-screen h-full">
+      <div className="absolute bottom-0 left-0 w-full h-full pointer-events-none z-50">
+        <div
+          className="w-full h-full"
+          style={{
+            background: gradients[reviewForm.details.theme].style,
+            filter: "blur(40px)",
+          }}
+        />
+      </div>
       <ReviewCard reviewForm={reviewForm} />
     </div>
   );

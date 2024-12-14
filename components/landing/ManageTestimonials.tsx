@@ -9,7 +9,7 @@ export const ManageTestimonials = () => {
 
   return (
     <div
-      className="bg-gradient-radial from-[#141111] to-gray-950 text-white pt-28 p-10 space-y-10 overflow-x-hidden flex justify-center flex-col items-center"
+      className="bg-gradient-radial from-[#141111] to-gray-950 text-white py-12 md:py-28 md:px-10 space-y-10 overflow-x-hidden flex justify-center flex-col items-center"
       ref={ref}
     >
       <section className="text-center space-y-4">
@@ -25,13 +25,13 @@ export const ManageTestimonials = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-          className="text-lg text-gray-400"
+          className="text-sm md:text-lg text-gray-400 px-6 md:px-0"
         >
           Say goodbye to hours of work—manage testimonials in minutes.
         </motion.p>
       </section>
 
-      <div className="grid grid-cols-4 place-content-center gap-1 md:gap-4 overflow-hidden w-[600px] md:w-[1200px] lg:w-[2000px] h-full">
+      <div className="grid grid-cols-4 place-content-center gap-2 md:gap-4 overflow-hidden w-[600px] md:w-[1200px] lg:w-[2000px] h-full">
         <div className="col-span-1 row-span-2 flex items-center justify-center">
           <div className="rounded-lg">
             <Image
@@ -45,7 +45,7 @@ export const ManageTestimonials = () => {
           </div>
         </div>
 
-        <div className="col-span-1 grid grid-rows-3 gap-8">
+        <div className="col-span-1 flex flex-col items-center justify-center gap-2 md:gap-4">
           <div className="rounded-lg flex items-end">
             <Image
               src="/assets/images/dashboard.png"
@@ -76,9 +76,19 @@ export const ManageTestimonials = () => {
               className="rounded-lg object-cover"
             />
           </div>
+          <div className="rounded-lg flex items-start overflow-hidden">
+            <Image
+              src="/assets/images/wallOfLovePage.png"
+              alt="A preview of the testimonials page"
+              layout="responsive"
+              width={300}
+              height={300}
+              className="rounded-lg object-cover"
+            />
+          </div>
         </div>
 
-        <div className="col-span-2 grid grid-rows-2 gap-8">
+        <div className="col-span-2 grid grid-rows-2 gap-2 md:gap-4">
           <div className="col-span-2 row-span-2">
             <Image
               src="/assets/images/wallOfLovePage.png"

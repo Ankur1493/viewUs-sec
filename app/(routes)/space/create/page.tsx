@@ -16,18 +16,17 @@ export default async function SpaceCreatePage({
 }: {
   searchParams: { page?: string };
 }) {
+  const session = await auth();
 
-  const session = await auth()
-
-  const userId = session?.user?.id
+  const userId = session?.user?.id;
   if (!userId) {
-    return redirect("/login")
+    return redirect("/login");
   }
 
-  const user = await getUserById(userId!)
+  const user = await getUserById(userId!);
 
   if (!user || !user.emailVerified) {
-    return redirect("/verify?route=create-space")
+    return redirect("/verify?route=create-space");
   }
 
   const page = parseInt(searchParams.page || "1");

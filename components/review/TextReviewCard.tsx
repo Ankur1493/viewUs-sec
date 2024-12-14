@@ -78,7 +78,7 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
   const isValid = textReview.trim().length >= 30 && starred > 0;
 
   return (
-    <Card className="relative w-full lg:w-[85%] h-full px-[2%] border-none shadow-none flex flex-col">
+    <Card className="relative w-full lg:w-[85%] min-h-screen h-full px-[2%] border-none shadow-none flex flex-col">
       {/* <div className="flex flex-col">
         <CardHeader className="flex flex-row gap-3">
           <div className="flex">
@@ -138,8 +138,8 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                   </div>
                 ) : null}
               </div>
+              <TagSelection reviewForm={reviewForm} />
             </CardContent>
-            <TagSelection reviewForm={reviewForm} />
           </div>
           <div className="w-full md:basis-2/6 flex flex-col gap-6 lg:pr-12 pb-12 md:pb-0">
             <Card className="hidden w-full md:flex flex-col items-center">
@@ -179,7 +179,7 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
             <div className="flex justify-between">
               <Button
                 variant="link"
-                className="text-black text-[14px] px-0 hover:text-gray-800"
+                className="text-black text-xs md:text-[14px] px-0 hover:text-gray-800"
                 onClick={() => {
                   setReviewButton("");
                   {
@@ -197,7 +197,7 @@ export const TextReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                 type="submit"
                 variant="form"
                 disabled={!isValid}
-                className="text-[14px] p-0 py-2 px-4"
+                className="text-xs md:text-[14px] p-0 py-2 px-4"
                 onClick={handleSubmitReview}
               >
                 Submit
