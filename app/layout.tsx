@@ -4,6 +4,7 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
+import { CSPostHogProvider } from "@/_analytics/provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,7 +39,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased absolute top-0 z-0 h-screen`}
       >
         <SessionProvider>
-          <SidebarProvider>{children}</SidebarProvider>
+          <CSPostHogProvider>
+            <SidebarProvider>{children}</SidebarProvider>
+          </CSPostHogProvider>
         </SessionProvider>
         <Toaster />
       </body>

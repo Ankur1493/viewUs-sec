@@ -16,17 +16,6 @@ export async function GET(
       );
     }
 
-    //    const session = await auth();
-    //    const user = session?.user;
-
-    //    if (!user) {
-    //      return NextResponse.json(
-    //        { success: false, message: "login first", session, user },
-    //        { status: 401 }
-    //      );
-    //   }
-
-
     await connectToMongo();
 
     // Use Promise.all to run both queries concurrently

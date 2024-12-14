@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "../ui/button"
-import { generateVerificationTokens } from "@/lib/tokens"
+import { generateVerificationTokens } from "@/actions/tokens"
 
 export const VerificationButton = ({ email }: { email: string }) => {
 
