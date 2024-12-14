@@ -63,19 +63,19 @@ export default function SpaceInfo({
       <Separator className="mt-2" />
       <div className="flex justify-between">
         <div className="flex items-start space-x-4">
-          {testimonialCounts?.video && testimonialCounts?.video >= 0 && (
+          {testimonialCounts?.video && testimonialCounts?.video > 0 && (
             <div className="flex items-center space-x-1 text-sm">
               <Video className="w-4 h-4 text-blue-500" />
               <span>{testimonialCounts.video}</span>
             </div>
           )}
-          {testimonialCounts?.text && testimonialCounts?.text >= 0 && (
+          {testimonialCounts?.text && testimonialCounts?.text > 0 && (
             <div className="flex items-center space-x-1 text-sm">
               <MessageSquare className="w-4 h-4 text-green-500" />
               <span>{testimonialCounts.text}</span>
             </div>
           )}
-          {testimonialCounts?.imported && testimonialCounts?.imported >= 0 && (
+          {testimonialCounts?.imported && testimonialCounts?.imported > 0 && (
             <div className="flex items-center space-x-1 text-sm">
               <Import className="w-4 h-4 text-yellow-500" />
               <span>{testimonialCounts.imported}</span>

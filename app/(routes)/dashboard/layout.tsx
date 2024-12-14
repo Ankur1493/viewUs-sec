@@ -16,7 +16,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
         <SideBar email={user.email!} />
       </div>
       <div className="absolute top-3 left-2 block md:hidden flex-none z-50">
-        <SidebarTrigger />
+        <SidebarTrigger className="z-100" />
       </div>
       <div className="flex-grow w-full flex-3">
         <DashboardNavbar />

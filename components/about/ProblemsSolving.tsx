@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import step1Image from "@/public/assets/images/reviewPageMod.png";
-import step2Image from "@/public/assets/images/testimonialsPageMod.png";
-import step3Image from "@/public/assets/images/wallOfLovePageMod.png";
+import step2Image from "@/public/assets/images/testimonialsPage.png";
+import step3Image from "@/public/assets/images/wallOfLovePage.png";
 import Image from "next/image";
 
 export default function OurProcess() {
@@ -51,7 +51,7 @@ export default function OurProcess() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="flex-1 px-1 md:px-4 flex items-center gap-4"
+                className="flex-2 px-1 md:px-4 flex items-center gap-4"
               >
                 <div>
                   <h2 className="text-6xl md:text-9xl font-bold flex items-center justify-center">
@@ -72,7 +72,7 @@ export default function OurProcess() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="relative w-full overflow-hidden h-[400px] rounded-2xl md:flex-1"
+                className="relative w-full overflow-hidden h-[450px] shadow-md border-gray-400  rounded-2xl md:flex-3"
               >
                 <Image
                   src={step.image}

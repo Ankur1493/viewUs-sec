@@ -7,7 +7,7 @@ export const gradients = [
   {
     id: 2,
     style:
-      "radial-gradient(circle at bottom left, rgba(106, 225, 211, 0.6), rgba(252, 234, 138, 0.6), rgba(255, 255, 255, 0) 30%)",
+      "radial-gradient(circle at bottom left, rgba(106, 225, 211, 0.6), rgba(137, 125, 228, 0.6), rgba(255, 255, 255, 0) 20%)",
   },
   {
     id: 3,

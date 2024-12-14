@@ -42,33 +42,35 @@ export const Landing = () => {
           <ReasonsToUse />
         </div>
         <div>
-          <VideoSection
-            heading="Instant testimonials Setup"
-            content="Easily set up testimonials on your website with just a few clicks!
+          <div>
+            <VideoSection
+              heading="Instant testimonials Setup"
+              content="Easily set up testimonials on your website with just a few clicks!
               Showcase customer reviews in a seamless and engaging way, boosting
               your brand’s credibility in minutes."
-            videoSrc="/assets/videos/screen2.mp4"
-            buttonContent1="Live Preview"
-            linkHref1="#"
-          />
-        </div>
-        <div>
-          <VideoSection
-            heading="Hall of Fame"
-            content="Highlight the authentic voices of your customers with the Wall of Love. Share genuine testimonials that reflect trust and satisfaction, building lasting connections and enhancing your brand's credibility."
-            videoSrc="/assets/videos/submitTextReview.mp4"
-            buttonContent1="Start your journey"
-            linkHref1="#"
-            buttonContent2="Live Preview"
-            linkHref2="#"
-          />
+              videoSrc="/assets/videos/screen2.mp4"
+              buttonContent1="Live Preview"
+              linkHref1="#"
+            />
+          </div>
+          <div>
+            <VideoSection
+              heading="Hall of Fame"
+              content="Highlight the authentic voices of your customers with the Wall of Love. Share genuine testimonials that reflect trust and satisfaction, building lasting connections and enhancing your brand's credibility."
+              videoSrc="/assets/videos/submitTextReview.mp4"
+              buttonContent1="Start your journey"
+              linkHref1="#"
+              buttonContent2="Live Preview"
+              linkHref2="#"
+            />
+          </div>
         </div>
 
-        <div className="relative w-full my-12 top-16 lg:top-24 flex flex-col jutify-center items-center">
+        <div className="relative w-full md:my-12 top-16 lg:top-24 flex flex-col jutify-center items-center">
           <h2 className="text-3xl md:text-6xl font-bold text-center mb-2">
             See what our users say about us
           </h2>
-          <p className="text-xl text-center text-gray-500 mb-12">
+          <p className="text-sm md:text-xl text-center text-gray-500 mb-12 px-8 md:px-0">
             Our very own wall of love. Or complaints. Whatever you want to call
             it.
           </p>
@@ -87,7 +89,7 @@ export const Landing = () => {
         </div>
 
         <div className="flex flex-col justify-center items-center mt-40 md:mt-24 pt-20 font-bold text-center w-full">
-          <h2 className="w-[90%] lg:w-3/5 pb-12 text-4xl md:text-5xl lg:text-6xl">
+          <h2 className="md-w-[90%] lg:w-3/5 pb-12 text-2xl md:text-5xl lg:text-6xl">
             Forge Lasting Connections: From First Click to Loyal Customer
           </h2>
           <Features />

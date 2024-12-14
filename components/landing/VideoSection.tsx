@@ -57,7 +57,7 @@ export const VideoSection = ({
   return (
     <div
       ref={sectionRef}
-      className="flex flex-col w-full md:flex-row items-center justify-between p-6 mt-20 md:mt-40 lg:px-12"
+      className="flex flex-col w-full md:flex-row items-center justify-between p-6 mt-8 md:mt-40 lg:px-12"
     >
       <motion.div
         className="w-[95%] md:w-2/5 space-y-4 text-center md:text-left"
@@ -80,7 +80,7 @@ export const VideoSection = ({
           <motion.div className="flex flex-col lg:flex-row gap-3 lg:gap-2 w-full">
             <Link href={linkHref1} className="flex-1">
               <Button className="flex w-full py-5 gap-2 rounded-xl shadow-xl border-2 font-semibold group">
-                <p>{buttonContent1}</p>
+                <p className="text-sm md:text-base">{buttonContent1}</p>
                 {buttonContent2 ? (
                   <ChevronRight className="w-[18px] h-[18px] group-hover:w-[20px] group-hover:h-[20px] transition-all duration-100 ease-in-out" />
                 ) : (

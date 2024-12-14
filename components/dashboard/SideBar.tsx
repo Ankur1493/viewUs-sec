@@ -18,7 +18,6 @@ import {
   LogOutIcon,
   BookTextIcon,
   CircleDollarSignIcon,
-  RssIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -34,19 +33,14 @@ export function SideBar({ email }: { email: string }) {
       icon: <House className="text-neutral-700 h-6 w-6" />,
     },
     {
-      label: "Documentation",
-      href: "/docs",
+      label: "Articles",
+      href: "/articles",
       icon: <BookTextIcon className="text-neutral-700 h-6 w-6" />,
     },
     {
       label: "Pricing",
       href: "/pricing",
       icon: <CircleDollarSignIcon className="text-neutral-700 h-6 w-6" />,
-    },
-    {
-      label: "Blogs",
-      href: "/articles",
-      icon: <RssIcon className="text-neutral-700 h-6 w-6" />,
     },
   ];
 
