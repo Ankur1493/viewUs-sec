@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 //@ts-nocheck
-import React, { useEffect, useRef } from 'react';
-import Hls from 'hls.js';
+import React, { useEffect, useRef } from "react";
+import Hls from "hls.js";
 
 export const VideoPlayer = ({ videoLink }: { videoLink: string }) => {
-
   const videoRef = useRef(null);
 
-  console.log({ videoLink })
-  const videoUrl = `https://d3eyp937ijscg0.cloudfront.net/${videoLink}/playlist.m3u8`
-
+  console.log({ videoLink });
+  const videoUrl = `https://d3eyp937ijscg0.cloudfront.net/${videoLink}/playlist.m3u8`;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -26,12 +24,12 @@ export const VideoPlayer = ({ videoLink }: { videoLink: string }) => {
       return () => {
         hls.destroy();
       };
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
       // For Safari or other HLS-supported browsers
       video.src = videoUrl;
-      video.addEventListener('loadedmetadata', () => {
-        video.play();
-      });
+      // video.addEventListener('loadedmetadata', () => {
+      //   video.play();
+      // });
     }
   }, [videoUrl]);
 
@@ -39,11 +37,12 @@ export const VideoPlayer = ({ videoLink }: { videoLink: string }) => {
     <div>
       <video
         ref={videoRef}
-        width='640'
-        height='360'
+        autoPlay={false}
+        width="640"
+        height="360"
         controls={true}
-        style={{ maxWidth: '100%' }}
+        style={{ maxWidth: "100%" }}
       ></video>
     </div>
   );
-}
+};

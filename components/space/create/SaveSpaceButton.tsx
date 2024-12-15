@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import axios from "axios";
 import { toast } from "sonner";
+import { MultiStepLoaderSpace } from "@/components/loaders/MultiStepLoaderSpace";
 
 type ButtonVariant =
   | "outline"
@@ -53,6 +54,7 @@ export const SaveButton = ({
     design,
   } = useSpaceDataStore();
   const [isSaveDialogOpen, setIsSaveDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSave = () => {
     setIsSaveDialogOpen(true);
@@ -60,6 +62,7 @@ export const SaveButton = ({
 
   const handleSaveConfirm = async () => {
     setIsSaveDialogOpen(false);
+    setIsLoading(true);
 
     // Validate required fields
     if (
@@ -130,32 +133,44 @@ export const SaveButton = ({
 
       toast.error(errorMessage);
       console.error("Error sending data:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div>
-      <div>
-        <Button variant={variant} className={className} onClick={handleSave}>
-          Save
-        </Button>
-      </div>
-      <Dialog open={isSaveDialogOpen} onOpenChange={setIsSaveDialogOpen}>
-        <DialogContent className="bg-white">
-          <DialogHeader>
-            <DialogTitle>Are you ready to collect Testimonials</DialogTitle>
-            <DialogDescription>
-              Your will be redirected in a minute.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => handleSaveConfirm()}>
-              No
+    <>
+      {isLoading ? (
+        <MultiStepLoaderSpace />
+      ) : (
+        <div>
+          <div>
+            <Button
+              variant={variant}
+              className={className}
+              onClick={handleSave}
+            >
+              Save
             </Button>
-            <Button onClick={() => handleSaveConfirm()}>Yes</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+          </div>
+          <Dialog open={isSaveDialogOpen} onOpenChange={setIsSaveDialogOpen}>
+            <DialogContent className="bg-white">
+              <DialogHeader>
+                <DialogTitle>Are you ready to collect Testimonials</DialogTitle>
+                <DialogDescription>
+                  Your will be redirected in a minute.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button variant="outline" onClick={() => handleSaveConfirm()}>
+                  No
+                </Button>
+                <Button onClick={() => handleSaveConfirm()}>Yes</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+      )}
+    </>
   );
 };
