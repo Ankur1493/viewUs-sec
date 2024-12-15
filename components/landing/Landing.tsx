@@ -27,7 +27,7 @@ export const Landing = () => {
           >
             <div className="w-full h-full mx-20">
               <iframe
-                src="http://localhost:5173/w/embed-testimonials/carousal?slug=bakedui&theme=dark&cardBorder=000000&cardBackground=141414&star=FACC3C"
+                src="https://embed.viewus.in/w/embed-testimonials/carousal?slug=bakedui&theme=dark&cardBorder=000000&cardBackground=141414&star=FACC3C"
                 width="100%"
                 height="100%"
                 frameBorder="0"
@@ -78,7 +78,7 @@ export const Landing = () => {
           </p>
           <div className="w-[95%] md:w-[90%] h-screen rounded-xl">
             <iframe
-              src="http://localhost:5173/w/embed-testimonials?slug=bakedui&animated=on&theme=&speed=slow&columns=4"
+              src="https://embed.viewus.in/w/embed-testimonials?slug=bakedui&animated=on&theme=&speed=slow&columns=4"
               width="100%"
               height="100%"
               frameBorder="0"

@@ -13,6 +13,8 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
+const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
+
 export const VerificationEmailTemplate = (token: string) => {
   return (
     <Html>
@@ -76,7 +78,7 @@ export const VerificationEmailTemplate = (token: string) => {
 
               <Section className="text-center mb-8">
                 <Button
-                  href={`http://localhost:3000/verify?token=${token}`}
+                  href={`${baseUrl}/verify?token=${token}`}
                   className="bg-brand text-white font-bold py-3 px-6 rounded-full hover:bg-indigo-600 transition-colors"
                 >
                   Go to Your Dashboard

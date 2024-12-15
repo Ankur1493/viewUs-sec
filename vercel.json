@@ -5,11 +5,11 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "http://localhost:5173"
+          "value": "https://embed.viewus.in"
         },
         {
           "key": "Access-Control-Allow-Methods",
-          "value": "GET,DELETE,PATCH,POST,PUT"
+          "value": "GET"
         },
         {
           "key": "Access-Control-Allow-Headers",

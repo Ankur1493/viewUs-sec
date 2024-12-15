@@ -33,6 +33,7 @@ interface SaveButtonProps {
   page?: "create" | "edit";
   slug?: string | undefined;
 }
+const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
 
 export const SaveButton = ({
   id,
@@ -97,8 +98,8 @@ export const SaveButton = ({
 
       const url =
         page === "create"
-          ? "http://localhost:3000/api/space/create"
-          : `http://localhost:3000/api/space/edit?id=${id}`;
+          ? `${baseUrl}/api/space/create`
+          : `${baseUrl}/api/space/edit?id=${id}`;
 
       const response = await axios.post(url, formData, {
         headers: {

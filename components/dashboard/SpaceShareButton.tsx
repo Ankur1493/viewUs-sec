@@ -12,10 +12,11 @@ interface SpaceDeleteButtonProps {
 
 export const SpaceShareButton = ({ ShowUrl, slug }: SpaceDeleteButtonProps) => {
   const [isCopied, setIsCopied] = useState(false);
+  const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
 
   const handleCopyCode = () => {
     setIsCopied(true);
-    navigator.clipboard.writeText(`http://localhost:3000/a/${slug}`);
+    navigator.clipboard.writeText(`${baseUrl}/a/${slug}`);
   };
 
   useEffect(() => {
@@ -32,13 +33,13 @@ export const SpaceShareButton = ({ ShowUrl, slug }: SpaceDeleteButtonProps) => {
       className={cn(
         "p-1 cursor-pointer gap-4 flex justify-between items-center ",
         ShowUrl &&
-          "p-0 pr-4  shadow-inner shadow-gray-50 border border-gray-200 rounded-xl w-full"
+        "p-0 pr-4  shadow-inner shadow-gray-50 border border-gray-200 rounded-xl w-full"
       )}
     >
       {ShowUrl && (
         <Input
           className="w-full border-none text-md text-muted-foreground"
-          value={`http://localhost:3000/a/${slug}`}
+          value={`${baseUrl}/a/${slug}`}
         />
       )}
       {isCopied ? (

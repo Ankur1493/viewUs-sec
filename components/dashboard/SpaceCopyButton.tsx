@@ -9,9 +9,10 @@ interface SpaceDeleteButtonProps {
 
 export const SpaceCopyButton = ({ slug }: SpaceDeleteButtonProps) => {
   const [isCopied, setIsCopied] = useState(false);
+  const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
 
   const copyToClipboard = () => {
-    const url = `http://localhost:3000/a/${slug}`;
+    const url = `${baseUrl}/a/${slug}`;
     navigator.clipboard.writeText(url).then(() => {
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
