@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import logo from "@/public/assets/images/logo.png";
+import Link from "next/link";
 
 export const Footer: React.FC = () => {
   return (
@@ -15,53 +16,47 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex gap-10 w-full lg:w-1/2">
-          <div className="w-full lg:w-3/4 mb-6 lg:mb-0">
-            <h3 className="text-sm md:text-lg font-bold mb-4">PRODUCTS</h3>
-            <ul className="grid text-gray-300 md:grid-cols-2 gap-2">
+        <div className="flex gap-0 w-full lg:w-1/2">
+          <div className="w-full lg:w-2/4 mb-6 lg:mb-0">
+            <h3 className="text-sm md:text-lg font-bold mb-4">
+              Why Viewus
+            </h3>
+            <ul className="grid text-gray-300 gap-2">
               <li>
-                <a href="#">Our Wall of Love</a>
+                <Link href="/about">About us</Link>
               </li>
               <li>
-                <a href="#">Pricing</a>
-              </li>
-              <li>
-                <a href="#">Features</a>
-              </li>
-              <li>
-                <a href="#">Integrations</a>
-              </li>
-              <li>
-                <a href="#">Help center</a>
-              </li>
-              <li>
-                <a href="#">Product demo</a>
+                <Link href="/pricing">Pricing</Link>
               </li>
             </ul>
           </div>
-
-          <div className="w-full lg:w-3/4 mb-6 lg:mb-0">
+          <div className="w-full lg:w-2/4 mb-6 lg:mb-0">
             <h3 className="text-sm md:text-lg font-bold mb-4">
-              COMPANY AND SUPPORT
+              Socials
             </h3>
-            <ul className="grid text-gray-300 md:grid-cols-2 gap-2">
+            <ul className="grid text-gray-300 gap-2">
               <li>
-                <a href="#">Our resources</a>
+                <Link href="https://cal.com/ankur-sharma/15min">Call Us</Link>
               </li>
               <li>
-                <a href="#">Tutorials</a>
+                <Link href="https://x.com/ankursharma1493">Twitter</Link>
               </li>
               <li>
-                <a href="#">Privacy policy</a>
+                <Link href="https://github.com/Ankur1493/viewUs-sec">Github</Link>
+              </li>
+            </ul>
+          </div>
+          <div className="w-full lg:w-3/4 mb-6 lg:mb-0">
+            <h3 className="text-sm md:text-lg font-bold mb-4">Articles</h3>
+            <ul className="grid text-gray-300  gap-2">
+              <li>
+                <Link href="/articles/manage-testimonials">How to manage testimonials</Link>
               </li>
               <li>
-                <a href="#">Terms of Service</a>
+                <Link href="/articles/collect-testimonials">Collect testimonials easily</Link>
               </li>
               <li>
-                <a href="#">Cookie policy</a>
-              </li>
-              <li>
-                <a href="#">Contact us</a>
+                <Link href="/articles/share-testimonials">Share testimonials in seconds</Link>
               </li>
             </ul>
           </div>

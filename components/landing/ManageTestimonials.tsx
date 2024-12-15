@@ -9,7 +9,7 @@ export const ManageTestimonials = () => {
 
   return (
     <div
-      className="bg-gradient-radial from-[#141111] to-gray-950 text-white py-12 md:py-28 md:px-10 space-y-10 overflow-x-hidden flex justify-center flex-col items-center"
+      className=" text-white py-12 md:py-28 md:px-10 space-y-10 overflow-x-hidden flex justify-center flex-col items-center"
       ref={ref}
     >
       <section className="text-center space-y-4">
