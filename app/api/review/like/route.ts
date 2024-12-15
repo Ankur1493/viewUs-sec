@@ -52,7 +52,7 @@ export async function GET(
           slug,
         },
       }),
-      Review.find({ slug }).sort({ updatedAt: 1 }).select({
+      Review.find({ slug }).sort({ updatedAt: -1 }).select({
         _id: 1,
         reviewType: 1,
         review: 1,
