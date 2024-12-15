@@ -150,8 +150,8 @@ export default function Collect() {
               <p className="text-gray-600">
                 Craft well-designed questions to improve the quality of
                 testimonials. You have full control to define questions based on
-                your product's needs and focus, ensuring relevant and impactful
-                testimonials.
+                your product&apos;s needs and focus, ensuring relevant and
+                impactful testimonials.
               </p>
             </div>
           </div>

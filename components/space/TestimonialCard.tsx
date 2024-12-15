@@ -40,7 +40,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
   const numberOfStars = testimonial.stars ?? 0;
   const reviewTypeLabel: ImportedReviewType =
     importedReviewTypeLabels[
-    testimonial.importedReviewType as keyof typeof importedReviewTypeLabels
+      testimonial.importedReviewType as keyof typeof importedReviewTypeLabels
     ];
 
   return (
@@ -139,18 +139,18 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
           </div>
         </CardHeader>
         <CardContent
-          className={`flex-row w-full items-center ${isExpanded ? "pb-2" : "pb-8"
-            }`}
+          className={`flex-row w-full items-center ${
+            isExpanded ? "pb-2" : "pb-8"
+          }`}
         >
           <p className="text-md tracking-wide text-justify font-medium pb-2">
             {testimonial.reviewType !== ReviewType.VIDEO && testimonial.review}
           </p>
-          {
-            testimonial.reviewType === ReviewType.VIDEO &&
+          {testimonial.reviewType === ReviewType.VIDEO && (
             <VideoPlayer videoLink={testimonial.review} />
-          }
+          )}
           {testimonial.importedImage &&
-            testimonial?.importedImage[0]?.length > 0 ? (
+          testimonial?.importedImage[0]?.length > 0 ? (
             <Image
               src={testimonial.importedImage[0]}
               alt={`${testimonial.importedReviewType} image`}
@@ -164,8 +164,6 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
               <div className="w-[300px] h-[200px]">
                 <video
                   src={testimonial.importedVideo[0]}
-                  autoPlay
-                  muted
                   controls
                   className="w-full h-full object-cover rounded-lg"
                 />
@@ -198,13 +196,13 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
                   <div className="text-gray-600 text-sm">
                     {testimonial.createdAt
                       ? new Date(testimonial.createdAt).toLocaleDateString(
-                        "en-US",
-                        {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        }
-                      )
+                          "en-US",
+                          {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          }
+                        )
                       : ""}
                   </div>
 

@@ -36,7 +36,7 @@ export default function Article() {
               Boost Your Business with ViewUs
             </h2>
           </div>
-          <div className="flex flex-col gap-8  w-full ">
+          <div className="flex gap-8  w-full ">
             {articles.map((article, index) => (
               <Link key={index} href={`/articles/${article.id}`}>
                 <Card

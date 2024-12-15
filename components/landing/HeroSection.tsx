@@ -1,14 +1,10 @@
 "use client";
 import { useEffect } from "react";
 import { gsap } from "gsap";
-import Image from "next/image";
 import Link from "next/link";
 
-interface HeroImageProps {
-  imageSrc?: string;
-}
-
-const HeroSection: React.FC<HeroImageProps> = ({ imageSrc }) => {
+// const HeroSection: React.FC<HeroVideoProps> = ({ videoSrc }) => {
+const HeroSection = () => {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -99,16 +95,15 @@ const HeroSection: React.FC<HeroImageProps> = ({ imageSrc }) => {
         <div className="hero__image glass-container mt-16 w-fit opacity-0">
           <div className="hero__glow hero__glow--one absolute left-1/3 top-0 -z-10 h-2/3 w-2/3 bg-violet-700/50 mix-blend-screen blur-3xl filter md:blur-[120px] opacity-0" />
           <div className="hero__glow hero__glow--two absolute left-0 top-1/3 -z-10 h-2/3 w-2/3 bg-orange-400 mix-blend-screen blur-3xl filter md:blur-[120px] opacity-0" />
-
-          {imageSrc && (
-            <Image
-              src={imageSrc}
-              alt="Hero Image"
-              width={1000}
-              height={2000}
-              className="rounded-3xl border-black border-8"
-            />
-          )}
+          <video
+            src="/assets/videos/mainProd.mp4"
+            autoPlay
+            loop
+            playsInline
+            width={1000}
+            height={2000}
+            className="rounded-3xl z-50 border-black border-8"
+          />
         </div>
       </div>
     </>

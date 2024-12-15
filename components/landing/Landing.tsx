@@ -16,18 +16,18 @@ export const Landing = () => {
         <TriangleFeature />
       </div>
       <div className="w-screen z-10 flex flex-col items-center md:mt-24 mt-12 gap-20">
-        <HeroSection imageSrc="/assets/images/HeroImage.png" />
+        <HeroSection />
         <div className="bg-gradient-radial from-[#141111] to-gray-950">
           <div className="w-full my-8 top-16 md:top-28 lg:top-40 mt-16">
             <ManageTestimonials />
           </div>
           <div
-            className="w-full h-screen flex justify-center items-center mx-20  "
+            className="w-full h-screen flex justify-center items-center  lg:px-56 "
             style={{ margin: 0 }}
           >
-            <div className="w-full h-full">
+            <div className="w-full h-full mx-20">
               <iframe
-                src="https://embed-viewus.netlify.app/w/embed-testimonials/carousal"
+                src="http://localhost:5173/w/embed-testimonials/carousal?slug=bakedui&theme=dark&cardBorder=000000&cardBackground=141414&star=FACC3C"
                 width="100%"
                 height="100%"
                 frameBorder="0"
@@ -78,7 +78,7 @@ export const Landing = () => {
           </p>
           <div className="w-[95%] md:w-[90%] h-screen rounded-xl">
             <iframe
-              src="https://embed-viewus.netlify.app/w/embed-testimonials?animated=on&theme=&speed=slow&columns=3"
+              src="http://localhost:5173/w/embed-testimonials?slug=bakedui&animated=on&theme=&speed=slow&columns=4"
               width="100%"
               height="100%"
               frameBorder="0"
