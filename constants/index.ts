@@ -54,13 +54,13 @@ export const WallCardTypesConstants: wallCardType[] = [
     key: 2,
     title: "Animated",
     slug: "animated" as const,
-    url: "https://embed-viewus.netlify.app/w/embed-testimonials?slug=bakedui&animated=on",
+    url: "https://embed.viewus.in/w/embed-testimonials?slug=bakedui&animated=on",
     desc: "A animated grid layout structure for showcasing a lot of reviews which are important",
     img: "/assets/images/grid_animated.gif",
   },
   {
     key: 3,
-    url: "https://embed-viewus.netlify.app/w/embed-testimonials/carousal?slug=bakedui",
+    url: "https://embed.viewus.in/w/embed-testimonials/carousal?slug=bakedui",
     title: "Carousel",
     slug: "carousal" as const,
     desc: "A carousel for you to have an showcase horizontaly and clear reviews",
@@ -68,7 +68,7 @@ export const WallCardTypesConstants: wallCardType[] = [
   },
   {
     key: 4,
-    url: "https://embed-viewus.netlify.app/w/embed-testimonials/carousal?slug=bakedui&animated=on",
+    url: "https://embed.viewus.in/w/embed-testimonials/carousal?slug=bakedui&animated=on",
     title: "Carousel Animated" as const,
     slug: "animated-carousal",
     desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
@@ -76,7 +76,7 @@ export const WallCardTypesConstants: wallCardType[] = [
   },
   {
     key: 5,
-    title: "testing",
+    title: "Single Testimonial",
     url: "/articles",
     slug: "fixed" as const,
     desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
