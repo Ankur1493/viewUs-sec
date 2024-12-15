@@ -24,7 +24,7 @@ export function Features() {
           width={500}
           height={500}
           alt="linear demo image"
-          className="absolute -right-10 md:-right-[40%] lg:-right-[10%] -bottom-40 object-contain rounded-2xl"
+          className="absolute -right-10 md:-right-[40%] lg:-right-[10%] -bottom-4 lg:-bottom-16 object-contain rounded-2xl"
         />
       </WobbleCard>
 
@@ -46,7 +46,7 @@ export function Features() {
           width={500}
           height={500}
           alt="linear demo image"
-          className="absolute -right-4 lg:-right-[20%] grayscale filter -bottom-40 object-contain rounded-2xl"
+          className="absolute -right-4 lg:-right-[20%] grayscale filter -bottom-4 lg:-bottom-16 object-contain rounded-2xl"
         />
       </WobbleCard>
       <Card className="col-span-1 bg-orange-600 min-h-[300px] relative  h-full [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))]  sm:mx-0 sm:rounded-2xl overflow-hidden">
@@ -82,7 +82,7 @@ export function Features() {
           width={500}
           height={500}
           alt="linear demo image"
-          className="absolute -right-10 md:-right-[40%] lg:-right-[10%] -bottom-40 object-contain rounded-2xl"
+          className="absolute -right-10 md:-right-[40%] lg:-right-[10%] -bottom-32 lg:-bottom-40 object-contain rounded-2xl"
         />
       </WobbleCard>
     </div>

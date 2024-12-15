@@ -21,10 +21,9 @@ export const ReviewSubmittedTemplate = ({
   firstName,
   spaceTitle,
 }: ReviewSubmittedEmailTemplateProps) => (
-
   <Html>
     <Head />
-    <Preview>Your review for BakedUi has been submitted</Preview>
+    <Preview>Your review has been submitted</Preview>
     <Tailwind
       config={{
         theme: {
