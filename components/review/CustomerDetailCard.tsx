@@ -217,7 +217,7 @@ export const CustomerDetailCard = ({
             <form
               id="personalInfoForm"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-[25px] md:space-y-[25px] mt-3"
+              className="w-full space-y-[25px] md:space-y-[25px] mt-3 z-50"
             >
               <FormField
                 control={form.control}
@@ -362,7 +362,7 @@ export const CustomerDetailCard = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Apple"
+                        placeholder="ViewUs"
                         {...field}
                         className="h-[48px]"
                       />
@@ -388,7 +388,7 @@ export const CustomerDetailCard = ({
                       <Input
                         placeholder="Software Developer"
                         {...field}
-                        className="h-[48px]"
+                        className="h-[48px] z-20"
                       />
                     </FormControl>
                     <FormMessage />
@@ -400,7 +400,7 @@ export const CustomerDetailCard = ({
         </div>
         <div
           className={`absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent z-10 transition-opacity duration-300 ${
-            isBottomShadowVisible ? "opacity-100" : "opacity-0"
+            isBottomShadowVisible ? "opacity-100" : "opacity-0 hidden"
           }`}
         />
       </CardContent>

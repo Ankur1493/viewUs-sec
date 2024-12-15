@@ -10,7 +10,7 @@ import ReasonsToUse from "./ReasonsToUse";
 
 export const Landing = () => {
   return (
-    <div className="flex flex-col items-center relative top-0 w-full transform">
+    <div className="flex flex-col items-center relative top-0 w-full transform max-w-screen-2xl">
       <Navbar active="none" />
       <div className="absolute z-0 top-20 w-full flex justify-center">
         <TriangleFeature />
@@ -22,10 +22,10 @@ export const Landing = () => {
             <ManageTestimonials />
           </div>
           <div
-            className="w-full h-screen flex justify-center items-center  lg:px-56 "
+            className="w-full h-screen flex justify-center items-center lg:px-40 "
             style={{ margin: 0 }}
           >
-            <div className="w-full h-full mx-20">
+            <div className="w-full h-full max-w-screen-2xl">
               <iframe
                 src="https://embed.viewus.in/w/embed-testimonials/carousal?slug=bakedui&theme=dark&cardBorder=000000&cardBackground=141414&star=FACC3C"
                 width="100%"
@@ -47,9 +47,7 @@ export const Landing = () => {
           <div>
             <VideoSection
               heading="Instant testimonials Setup"
-              content="Easily set up testimonials on your website with just a few clicks!
-              Showcase customer reviews in a seamless and engaging way, boosting
-              your brand’s credibility in minutes."
+              content="Easily set up your space and make your review form match your brand. Add your logo, choose your colors, and style it the way you want to create a consistent and professional look."
               videoSrc="/assets/videos/screen2.mp4"
               buttonContent1="Live Preview"
               linkHref1="#"
@@ -57,13 +55,15 @@ export const Landing = () => {
           </div>
           <div>
             <VideoSection
-              heading="Hall of Fame"
-              content="Highlight the authentic voices of your customers with the Wall of Love. Share genuine testimonials that reflect trust and satisfaction, building lasting connections and enhancing your brand's credibility."
+              heading="Wall of love"
+              content="Easily set up testimonials on your website with just a few clicks!
+              Showcase customer reviews in a seamless and engaging way, boosting
+              your brand's credibility in minutes."
               videoSrc="/assets/videos/submitTextReview.mp4"
               buttonContent1="Start your journey"
               linkHref1="#"
               buttonContent2="Live Preview"
-              linkHref2="#"
+              linkHref2="a/viewus"
             />
           </div>
         </div>
@@ -76,9 +76,9 @@ export const Landing = () => {
             Our very own wall of love. Or complaints. Whatever you want to call
             it.
           </p>
-          <div className="w-[95%] md:w-[90%] h-screen rounded-xl">
+          <div className="w-[95%] md:w-[90%] h-screen rounded-xl scrollbar-hidden max-w-screen-2xl">
             <iframe
-              src="https://embed.viewus.in/w/embed-testimonials?slug=bakedui&animated=on&theme=&speed=slow&columns=4"
+              src="https://embed.viewus.in/w/embed-testimonials?slug=bakedui&theme=&speed=slow&columns=4"
               width="100%"
               height="100%"
               frameBorder="0"

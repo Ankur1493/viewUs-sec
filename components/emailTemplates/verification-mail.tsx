@@ -13,7 +13,10 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
+const baseUrl =
+  process.env.NEXT_PUBLIC_ENVIRONMENT === "development"
+    ? "http://localhost:3000"
+    : "https://www.viewus.in";
 
 export const VerificationEmailTemplate = (token: string) => {
   return (
@@ -50,7 +53,7 @@ export const VerificationEmailTemplate = (token: string) => {
             />
             <Container className="bg-white p-12 rounded-lg shadow-lg">
               <Heading className="text-center text-3xl font-bold text-gray-800 mb-6">
-                Welcome to viewUs, Ankur!
+                Welcome to viewUs!
               </Heading>
 
               <Text className="text-gray-600 mb-6">
@@ -98,6 +101,6 @@ export const VerificationEmailTemplate = (token: string) => {
           </Container>
         </Body>
       </Tailwind>
-    </Html >
+    </Html>
   );
 };

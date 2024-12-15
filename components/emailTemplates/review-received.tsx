@@ -20,17 +20,17 @@ export interface ReviewReceivedEmailTemplateProps {
   reviewerName: string;
   reviewType: "text" | "video";
 }
-const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
+const baseUrl =
+  process.env.NEXT_PUBLIC_ENVIRONMENT === "development"
+    ? "http://localhost:3000"
+    : "https://www.viewus.in";
 
 export const ReviewReceivedTemplate = ({
   firstName,
-  reviewCount,
   spaceTitle,
   reviewerName,
   reviewType,
-}: ReviewReceivedEmailTemplateProps
-) => (
-
+}: ReviewReceivedEmailTemplateProps) => (
   <Html>
     <Head />
     <Preview>New text review received for BakedUi</Preview>
@@ -64,21 +64,12 @@ export const ReviewReceivedTemplate = ({
             <Heading className="text-2xl font-bold text-center text-gray-800 my-0 leading-8">
               New Review Received, {firstName}!
             </Heading>
-            <Text className="text-base text-gray-600 mt-4 mb-6 text-center">
-              You&apos;ve received a new {reviewType} review for &quot;{spaceTitle}&quot;
-              from {reviewerName}.
-            </Text>
+
             <Section className="bg-blue-50 border border-blue-100 rounded-lg p-6 mb-6">
-              <Text className="text-sm text-blue-800 m-0">
-                Congratulations! You now have a total of 10 text reviews.
+              <Text className="text-base text-gray-600 mt-4 mb-6 text-center">
+                You&apos;ve received a new {reviewType} review for &quot;
+                {spaceTitle}&quot; from {reviewerName}.
               </Text>
-              {reviewCount >= 10 && (
-                <Text className="text-sm text-blue-800 mt-4 mb-0 font-semibold">
-                  You have reached 10 reviews! Consider upgrading your account to
-                  unlock more features.
-                  we will only store 2-3 more reviews
-                </Text>
-              )}
             </Section>
             <Section className="text-center">
               <Button
