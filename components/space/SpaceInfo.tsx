@@ -19,6 +19,7 @@ interface SpaceInfoProps {
     imported: number;
   };
 }
+const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
 
 export default function SpaceInfo({
   extraTextReviews,
@@ -34,16 +35,15 @@ export default function SpaceInfo({
             <h1 className="text-3xl font-bold">{space.name}</h1>
             <p className="text-sm text-gray-400  px-0 mx-0">
               <Link
-                href={`http://localhost:3000/a/${space.slug}`}
+                href={`${baseUrl}/a/${space.slug}`}
                 className="underline underline-offset-4 hover:text-gray-500 flex  items-center justify-center gap-1"
               >
                 <ExternalLink size={15} />
-                {`http://localhost:3000/a/${space.slug}`}
+                {`${baseUrl}/a/${space.slug}`}
               </Link>
             </p>
           </div>
         </div>
-
         <div className="flex flex-col gap-2 items-start space-x-4">
           <div className="w-full flex items-end justify-end">
             <div className="flex justify-center items-center space-x-2 border rounded-md p-1">

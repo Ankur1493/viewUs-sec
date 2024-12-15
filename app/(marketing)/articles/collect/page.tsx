@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { CheckCircle, Star } from "lucide-react";
 
-export default function Collect() {
+export default function CollectPage() {
   return (
     <div className="min-h-screen w-full py-12 lg:px-56">
       <div className="container mx-auto px-4 md:px-6">

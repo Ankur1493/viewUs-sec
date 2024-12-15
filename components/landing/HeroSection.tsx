@@ -98,6 +98,7 @@ const HeroSection = () => {
           <video
             src="/assets/videos/mainProd.mp4"
             autoPlay
+            muted
             loop
             playsInline
             width={1000}

@@ -14,6 +14,8 @@ import {
 import * as React from "react";
 
 export const ForgetPasswordEmailTemplate = (token: string) => {
+  const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
+
   return (
     <Html>
       <Head />
@@ -57,7 +59,7 @@ export const ForgetPasswordEmailTemplate = (token: string) => {
 
               <Section className="text-center mb-8">
                 <Button
-                  href={`http://localhost:3000/forget-password?token=${token}`}
+                  href={`${baseUrl}/forget-password?token=${token}`}
                   className="bg-brand text-white font-bold py-3 px-6 rounded-full hover:bg-indigo-600 transition-colors"
                 >
                   Reset your password

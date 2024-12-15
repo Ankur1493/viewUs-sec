@@ -20,6 +20,7 @@ export interface ReviewReceivedEmailTemplateProps {
   reviewerName: string;
   reviewType: "text" | "video";
 }
+const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
 
 export const ReviewReceivedTemplate = ({
   firstName,
@@ -29,6 +30,7 @@ export const ReviewReceivedTemplate = ({
   reviewType,
 }: ReviewReceivedEmailTemplateProps
 ) => (
+
   <Html>
     <Head />
     <Preview>New text review received for BakedUi</Preview>
@@ -81,7 +83,7 @@ export const ReviewReceivedTemplate = ({
             <Section className="text-center">
               <Button
                 className="bg-brand text-white rounded-lg text-base font-semibold no-underline text-center px-[20px] py-[12px]"
-                href="http://localhost:3000/dashboards"
+                href={`${baseUrl}/dashboard`}
               >
                 View Your Dashboard
               </Button>
