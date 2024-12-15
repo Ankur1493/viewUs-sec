@@ -17,7 +17,7 @@ export const Landing = () => {
       </div>
       <div className="w-screen z-10 flex flex-col items-center md:mt-24 mt-12 gap-20">
         <HeroSection />
-        <div className="bg-gradient-radial from-[#141111] to-gray-950">
+        <div className="bg-gradient-radial w-full from-[#141111] to-gray-950">
           <div className="w-full my-8 top-16 md:top-28 lg:top-40 mt-16">
             <ManageTestimonials />
           </div>
