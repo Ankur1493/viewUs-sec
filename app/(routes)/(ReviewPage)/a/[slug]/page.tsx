@@ -9,6 +9,7 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const slug = params.slug;
+  console.log({ slug })
   const reviewForm = await getReviewFormDetails({ slug: params.slug });
   return {
     title: `${reviewForm?.name}`,
@@ -34,6 +35,13 @@ export default async function ReviewPage({
   if (!reviewForm || !reviewForm.details) {
     return <div>Can not found this space</div>;
   }
+  console.log({ reviewForm: reviewForm.details.theme })
+  const getGradientStyle = (themeId: number | null) => {
+    if (themeId === null) {
+      return gradients[1].style; // Default to the second gradient
+    }
+    return gradients.find(gradient => gradient.id === themeId)?.style || gradients[1].style;
+  };
 
   return (
     <div className="flex relative justify-center items-center w-screen min-h-screen h-full">
@@ -41,7 +49,7 @@ export default async function ReviewPage({
         <div
           className="w-full h-full"
           style={{
-            background: gradients[reviewForm.details.theme].style,
+            background: getGradientStyle(reviewForm.details.theme),
             filter: "blur(40px)",
           }}
         />
