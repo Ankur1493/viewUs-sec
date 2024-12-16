@@ -74,9 +74,15 @@ export const ManageTestimonials = ({
         }
       })
       .sort((a, b) => {
-        const dateA = new Date(a.createdAt || 0).getTime();
-        const dateB = new Date(b.createdAt || 0).getTime();
-        return dateB - dateA; // Descending order
+        const dateA =
+          filter === "liked"
+            ? new Date(a.updatedAt || 0).getTime()
+            : new Date(a.createdAt || 0).getTime();
+        const dateB =
+          filter === "liked"
+            ? new Date(b.updatedAt || 0).getTime()
+            : new Date(b.createdAt || 0).getTime();
+        return dateB - dateA;
       });
   }, [testimonials, filter]);
 
@@ -104,19 +110,14 @@ export const ManageTestimonials = ({
     }
   });
 
-  if (filter === "liked") {
-    filteredTestimonials.sort((a: IReview, b: IReview) => {
-      const dataA = new Date(a.updatedAt || 0).getTime();
-      const dataB = new Date(b.updatedAt || 0).getTime();
-      return dataA - dataB;
-    });
-  } else {
-    filteredTestimonials.sort((a: IReview, b: IReview) => {
-      const dataA = new Date(a.createdAt || 0).getTime();
-      const dataB = new Date(b.createdAt || 0).getTime();
-      return dataA - dataB;
-    });
-  }
+  // if (filter === "liked") {
+  //   filteredTestimonials.sort((a: IReview, b: IReview) => {
+  //     const dataA = new Date(a.updatedAt || 0).getTime();
+  //     const dataB = new Date(b.updatedAt || 0).getTime();
+  //     return dataB - dataA;
+  //   });
+  // }
+
   if (filteredTestimonials.length === 0) {
     return (
       <div className="w-full flex pt-52 justify-center items-center">

@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import axios from "axios";
 import { toast } from "sonner";
-import { MultiStepLoaderSpace } from "@/components/loaders/MultiStepLoaderSpace";
+import { SpaceLoader } from "@/components/loaders/SpaceLoader";
 
 type ButtonVariant =
   | "outline"
@@ -34,7 +34,10 @@ interface SaveButtonProps {
   page?: "create" | "edit";
   slug?: string | undefined;
 }
-const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
+const baseUrl =
+  process.env.NEXT_PUBLIC_ENVIRONMENT === "development"
+    ? "http://localhost:3000"
+    : "https://www.viewus.in";
 
 export const SaveButton = ({
   id,
@@ -141,7 +144,7 @@ export const SaveButton = ({
   return (
     <>
       {isLoading ? (
-        <MultiStepLoaderSpace />
+        <SpaceLoader />
       ) : (
         <div>
           <div>
