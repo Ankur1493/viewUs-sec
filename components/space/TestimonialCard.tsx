@@ -45,7 +45,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
 
   return (
     <AnimatePresence initial={false} key={testimonial._id!}>
-      <Card className="relative w-full bg-gray-50 text-black shadow-sm hover:shadow-sm hover:shadow-sky-200 duration-200 group">
+      <Card className="relative overflow-x-hidden w-full bg-gray-50 text-black shadow-sm hover:shadow-sm hover:shadow-sky-200 duration-200 group">
         {/* <div className="absolute -bottom-3 flex items-center justify-center w-full">
           <div
             className="bg-[#E9F8FF] rounded-full w-6 h-6 flex items-center justify-center border  cursor-pointer"
@@ -139,7 +139,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
           </div>
         </CardHeader>
         <CardContent
-          className={`flex-row w-full items-center ${
+          className={`flex-row w-full items-center overflow-x-hidden ${
             isExpanded ? "pb-2" : "pb-8"
           }`}
         >

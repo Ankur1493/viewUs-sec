@@ -103,9 +103,9 @@ export const VideoSection = ({
         </motion.div>
       </motion.div>
 
-      <div className="w-[95%] mt-12 md:mt-0 relative md:w-3/5 h-56 md:h-96 lg:h-[800px] mb-4 rounded-md shadow-[0_20px_60px_-15px_rgba(0,0,0,0.2)] border">
+      <div className="w-[95%] mt-12 md:mt-0 relative md:w-3/5 h-56 md:h-96 lg:h-[800px] mb-4 rounded-md bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.2)] border">
         <video
-          className="w-full h-full object-cover rounded-md"
+          className="w-full h-full object-contain rounded-md"
           loop
           autoPlay
           muted

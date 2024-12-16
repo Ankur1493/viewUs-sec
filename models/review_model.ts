@@ -3,13 +3,13 @@ import { model, models, Schema } from "mongoose";
 export enum ReviewType {
   TEXT = 0,
   VIDEO = 1,
-  IMPORTED = 2
+  IMPORTED = 2,
 }
 
 export enum ImportedReviewType {
   TWITTER = 0,
   LINKEDIN = 1,
-  PRODUCTHUNT = 2
+  PRODUCTHUNT = 2,
 }
 
 export interface IReview {
@@ -31,6 +31,8 @@ export interface IReview {
   importedVideo?: string[];
   importedReviewType?: ImportedReviewType;
   tags?: string[] | null;
+  createdAt?: Date;
+  updatedtAt?: Date;
 }
 
 /*
@@ -46,86 +48,89 @@ const importedVideoSchema = new Schema({
   },
 });
 */
-const reviewSchema = new Schema<IReview>({
-  spaceId: {
-    type: String,
-    required: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-  },
-  reviewType: {
-    type: Number,
-    required: true,
-    enum: ReviewType,
-    default: ReviewType.TEXT
-  },
-  review: {
-    type: String,
-    required: true,
-  },
-  stars: {
-    type: Number,
-    required: true,
-    default: 5
-  },
-  liked: {
-    type: Boolean,
-    default: false,
-  },
-  firstName: {
-    type: String,
-    default: null
-  },
-  lastName: {
-    type: String,
-    default: null
-  },
+const reviewSchema = new Schema<IReview>(
+  {
+    spaceId: {
+      type: String,
+      required: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+    },
+    reviewType: {
+      type: Number,
+      required: true,
+      enum: ReviewType,
+      default: ReviewType.TEXT,
+    },
+    review: {
+      type: String,
+      required: true,
+    },
+    stars: {
+      type: Number,
+      required: true,
+      default: 5,
+    },
+    liked: {
+      type: Boolean,
+      default: false,
+    },
+    firstName: {
+      type: String,
+      default: null,
+    },
+    lastName: {
+      type: String,
+      default: null,
+    },
 
-  email: {
-    type: String,
-    default: null
-  },
-  jobTitle: {
-    type: String,
-    default: null
-  },
-  company: {
-    type: String,
-    default: null
-  },
-  image: {
-    type: String,
-    default: null,
-  },
-  importedReviewType: {
-    type: Number,
-    required: true,
-    enum: ImportedReviewType,
-    default: ImportedReviewType.TWITTER
-  },
-  importedImage: {
-    type: [String],
-    default: [],
-  },
-  importedVideo: {
-    type: [String],
-    default: [],
-  },
-  tags: {
-    type: [String],
-    default: [],
-    validate: {
-      validator: function (tags: string[]) {
-        return tags.length <= 3;  // Limit to 3 tags
+    email: {
+      type: String,
+      default: null,
+    },
+    jobTitle: {
+      type: String,
+      default: null,
+    },
+    company: {
+      type: String,
+      default: null,
+    },
+    image: {
+      type: String,
+      default: null,
+    },
+    importedReviewType: {
+      type: Number,
+      required: true,
+      enum: ImportedReviewType,
+      default: ImportedReviewType.TWITTER,
+    },
+    importedImage: {
+      type: [String],
+      default: [],
+    },
+    importedVideo: {
+      type: [String],
+      default: [],
+    },
+    tags: {
+      type: [String],
+      default: [],
+      validate: {
+        validator: function (tags: string[]) {
+          return tags.length <= 3; // Limit to 3 tags
+        },
+        message: "You can select up to 3 tags only.",
       },
-      message: "You can select up to 3 tags only."
-    }
+    },
   },
-}, {
-  timestamps: true
-});
+  {
+    timestamps: true,
+  }
+);
 
 const Review = models.Review || model<IReview>("Review", reviewSchema);
 export default Review;

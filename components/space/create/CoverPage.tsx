@@ -109,13 +109,21 @@ export const CoverPage = ({
   //   }
   // };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // console.log("image to be sent:", values.logo);
-    // console.log("logo to be sent:", coverPageData.logo);
+  const handleFieldChange = (fieldName: keyof z.infer<typeof formSchema>) => {
+    const value = form.watch(fieldName);
     setCoverPage({
       ...coverPageData,
-      ...values,
+      [fieldName]: value,
     });
+  };
+
+  function onSubmit() {
+    // console.log("image to be sent:", values.logo);
+    // console.log("logo to be sent:", coverPageData.logo);
+    // setCoverPage({
+    //   ...coverPageData,
+    //   ...values,
+    // });
 
     if (page === "create") router.push("/space/create?page=3");
     else router.push(`/space/${slug}/edit?page=3`);
@@ -156,7 +164,14 @@ export const CoverPage = ({
                   <FormItem>
                     <FormLabel>ADD A PAGE TITLE</FormLabel>
                     <FormControl>
-                      <Input placeholder="Leave us a testimonial" {...field} />
+                      <Input
+                        placeholder="Leave us a testimonial"
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleFieldChange("title");
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -173,6 +188,10 @@ export const CoverPage = ({
                         placeholder="We want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!"
                         {...field}
                         className="h-20"
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleFieldChange("description");
+                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -189,6 +208,10 @@ export const CoverPage = ({
                       <Input
                         placeholder="Tell us about your experience"
                         {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleFieldChange("btnText");
+                        }}
                       />
                     </FormControl>
                     <FormMessage />

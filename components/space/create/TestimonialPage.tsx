@@ -110,8 +110,16 @@ export const TestimonialPage = ({
     console.log("runned");
   }, [initializeSpaceData]);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setTestimonialPageType(values);
+  const handleFieldChange = (fieldName: keyof z.infer<typeof formSchema>) => {
+    const value = form.watch(fieldName);
+    setTestimonialPageType({
+      ...testimonialPageType,
+      [fieldName]: value,
+    });
+  };
+
+  function onSubmit() {
+    // setTestimonialPageType(values);
     if (page === "create") router.push("/space/create?page=6");
     else router.push(`/space/${slug}/edit?page=6`);
   }
@@ -122,6 +130,7 @@ export const TestimonialPage = ({
       ? currentTags.filter((t) => t !== tag)
       : [...currentTags, tag];
     form.setValue("tags", newTags);
+    handleFieldChange("tags");
   };
 
   const addTag = (newTag: string) => {
@@ -132,6 +141,7 @@ export const TestimonialPage = ({
       !form.getValues("tags").includes(sanitizedTag)
     ) {
       form.setValue("tags", [...form.getValues("tags"), sanitizedTag]);
+      handleFieldChange("tags");
     }
   };
 
@@ -191,7 +201,14 @@ export const TestimonialPage = ({
                       ADD A PAGE TITLE
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder={`Add a title`} {...field} />
+                      <Input
+                        placeholder={`Add a title`}
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleFieldChange("title");
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -209,6 +226,10 @@ export const TestimonialPage = ({
                           className="text-sm md:text-md"
                           placeholder="We want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!"
                           {...field}
+                          onChange={(e) => {
+                            field.onChange(e);
+                            handleFieldChange("description");
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
@@ -216,6 +237,7 @@ export const TestimonialPage = ({
                   )}
                 />
               )}
+
               <FormField
                 control={form.control}
                 name="tags"
@@ -294,6 +316,10 @@ export const TestimonialPage = ({
                       <Input
                         placeholder="Tell us about your experience"
                         {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleFieldChange("questionHeader");
+                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -320,6 +346,7 @@ export const TestimonialPage = ({
                               ];
                               newQuestions[index] = e.target.value;
                               form.setValue("questions", newQuestions);
+                              handleFieldChange("questions");
                             }}
                             placeholder="Enter your question"
                           />
