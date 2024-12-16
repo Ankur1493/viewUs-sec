@@ -193,7 +193,7 @@ export const CustomerDetailCard = ({
   };
 
   return (
-    <Card className="relative w-[550px] mt-10 md:mt-0 px-[2%] h-[90vh] border-none shadow-none font-satoshi">
+    <Card className="relative w-[550px] mt-10 md:mt-0 px-[2%] h-[90vh] border-none shadow-none font-satoshi flex flex-col justify-center">
       <CardHeader>
         <CardTitle className="text-left text-[#33313B] text-3xl md:text-[36px] font-[500]">
           Tell us about yourself
@@ -335,7 +335,7 @@ export const CustomerDetailCard = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="udit123@gmail.com"
+                        placeholder="uditkapoor060@gmail.com"
                         {...field}
                         className="h-[48px]"
                       />

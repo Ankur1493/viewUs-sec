@@ -52,46 +52,49 @@ export function HelpSupportModal({ email }: { email: string }) {
             How Can We Help?
           </DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <Select value={subject} onValueChange={setSubject}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select a subject" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="feature" className="cursor-pointer">
-                Feature request
-              </SelectItem>
-              <SelectItem value="hello" className="cursor-pointer">
-                Saying hi
-              </SelectItem>
-              <SelectItem value="meeting" className="cursor-pointer">
-                Schedule a meeting
-              </SelectItem>
-              <SelectItem value="bug">Report a bug</SelectItem>
-            </SelectContent>
-          </Select>
-          <Textarea
-            placeholder="Type your message here"
-            value={message}
-            className="md:h-[200px] lg:h-[150px]"
-            onChange={(e) => setMessage(e.target.value)}
-            rows={4}
-          />
-          <Button
-            type="submit"
-            className="w-full"
-            onClick={async () => {
-              await sendSupportAndHelpMail({
-                email: email!,
-                message: message,
-                type: subject,
-              });
-            }}
-            disabled={!isFormValid}
-          >
-            Submit
-          </Button>
-        </form>
+        <div className="h-full relative">
+          {" "}
+          <form onSubmit={handleSubmit} className="space-y-8 flex flex-col">
+            <Select value={subject} onValueChange={setSubject}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a subject" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="feature" className="cursor-pointer">
+                  Feature request
+                </SelectItem>
+                <SelectItem value="hello" className="cursor-pointer">
+                  Saying hi
+                </SelectItem>
+                <SelectItem value="meeting" className="cursor-pointer">
+                  Schedule a meeting
+                </SelectItem>
+                <SelectItem value="bug">Report a bug</SelectItem>
+              </SelectContent>
+            </Select>
+            <Textarea
+              placeholder="Type your message here"
+              value={message}
+              className="absolute top-6 md:h-[40%] lg:h-[50%] 2xl:h-[55%]"
+              onChange={(e) => setMessage(e.target.value)}
+              rows={4}
+            />
+            <Button
+              type="submit"
+              className="absolute bottom-4 w-full"
+              onClick={async () => {
+                await sendSupportAndHelpMail({
+                  email: email!,
+                  message: message,
+                  type: subject,
+                });
+              }}
+              disabled={!isFormValid}
+            >
+              Submit
+            </Button>
+          </form>
+        </div>
       </DialogContent>
     </Dialog>
   );

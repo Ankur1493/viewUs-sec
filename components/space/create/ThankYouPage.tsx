@@ -63,8 +63,16 @@ export const ThankYouPage = ({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setThankYou(values);
+  const handleFieldChange = (fieldName: keyof z.infer<typeof formSchema>) => {
+    const value = form.watch(fieldName);
+    setThankYou({
+      ...thankyou,
+      [fieldName]: value,
+    });
+  };
+
+  function onSubmit() {
+    // setThankYou(values);
     if (page === "create") router.push("/space/create?page=7");
     else router.push(`/space/${slug}/edit?page=7`);
   }
@@ -106,7 +114,14 @@ export const ThankYouPage = ({
                       ADD A PAGE TITLE
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Leave us a testimonial" {...field} />
+                      <Input
+                        placeholder="Leave us a testimonial"
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleFieldChange("title");
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -125,6 +140,10 @@ export const ThankYouPage = ({
                         className="text-sm md:text-md"
                         placeholder="We want to share customer success stories on our website and would love for you to submit a written or video testimonial. Your feedback means a lot to us!"
                         {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleFieldChange("description");
+                        }}
                       />
                     </FormControl>
                     <FormMessage />

@@ -19,7 +19,10 @@ interface SpaceInfoProps {
     imported: number;
   };
 }
-const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? "http://localhost:3000" : "https://www.viewus.in"
+const baseUrl =
+  process.env.NEXT_PUBLIC_ENVIRONMENT === "development"
+    ? "http://localhost:3000"
+    : "https://www.viewus.in";
 
 export default function SpaceInfo({
   extraTextReviews,
@@ -63,24 +66,24 @@ export default function SpaceInfo({
       <Separator className="mt-2" />
       <div className="flex justify-between">
         <div className="flex items-start space-x-4">
-          {testimonialCounts?.video && testimonialCounts?.video > 0 && (
-            <div className="flex items-center space-x-1 text-sm">
-              <Video className="w-4 h-4 text-blue-500" />
+          <div className="flex gap-1 items-center space-x-1 text-sm">
+            <Video className="w-4 h-4 text-blue-500" />
+            {testimonialCounts?.video && testimonialCounts?.video > 0 && (
               <span>{testimonialCounts.video}</span>
-            </div>
-          )}
-          {testimonialCounts?.text && testimonialCounts?.text > 0 && (
-            <div className="flex items-center space-x-1 text-sm">
-              <MessageSquare className="w-4 h-4 text-green-500" />
+            )}
+          </div>
+          <div className="flex items-center space-x-1 text-sm">
+            <MessageSquare className="w-4 h-4 text-green-500" />
+            {testimonialCounts?.text && testimonialCounts?.text > 0 && (
               <span>{testimonialCounts.text}</span>
-            </div>
-          )}
-          {testimonialCounts?.imported && testimonialCounts?.imported > 0 && (
-            <div className="flex items-center space-x-1 text-sm">
-              <Import className="w-4 h-4 text-yellow-500" />
+            )}
+          </div>
+          <div className="flex items-center space-x-1 text-sm">
+            <Import className="w-4 h-4 text-yellow-500" />
+            {testimonialCounts?.imported && testimonialCounts?.imported > 0 && (
               <span>{testimonialCounts.imported}</span>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <div>
           {extraTextReviews > 0 && (

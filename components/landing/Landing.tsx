@@ -10,7 +10,7 @@ import ReasonsToUse from "./ReasonsToUse";
 
 export const Landing = () => {
   return (
-    <div className="flex flex-col items-center relative top-0 w-full transform max-w-screen-2xl">
+    <div className="flex flex-col items-center relative top-0 w-full transform">
       <Navbar active="none" />
       <div className="absolute z-0 top-20 w-full flex justify-center">
         <TriangleFeature />
@@ -46,11 +46,11 @@ export const Landing = () => {
         <div>
           <div>
             <VideoSection
-              heading="Instant testimonials Setup"
-              content="Easily set up your space and make your review form match your brand. Add your logo, choose your colors, and style it the way you want to create a consistent and professional look."
-              videoSrc="/assets/videos/screen2.mp4"
+              heading="Customize your review form"
+              content="Design a review form that perfectly fits your brand. Add your logo, pick your colors, and customize the style to create a form that looks and feels just right for your business."
+              videoSrc="/assets/videos/create.mp4"
               buttonContent1="Live Preview"
-              linkHref1="#"
+              linkHref1="a/viewus"
             />
           </div>
           <div>
@@ -59,11 +59,11 @@ export const Landing = () => {
               content="Easily set up testimonials on your website with just a few clicks!
               Showcase customer reviews in a seamless and engaging way, boosting
               your brand's credibility in minutes."
-              videoSrc="/assets/videos/submitTextReview.mp4"
+              videoSrc="/assets/videos/wallOfLove.mp4"
               buttonContent1="Start your journey"
-              linkHref1="#"
+              linkHref1="/dashboard"
               buttonContent2="Live Preview"
-              linkHref2="a/viewus"
+              linkHref2="https://embed.viewus.in/w/embed-testimonials?slug=bakedui&theme=&speed=slow&columns=4"
             />
           </div>
         </div>
