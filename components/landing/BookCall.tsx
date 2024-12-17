@@ -14,7 +14,7 @@ import Cal from "@calcom/embed-react";
 
 export const BookCall = () => {
   return (
-    <div className="max-w-7xl mx-auto w-full flex flex-col gap-7 rounded-3xl p-3">
+    <div className="max-w-7xl mx-auto w-full flex flex-col gap-7 rounded-3xl p-3 pb-10 lg:pb-0">
       <div className="py-4 flex flex-col gap-6">
         <p className="text-gray-400 font-thin font-mono text-md">FAQs</p>
         <h1 className="text-white text-4xl md:text-5xl">
@@ -71,7 +71,22 @@ export const BookCall = () => {
               </p>
               <Link
                 href="/#book-call"
-                className="flex justify-around items-center border-dashed border border-gray-400 p-2 rounded-lg w-full hover:bg-[#141111] hover:text-white duration-500"
+                className="hidden lg:flex justify-around items-center border-dashed border border-gray-400 p-2 rounded-lg w-full hover:bg-[#141111] hover:text-white duration-500"
+              >
+                <Image
+                  className="h-12 w-12 rounded-lg"
+                  width={100}
+                  height={100}
+                  src="/assets/images/founder_profile.jpeg"
+                  alt="Profile"
+                />
+                <p className="text-md font-normal underline flex gap-3">
+                  Book a call <MoveRight />{" "}
+                </p>
+              </Link>
+              <Link
+                href="https://cal.com/ankur-sharma/15min"
+                className="flex lg:hidden justify-around items-center border-dashed border border-gray-400 p-2 rounded-lg w-full hover:bg-[#141111] hover:text-white duration-500"
               >
                 <Image
                   className="h-12 w-12 rounded-lg"
@@ -100,7 +115,7 @@ export const BookCall = () => {
           </Card>
         </div>
       </div>
-      <div id="book-call" className="mt-16">
+      <div id="book-call" className="mt-16 hidden lg:block">
         <div className="py-8 flex flex-col gap-6">
           <p className="text-gray-400 font-thin font-mono text-md">
             Time to take Action

@@ -9,8 +9,11 @@ import {
 import Link from "next/link";
 import { auth, signOut } from "@/auth";
 import { Button } from "../ui/button";
+import { User } from "@prisma/client";
+import Image from "next/image";
+import profile from "@/public/assets/images/profile.png";
 
-export const DashboardNavbar = async () => {
+export const DashboardNavbar = async ({ user }: { user: User }) => {
   const session = await auth();
 
   return (
@@ -26,7 +29,19 @@ export const DashboardNavbar = async () => {
 
       <DropdownMenu>
         <DropdownMenuTrigger className="flex items-center relative">
-          <div className="w-9 h-9 rounded-full bg-black"></div>
+          <div className="w-10 h-10 rounded-full border-white bg-sky-100">
+            <Image
+              src={
+                user.image
+                  ? `https://d3eyp937ijscg0.cloudfront.net/${user.image}`
+                  : profile
+              }
+              alt="logo"
+              width={60}
+              height={60}
+              className="w-full h-full rounded-full object-contain"
+            />
+          </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="absolute mt-2 right-0">
           <Link href="/profile">
