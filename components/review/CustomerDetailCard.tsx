@@ -404,7 +404,7 @@ export const CustomerDetailCard = ({
           }`}
         />
       </CardContent>
-      <CardFooter className="flex justify-end items-center md:pb-0 md:pt-6">
+      <CardFooter className="flex justify-end items-center md:pb-0 md:pt-6 px-10">
         <Button
           form="personalInfoForm"
           type="submit"

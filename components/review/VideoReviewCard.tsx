@@ -257,7 +257,7 @@ export const VideoReviewCard = ({ reviewForm }: { reviewForm: ReviewForm }) => {
                 <Starred />
               </div>
             </div>
-            <CardContent className="px-0 pb-1 w-full md:w-[90%] lg:w-[85%] z-100">
+            <CardContent className="px-0 pb-1 w-full md:w-[90%] lg:w-[85%] z-50">
               <div>
                 <div
                   className={`${
