@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { DashboardNavbar } from "@/components/dashboard/DashboardNavbar";
 import { SideBar } from "@/components/dashboard/SideBar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { getUserById } from "@/data/user";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
@@ -10,6 +11,10 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 
   if (!user) redirect("/login");
 
+  const userDetails = await getUserById(user.id!);
+  if (!userDetails) {
+    return <div>Can not find your profile, maybe try logging out</div>;
+  }
   return (
     <div className="relative min-h-screen h-full w-screen flex">
       <div className="hidden md:flex flex-1">
@@ -19,7 +24,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
         <SidebarTrigger className="z-100" />
       </div>
       <div className="flex-grow w-full flex-3">
-        <DashboardNavbar />
+        <DashboardNavbar user={userDetails} />
         {children}
       </div>
     </div>
