@@ -21,7 +21,7 @@ export const Landing = () => {
           <div className="w-full my-8 top-16 md:top-28 lg:top-40 mt-16">
             <ManageTestimonials />
           </div>
-          <div
+          {/* <div
             className="w-full h-screen flex justify-center items-center lg:px-40 "
             style={{ margin: 0 }}
           >
@@ -38,7 +38,7 @@ export const Landing = () => {
                 }}
               ></iframe>
             </div>
-          </div>
+          </div> */}
         </div>
         <div>
           <ReasonsToUse />
