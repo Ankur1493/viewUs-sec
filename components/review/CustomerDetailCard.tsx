@@ -399,7 +399,7 @@ export const CustomerDetailCard = ({
           </Form>
         </div>
         <div
-          className={`absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent z-10 transition-opacity duration-300 ${
+          className={`absolute hidden md:block bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent z-10 transition-opacity duration-300 ${
             isBottomShadowVisible ? "opacity-100" : "opacity-0 hidden"
           }`}
         />

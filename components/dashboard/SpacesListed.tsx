@@ -5,8 +5,8 @@ import { SpaceCard } from "./SpaceCard";
 import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { UpdatesNotificationCard } from "../extras/UpdatesNotificationCard";
-import { Suspense } from "react";
+// import { UpdatesNotificationCard } from "../extras/UpdatesNotificationCard";
+// import { Suspense } from "react";
 
 export const SpacesListed = async () => {
   const session = await auth();
@@ -51,14 +51,14 @@ export const SpacesListed = async () => {
           {userSpaces?.map((space) => <SpaceCard key={space.id} {...space} />)}
         </div>
       </div>
-      <Suspense fallback={<div>{/*show a card here*/}</div>}>
-        <UpdatesNotificationCard
+      {/* <Suspense fallback={<div>show a card here</div>}> */}
+      {/* <UpdatesNotificationCard
           message="We have launched the extensions feature, 
           now you can easily import your testimonials from 
           social media platforms in a blink of an eye"
           imageUrl="/assets/images/test1.webp"
-        />
-      </Suspense>
+        /> */}
+      {/* </Suspense> */}
     </>
   );
 };

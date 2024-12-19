@@ -44,14 +44,16 @@ export const VerificationEmailTemplate = (token: string) => {
       >
         <Body className="bg-offwhite text-base font-sans">
           <Container className="mx-auto pt-12 pb-12">
-            <Img
-              src="https://viewus.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo1.f089c85f.png&w=64&q=75"
-              width="150"
-              height="100"
-              alt="viewUs"
-              className="mx-auto mb-12"
-            />
             <Container className="bg-white p-12 rounded-lg shadow-lg">
+              <div className="flex items-start justify-start">
+                <Img
+                  src="https://www.viewus.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo1.93804693.png&w=48&q=75"
+                  width="50"
+                  height="30"
+                  alt="ViewUs"
+                  className="mx-auto ml-0 my-4"
+                />
+              </div>
               <Heading className="text-center text-3xl font-bold text-gray-800 mb-6">
                 Welcome to viewUs!
               </Heading>

@@ -57,7 +57,11 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>First Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ankur Sharma" {...field} />
+                    <Input
+                      placeholder="Ankur Sharma"
+                      {...field}
+                      disabled={isPending}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -71,7 +75,11 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="ankursharma1493@gmail.com" {...field} />
+                    <Input
+                      placeholder="ankursharma1493@gmail.com"
+                      disabled={isPending}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -86,7 +94,8 @@ export const RegisterForm = () => {
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder="How dare you ask me my password"
+                      placeholder="Create your password"
+                      disabled={isPending}
                       {...field}
                     />
                   </FormControl>
