@@ -1,5 +1,6 @@
 "use client";
 import { Label } from "@/components/ui/label";
+import { gradients } from "@/constants/gradients";
 import {
   Card,
   CardContent,
@@ -8,7 +9,6 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import Image from "next/image";
 import profile from "@/public/assets/images/profile.png";
@@ -20,12 +20,28 @@ type PreviewSectionProps = {
 export const UserInformationPreview: React.FC<PreviewSectionProps> = ({
   userInformation,
 }) => {
-  const { coverPage } = useSpaceDataStore();
-  useEffect(() => {
-    console.log(coverPage);
-  }, []);
+  const { design } = useSpaceDataStore();
+
   return (
-    <div className="flex justify-center items-center w-full h-[75vh] bg-white">
+    <div className="relative flex justify-center items-center w-full h-[75vh] bg-white">
+      <div className="absolute hidden md:block inset-0 overflow-hidden pointer-events-none z-50">
+        <div
+          className="absolute md:-bottom-8 md:-left-72 lg:-bottom-20 lg:-left-80 w-[600px] h-[200px]"
+          style={{
+            transform: "rotate(70deg)",
+            background: gradients[design.gradientType].style,
+            filter: "blur(40px)",
+          }}
+        />
+        <div
+          className="absolute -top-4 md:-right-96 lg:-right-80 lg:-top-20 w-[600px] h-[200px]"
+          style={{
+            transform: "rotate(70deg)",
+            background: gradients[design.gradientType].style,
+            filter: "blur(80px)",
+          }}
+        />
+      </div>
       <Card className="relative w-[550px] px-[2%] h-full overflow-y-auto scrollbar-hidden border-none shadow-none font-satoshi ">
         <CardHeader>
           <CardTitle className="text-left text-[#33313B] text-2xl md:text-[36px] font-[500]">

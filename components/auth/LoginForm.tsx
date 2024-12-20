@@ -75,6 +75,7 @@ export const LoginForm = () => {
                     <Input
                       placeholder=" ankursharma1493@gmail.com"
                       {...field}
+                      disabled={isPending}
                     />
                   </FormControl>
                   <FormMessage />
@@ -89,8 +90,11 @@ export const LoginForm = () => {
                   <div className="flex w-full justify-between">
                     <FormLabel>Password</FormLabel>
                     <Link
-                      href={"/forget-password"}
-                      className="text-xs text-red-500"
+                      href={isPending ? "#" : "/forget-password"}
+                      className={`text-xs ${isPending ? "text-gray-400" : "text-red-500"} ${isPending ? "pointer-events-none" : ""}`}
+                      onClick={(e) => {
+                        if (isPending) e.preventDefault();
+                      }}
                     >
                       Forgot Password?
                     </Link>
@@ -98,7 +102,8 @@ export const LoginForm = () => {
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder="How dare you ask me my password"
+                      placeholder="Enter your password"
+                      disabled={isPending}
                       {...field}
                     />
                   </FormControl>

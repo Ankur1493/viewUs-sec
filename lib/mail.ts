@@ -44,7 +44,13 @@ export async function sendTextReviewSubmitted({
       from: "ViewUs <team@viewus.in>",
       to: [email],
       subject: "Review Received",
-      react: ReviewReceivedTemplate({ firstName, reviewType, reviewerName, spaceTitle, reviewCount }),
+      react: ReviewReceivedTemplate({
+        firstName,
+        reviewType,
+        reviewerName,
+        spaceTitle,
+        reviewCount,
+      }),
       // { firstName: "View-Us", reviewCount, spaceTitle }
     });
     if (response) {
@@ -58,15 +64,13 @@ export async function sendTextReviewSubmitted({
   }
 }
 
-export async function sendVerificationMail(
-  {
-    email,
-    token,
-  }: {
-    email: string;
-    token: string;
-  }
-) {
+export async function sendVerificationMail({
+  email,
+  token,
+}: {
+  email: string;
+  token: string;
+}) {
   try {
     // Send email asynchronously
     const response = await resend.emails.send({
@@ -100,7 +104,7 @@ export async function sendSupportMail({
     const response = await resend.emails.send({
       from: "ViewUs <team@viewus.in>",
       to: [
-        "ankursharma1493@gmail.com",
+        // "ankursharma1493@gmail.com",
         "uditkapoor060@gmail.com",
         "team@viewus.in",
       ],
@@ -125,8 +129,7 @@ export async function sendForgetVerificationToken({
 }: {
   email: string;
   token: string;
-}
-) {
+}) {
   try {
     // Send email asynchronously
     const response = await resend.emails.send({
