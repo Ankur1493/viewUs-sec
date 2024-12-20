@@ -48,7 +48,7 @@ export const Landing = () => {
             <VideoSection
               heading="Customize your review form"
               content="Design a review form that perfectly fits your brand. Add your logo, pick your colors, and customize the style to create a form that looks and feels just right for your business."
-              videoSrc="/assets/videos/create.mp4"
+              videoSrc="https://d3eyp937ijscg0.cloudfront.net/viewus_videos/create.mp4"
               buttonContent1="Live Preview"
               linkHref1="a/viewus"
             />
@@ -59,7 +59,7 @@ export const Landing = () => {
               content="Easily set up testimonials on your website with just a few clicks!
               Showcase customer reviews in a seamless and engaging way, boosting
               your brand's credibility in minutes."
-              videoSrc="/assets/videos/wallOfLove.mp4"
+              videoSrc="https://d3eyp937ijscg0.cloudfront.net/viewus_videos/wallOfLove.mp4"
               buttonContent1="Start your journey"
               linkHref1="/dashboard"
               buttonContent2="Live Preview"

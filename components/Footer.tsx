@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import logo from "@/public/assets/images/logo1.png";
+import logo from "@/public/assets/viewus_images/logo1.png";
 import Link from "next/link";
 
 export const Footer: React.FC = () => {
