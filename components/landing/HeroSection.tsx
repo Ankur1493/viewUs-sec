@@ -1,10 +1,27 @@
 "use client";
 import { useEffect } from "react";
-import { gsap } from "gsap";
 import Link from "next/link";
+import { gsap } from "gsap";
+import { usePathname, useSearchParams } from "next/navigation";
+import { usePostHog } from "posthog-js/react";
 
-// const HeroSection: React.FC<HeroVideoProps> = ({ videoSrc }) => {
 const HeroSection = () => {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const posthog = usePostHog()
+
+  useEffect(() => {
+    if (pathname && posthog) {
+      let url = window.origin + pathname
+      if (searchParams.toString()) {
+        url = url + `?${searchParams.toString()}`
+      }
+
+      posthog.capture('$pageview', { '$current_url': url })
+    }
+  }, [pathname, searchParams, posthog])
+
+
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
