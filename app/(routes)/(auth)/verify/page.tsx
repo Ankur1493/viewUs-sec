@@ -33,7 +33,6 @@ export default async function VerifyPage({ searchParams }: { searchParams: { err
         </div>
       )
     }
-    console.log(tokenVerification)
     if (tokenVerification) {
       await db.user.update({
         where: {

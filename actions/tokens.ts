@@ -19,8 +19,11 @@ export const generateVerificationTokens = async (email: string) => {
     }
 
     if (isTokenStillValid(existingToken)) {
-      console.log("bhej to dia bc")
-      return null;
+      return {
+        status: false,
+        data: null,
+        message: "Mail already sent, try again later"
+      };
     }
 
     // Delete the existing token if it's expired
@@ -41,9 +44,14 @@ export const generateVerificationTokens = async (email: string) => {
       expires
     }
   })
-  sendVerificationMail({ email: verificationToken.email, token: verificationToken.token })
+  await sendVerificationMail({ email: verificationToken.email, token: verificationToken.token })
 
-  return verificationToken
+  return {
+    status: true,
+    data: verificationToken,
+    message: "Another mail sent"
+  };
+
 }
 
 export const generatePasswordResetVerificationTokens = async (email: string) => {
