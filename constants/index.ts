@@ -48,7 +48,7 @@ export const WallCardTypesConstants: wallCardType[] = [
     slug: "fixed" as const,
     url: "https://embed.viewus.in/w/embed-testimonials?slug=bakedui",
     desc: "A fixed grid layout structure for showcasing a selected and crucial reviews",
-    img: "/assets/images/grid_fixed.png",
+    img: "https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/grid_fixed.png",
   },
   {
     key: 2,
@@ -56,7 +56,7 @@ export const WallCardTypesConstants: wallCardType[] = [
     slug: "animated" as const,
     url: "https://embed.viewus.in/w/embed-testimonials?slug=bakedui&animated=on",
     desc: "A animated grid layout structure for showcasing a lot of reviews which are important",
-    img: "/assets/images/grid_animated.gif",
+    img: "https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/grid_animated.gif",
   },
   {
     key: 3,
@@ -64,7 +64,7 @@ export const WallCardTypesConstants: wallCardType[] = [
     title: "Carousel",
     slug: "carousal" as const,
     desc: "A carousel for you to have an showcase horizontaly and clear reviews",
-    img: "/assets/images/carousal_fixed.png",
+    img: "https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/carousal_fixed.png",
   },
   {
     key: 4,
@@ -72,7 +72,7 @@ export const WallCardTypesConstants: wallCardType[] = [
     title: "Carousel Animated" as const,
     slug: "animated-carousal",
     desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
-    img: "/assets/images/carousal_animated.gif",
+    img: "https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/carousal_animated.gif",
   },
   {
     key: 5,
@@ -80,6 +80,6 @@ export const WallCardTypesConstants: wallCardType[] = [
     url: "/articles",
     slug: "fixed" as const,
     desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
-    img: "/assets/images/coming_soon.jpg",
+    img: "https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/coming_soon.jpg",
   },
 ];

@@ -149,7 +149,7 @@ const ReasonsToUse: React.FC = () => {
       title: "Best Pricing — Maximize Your ROI with Flexible Plans",
       content:
         "ViewUs offers feature-rich testimonial tools at competitive rates. Our flexible plans let you scale with ease, ensuring maximum impact without breaking the bank.",
-      image: "/assets/images/card3.png",
+      image: "https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/card3.png",
     },
     {
       title: "Personalized Support - Guidance at every step",
@@ -161,7 +161,7 @@ const ReasonsToUse: React.FC = () => {
       title: "Boost Your Sales Performance with Real reviews",
       content:
         "Showcase authentic customer testimonials to build trust and attract new clients. With ViewUs, real feedback becomes a powerful tool to drive sales growth.",
-      image: "/assets/images/boostSales.png",
+      image: "https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/boostSales.png",
     },
   ];
 

@@ -78,7 +78,7 @@ export function Features() {
           </p>
         </div>
         <Image
-          src="/assets/images/importTestimonialsMod.png"
+          src="https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/importTestimonialsMod.png"
           width={500}
           height={500}
           alt="linear demo image"

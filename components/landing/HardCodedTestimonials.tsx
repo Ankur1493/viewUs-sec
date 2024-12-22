@@ -174,7 +174,7 @@ export default function HardCodedTestimonials() {
                         <div className="flex-shrink-0">
                           <Image
                             className="h-10 w-10 rounded-full"
-                            src="/assets/images/avatar.webp"
+                            src="https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/avatar.webp"
                             alt={testimonial.author}
                             width={40}
                             height={40}

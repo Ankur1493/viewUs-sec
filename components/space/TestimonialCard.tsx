@@ -8,7 +8,6 @@ import starsSelected from "@/public/assets/images/star_selected.png";
 import twitter from "@/public/assets/images/twitter_logo.png";
 import linkedIn from "@/public/assets/images/linkedIn_logo.png";
 import productHunt from "@/public/assets/images/ProductHunt_logo.png";
-import profile from "@/public/assets/images/avatar.webp";
 import { IReview, ReviewType } from "./ManageTestimonials";
 import { TestimonialLikeButton } from "@/components/space/TestimonialLikeButton";
 import { TestimonialDeleteButton } from "./TestimonialDeleteButton";
@@ -71,7 +70,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
                   src={
                     testimonial?.image
                       ? `https://d3eyp937ijscg0.cloudfront.net/${testimonial.image}`
-                      : profile
+                      : "https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/avatar.webp"
                   }
                   alt="profile"
                   width={100}

@@ -48,7 +48,7 @@ export const ManageTestimonials = () => {
         <div className="col-span-1 flex flex-col items-center justify-center gap-2 md:gap-4">
           <div className="rounded-lg flex items-end">
             <Image
-              src="/assets/images/dashboard.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/dashboard.png"
               alt="Image 2"
               layout="responsive"
               width={300}
@@ -58,7 +58,7 @@ export const ManageTestimonials = () => {
           </div>
           <div className="rounded-lg">
             <Image
-              src="/assets/images/importTestimonials.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/importTestimonials.png"
               alt="Image 3"
               layout="responsive"
               width={300}
@@ -111,7 +111,7 @@ export const ManageTestimonials = () => {
           </div>
           <div className="row-span-1 col-span-1 rounded-lg">
             <Image
-              src="/assets/images/dashboard.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/dashboard.png"
               alt="Image 7"
               layout="responsive"
               width={500}

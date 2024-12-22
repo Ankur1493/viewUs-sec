@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "View Us",
     description: "Collect and manage testimonials",
-    images: ["/assets/images/logo1.png"],
+    images: ["https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/viewus_meta_image"],
     url: "https://www.viewus.in/",
   },
 };

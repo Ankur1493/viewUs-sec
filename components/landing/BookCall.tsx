@@ -77,7 +77,7 @@ export const BookCall = () => {
                   className="h-12 w-12 rounded-lg"
                   width={100}
                   height={100}
-                  src="/assets/images/founder_profile.jpeg"
+                  src="https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/founder_profile.jpeg"
                   alt="Profile"
                 />
                 <p className="text-md font-normal underline flex gap-3">
@@ -92,7 +92,7 @@ export const BookCall = () => {
                   className="h-12 w-12 rounded-lg"
                   width={100}
                   height={100}
-                  src="/assets/images/founder_profile.jpeg"
+                  src="https://d3eyp937ijscg0.cloudfront.net/viewus.in-ankur-images-bucket/viewus_images/founder_profile.jpeg"
                   alt="Profile"
                 />
                 <p className="text-md font-normal underline flex gap-3">
