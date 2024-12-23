@@ -53,14 +53,16 @@ export const ReviewReceivedTemplate = ({
     >
       <Body className="bg-offwhite text-base font-sans">
         <Container className="max-w-[600px] mx-auto">
-          <Img
-            src="https://viewus.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo1.f089c85f.png&w=64&q=75"
-            width="120"
-            height="65"
-            alt="ViewUs"
-            className="mx-auto my-10"
-          />
           <Container className="bg-white p-45 rounded-lg shadow-lg">
+            <div className="flex items-start justify-start">
+              <Img
+                src="https://www.viewus.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo1.93804693.png&w=48&q=75"
+                width="50"
+                height="30"
+                alt="ViewUs"
+                className="mx-auto ml-0 my-4"
+              />
+            </div>
             <Heading className="text-2xl font-bold text-center text-gray-800 my-0 leading-8">
               New Review Received, {firstName}!
             </Heading>

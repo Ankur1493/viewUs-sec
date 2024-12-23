@@ -20,6 +20,7 @@ export const Landing = () => {
         <div className="bg-gradient-radial w-full from-[#141111] to-gray-950">
           <div className="w-full my-8 top-16 md:top-28 lg:top-40 mt-16">
             <ManageTestimonials />
+
           </div>
           <div
             className="w-full h-screen flex justify-center items-center lg:px-40 "
@@ -39,6 +40,24 @@ export const Landing = () => {
               ></iframe>
             </div>
           </div>
+          {/* <div
+            className="w-full h-screen flex justify-center items-center lg:px-40 "
+            style={{ margin: 0 }}
+          >
+            <div className="w-full h-full max-w-screen-2xl">
+              <iframe
+                src="https://embed.viewus.in/w/embed-testimonials/carousal?slug=bakedui&theme=dark&cardBorder=000000&cardBackground=141414&star=FACC3C"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                style={{
+                  border: "none",
+                  height: "100%",
+                }}
+              ></iframe>
+            </div>
+          </div> */}
         </div>
         <div>
           <ReasonsToUse />
@@ -48,7 +67,7 @@ export const Landing = () => {
             <VideoSection
               heading="Customize your review form"
               content="Design a review form that perfectly fits your brand. Add your logo, pick your colors, and customize the style to create a form that looks and feels just right for your business."
-              videoSrc="/assets/videos/create.mp4"
+              videoSrc="https://d3eyp937ijscg0.cloudfront.net/viewus_videos/create.mp4"
               buttonContent1="Live Preview"
               linkHref1="a/viewus"
             />
@@ -59,7 +78,7 @@ export const Landing = () => {
               content="Easily set up testimonials on your website with just a few clicks!
               Showcase customer reviews in a seamless and engaging way, boosting
               your brand's credibility in minutes."
-              videoSrc="/assets/videos/wallOfLove.mp4"
+              videoSrc="https://d3eyp937ijscg0.cloudfront.net/viewus_videos/wallOfLove.mp4"
               buttonContent1="Start your journey"
               linkHref1="/dashboard"
               buttonContent2="Live Preview"

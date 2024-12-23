@@ -38,7 +38,7 @@ export default async function ReviewPage({
   console.log({ reviewForm: reviewForm.details.theme });
   const getGradientStyle = (themeId: number | null) => {
     if (themeId === null) {
-      return gradients[1].style; // Default to the second gradient
+      return gradients[1].style;
     }
     return (
       gradients.find((gradient) => gradient.id === themeId)?.style ||

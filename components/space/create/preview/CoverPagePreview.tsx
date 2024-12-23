@@ -32,7 +32,7 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
   btnColor,
   gradientType,
 }) => {
-  const { coverPage, spaceCreationDetails } = useSpaceDataStore();
+  const { coverPage, spaceCreationDetails, design } = useSpaceDataStore();
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -52,12 +52,25 @@ export const CoverPagePreview: React.FC<CoverPagePreviewProps> = ({
 
   return (
     <div className="relative flex justify-center items-center w-full h-full bg-white">
-      <div className="absolute bottom-0 left-0 w-full h-full pointer-events-none">
+      <div className="absolute hidden md:block inset-0 overflow-hidden pointer-events-none z-50">
         <div
-          className="w-full h-full"
+          className="absolute md:-bottom-8 md:-left-72 lg:-bottom-20 lg:-left-80 w-[600px] h-[200px]"
           style={{
-            background: gradients[gradientType ? gradientType - 1 : 0].style,
+            transform: "rotate(70deg)",
+            background:
+              gradients[gradientType ? gradientType - 1 : design.gradientType]
+                .style,
             filter: "blur(40px)",
+          }}
+        />
+        <div
+          className="absolute -top-4 md:-right-96 lg:-right-80 lg:-top-20 w-[600px] h-[200px]"
+          style={{
+            transform: "rotate(70deg)",
+            background:
+              gradients[gradientType ? gradientType - 1 : design.gradientType]
+                .style,
+            filter: "blur(80px)",
           }}
         />
       </div>

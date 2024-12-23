@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
       const buffer = Buffer.from(arrayBuffer);
 
       const resizedBuffer = await sharp(buffer)
-        .resize({ height: 50, width: 50, fit: "contain" })
+        .resize({ height: 200, width: 200, fit: "contain" })
         .toBuffer();
 
       const fileType = image.type;
