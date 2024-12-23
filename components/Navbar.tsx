@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import logo from "@/public/assets/viewus_images/logo1.png";
+import logo from "@/public/assets/images/logo1.png";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
@@ -35,8 +35,8 @@ const Navbar = ({ active }: { active: string }) => {
   return (
     <header
       className={`bg-white bg-opacity-30 backdrop-blur-md text-black shadow-custom p-4 sticky top-0 transition-all duration-500 ease-in-out z-[50] flex justify-between items-center ${isScrolled
-          ? "w-full md:w-[80%] transform md:top-10 md:rounded-xl"
-          : "w-full lg:pr-6"
+        ? "w-full md:w-[80%] transform md:top-10 md:rounded-xl"
+        : "w-full lg:pr-6"
         } `}
     >
       <Link href="/">
