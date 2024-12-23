@@ -20,6 +20,25 @@ export const Landing = () => {
         <div className="bg-gradient-radial w-full from-[#141111] to-gray-950">
           <div className="w-full my-8 top-16 md:top-28 lg:top-40 mt-16">
             <ManageTestimonials />
+
+          </div>
+          <div
+            className="w-full h-screen flex justify-center items-center lg:px-40 "
+            style={{ margin: 0 }}
+          >
+            <div className="w-full h-full max-w-screen-2xl">
+              <iframe
+                src="https://embed.viewus.in/w/embed-testimonials/carousal?slug=bakedui&theme=dark&cardBorder=000000&cardBackground=141414&star=FACC3C"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                style={{
+                  border: "none",
+                  height: "100%",
+                }}
+              ></iframe>
+            </div>
           </div>
           {/* <div
             className="w-full h-screen flex justify-center items-center lg:px-40 "
