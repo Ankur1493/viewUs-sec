@@ -8,30 +8,12 @@ import { db } from "@/lib/db";
 import { connectToMongo } from "@/lib/mongoose";
 import Review from "@/models/review_model";
 import { NextRequest } from "next/server";
-import Cors from 'cors'
-
-const cors = Cors({
-  methods: ['GET', 'HEAD'],
-})
-
-function runMiddleware(req: NextRequest, res: NextResponse, fn: Function) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
-
-      return resolve(result)
-    })
-  })
-}
 
 export async function GET(
   req: NextRequest,
   res: NextResponse
 ) {
   try {
-    await runMiddleware(req, res, cors)
     const reqUrl = new URL(req.url)
     const slug = reqUrl.searchParams.get("slug");
     if (!slug) {
