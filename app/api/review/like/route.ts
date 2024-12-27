@@ -11,7 +11,6 @@ import { NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  res: NextResponse
 ) {
   try {
     const reqUrl = new URL(req.url)
