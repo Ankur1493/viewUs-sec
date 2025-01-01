@@ -59,18 +59,17 @@ export const AccountSettings = ({ user }: { user: User }) => {
 
   const handlePasswordChange =
     (prop: keyof PasswordFormState) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPasswordValues({
-        ...passwordValues,
-        [prop]: event.target.value,
-      });
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordValues({
+          ...passwordValues,
+          [prop]: event.target.value,
+        });
+      };
 
   const handleChangePassword = async () => {
     setIsPasswordLoading(true);
     if (passwordValues.newPassword !== passwordValues.confirmPassword) {
       // toast passwords are not matching
-      console.log("new and confirm password are wrong");
       toast.error("New and confirm password doesn't matches");
       return;
     }
@@ -83,17 +82,13 @@ export const AccountSettings = ({ user }: { user: User }) => {
 
     if (response.status) {
       toast.success("Password updated successfully");
-      console.log(response.message);
     } else {
       toast.error("Sorry, unable to process your changes!");
-      console.log("sorry can not change");
     }
 
-    console.log(response.message);
     passwordValues.oldPassword = "";
     passwordValues.newPassword = "";
     passwordValues.confirmPassword = "";
-    console.log("Change password clicked");
     setIsPasswordLoading(false);
   };
 
@@ -107,7 +102,6 @@ export const AccountSettings = ({ user }: { user: User }) => {
     } else {
       //toast response.message
       toast.error("Sorry, unable to process your changes!");
-      console.log(response.message);
     }
     setIsDeleteLoading(false);
   };
@@ -237,7 +231,7 @@ export const AccountSettings = ({ user }: { user: User }) => {
       </AlertDialog>
       <AlertDialog>
         <AlertDialogTrigger className="w-full" disabled={isDeleteLoading}>
-          <div className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md bg-red-600 hover:bg-red-600 opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-300 text-white rounded-md text-sm font-medium">
+          <div className="h-9 px-4 py-2 flex items-center justify-center w-full shadow-md bg-red-600 hover:bg-red-600 opacity-90 hover:opacity-100 transition-all duration-300 text-white rounded-md text-sm font-medium">
             {isDeleteLoading ? (
               <>
                 <SpinnerLoader size="small" className="mr-2" />

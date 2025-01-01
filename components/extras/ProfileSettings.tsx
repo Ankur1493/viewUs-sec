@@ -81,7 +81,6 @@ export const ProfileSettings = ({ user }: { user: User }) => {
         },
       });
       toast.success("Details updated successfully");
-      console.log(response.status);
       //toast profile updated
     } catch (error) {
       toast.error("Sorry, unable to process your changes!");
@@ -199,7 +198,7 @@ export const ProfileSettings = ({ user }: { user: User }) => {
             />
 
             <Button
-              className="w-full shadow-md mt-24 hover:opacity-100 opacity-90 hover:scale-105 transition-all duration-300 transform"
+              className="w-full shadow-md mt-24 hover:opacity-80 opacity-100 transition-all duration-300 transform"
               type="submit"
               disabled={isLoading}
             >
