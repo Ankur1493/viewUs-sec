@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import { gradients } from "@/constants/gradients";
 import { Star, Video, Pen } from "lucide-react";
+import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 
 type TestimonialPreviewProps = {
   title?: string;
@@ -17,9 +19,28 @@ export const VideoReviewPreview = ({
   questionHeader,
   questions,
 }: TestimonialPreviewProps) => {
+  const { design } = useSpaceDataStore();
+
   return (
     <div className="relative flex justify-center items-center w-full h-[75vh] bg-white p-6 md:px-0 lg:px-6">
-      {" "}
+      <div className="absolute hidden md:block inset-0 overflow-hidden pointer-events-none z-50">
+        <div
+          className="absolute md:-bottom-8 md:-left-72 lg:-bottom-20 lg:-left-80 w-[600px] h-[200px]"
+          style={{
+            transform: "rotate(70deg)",
+            background: gradients[design.gradientType].style,
+            filter: "blur(40px)",
+          }}
+        />
+        <div
+          className="absolute -top-4 md:-right-96 lg:-right-80 lg:-top-20 w-[600px] h-[200px]"
+          style={{
+            transform: "rotate(70deg)",
+            background: gradients[design.gradientType].style,
+            filter: "blur(80px)",
+          }}
+        />
+      </div>
       <Card className="w-full h-full px-[2%] border-none shadow-none flex flex-col md:justify-center lg:justify-start md:overflow-y-hidden">
         <div className="flex flex-col gap-12 md:gap-0 md:flex-row mt-0">
           <div className="flex flex-col gap-2 md:basis-3/5 lg:basis-2/3">

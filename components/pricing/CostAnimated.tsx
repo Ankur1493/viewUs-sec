@@ -38,7 +38,7 @@ export const CostAnimated = ({ period }: { period: "month" | "year" }) => {
     <div className="p-8 w-full">
       <motion.div
         ref={sectionRef}
-        className="flex items-baseline relative items-center justify-center"
+        className="flex items-baseline relative  justify-center"
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
@@ -61,7 +61,7 @@ export const CostAnimated = ({ period }: { period: "month" | "year" }) => {
           variants={newPriceVariants}
           aria-label="New price: $20 per month"
         >
-          {period === "month" ? "$20" : "$200"}
+          {period === "month" ? "$19" : "$199"}
         </motion.span>
         <motion.span className="text-white" variants={itemVariants}>
           {period === "month" ? "/month" : "/year"}

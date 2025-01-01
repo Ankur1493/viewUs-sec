@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
       // Convert the file to a buffer
       const buffer = Buffer.from(await file.arrayBuffer());
       const resizedBuffer = await sharp(buffer)
-        .resize({ height: 50, width: 50, fit: "contain" })
+        .resize({ height: 200, width: 200, fit: "contain" })
         .toBuffer();
 
       // Upload the image to S3

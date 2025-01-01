@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function SettingDetails() {
   return (
-    <div className="w-full hidden lg:flex items-top justify-center lg:p-4 h-fit">
+    <div className="w-full sticky top-0 hidden lg:flex items-top justify-center lg:p-4 h-fit">
       <Card className="lg:p-8 flex flex-col gap-4 w-full max-w-md shadow-lg hover:shadow-xl transition-shadow duration-300">
         <CardHeader className="p-4">
           <CardTitle className="text-3xl font-bold text-center text-purple-700">

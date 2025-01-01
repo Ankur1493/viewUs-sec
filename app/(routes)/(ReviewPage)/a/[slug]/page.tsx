@@ -9,7 +9,6 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const slug = params.slug;
-  console.log({ slug });
   const reviewForm = await getReviewFormDetails({ slug: params.slug });
   return {
     title: `${reviewForm?.name}`,
@@ -17,10 +16,13 @@ export async function generateMetadata({
       "Share your experience with us! Submit a review and help us improve.",
     openGraph: {
       title: `${reviewForm?.name}`,
-      description:
-        "Share your experience with us! Submit a review and help us improve.",
+      description: "Share your experience with us! Submit a review and help us improve.",
       images: ["/assets/images/reviewPage.png"],
       url: `https://www.viewus.in/a/${slug}`,
+    },
+    twitter: {
+      title: `${reviewForm?.name}`,
+      description: "Share your experience with us! Submit a review and help us improve.",
     },
   };
 }
@@ -35,10 +37,9 @@ export default async function ReviewPage({
   if (!reviewForm || !reviewForm.details) {
     return <div>Can not found this space</div>;
   }
-  console.log({ reviewForm: reviewForm.details.theme });
   const getGradientStyle = (themeId: number | null) => {
     if (themeId === null) {
-      return gradients[1].style; // Default to the second gradient
+      return gradients[1].style;
     }
     return (
       gradients.find((gradient) => gradient.id === themeId)?.style ||

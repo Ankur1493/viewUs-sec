@@ -8,7 +8,6 @@ import { db } from "@/lib/db";
 import { connectToMongo } from "@/lib/mongoose";
 import Review from "@/models/review_model";
 import { NextRequest } from "next/server";
-
 export async function GET(
   req: NextRequest,
 ) {

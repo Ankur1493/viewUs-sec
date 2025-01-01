@@ -21,7 +21,7 @@ export default {
 
         if (passwordsMatched) {
           if (user.emailVerified === null) {
-            await generateVerificationTokens(email)
+            generateVerificationTokens(email)
           }
           return user;
         }

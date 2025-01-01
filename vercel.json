@@ -1,15 +1,19 @@
 {
   "headers": [
     {
-      "source": "/api/review/like(.*)",
+      "source": "/api/(.*)",
       "headers": [
         {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://embed.viewus.in"
+          "value": "*"
         },
         {
           "key": "Access-Control-Allow-Methods",
-          "value": "GET"
+          "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
         },
         {
           "key": "Access-Control-Allow-Headers",

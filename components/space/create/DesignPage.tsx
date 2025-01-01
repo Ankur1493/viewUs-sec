@@ -93,7 +93,7 @@ export const DesignPage = ({
   return (
     <div className="reltive w-full pl-2 max-h-screen h-[85vh] lg:flex justify-center overflow-hidden gap-4">
       <div
-        className="absolute lg:hidden right-0 z-50"
+        className="absolute lg:hidden right-4 z-50"
         onClick={() => setIsHidden(!isHidden)}
       >
         {isHidden ? <Menu /> : <X />}
