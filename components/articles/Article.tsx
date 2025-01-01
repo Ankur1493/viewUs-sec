@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const articles = [
   {
-    title: "Collect testimonials easily",
+    title: "Collect your testimonials in 3 clicks",
     description: "Effortlessly gather feedback from your satisfied customers.",
     icon: ClipboardList,
     color: "from-pink-500 to-rose-500",
@@ -28,7 +28,7 @@ const articles = [
 
 export default function Article() {
   return (
-    <div className="min-h-screen w-full md:px-4 w-screen lg:px-56">
+    <div className="min-h-screen md:px-4 w-screen lg:px-56">
       <div className="px-4 py-20 md:pt-20 w-full">
         <div className="px-4 md:px-6 mx-auto w-full">
           <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
