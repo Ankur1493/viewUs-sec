@@ -16,7 +16,7 @@ interface WallOfLoveProps {
 
 export const WallOfLove = ({ slug }: WallOfLoveProps) => {
   const [loading, setLoading] = useState(true);
-  const { page, initializepage } = useWallTypeStore();
+  const { url, setUrl, page, initializepage } = useWallTypeStore();
   const router = useRouter();
 
   useEffect(() => {
@@ -27,6 +27,14 @@ export const WallOfLove = ({ slug }: WallOfLoveProps) => {
     };
     loadPage();
   }, [initializepage]);
+
+  useEffect(() => {
+    if (url) {
+      const testUrl = new URL(url!);
+      testUrl.searchParams.set(`slug`, slug);
+      setUrl(testUrl.toString());
+    }
+  }, [url, setUrl]);
 
   if (loading) {
     return <div>Loading...</div>;
