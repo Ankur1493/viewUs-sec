@@ -32,8 +32,8 @@ export default function OurProcess() {
   ];
 
   return (
-    <section className="px-4 py-12">
-      <div className=" mx-auto">
+    <section className="px-4 py-12 ">
+      <div className=" mx-auto max-w-[1700px]">
         <h1 className="text-4xl md:text-6xl font-bold text-center mb-12">
           Simplifying Your Journey, Step by Step
         </h1>
@@ -42,7 +42,7 @@ export default function OurProcess() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className={`flex flex-col gap-2 md:flex-row  items-center ${
+              className={`flex flex-col md:flex-row justify-between items-center ${
                 index % 2 !== 0 ? "md:flex-row-reverse" : ""
               }`}
             >
@@ -51,7 +51,7 @@ export default function OurProcess() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="flex-2 px-1 md:px-4 flex items-center gap-4"
+                className="basis-1/2 px-1 flex items-center gap-4 max-w-xl"
               >
                 <div>
                   <h2 className="text-6xl md:text-9xl font-bold flex items-center justify-center">
@@ -72,7 +72,7 @@ export default function OurProcess() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="relative w-full overflow-hidden h-[450px] shadow-md border-gray-400  rounded-2xl md:flex-3"
+                className="relative w-full overflow-hidden h-full min-h-[450px] shadow-md border-gray-400  rounded-2xl basis-1/2"
               >
                 <Image
                   src={step.image}

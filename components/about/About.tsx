@@ -40,7 +40,7 @@ export const About = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + index * 0.1 }}
               >
-                <Card className="border-dashed border-pink-300 bg-white bg-opcaity-20 hover:bg-pink-50 transition-colors duration-200">
+                <Card className="border-dashed border-pink-300 bg-white bg-opcaity-20 hover:bg-pink-50 transition-colors duration-200 h-full">
                   <CardContent className="p-6 flex flex-col items-center">
                     <metric.icon className="w-8 h-8 text-purple-500 mb-4" />
                     <div className="text-3xl font-bold text-gray-900 mb-2">

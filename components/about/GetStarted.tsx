@@ -20,7 +20,7 @@ export const GetStarted = () => {
         <Card className="max-w-4xl mx-auto overflow-hidden shadow-xl">
           <CardContent className="p-0">
             <div className="grid md:grid-cols-2">
-              <div className="p-8 md:p-12 bg-black text-white">
+              <div className="p-8 md:p-12 bg-[#141414] text-white">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -63,7 +63,7 @@ export const GetStarted = () => {
                     Start Your Free Trial Today
                   </h3>
                   <Button
-                    className="px-8 py-6 text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 bg-black opacity-90 hover:bg-black hover:opacity-100 text-white"
+                    className="px-8 py-6 text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 bg-[#141414] opacity-90 hover:bg-black hover:opacity-100 text-white"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     asChild
