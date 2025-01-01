@@ -14,7 +14,7 @@ export const Pricing = () => {
     <div className="dark h-full w-full flex items-center justify-center  bg-[#141111]">
       <div className="container px-4 py-16 md:py-24">
         <div className="md:text-center">
-          <h1 className="text-2xl md:text-3xl md:text-6xl font-bold mb-4 text-white">
+          <h1 className="text-2xl  md:text-6xl font-bold mb-4 text-white">
             Simple pricing for favourite customers
           </h1>
           <p className="text-gray-400">
@@ -29,21 +29,19 @@ export const Pricing = () => {
           <div className="flex justify-center items-center bg-zinc-800 w-fit p-1 rounded-full">
             <Button
               onClick={() => setPeriod("month")}
-              className={`px-4 w-[100px] py-2 bg-zinc-800 rounded-l-full  ${
-                period === "month"
+              className={`px-4 w-[100px] py-2 bg-zinc-800 rounded-l-full  ${period === "month"
                   ? "bg-blue-500 text-white hover:bg-blue-500"
                   : "text-gray-400 hover:bg-zinc-800 hover:text-white"
-              }`}
+                }`}
             >
               Monthly
             </Button>
             <Button
               onClick={() => setPeriod("year")}
-              className={`px-4 w-[100px] py-2 bg-zinc-800 rounded-r-full  ${
-                period === "year"
+              className={`px-4 w-[100px] py-2 bg-zinc-800 rounded-r-full  ${period === "year"
                   ? "bg-blue-500 text-white hover:bg-bg-blue-500"
                   : "text-gray-400 hover:text-white hover:bg-zinc-800"
-              }`}
+                }`}
             >
               Yearly
             </Button>

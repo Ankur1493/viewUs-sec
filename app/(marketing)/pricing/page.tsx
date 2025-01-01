@@ -1,8 +1,20 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { BookCall } from "@/components/landing/BookCall";
 import { StartFree } from "@/components/pricing/StartFree";
 import Navbar from "@/components/Navbar";
 import { Pricing } from "@/components/pricing/Pricing";
+
+export const metadata: Metadata = {
+  title: "View Us",
+  description: "Upgrade to pro",
+  openGraph: {
+    title: "View Us",
+    description: "Collect and manage testimonials",
+    images: ["/assets/images/logo1.png"],
+    url: "https://www.viewus.in/",
+  },
+};
 
 export default function PricingPage() {
   return (

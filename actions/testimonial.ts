@@ -96,7 +96,7 @@ export const getSpaceReviews = async (slug: string) => {
           userId: user.id
         },
       }),
-      Review.find({ slug }).sort({ createdAt: -1 }),
+      Review.find({ slug }).sort({ createdAt: 1 }),
     ]);
 
     // Check if either space or reviews are null
