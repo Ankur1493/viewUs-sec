@@ -73,7 +73,7 @@ export const VideoSection = ({
             <h2 className="text-2xl lg:text-4xl font-bold text-black text-left">
               {heading}
             </h2>
-            <p className="text-gray-800 text-sm md:text-md lg:text-lg tracking-wider text-left">
+            <p className="text-gray-800 text-sm   tracking-wider text-left">
               {content}
             </p>
           </motion.div>

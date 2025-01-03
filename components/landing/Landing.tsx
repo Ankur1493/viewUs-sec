@@ -47,7 +47,7 @@ export const Landing = () => {
         <div>
           <div>
             <VideoSection
-              heading="Customize your review form"
+              heading="Use a customized Review form"
               content="Design a review form that perfectly fits your brand. Add your logo, pick your colors, and customize the style to create a form that looks and feels just right for your business."
               videoSrc="https://d3eyp937ijscg0.cloudfront.net/viewus_videos/create.mp4"
               buttonContent1="Live Preview"
@@ -61,16 +61,16 @@ export const Landing = () => {
               Showcase customer reviews in a seamless and engaging way, boosting
               your brand's credibility in minutes."
               videoSrc="https://d3eyp937ijscg0.cloudfront.net/viewus_videos/wallOfLove.mp4"
-              buttonContent1="Start your journey"
+              buttonContent1="Start for free"
               linkHref1="/dashboard"
               buttonContent2="Live Preview"
-              linkHref2="https://embed.viewus.in/w/embed-testimonials?slug=bakedui&theme=&speed=slow&columns=4"
+              linkHref2="#landing-wall"
             />
           </div>
         </div>
 
-        <div className="relative w-full md:my-12 top-16 lg:top-24 flex flex-col jutify-center items-center">
-          <h2 className="text-3xl md:text-6xl font-bold text-center mb-2">
+        <div id="landing-wall" className="relative w-full md:my-12 top-16 lg:top-24 flex flex-col jutify-center items-center">
+          <h2 className="text-3xl md:text-6xl font-semibold text-center text-black mb-2">
             See what our users say about us
           </h2>
           <p className="text-sm md:text-xl text-center text-gray-500 mb-12 px-8 md:px-0">
@@ -79,11 +79,9 @@ export const Landing = () => {
           </p>
           <div className="w-[95%] md:w-[90%] h-screen rounded-xl scrollbar-hidden max-w-screen-2xl">
             <iframe
-              src="https://embed.viewus.in/?slug=viewus&animated=on&"
+              src="https://embed.viewus.in/?slug=viewus&animated=on&cardBorderRadius=medium"
               width="100%"
               height="100%"
-              frameBorder="0"
-              scrolling="yes"
               style={{
                 border: "none",
               }}
@@ -91,8 +89,8 @@ export const Landing = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center items-center mt-40 md:mt-24 pt-20 font-bold text-center w-full">
-          <h2 className="md-w-[90%] lg:w-3/5 pb-12 text-2xl md:text-5xl lg:text-6xl">
+        <div className="flex flex-col justify-center items-center md:mt-10 pt-20 font-bold text-center w-full">
+          <h2 className="md-w-[90%] lg:w-3/5 pb-12 text-2xl md:text-5xl lg:text-6xl text-black">
             Forge Lasting Connections: From First Click to Loyal Customer
           </h2>
           <Features />

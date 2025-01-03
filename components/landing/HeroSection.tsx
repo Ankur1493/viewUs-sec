@@ -70,14 +70,14 @@ const HeroSection = () => {
     <>
       <div className="w-full flex flex-col justify-center items-center">
         <div className="flex flex-col justify-center items-center w-full md:w-11/12 lg:w-4/6">
-          <h1 className="hero__heading text-4xl mt-2 md:text-5xl lg:text-6xl font-bold pb-3 text-center opacity-0">
-            Showcase your Testimonials with{" "}
-            <span className="block">Minimal Effort</span>
+          <h1 className="hero__heading text-4xl mt-2 md:text-5xl lg:text-6xl text-black opacity-0 font-bold pb-3 text-center">
+            Showcase your Testimonials <span className="md:hidden ">with</span>{" "}
+            <span className="block"><span className="hidden md:inline">with</span> Minimal Effort</span>
           </h1>
         </div>
-        <div className="flex flex-col justify-center items-center text-gray-500 w-3/4 md:1/6 lg:w-3/5">
+        <div className="flex flex-col justify-center items-center text-gray-800 w-3/4 md:1/6 lg:w-3/5">
           <p className="hero__body text-md md:text-xl text-center opacity-0">
-            ViewUs helps you seamlessly collect and manage customer
+            Viewus helps you seamlessly collect and manage customer
             testimonials.
             <span className="block">No Developers, No complex setup.</span>
           </p>
@@ -92,7 +92,7 @@ const HeroSection = () => {
         </div>
       </div>
       <div className="relative text-center px-2 lg:px-0">
-        <div className="hero__image glass-container mt-16 w-fit opacity-0">
+        <div className="hero__image glass-container mt-4 lg:mt-16 w-fit opacity-0">
           <div className="hero__glow hero__glow--one absolute left-1/3 top-0 -z-10 h-2/3 w-2/3 bg-violet-700/50 mix-blend-screen blur-3xl filter md:blur-[120px] opacity-0" />
           <div className="hero__glow hero__glow--two absolute left-0 top-1/3 -z-10 h-2/3 w-2/3 bg-orange-400 mix-blend-screen blur-3xl filter md:blur-[120px] opacity-0" />
           <video
