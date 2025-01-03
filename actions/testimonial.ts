@@ -169,4 +169,31 @@ export const getSpaceReviews = async (slug: string) => {
   }
 }
 
+export const getTestimonial = async (id: string) => {
+  try {
+    const testimonial = await Review.findById(id)
+
+    if (!testimonial) {
+      return ({
+        status: false,
+        message: "sorry we failed to delete your testimonial, try again",
+        data: null,
+      })
+    }
+
+    return ({
+      status: true,
+      message: "here is your testimonial",
+      data: testimonial,
+    })
+  } catch (err) {
+    console.log(err)
+    return ({
+      status: false,
+      message: "server error",
+      data: null,
+    })
+  }
+}
+
 

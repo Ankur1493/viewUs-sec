@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 //@ts-nocheck
+"use client"
 import React, { useEffect, useRef } from "react";
 import Hls from "hls.js";
 
 export const VideoPlayer = ({ videoLink }: { videoLink: string }) => {
   const videoRef = useRef(null);
 
-  console.log({ videoLink });
   const videoUrl = `https://d3eyp937ijscg0.cloudfront.net/${videoLink}/playlist.m3u8`;
 
   useEffect(() => {

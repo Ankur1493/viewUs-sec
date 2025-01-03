@@ -21,6 +21,7 @@ export async function generateMetadata({
       url: `https://www.viewus.in/a/${slug}`,
     },
     twitter: {
+      card: 'summary_large_image',
       title: `${reviewForm?.name}`,
       description: "Share your experience with us! Submit a review and help us improve.",
     },
