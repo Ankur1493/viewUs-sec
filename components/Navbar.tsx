@@ -42,7 +42,7 @@ const Navbar = ({ active }: { active: string }) => {
       <Link href="/">
         <div className="flex items-center gap-2">
           <Image src={logo} alt="logo" width={40} height={40} />
-          <span className="font-semibold">ViewUs</span>
+          <span className="font-semibold">Viewus</span>
         </div>
       </Link>
       <div className="md:flex items-center justify-center gap-12 hidden">
