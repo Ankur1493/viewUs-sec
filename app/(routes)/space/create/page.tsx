@@ -25,8 +25,8 @@ export default async function SpaceCreatePage({
 
   const user = await getUserById(userId!);
 
-  if (!user || !user.emailVerified) {
-    return redirect("/verify?route=create-space");
+  if (!user) {
+    return redirect("/login");
   }
 
   const page = parseInt(searchParams.page || "1");

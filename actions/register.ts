@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import { signIn } from "@/auth";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
-import { DEFAULT_REGISTER_REDIRECT } from "@/route";
+import { DEFAULT_LOGIN_REDIRECT } from "@/route";
 
 export const register = async (values: z.infer<typeof registerSchema>) => {
   const validatedFields = registerSchema.safeParse(values);
@@ -26,7 +26,7 @@ export const register = async (values: z.infer<typeof registerSchema>) => {
 
   try {
     await signIn("credentials", {
-      email, password, redirectTo: DEFAULT_REGISTER_REDIRECT
+      email, password, redirectTo: DEFAULT_LOGIN_REDIRECT
     })
     return { success: "user created" }
   } catch (error) {
