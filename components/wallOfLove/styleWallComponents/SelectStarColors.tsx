@@ -12,9 +12,9 @@ import { useWallTypeStore } from "@/store/useWallTypeStore";
 import { WallSidebarWrapper } from "./WallSidebarWrapper";
 
 export const SelectStar = () => {
-  const [color, setColor] = useState("#000000");
-  const [hexInput, setHexInput] = useState("#000000");
-  const presetColors = ["#000000", "#FFD700", "#FFE135", "#FFFFFF", "#FF1493"];
+  const [color, setColor] = useState("#71d4fe");
+  const [hexInput, setHexInput] = useState("#71d4fe");
+  const presetColors = ["#000000", "#71d4fe", "#FFFFFF", "#FFD700", "#FF1493"];
   const { url, setUrl } = useWallTypeStore();
 
   useEffect(() => {

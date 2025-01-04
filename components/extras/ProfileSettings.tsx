@@ -80,8 +80,7 @@ export const ProfileSettings = ({ user }: { user: User }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      if (response.data.status)
-        toast.success("Details updated successfully");
+      if (response.data.status) toast.success("Details updated successfully");
       //toast profile updated
     } catch (error) {
       toast.error("Sorry, unable to process your changes!");

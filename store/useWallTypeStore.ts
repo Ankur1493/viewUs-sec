@@ -3,8 +3,9 @@ import { create } from "zustand";
 export type WallData =
   | "fixed"
   | "animated"
-  | "carousal"
-  | "animated-carousal"
+  | "carousal-horizontal"
+  | "carousal-vertical"
+  | "carousal-2rows-animated"
   | null;
 type PageData = "all" | "editing" | "final";
 

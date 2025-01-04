@@ -11,19 +11,19 @@ import { Plus } from "lucide-react";
 import { useWallTypeStore } from "@/store/useWallTypeStore";
 import { WallSidebarWrapper } from "./WallSidebarWrapper";
 
-export const SelectBackground = () => {
-  const [color, setColor] = useState("#000000");
-  const [hexInput, setHexInput] = useState("#000000");
-  const presetColors = ["#000000", "#FFD700", "#FFFFFF", "#FF1493"];
+export const SelectCardBorderColor = () => {
+  const [color, setColor] = useState("#ffffff");
+  const [hexInput, setHexInput] = useState("#ffffff");
+  const presetColors = ["#000000", "#FFFFFF", "#FFD700", "#FF1493"];
   const { url, setUrl } = useWallTypeStore();
 
   useEffect(() => {
     if (url) {
       const testUrl = new URL(url!);
       if (color === "none") {
-        testUrl.searchParams.delete("background");
+        testUrl.searchParams.delete("cardBorderColor");
       } else {
-        testUrl.searchParams.set("background", color.slice(1));
+        testUrl.searchParams.set("cardBorderColor", color.slice(1));
       }
       setUrl(testUrl.toString());
     }
@@ -48,8 +48,8 @@ export const SelectBackground = () => {
 
   return (
     <WallSidebarWrapper
-      header="Background Color"
-      description="Select a background color"
+      header="Card Border Color"
+      description="Select a border color for cards"
     >
       <div className="flex flex-wrap gap-2">
         <Popover>
@@ -67,10 +67,7 @@ export const SelectBackground = () => {
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-3">
-            <HexColorPicker
-              color={color !== "none" ? color : "#000000"}
-              onChange={handleColorChange}
-            />
+            <HexColorPicker color={color} onChange={handleColorChange} />
           </PopoverContent>
           <Button
             variant="outline"
@@ -81,6 +78,7 @@ export const SelectBackground = () => {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-full h-[1.5px] bg-black rotate-45"></div>
             </div>
+            <span className="sr-only">No background color</span>
           </Button>
         </Popover>
         {presetColors.map((presetColor) => (
