@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useWallTypeStore } from "@/store/useWallTypeStore";
 import { ArrowLeftIcon, Copy, Check, PartyPopperIcon } from "lucide-react";
@@ -19,15 +19,71 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
   const [redirected, setRedirected] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    console.log("Data", data);
+    console.log("url", url);
+  }, [data]);
+
   const handleRedirect = async () => {
     setRedirected(true);
     router.push(`/space/${slug}`);
     setPage("all", null);
   };
 
+  const content = ` <iframe
+          src=${url!}
+          width="100%"
+          height="100%"
+          frameBorder="0"
+          scrolling="no"
+          style={{
+            border: "none",
+          }}
+        ></iframe>`;
+  // const content = `
+  //           ${
+  //             data === "carousal-2rows-animated"
+  //               ? `<div className="w-[100%] md:w-[90%] h-screen md:h-[80vh] lg:h-screen rounded-xl max-w-screen-2xl">
+  //             <iframe
+  //               src=${url!}}
+  //               width="100%"
+  //               height="100%"
+  //               frameBorder="0"
+  //               scrolling="no"
+  //               style={{
+  //                 border: "none",
+  //               }}
+  //             ></iframe>
+  //           </div>`
+  //               : data === "carousal-horizontal"
+  //                 ? `<div className="w-[100%] md:w-[90%] h-[70vh] md:h-[50vh] lg:h-[60vh] rounded-xl max-w-screen-2xl">
+  //       <iframe
+  //         src=${url!}
+  //         width="100%"
+  //         height="100%"
+  //         frameBorder="0"
+  //         scrolling="no"
+  //         style={{
+  //           border: "none",
+  //         }}
+  //       ></iframe>
+  //     </div>`
+  //                 : `<div className="w-[95%] md:w-[90%] h-screen rounded-xl scrollbar-hidden max-w-screen-2xl">
+  //           <iframe
+  //             src=${url!}
+  //             width="100%"
+  //             height="100%"
+  //             style={{
+  //               border: "none",
+  //             }}
+  //           ></iframe>
+  //         </div>`
+  //           }
+  //         `.trim();
+
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(url!);
+      await navigator.clipboard.writeText(content!);
       setIsCopied(true);
       toast("copied the URL");
       setTimeout(() => setIsCopied(false), 2000);
@@ -49,7 +105,7 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
         </CardHeader>
         <CardContent className="flex items-center justify-between">
           <code className="bg-muted text-muted-foreground text-xs md:text-lg px-2 py-1 rounded-md flex-grow mr-2 overflow-x-auto">
-            {url}
+            {content}
           </code>
           <Button
             size="icon"

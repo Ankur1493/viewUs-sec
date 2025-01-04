@@ -167,7 +167,7 @@ const ReasonsToUse: React.FC = () => {
 
   return (
     <div className="container mx-auto text-center flex flex-col gap-10 lg:gap-0 justify-center items-center overflow-hidden">
-      <h2 className="text-2xl md:text-4xl lg:text-6xl font-bold pb-10">
+      <h2 className="text-2xl md:text-4xl lg:text-6xl text-black font-bold pb-10">
         3 reasons to choose ViewUs
       </h2>
       {/* <div

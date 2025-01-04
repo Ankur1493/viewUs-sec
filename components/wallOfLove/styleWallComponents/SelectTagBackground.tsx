@@ -12,9 +12,9 @@ import { useWallTypeStore } from "@/store/useWallTypeStore";
 import { WallSidebarWrapper } from "./WallSidebarWrapper";
 
 export const SelectTagBackground = () => {
-  const [color, setColor] = useState("#000000");
-  const [hexInput, setHexInput] = useState("#000000");
-  const presetColors = ["#000000", "#FFD700", "#FFE135", "#FFFFFF", "#FF1493"];
+  const [color, setColor] = useState("#C2F19D");
+  const [hexInput, setHexInput] = useState("#C2F19D");
+  const presetColors = ["#000000", "#C2F19D", "#FFD700", "#FFFFFF", "#FF1493"];
   const { url, setUrl } = useWallTypeStore();
 
   useEffect(() => {

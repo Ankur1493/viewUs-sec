@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { useWallTypeStore, WallData } from "@/store/useWallTypeStore";
 import { cn } from "@/lib/utils";
+import { Info } from "lucide-react";
 
 interface WallCardTypesProps {
   index: number;
@@ -17,6 +18,7 @@ interface WallCardTypesProps {
   img: string;
   slug: WallData;
   url: string;
+  info?: string;
 }
 
 export const WallCardTypes = ({
@@ -26,12 +28,13 @@ export const WallCardTypes = ({
   img,
   slug,
   url,
+  info,
 }: WallCardTypesProps) => {
   const { setPage, setUrl } = useWallTypeStore();
 
   if (title.length === 0) {
     return (
-      <Card className="min-h-60 flex flex-col justify-center items-center">
+      <Card className="min-h-40 flex flex-col justify-center items-center">
         <h2 className="text-5xl font-semibold ">More stuff coming soon</h2>
         <p>
           Give us some time, if you want any specific structure, please{" "}
@@ -50,7 +53,7 @@ export const WallCardTypes = ({
         setUrl(url);
       }}
       className={cn(
-        "min-h-[400px] cursor-pointer group overflow-hidden",
+        "min-h-[400px] cursor-pointer group overflow-hidden relative",
         index === 0 || index === 3 || index === 4
           ? "border-dashed border-pink-300 hover:bg-pink-50 transition-colors duration-200"
           : "border-dashed border-purple-300 hover:bg-purple-50 transition-colors duration-200"
@@ -79,6 +82,15 @@ export const WallCardTypes = ({
           />
         </div>
       </CardContent>
+      {info && (
+        <div className="absolute bottom-1 left-2 w-full group-hover:opacity-100 opacity-0 transition-opacity duration-300">
+          {" "}
+          <p className="text-xs text-red-600 flex gap-1 items-center">
+            <Info className="w-4 h-4" />
+            {info}
+          </p>
+        </div>
+      )}
     </Card>
   );
 };

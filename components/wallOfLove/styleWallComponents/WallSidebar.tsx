@@ -1,3 +1,4 @@
+"use client";
 import { SelectBackground } from "@/components/wallOfLove/styleWallComponents/SelectBackground";
 import { SelectCardBackground } from "@/components/wallOfLove/styleWallComponents/SelectCardBackground";
 import { SelectTextColor } from "@/components/wallOfLove/styleWallComponents/SelectTextColor";
@@ -16,6 +17,11 @@ import { SelectSpeed } from "./Animation/SelectSpeed";
 import { SelectColumns } from "./Grid/SelectColumns";
 import { SelectAlignCard } from "./Carousal/SelectAlignCard";
 import { SelectCardHeight } from "./Carousal/SelectCardHeight";
+import { SelectCardBorderColor } from "./SelectCardBorderColor";
+import { SelectDirection } from "./Animation/SelectDirection";
+import { SelectDirection2 } from "./Animation/SelectDirection2";
+import { SelectAnimation } from "./Animation/SelectAnimation";
+import { useEffect, useState } from "react";
 
 interface SidebarToggleProps {
   onClick: () => void;
@@ -24,6 +30,15 @@ interface SidebarToggleProps {
 
 export const WallSidebar = ({ onClick, isSidebarOpen }: SidebarToggleProps) => {
   const { data, setPage } = useWallTypeStore();
+  const [isAnimated, setIsAnimated] = useState(false);
+
+  const handleAnimationChange = (isAnimatedTrue: boolean) => {
+    setIsAnimated(isAnimatedTrue);
+  };
+
+  useEffect(() => {
+    console.log("isAnimated", isAnimated);
+  }, [isAnimated]);
 
   return (
     <div className=" relative h-full text-white lg:p-2 shadow-lg border rounded-md flex flex-col pb-2 overflow-y-hidden">
@@ -38,39 +53,52 @@ export const WallSidebar = ({ onClick, isSidebarOpen }: SidebarToggleProps) => {
       </h2>
       <div className="space-y-2 flex-grow overflow-y-auto no-scrollbar border-t py-1">
         <SelectTheme />
+        <SelectBorderRadius />
         <SelectBackground />
         <SelectCardBackground />
+        <SelectCardBorderColor />
+        <SelectCardBorderRadius />
         <SelectTextColor />
         <SelectStar />
         <SelectTagBackground />
         <SelectTagTextColor />
-        <SelectCardBorderRadius />
         {data === "animated" || data === "fixed" ? (
           <>
             <SelectColumns />
             {data === "animated" && (
               <>
-                <SelectBorderRadius />
-                <SelectShadowColor />
-                <SelectSpeed />
+                {/* <SelectBorderRadius /> */}
+                {/* <SelectShadowColor /> */}
               </>
             )}
           </>
         ) : null}
-        {data === "carousal" || data === "animated-carousal" ? (
+        {data === "carousal-vertical" ? (
           <>
             <SelectCardHeight />
             <SelectAlignCard />
-            {data === "animated-carousal" && (
-              <>
-                <SelectBorderRadius />
-                <SelectShadowColor />
-                <SelectSpeed />
-              </>
-            )}
+          </>
+        ) : null}
+        {data === "carousal-2rows-animated" ||
+        data === "carousal-horizontal" ||
+        data === "carousal-vertical" ? (
+          <>
+            {data === "carousal-horizontal" || data === "carousal-vertical" ? (
+              <SelectAnimation onAnimationChange={handleAnimationChange} />
+            ) : null}
+            {isAnimated ||
+              (data === "carousal-2rows-animated" && (
+                <>
+                  <SelectShadowColor />
+                  <SelectSpeed />
+                  <SelectDirection />
+                  {data === "carousal-2rows-animated" && <SelectDirection2 />}
+                </>
+              ))}
           </>
         ) : null}
       </div>
+
       <div className="bottom-0 flex flex-col lg:flex-row gap-2 pt-6 px-2 lg:px-0">
         <Button
           onClick={() => setPage("all", null)}

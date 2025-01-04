@@ -12,15 +12,19 @@ import { useWallTypeStore } from "@/store/useWallTypeStore";
 import { WallSidebarWrapper } from "./WallSidebarWrapper";
 
 export const SelectCardBackground = () => {
-  const [color, setColor] = useState("#000000");
-  const [hexInput, setHexInput] = useState("#000000");
-  const presetColors = ["#000000", "#FFD700", "#FFE135", "#FFFFFF", "#FF1493"];
+  const [color, setColor] = useState("#ffffff");
+  const [hexInput, setHexInput] = useState("#ffffff");
+  const presetColors = ["#000000", "#FFFFFF", "#FFD700", "#FF1493"];
   const { url, setUrl } = useWallTypeStore();
 
   useEffect(() => {
     if (url) {
       const testUrl = new URL(url!);
-      testUrl.searchParams.set(`cardBackground`, color.slice(1));
+      if (color === "none") {
+        testUrl.searchParams.delete("cardBackground");
+      } else {
+        testUrl.searchParams.set("cardBackground", color.slice(1));
+      }
       setUrl(testUrl.toString());
     }
   }, [color, url, setUrl]);
@@ -35,6 +39,11 @@ export const SelectCardBackground = () => {
   const handleColorChange = (newColor: string) => {
     setColor(newColor);
     setHexInput(newColor);
+  };
+
+  const handleNoneClick = () => {
+    setColor("none");
+    setHexInput("");
   };
 
   return (
@@ -60,6 +69,17 @@ export const SelectCardBackground = () => {
           <PopoverContent className="w-auto p-3">
             <HexColorPicker color={color} onChange={handleColorChange} />
           </PopoverContent>
+          <Button
+            variant="outline"
+            className="w-6 h-6 p-0 rounded-full relative overflow-hidden border-black border-2"
+            onClick={handleNoneClick}
+          >
+            <div className="absolute inset-0 bg-white"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-full h-[1.5px] bg-black rotate-45"></div>
+            </div>
+            <span className="sr-only">No background color</span>
+          </Button>
         </Popover>
         {presetColors.map((presetColor) => (
           <Button

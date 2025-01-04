@@ -14,7 +14,7 @@ import { WallSidebarWrapper } from "./WallSidebarWrapper";
 export const SelectTextColor = () => {
   const [color, setColor] = useState("#000000");
   const [hexInput, setHexInput] = useState("#000000");
-  const presetColors = ["#000000", "#FFD700", "#FFE135", "#FFFFFF", "#FF1493"];
+  const presetColors = ["#000000", "#FFFFFF", "#FFD700", "#0000aa", "#FF1493"];
   const { url, setUrl } = useWallTypeStore();
 
   useEffect(() => {
