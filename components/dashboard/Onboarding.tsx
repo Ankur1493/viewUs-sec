@@ -17,7 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { PartyPopperIcon } from 'lucide-react';
 import { toast } from "sonner";
 import { OnboardingLoader } from "./OnboardingLoader";
 
