@@ -110,14 +110,6 @@ export const ManageTestimonials = ({
     }
   });
 
-  // if (filter === "liked") {
-  //   filteredTestimonials.sort((a: IReview, b: IReview) => {
-  //     const dataA = new Date(a.updatedAt || 0).getTime();
-  //     const dataB = new Date(b.updatedAt || 0).getTime();
-  //     return dataB - dataA;
-  //   });
-  // }
-
   if (filteredTestimonials.length === 0) {
     return (
       <div className="w-full flex pt-52 justify-center items-center">

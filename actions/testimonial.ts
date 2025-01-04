@@ -106,7 +106,7 @@ export const getSpaceReviews = async (slug: string) => {
       );
     }
 
-    if (!allReviews || allReviews.length === 0) {
+    if (!allReviews) {
       return (
         { success: false, message: "No reviews found" }
       );

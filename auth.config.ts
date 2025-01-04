@@ -4,7 +4,6 @@ import type { NextAuthConfig } from "next-auth"
 import bcrypt from "bcryptjs"
 import { loginSchema } from "./schemas/login";
 import { getUserByEmail } from "./data/user";
-import { generateVerificationTokens } from "@/actions/tokens";
 
 export default {
   providers: [Credenitals({
@@ -20,9 +19,6 @@ export default {
         const passwordsMatched = await bcrypt.compare(password, user.password);
 
         if (passwordsMatched) {
-          if (user.emailVerified === null) {
-            generateVerificationTokens(email)
-          }
           return user;
         }
       }

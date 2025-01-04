@@ -11,7 +11,7 @@ const articles = [
     id: "collect",
   },
   {
-    title: "How to manage testimonials",
+    title: "How to manage testimonials easily",
     description: "Organize and curate your testimonials with ease.",
     icon: FolderOpen,
     color: "from-purple-500 to-indigo-500",
@@ -28,7 +28,7 @@ const articles = [
 
 export default function Article() {
   return (
-    <div className="min-h-screen md:px-4 w-screen lg:px-56">
+    <div className="md:px-4 w-screen lg:px-56 max-w-[1750px]">
       <div className="px-4 py-20 md:pt-20 w-full">
         <div className="px-4 md:px-6 mx-auto w-full">
           <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
@@ -36,15 +36,21 @@ export default function Article() {
               Boost Your Business with ViewUs
             </h2>
           </div>
-          <div className="flex flex-col lg:flex-row gap-8  w-full ">
+          <div className="grid lg:grid-cols-3 justify-center items-center gap-8  w-full ">
             {articles.map((article, index) => (
-              <Link key={index} href={`/articles/${article.id}`}>
+              <Link
+                key={index}
+                href={`/articles/${article.id}`}
+                className="w-full h-full"
+              >
                 <Card
                   key={index}
-                  className="overflow-hidden border-none shadow-lg transition-all hover:shadow-xl w-full cursor-pointer"
+                  className="overflow-hidden border-none shadow-lg transition-all hover:shadow-xl w-full h-full cursor-pointer"
                 >
-                  <CardContent className="p-0">
-                    <div className={`p-6 bg-gradient-to-br ${article.color}`}>
+                  <CardContent className="p-0 h-full">
+                    <div
+                      className={`p-6 bg-gradient-to-br ${article.color} min-h-[65%]`}
+                    >
                       <article.icon className="w-12 h-12 text-white mb-4" />
                       <h3 className="text-2xl font-bold text-white mb-2">
                         {article.title}

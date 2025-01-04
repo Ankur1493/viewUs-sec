@@ -73,7 +73,7 @@ export const SaveButton = ({
       spaceCreationDetails.projectName === null
     ) {
       if (page === "create")
-        return router.push("/space/create?error=missingDetails");
+        return router.push("/onboarding?error=missingDetails");
       else {
         return router.push(`/space/${slug}?error=missingDetails`);
       }
@@ -100,8 +100,6 @@ export const SaveButton = ({
       formData.append("thankyou", JSON.stringify(thankyou));
       formData.append("design", JSON.stringify(design));
 
-      console.log(coverPage);
-
       const url =
         page === "create"
           ? `${baseUrl}/api/space/create`
@@ -115,12 +113,10 @@ export const SaveButton = ({
 
       // Handle the response
       if (response.data.status === true) {
-        console.log("Request received successfully");
-        router.push(`/space/${spaceCreationDetails.projectSlug}/public`);
+        router.push(`/space/${spaceCreationDetails.projectSlug}`);
         sessionStorage.clear();
       } else {
         toast.error(response.data.message);
-        console.error("Failed to create space:", response.data.message);
       }
     } catch (error) {
       let errorMessage = "An unknown error occurred";

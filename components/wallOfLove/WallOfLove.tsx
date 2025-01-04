@@ -54,7 +54,7 @@ export const WallOfLove = ({ slug }: WallOfLoveProps) => {
             <h1 className="text-3xl md:text-4xl font-semibold">
               What kind of wall do you want to cook today??
             </h1>
-            <div className="w-full lg:pr-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="w-full lg:pr-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               {WallCardTypesConstants.map((card, index) => (
                 <WallCardTypes
                   index={index}
@@ -64,6 +64,7 @@ export const WallOfLove = ({ slug }: WallOfLoveProps) => {
                   img={card.img}
                   slug={card.slug}
                   url={card.url!}
+                  info={card.info}
                 />
               ))}
             </div>
