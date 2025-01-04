@@ -132,7 +132,7 @@ export const SpaceCreationDetails = ({
                 name="projectSlug"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>WRITE A DESCRIPTION</FormLabel>
+                    <FormLabel>Project Slug <span className="text-[8px] text-red-600">This can&apos;t be changed</span></FormLabel>
                     <FormControl>
                       <Input
                         disabled={disabled}

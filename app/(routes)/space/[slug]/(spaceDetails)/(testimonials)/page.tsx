@@ -33,6 +33,7 @@ const SpacePage = async ({
   params: { slug: string };
 }) => {
   const response = await fetchTestimonials(slug);
+  console.log({ response })
   if (!response || response === null) {
     return (
       <div className="h-full w-full  flex flex-col justify-center pt-24 md:pt-0  px-6 items-center">
@@ -77,7 +78,7 @@ const SpacePage = async ({
           <div className="bg-[#E9F8FF] w-[80px] h-[80px] rounded-full flex justify-center items-center mx-6">
             <FrownIcon color="#009EE2" size={30} />
           </div>
-          <h1 className="text-3xl font-medium">You have no project yet</h1>
+          <h1 className="text-3xl font-medium">You have no testimonials yet</h1>
         </div>
       </div>
     );

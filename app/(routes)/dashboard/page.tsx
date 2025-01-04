@@ -1,16 +1,28 @@
+import { auth } from "@/auth";
+import { getUserDetailsById } from "@/data/user";
 import { Metadata } from "next";
-import { DashBoard } from "@/components/dashboard/DashBoard";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "View Us - dashboard",
   description:
-    "Ankur Sharma is a full stack developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
+    "Viewus helps you to easily collect and showcase testimonials, with easily managin everything at one place.",
 };
 
-export default function Dashboard() {
-  return (
-    <div>
-      <DashBoard />
-    </div>
-  );
+export default async function DashboardPage() {
+
+
+  const session = await auth();
+  const user = session?.user
+  if (!user) {
+    redirect("/login")
+  }
+
+  const userDetails = await getUserDetailsById(user.id!)
+
+  if (userDetails?.spaces.length === 0) {
+    return redirect("/onboarding")
+  } else {
+    return redirect(`/space/${userDetails?.spaces[0].slug}`)
+  }
 }

@@ -18,6 +18,14 @@ export const getUserByEmail = async (email: string) => {
   }
 }
 
+export const getUserDetailsById = async (id: string) => {
+  try {
+    const user = await db.user.findUnique({ where: { id }, include: { spaces: true } });
+    return user;
+  } catch {
+    return null;
+  }
+}
 export const updateUser = async ({ id, name, image, company, jobTitle }: { id: string, name: string, image?: string | null, company?: string, jobTitle?: string }) => {
 
   try {
