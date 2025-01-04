@@ -182,18 +182,13 @@ export const Onboarding = () => {
       {
         isLoading ? (<OnboardingLoader />) : (
 
-          <div className="md:w-3/4 my-6 lg:w-1/2 space-y-6">
+          <div className="lg:w-1/2 space-y-6 w-full mx-3 md:w-3/5 xl:mx-0 xl:w-1/4 flex  flex-col border-none shadow-sm p-4 rounded-lg">
             <div className="w-full">
-              <h1 className="text-2xl font-bold">It is really simple</h1>
-              <p>
-                This page will not be visible to your customers, it is for creating
-                this space for you
-              </p>
-
+              <h1 className="text-4xl text-center text-black font-bold">Create workspace</h1>
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-8 mt-8"
+                  className="space-y-4 mt-8"
                 >
                   <FormField
                     control={form.control}
@@ -241,10 +236,9 @@ export const Onboarding = () => {
             {error && <p className="text-sm text-red-600">*{error}*</p>}
             <Button
               type="submit"
-              className="w-full flex gap-3 justify-center items-center rounded-md bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-purple-600 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))] hover:bg-opacity-80"
+              className="w-full bg-[#71D4FF] text-black rounded-3xl py-3 hover:bg-[#71D4FF] hover:bg-opacity-80"
               onClick={form.handleSubmit(handleSaveConfirm)}
             >
-              <PartyPopperIcon size={15} className="text-yellow-400" />
               Let&apos;s Go
             </Button>
           </div>
