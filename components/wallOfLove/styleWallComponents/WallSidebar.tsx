@@ -22,6 +22,8 @@ import { SelectDirection } from "./Animation/SelectDirection";
 import { SelectDirection2 } from "./Animation/SelectDirection2";
 import { SelectAnimation } from "./Animation/SelectAnimation";
 import { useEffect, useState } from "react";
+import { SelectQuoteColor } from "./Carousal/SelectQuoteColor";
+import { SelectImageBackground } from "./SelectImageBackground";
 
 interface SidebarToggleProps {
   onClick: () => void;
@@ -89,12 +91,15 @@ export const WallSidebar = ({ onClick, isSidebarOpen }: SidebarToggleProps) => {
             {isAnimated ||
               (data === "carousal-2rows-animated" && (
                 <>
+                  <SelectImageBackground />
+                  <SelectQuoteColor />
                   <SelectShadowColor />
                   <SelectSpeed />
                   <SelectDirection />
                   {data === "carousal-2rows-animated" && <SelectDirection2 />}
                 </>
               ))}
+            {data === "carousal-horizontal" && <SelectQuoteColor />}
           </>
         ) : null}
       </div>
