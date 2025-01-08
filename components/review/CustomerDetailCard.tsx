@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import profile from "@/public/assets/images/profile.png";
 
 import {
   Card,
@@ -242,7 +241,7 @@ export const CustomerDetailCard = ({
                             />
                           ) : (
                             <Image
-                              src={profile}
+                              src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/profile.png"
                               alt="Profile"
                               width={28}
                               height={28}

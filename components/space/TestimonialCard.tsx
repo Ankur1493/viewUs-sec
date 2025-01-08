@@ -4,11 +4,6 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Import, Pencil, Video } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import starsSelected from "@/public/assets/images/star_selected.png";
-import twitter from "@/public/assets/images/twitter_logo.png";
-import linkedIn from "@/public/assets/images/linkedIn_logo.png";
-import productHunt from "@/public/assets/images/ProductHunt_logo.png";
-import profile from "@/public/assets/images/avatar.webp";
 import { IReview, ReviewType } from "./ManageTestimonials";
 import { TestimonialLikeButton } from "@/components/space/TestimonialLikeButton";
 import { TestimonialDeleteButton } from "./TestimonialDeleteButton";
@@ -24,9 +19,12 @@ const importedReviewTypeLabels = {
 } as const;
 
 const importedReviewTypeImages = {
-  Twitter: twitter,
-  LinkedIn: linkedIn,
-  "Product Hunt": productHunt,
+  Twitter:
+    "https://d3eyp937ijscg0.cloudfront.net/viewus_images/twitter_logo.png",
+  LinkedIn:
+    "https://d3eyp937ijscg0.cloudfront.net/viewus_images/linkedIn_logo.png",
+  "Product Hunt":
+    "https://d3eyp937ijscg0.cloudfront.net/viewus_images/ProductHunt_logo.png",
 } as const;
 
 type ImportedReviewType = keyof typeof importedReviewTypeImages;
@@ -71,7 +69,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
                   src={
                     testimonial?.image
                       ? `https://d3eyp937ijscg0.cloudfront.net/${testimonial.image}`
-                      : profile
+                      : "https://d3eyp937ijscg0.cloudfront.net/viewus_images/avatar.webp"
                   }
                   alt="profile"
                   width={100}
@@ -104,7 +102,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
                   {Array.from({ length: numberOfStars }, (_, index) => (
                     <Image
                       key={index}
-                      src={starsSelected}
+                      src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/star_selected.png"
                       alt={`Star ${index + 1}`}
                       width={20}
                       height={20}

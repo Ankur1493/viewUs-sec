@@ -1,7 +1,6 @@
 import { User } from "@prisma/client";
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
-import profile from "@/public/assets/images/profile.png";
 import Image from "next/image";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
@@ -23,7 +22,7 @@ export const Profile = ({ user }: { user: User }) => {
                   src={
                     user.image
                       ? `https://d3eyp937ijscg0.cloudfront.net/${user.image}`
-                      : profile
+                      : "https://d3eyp937ijscg0.cloudfront.net/viewus_images/profile.png"
                   }
                   alt="logo"
                   width={100}

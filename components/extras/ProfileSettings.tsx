@@ -8,7 +8,6 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Save } from "lucide-react";
-import profileImage from "@/public/assets/images/profile.png";
 import {
   Form,
   FormControl,
@@ -106,7 +105,11 @@ export const ProfileSettings = ({ user }: { user: User }) => {
             <div className="flex gap-4 items-center">
               <div className="relative w-[64px] h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
                 <Image
-                  src={selectedImage ? selectedImage : profileImage}
+                  src={
+                    selectedImage
+                      ? selectedImage
+                      : "https://d3eyp937ijscg0.cloudfront.net/viewus_images/profile.png"
+                  }
                   alt="Selected Image"
                   layout="fill"
                   objectFit="cover"
