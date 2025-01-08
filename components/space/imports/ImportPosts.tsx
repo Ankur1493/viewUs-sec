@@ -13,19 +13,22 @@ const socialPlatforms = [
     title: "Twitter",
     slug: SocialPlatformsType.TWITTER,
     placeholder: "https://x.com/your-post",
-    image: "/assets/images/twitter_logo.png",
+    image:
+      "https://d3eyp937ijscg0.cloudfront.net/viewus_images/twitter_logo.png",
   },
   {
     title: "LinkedIn",
     slug: SocialPlatformsType.LINKEDIN,
     placeholder: "https://linkedin.com/your-post",
-    image: "/assets/images/linkedIn_logo.png",
+    image:
+      "https://d3eyp937ijscg0.cloudfront.net/viewus_images/linkedIn_logo.png",
   },
   {
     title: "Product Hunt",
     slug: SocialPlatformsType.PRODUCTHUNT,
     placeholder: "https://producthunt.com/user-comment",
-    image: "/assets/images/ProductHunt_logo.png",
+    image:
+      "https://d3eyp937ijscg0.cloudfront.net/viewus_images/ProductHunt_logo.png",
   },
 ];
 

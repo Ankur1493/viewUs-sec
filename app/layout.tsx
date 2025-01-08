@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Viewus",
     description: "Collect and manage testimonials",
-    images: ["/assets/images/logo1.png"],
+    images: ["/assets/images/logo.png"],
     url: "https://www.viewus.in/",
   },
 };

@@ -11,7 +11,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { useSpaceDataStore } from "@/store/useSpaceDataStore";
 import Image from "next/image";
-import profile from "@/public/assets/images/profile.png";
 
 type PreviewSectionProps = {
   userInformation: Record<string, boolean>;
@@ -54,7 +53,12 @@ export const UserInformationPreview: React.FC<PreviewSectionProps> = ({
         <CardContent className="text-[14px]">
           <div className="flex items-center space-x-4">
             <div className="relative w-[50px] h-[50px] md:w-[64px] md:h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
-              <Image src={profile} alt="Profile" width={28} height={28} />
+              <Image
+                src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/profile.png"
+                alt="Profile"
+                width={28}
+                height={28}
+              />
             </div>
 
             <div className="flex flex-col">

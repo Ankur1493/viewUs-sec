@@ -11,7 +11,6 @@ import { auth, signOut } from "@/auth";
 import { Button } from "../ui/button";
 import { User } from "@prisma/client";
 import Image from "next/image";
-import profile from "@/public/assets/images/profile.png";
 
 export const DashboardNavbar = async ({ user }: { user: User }) => {
   const session = await auth();
@@ -34,7 +33,7 @@ export const DashboardNavbar = async ({ user }: { user: User }) => {
               src={
                 user.image
                   ? `https://d3eyp937ijscg0.cloudfront.net/${user.image}`
-                  : profile
+                  : "https://d3eyp937ijscg0.cloudfront.net/viewus_images/profile.png"
               }
               alt="logo"
               width={60}
