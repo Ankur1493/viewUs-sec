@@ -14,19 +14,18 @@ export default function ManagePage() {
               Coming soon!
             </h2>
             <p className="mt-4 max-w-[32rem] text-left  text-base/6 text-neutral-200">
-              We have a enriched dashboard to let you manage these testimonials at
-              warp speed and let you focus on your product.
+              We have a enriched dashboard to let you manage these testimonials
+              at warp speed and let you focus on your product.
             </p>
           </div>
           <Image
-            src="/assets/images/testimonialsPageMod.png"
+            src={`https://d3eyp937ijscg0.cloudfront.net/viewus_images/testimonialsPageMod.png`}
             width={500}
             height={500}
             alt="linear demo image"
             className="absolute -right-10 md:-right-[40%] lg:-right-[10%] -bottom-40 object-contain rounded-2xl"
           />
         </WobbleCard>
-
       </div>
     </div>
   );

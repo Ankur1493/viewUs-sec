@@ -1,9 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import step1Image from "@/public/assets/images/reviewPageMod.png";
-import step2Image from "@/public/assets/images/testimonialsPage.png";
-import step3Image from "@/public/assets/images/wallOfLovePage.png";
 import Image from "next/image";
 
 export default function OurProcess() {
@@ -13,21 +10,24 @@ export default function OurProcess() {
       title: "Collect Testimonials Effortlessly",
       description:
         "Easily gather authentic customer testimonials with customizable forms and intuitive submission workflows.",
-      image: step1Image,
+      image:
+        "https://d3eyp937ijscg0.cloudfront.net/viewus_images/reviewPageMod.png",
     },
     {
       number: 2,
       title: "Organize & Manage in One Place",
       description:
         "Store, categorize, and access all your testimonials in a central hub for seamless organization.",
-      image: step2Image,
+      image:
+        "https://d3eyp937ijscg0.cloudfront.net/viewus_images/testimonialsPage.png",
     },
     {
       number: 3,
       title: "Showcase Testimonials Beautifully",
       description:
         "Display your testimonials in stunning, customizable widgets designed to boost your brand's credibility.",
-      image: step3Image,
+      image:
+        "https://d3eyp937ijscg0.cloudfront.net/viewus_images/wallOfLovePage.png",
     },
   ];
 

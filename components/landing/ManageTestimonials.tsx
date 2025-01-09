@@ -35,7 +35,7 @@ export const ManageTestimonials = () => {
         <div className="col-span-1 row-span-2 flex items-center justify-center">
           <div className="rounded-lg">
             <Image
-              src="/assets/images/Signup.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/Signup.png"
               alt="Image 1"
               layout="responsive"
               width={100}
@@ -48,7 +48,7 @@ export const ManageTestimonials = () => {
         <div className="col-span-1 flex flex-col items-center justify-center gap-2 md:gap-4">
           <div className="rounded-lg flex items-end">
             <Image
-              src="/assets/images/dashboard.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/dashboard.png"
               alt="Image 2"
               layout="responsive"
               width={300}
@@ -58,7 +58,7 @@ export const ManageTestimonials = () => {
           </div>
           <div className="rounded-lg">
             <Image
-              src="/assets/images/importTestimonials.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/importTestimonials.png"
               alt="Image 3"
               layout="responsive"
               width={300}
@@ -68,7 +68,7 @@ export const ManageTestimonials = () => {
           </div>
           <div className="rounded-lg flex items-start overflow-hidden">
             <Image
-              src="/assets/images/testimonialsPage.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/testimonialsPage.png"
               alt="A preview of the testimonials page"
               layout="responsive"
               width={300}
@@ -78,7 +78,7 @@ export const ManageTestimonials = () => {
           </div>
           <div className="rounded-lg flex items-start overflow-hidden">
             <Image
-              src="/assets/images/wallOfLovePage.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/wallOfLovePage.png"
               alt="A preview of the testimonials page"
               layout="responsive"
               width={300}
@@ -91,7 +91,7 @@ export const ManageTestimonials = () => {
         <div className="col-span-2 grid grid-rows-2 gap-2 md:gap-4">
           <div className="col-span-2 row-span-2">
             <Image
-              src="/assets/images/wallOfLovePage.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/wallOfLovePage.png"
               alt="Image 5"
               layout="responsive"
               width={500}
@@ -101,7 +101,7 @@ export const ManageTestimonials = () => {
           </div>
           <div className="row-span-1 col-span-1 rounded-lg">
             <Image
-              src="/assets/images/reviewPage.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/reviewPage.png"
               alt="Image 6"
               layout="responsive"
               width={500}
@@ -111,7 +111,7 @@ export const ManageTestimonials = () => {
           </div>
           <div className="row-span-1 col-span-1 rounded-lg">
             <Image
-              src="/assets/images/dashboard.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/reviewPage.png"
               alt="Image 7"
               layout="responsive"
               width={500}
@@ -122,7 +122,7 @@ export const ManageTestimonials = () => {
 
           <div className="col-span-2 row-span-2 rounded-lg">
             <Image
-              src="/assets/images/testimonialsPage.png"
+              src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/testimonialsPage.png"
               alt="Image 8"
               layout="responsive"
               width={800}

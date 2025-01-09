@@ -20,7 +20,7 @@ export function Features() {
           </p>
         </div>
         <Image
-          src="/assets/images/testimonialsPageMod.png"
+          src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/testimonialsPageMod.png"
           width={500}
           height={500}
           alt="linear demo image"
@@ -42,7 +42,7 @@ export function Features() {
           </p>
         </div>
         <Image
-          src="/assets/images/reviewPageMod.png"
+          src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/reviewPageMod.png"
           width={500}
           height={500}
           alt="linear demo image"
@@ -78,7 +78,7 @@ export function Features() {
           </p>
         </div>
         <Image
-          src="/assets/images/importTestimonialsMod.png"
+          src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/importTestimonialsMod.png"
           width={500}
           height={500}
           alt="linear demo image"
