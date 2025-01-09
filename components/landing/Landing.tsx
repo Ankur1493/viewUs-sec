@@ -12,27 +12,30 @@ import { useEffect } from "react";
 
 export const Landing = () => {
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "http://localhost:5173/iframeEmbedder.js"; // Path to your iframeEmbedder.js in the public directory
-    script.type = "text/javascript";
-    script.async = true;
+    const loadIframeEmbedder = () => {
+      console.log("Loading iframe embedder...");
+      const script = document.createElement("script");
+      script.src = "http://localhost:5173/iframeEmbedder.js";
+      script.async = true;
 
-    script.onload = () => {
-      console.log("Iframe embedder script loaded successfully");
+      script.onload = () => {
+        console.log("Script loaded, initializing embedder...");
+        if (window.embedIframe) {
+          window.embedIframe("#testimonial-frame", {
+            log: true,
+            checkOrigin: false,
+          });
+        }
+      };
 
-      if (window.embedIframe) {
-        window.embedIframe("#my-embed-frame", {
-          log: true, // Enable logging for debugging
-          checkOrigin: false, // Disable origin checking if necessary
-        });
-      }
+      document.body.appendChild(script);
+
+      return () => {
+        document.body.removeChild(script);
+      };
     };
 
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
+    return loadIframeEmbedder();
   }, []);
 
   return (
@@ -124,15 +127,20 @@ export const Landing = () => {
           {/* <script type="text/javascript">embedIframe("#my-embed-frame", { log: true, checkOrigin: false });</script> */}
           {/* </div> */}
         </div>
+        {/* <div style={{ width: "100%", margin: "0 auto" }}> */}
         <iframe
-          id="my-embed-frame"
-          src="http://localhost:5173/?slug=viewus&animated&cardBorderRadius=medium"
-          frameBorder="0"
+          id="testimonial-frame"
+          src="http://localhost:5173?slug=bakedui&animated=&cardBorderRadius=medium"
+          style={{
+            border: "none",
+            width: "100%",
+            height: "100%",
+            overflow: "hidden",
+          }}
           scrolling="no"
-          width="100%"
-          height="100%" // This is required for the iframe to fill the container
-          style={{ border: "none" }}
-        ></iframe>
+          frameBorder="0"
+        />
+        {/* </div> */}
         {/* <iframe
           id="testimonialto-calenso-tag-all-light"
           src="https://embed-v2.testimonial.to/w/calenso?theme=light&card=base&loadMore=on&initialCount=20&tag=all&cc=off"
