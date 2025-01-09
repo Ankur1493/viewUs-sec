@@ -1,4 +1,3 @@
-"use client";
 import Navbar from "@/components/Navbar";
 import { Features } from "@/components/landing/Features";
 import TriangleFeature from "@/components/landing/TriangleGrid";
@@ -8,36 +7,8 @@ import { BookCall } from "./BookCall";
 import { ManageTestimonials } from "./ManageTestimonials";
 import { VideoSection } from "./VideoSection";
 import ReasonsToUse from "./ReasonsToUse";
-import { useEffect } from "react";
 
 export const Landing = () => {
-  useEffect(() => {
-    const loadIframeEmbedder = () => {
-      console.log("Loading iframe embedder...");
-      const script = document.createElement("script");
-      script.src = "http://localhost:5173/iframeEmbedder.js";
-      script.async = true;
-
-      script.onload = () => {
-        console.log("Script loaded, initializing embedder...");
-        if (window.embedIframe) {
-          window.embedIframe("#testimonial-frame", {
-            log: true,
-            checkOrigin: false,
-          });
-        }
-      };
-
-      document.body.appendChild(script);
-
-      return () => {
-        document.body.removeChild(script);
-      };
-    };
-
-    return loadIframeEmbedder();
-  }, []);
-
   return (
     <div className="flex flex-col items-center relative top-0 w-full transform">
       <Navbar active="none" />
@@ -90,64 +61,15 @@ export const Landing = () => {
             Our very own wall of love. Or complaints. Whatever you want to call
             it.
           </p>
-          {/* <div className="w-[95%] md:w-[90%] h-screen rounded-xl scrollbar-hidden max-w-screen-2xl"> */}
-          {/* <script
-            type="text/javascript"
-            src="http://localhost:5173/iframeResizer.min.js"
-            async
-          ></script>
-          <iframe
-            src="http://localhost:5173/?slug=viewus&animated&cardBorderRadius=medium"
-            frameBorder="0"
-            scrolling="no"
-            width="100%"
-            style={{
-              border: "none",
-            }}
-          ></iframe>
-          <script
-            type="text/javascript"
-            src="http://localhost:5173/embed.js"
-            async
-          ></script> */}
-          {/* <script
-            type="text/javascript"
-            src="http://localhost:5173/iframeScript.js"
-            async
-          ></script>
-          <div id="iframe-container" className="w-screen h-full"></div> */}
-          {/* <iframe
-            id="my-embed-frame"
-            src="http://localhost:5173/?slug=viewus&animated&cardBorderRadius=medium"
-            frameBorder="0"
-            scrolling="no"
-            width="100%"
-            style={{ border: "none" }}
-          ></iframe> */}
-          {/* <script type="text/javascript">embedIframe("#my-embed-frame", { log: true, checkOrigin: false });</script> */}
-          {/* </div> */}
         </div>
-        {/* <div style={{ width: "100%", margin: "0 auto" }}> */}
         <iframe
           id="testimonial-frame"
-          src="http://localhost:5173?slug=bakedui&animated=&cardBorderRadius=medium"
-          style={{
-            border: "none",
-            width: "100%",
-            height: "100%",
-            overflow: "hidden",
-          }}
+          src="http://embed.viewus.in?slug=viewus&animated=on&cardBorderRadius=medium"
           scrolling="no"
           frameBorder="0"
+          width="90%"
+          height="800px"
         />
-        {/* </div> */}
-        {/* <iframe
-          id="testimonialto-calenso-tag-all-light"
-          src="https://embed-v2.testimonial.to/w/calenso?theme=light&card=base&loadMore=on&initialCount=20&tag=all&cc=off"
-          frameBorder="0"
-          scrolling="no"
-          width="100%"
-        ></iframe> */}
 
         <div className="flex flex-col justify-center items-center md:mt-10 pt-20 font-bold text-center w-full">
           <h2 className="md-w-[90%] lg:w-3/5 pb-12 text-2xl md:text-5xl lg:text-6xl text-black">
