@@ -83,6 +83,7 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
         </Button>
         <Button
           className="flex-1"
+          variant="main"
           onClick={handleRedirect}
           disabled={redirected}
         >

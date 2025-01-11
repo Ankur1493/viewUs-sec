@@ -1,8 +1,11 @@
 export const publicRoutes = [
   "/",
   "/about",
-  "/articles",
+  "/blogs",
   "/pricing",
+  "/privacy-policy",
+  "/terms-conditions",
+  "/refund-policy",
   "/a",
   "/a/*",
 ];

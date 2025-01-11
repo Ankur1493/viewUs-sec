@@ -10,6 +10,7 @@ interface wallCardType {
   title: string;
   slug: WallData;
   url?: string;
+  urlReset?: string;
   desc: string;
   img: string;
   info?: string;
@@ -48,6 +49,7 @@ export const WallCardTypesConstants: wallCardType[] = [
     title: "Fixed",
     slug: "fixed" as const,
     url: "https://embed.viewus.in/",
+    urlReset: "https://embed.viewus.in/",
     desc: "A fixed grid layout structure for showcasing a selected and crucial reviews",
     img: "/assets/images/grid_fixed.png",
   },
@@ -56,12 +58,14 @@ export const WallCardTypesConstants: wallCardType[] = [
     title: "Animated",
     slug: "animated" as const,
     url: "https://embed.viewus.in?animated=on",
+    urlReset: "https://embed.viewus.in?animated=on",
     desc: "A animated grid layout structure for showcasing a lot of reviews which are important",
     img: "/assets/images/grid_animated.gif",
   },
   {
     key: 3,
     url: "https://embed.viewus.in/w/carousal",
+    urlReset: "https://embed.viewus.in/w/carousal",
     title: "Carousel (Horizontal Cards)",
     slug: "carousal-horizontal" as const,
     desc: "A carousel for you to have an showcase horizontaly and clear reviews",
@@ -70,6 +74,7 @@ export const WallCardTypesConstants: wallCardType[] = [
   {
     key: 4,
     url: "https://embed.viewus.in/w?cards=3",
+    urlReset: "https://embed.viewus.in/w?cards=3",
     title: "Carousel (Vertical Cards)",
     slug: "carousal-vertical" as const,
     desc: "A carousel for you to have an showcase horizontaly and clear reviews",
@@ -78,6 +83,7 @@ export const WallCardTypesConstants: wallCardType[] = [
   {
     key: 5,
     url: "https://embed.viewus.in/w/carousal?animated=on&rows=2",
+    urlReset: "https://embed.viewus.in/w/carousal?animated=on&rows=2",
     title: "Carousel Animated (2 rows)" as const,
     slug: "carousal-2rows-animated",
     desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",

@@ -138,6 +138,7 @@ export function SpaceSideBar({ email }: { email: string }) {
               <SidebarMenuItem>
                 <Link
                   href={`/space/${slug}/import`}
+                  target="_blank"
                   className="flex items-center cursor-pointer"
                 >
                   <SidebarMenuButton
@@ -165,7 +166,7 @@ export function SpaceSideBar({ email }: { email: string }) {
                       asChild
                       className={cn(isActive ? "bg-gray-100" : "")}
                     >
-                      <Link href={link.href}>
+                      <Link href={link.href} target="_blank">
                         {link.icon}
                         <span>{link.label}</span>
                       </Link>
@@ -201,7 +202,6 @@ export const Logo = () => {
       href="/dashboard"
       className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-4 relative z-20"
     >
-
       <Image src="/assets/images/logo1.png" height={40} width={40} alt="logo" />
       <motion.span
         initial={{ opacity: 0 }}
@@ -213,4 +213,3 @@ export const Logo = () => {
     </Link>
   );
 };
-

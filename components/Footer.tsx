@@ -46,17 +46,17 @@ export const Footer: React.FC = () => {
             <h3 className="text-sm md:text-lg font-bold mb-4">Articles</h3>
             <ul className="grid text-gray-300  gap-2">
               <li>
-                <Link href="/articles/manage-testimonials">
+                <Link href="/blogs/manage-testimonials">
                   How to manage testimonials
                 </Link>
               </li>
               <li>
-                <Link href="/articles/collect-testimonials">
+                <Link href="/blogs/collect-testimonials">
                   Collect testimonials easily
                 </Link>
               </li>
               <li>
-                <Link href="/articles/share-testimonials">
+                <Link href="/blogs/share-testimonials">
                   Share testimonials in seconds
                 </Link>
               </li>
