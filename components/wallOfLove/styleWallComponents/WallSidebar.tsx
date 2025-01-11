@@ -113,7 +113,7 @@ export const WallSidebar = ({ onClick, isSidebarOpen }: SidebarToggleProps) => {
           Back
         </Button>
         <Button
-          onClick={() => setPage("final", null)}
+          onClick={() => setPage("final", data)}
           className="flex gap-2 flex-1"
         >
           Go Next
