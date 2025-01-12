@@ -40,7 +40,7 @@ export default function Article() {
             {articles.map((article, index) => (
               <Link
                 key={index}
-                href={`/articles/${article.id}`}
+                href={`/blogs/${article.id}`}
                 className="w-full h-full"
               >
                 <Card

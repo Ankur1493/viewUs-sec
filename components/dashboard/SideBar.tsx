@@ -34,7 +34,7 @@ export function SideBar({ email }: { email: string }) {
     },
     {
       label: "Articles",
-      href: "/articles",
+      href: "/blogs",
       icon: <BookTextIcon className="text-neutral-700 h-6 w-6" />,
     },
     {
@@ -64,7 +64,7 @@ export function SideBar({ email }: { email: string }) {
               {links.map((link, idx) => (
                 <SidebarMenuItem key={idx}>
                   <SidebarMenuButton asChild>
-                    <Link href={link.href}>
+                    <Link href={link.href} target="blank">
                       {link.icon}
                       <span>{link.label}</span>
                     </Link>

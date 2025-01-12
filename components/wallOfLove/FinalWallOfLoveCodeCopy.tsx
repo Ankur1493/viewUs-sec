@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useWallTypeStore } from "@/store/useWallTypeStore";
 import { ArrowLeftIcon, Copy, Check, PartyPopperIcon } from "lucide-react";
@@ -19,67 +19,18 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
   const [redirected, setRedirected] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    console.log("Data", data);
-    console.log("url", url);
-  }, [data]);
-
   const handleRedirect = async () => {
     setRedirected(true);
     router.push(`/space/${slug}`);
     setPage("all", null);
   };
 
-  const content = ` <iframe
-          src=${url!}
-          width="100%"
-          height="100%"
-          frameBorder="0"
-          scrolling="no"
-          style={{
-            border: "none",
-          }}
-        ></iframe>`;
-  // const content = `
-  //           ${
-  //             data === "carousal-2rows-animated"
-  //               ? `<div className="w-[100%] md:w-[90%] h-screen md:h-[80vh] lg:h-screen rounded-xl max-w-screen-2xl">
-  //             <iframe
-  //               src=${url!}}
-  //               width="100%"
-  //               height="100%"
-  //               frameBorder="0"
-  //               scrolling="no"
-  //               style={{
-  //                 border: "none",
-  //               }}
-  //             ></iframe>
-  //           </div>`
-  //               : data === "carousal-horizontal"
-  //                 ? `<div className="w-[100%] md:w-[90%] h-[70vh] md:h-[50vh] lg:h-[60vh] rounded-xl max-w-screen-2xl">
-  //       <iframe
-  //         src=${url!}
-  //         width="100%"
-  //         height="100%"
-  //         frameBorder="0"
-  //         scrolling="no"
-  //         style={{
-  //           border: "none",
-  //         }}
-  //       ></iframe>
-  //     </div>`
-  //                 : `<div className="w-[95%] md:w-[90%] h-screen rounded-xl scrollbar-hidden max-w-screen-2xl">
-  //           <iframe
-  //             src=${url!}
-  //             width="100%"
-  //             height="100%"
-  //             style={{
-  //               border: "none",
-  //             }}
-  //           ></iframe>
-  //         </div>`
-  //           }
-  //         `.trim();
+  const content = `${
+    data === "animated"
+      ? `<iframe src=${url!} width="100%" height="800px" frameBorder="0" scrolling="no"></iframe>`
+      : `<script async src="http://embed.viewus.in/iframeEmbedder.js" /> 
+      <iframe src=${url!} width="100%" frameBorder="0" scrolling="no"></iframe>`
+  }`;
 
   const copyToClipboard = async () => {
     try {
@@ -104,7 +55,7 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-between">
-          <code className="bg-muted text-muted-foreground text-xs md:text-lg px-2 py-1 rounded-md flex-grow mr-2 overflow-x-auto">
+          <code className="bg-muted text-muted-foreground text-xs md:text-lg px-2 py-1 rounded-md flex-grow mr-2 overflow-x-auto whitespace-pre-line scrollbar-hidden">
             {content}
           </code>
           <Button
@@ -132,24 +83,25 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
         </Button>
         <Button
           className="flex-1"
+          variant="main"
           onClick={handleRedirect}
           disabled={redirected}
         >
           <PartyPopperIcon className="mr-2 h-4 w-4" /> Done
         </Button>
       </div>
-      <div className="w-full flex justify-center h-screen relative">
+      <div className="w-full flex justify-center h-screen relative scrollbar-hidden">
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
             <div>Loading preview...</div>
           </div>
         )}
-
+        <script async src="http://embed.viewus.in/iframeEmbedder.js" />
         <iframe
           src={url!}
-          width="950%"
+          width="100%"
           height="100%"
-          frameBorder={2}
+          frameBorder="0"
           scrolling="yes"
           onLoadStart={() => setLoading(true)}
           onLoad={() => setLoading(false)}
