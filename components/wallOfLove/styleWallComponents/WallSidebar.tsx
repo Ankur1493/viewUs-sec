@@ -7,7 +7,7 @@ import { SelectTagBackground } from "@/components/wallOfLove/styleWallComponents
 import { SelectTagTextColor } from "@/components/wallOfLove/styleWallComponents/SelectTagTextColor";
 import { Button } from "@/components/ui/button";
 import { useWallTypeStore } from "@/store/useWallTypeStore";
-import { ChevronRight, ArrowLeftIcon, X } from "lucide-react";
+import { ChevronRight, ArrowLeftIcon, X, RotateCcw } from "lucide-react";
 import { SelectBorderRadius } from "./SelectBorderRadius";
 import { SelectCardBorderRadius } from "./SelectCardBorderRadius";
 import { SelectTheme } from "./SelectTheme";
@@ -21,9 +21,10 @@ import { SelectCardBorderColor } from "./SelectCardBorderColor";
 import { SelectDirection } from "./Animation/SelectDirection";
 import { SelectDirection2 } from "./Animation/SelectDirection2";
 import { SelectAnimation } from "./Animation/SelectAnimation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SelectQuoteColor } from "./Carousal/SelectQuoteColor";
 import { SelectImageBackground } from "./SelectImageBackground";
+import { WallCardTypesConstants } from "@/constants";
 
 interface SidebarToggleProps {
   onClick: () => void;
@@ -31,16 +32,22 @@ interface SidebarToggleProps {
 }
 
 export const WallSidebar = ({ onClick, isSidebarOpen }: SidebarToggleProps) => {
-  const { data, setPage } = useWallTypeStore();
+  const { data, setPage, setUrl } = useWallTypeStore();
   const [isAnimated, setIsAnimated] = useState(false);
+  const [isRotated, setIsRotated] = useState(false);
 
   const handleAnimationChange = (isAnimatedTrue: boolean) => {
     setIsAnimated(isAnimatedTrue);
   };
 
-  useEffect(() => {
-    console.log("isAnimated", isAnimated);
-  }, [isAnimated]);
+  const handleReset = () => {
+    setIsRotated(true);
+    const card = WallCardTypesConstants.find((card) => card.slug === data);
+    if (card) {
+      setUrl(card.urlReset!);
+    }
+    setTimeout(() => setIsRotated(false), 2000);
+  };
 
   return (
     <div className=" relative h-full text-white lg:p-2 shadow-lg border rounded-md flex flex-col pb-2 overflow-y-hidden">
@@ -103,22 +110,35 @@ export const WallSidebar = ({ onClick, isSidebarOpen }: SidebarToggleProps) => {
           </>
         ) : null}
       </div>
-
-      <div className="bottom-0 flex flex-col lg:flex-row gap-2 pt-6 px-2 lg:px-0">
+      <div className="bottom-0 pt-6 flex flex-col gap-2 w-full">
         <Button
-          onClick={() => setPage("all", null)}
-          className="bg-white text-black hover:bg-gray-100 flex-1 flex gap-2 border shadow-md"
+          variant="secondary"
+          className="flex items-center gap-2 border\"
+          onClick={handleReset}
         >
-          <ArrowLeftIcon size={20} />
-          Back
+          <RotateCcw
+            className={`w-4 h-4  ${isRotated ? "animate-reset-spin" : ""}`}
+          />{" "}
+          Reset
         </Button>
-        <Button
-          onClick={() => setPage("final", null)}
-          className="flex gap-2 flex-1"
-        >
-          Go Next
-          <ChevronRight size={20} />
-        </Button>
+        <div className="bottom-0 flex flex-col lg:flex-row gap-2  px-2 lg:px-0">
+          <Button
+            variant="outline"
+            onClick={() => setPage("all", null)}
+            className="text-black flex-1 flex gap-2 border shadow-sm"
+          >
+            <ArrowLeftIcon size={20} />
+            Back
+          </Button>
+          <Button
+            variant="main"
+            onClick={() => setPage("final", data)}
+            className="flex gap-2 flex-1"
+          >
+            Go Next
+            <ChevronRight size={20} />
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -51,7 +51,7 @@ export const WallOfLove = ({ slug }: WallOfLoveProps) => {
             <ArrowLeftIcon size={25} />
           </Button>
           <div className="flex flex-col gap-8 px-2 md:px-4 lg:px-40 pb-12">
-            <h1 className="text-3xl md:text-4xl font-semibold">
+            <h1 className="text-3xl md:text-4xl font-semibold text-black">
               What kind of wall do you want to cook today??
             </h1>
             <div className="w-full lg:pr-6 grid grid-cols-1 md:grid-cols-2 gap-6">

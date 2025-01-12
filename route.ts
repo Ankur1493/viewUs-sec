@@ -1,19 +1,22 @@
 export const publicRoutes = [
   "/",
   "/about",
-  "/articles",
+  "/blogs",
   "/pricing",
+  "/privacy-policy",
+  "/terms-conditions",
+  "/refund-policy",
   "/a",
-  "/a/*"
-]
+  "/a/*",
+];
 
 export const authRoutes = [
   "/login",
   "/register",
   "/forget-password",
-  "/autherror"
+  "/autherror",
 ];
 
-export const apiAuthPrefix = "/api/auth"
+export const apiAuthPrefix = "/api/auth";
 
-export const DEFAULT_LOGIN_REDIRECT = "/dashboard"
+export const DEFAULT_LOGIN_REDIRECT = "/onboarding";

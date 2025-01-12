@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     images: ["/assets/images/logo.png"],
     url: "https://www.viewus.in/",
   },
+  twitter: {
+    title: "Viewus",
+    description: "Collect and manage testimonials",
+  },
 };
 
 export default function RootLayout({

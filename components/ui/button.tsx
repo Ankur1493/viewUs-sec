@@ -23,6 +23,7 @@ const buttonVariants = cva(
         form: "bg-[#71D4FF] text-black rounded-3xl p-6 px-8 hover:bg-[#71D4FF] hover:bg-opacity-80 text-md",
         formOutline:
           "border border-[#71D4FF] text-black bg-background border-2 rounded-3xl text-[14px] px-[24px] shadow-sm hover:bg-accent hover:text-accent-foreground",
+        next: "bg-[#8153b4] bg-opacity-100 hover:bg-[#8153b4] hover:bg-opacity-90 text-white",
       },
       size: {
         default: "h-9 px-4 py-2",
