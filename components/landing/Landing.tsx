@@ -64,7 +64,7 @@ export const Landing = () => {
         </div>
         <iframe
           id="testimonial-frame"
-          src="http://embed.viewus.in?slug=viewus&animated=on&cardBorderRadius=medium"
+          src="https://embed.viewus.in?slug=viewus&animated=on&cardBorderRadius=medium"
           scrolling="no"
           frameBorder="0"
           width="90%"
