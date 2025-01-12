@@ -138,7 +138,6 @@ export function SpaceSideBar({ email }: { email: string }) {
               <SidebarMenuItem>
                 <Link
                   href={`/space/${slug}/import`}
-                  target="_blank"
                   className="flex items-center cursor-pointer"
                 >
                   <SidebarMenuButton
@@ -166,7 +165,7 @@ export function SpaceSideBar({ email }: { email: string }) {
                       asChild
                       className={cn(isActive ? "bg-gray-100" : "")}
                     >
-                      <Link href={link.href} target="_blank">
+                      <Link href={link.href}>
                         {link.icon}
                         <span>{link.label}</span>
                       </Link>

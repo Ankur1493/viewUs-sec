@@ -64,7 +64,7 @@ export function SideBar({ email }: { email: string }) {
               {links.map((link, idx) => (
                 <SidebarMenuItem key={idx}>
                   <SidebarMenuButton asChild>
-                    <Link href={link.href} target="blank">
+                    <Link href={link.href} target={link.label === "Home" ? "" : "_blank"}>
                       {link.icon}
                       <span>{link.label}</span>
                     </Link>
