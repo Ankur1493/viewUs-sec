@@ -51,21 +51,23 @@ export async function GET(
           slug,
         },
       }),
-      Review.find({ slug }).sort({ updatedAt: -1 }).select({
-        _id: 1,
-        reviewType: 1,
-        review: 1,
-        stars: 1,
-        firstName: 1,
-        lastName: 1,
-        jobTitle: 1,
-        company: 1,
-        image: 1,
-        importedReviewType: 1,
-        importedImage: 1,
-        importedVideo: 1,
-        tags: 1
-      })
+      Review.find({ slug, liked: true })
+        .sort({ updatedAt: -1 })
+        .select({
+          _id: 1,
+          reviewType: 1,
+          review: 1,
+          stars: 1,
+          firstName: 1,
+          lastName: 1,
+          jobTitle: 1,
+          company: 1,
+          image: 1,
+          importedReviewType: 1,
+          importedImage: 1,
+          importedVideo: 1,
+          tags: 1
+        })
     ]);
 
 
