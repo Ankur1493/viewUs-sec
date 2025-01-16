@@ -15,9 +15,8 @@ export const OauthButton = () => {
   return (
     <Button
       onClick={oauthLogin}
-      disabled={true}
       variant="secondary"
-      className="w-full mt-4 py-3 rounded-3xl flex gap-4 border border-[#D0D1D2] bg-transparent cursor-not-allowed"
+      className="w-full mt-4 py-3 rounded-3xl flex gap-4 border border-[#D0D1D2] bg-transparent cursor-pointer"
     >
       <Image
         src="https://d3eyp937ijscg0.cloudfront.net/viewus_images/google.png"

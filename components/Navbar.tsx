@@ -34,11 +34,10 @@ const Navbar = ({ active }: { active: string }) => {
 
   return (
     <header
-      className={`bg-white bg-opacity-30 backdrop-blur-md text-black shadow-custom p-4 sticky top-0 transition-all duration-500 ease-in-out z-[50] flex justify-between items-center ${
-        isScrolled
+      className={`bg-white bg-opacity-30 backdrop-blur-md text-black shadow-custom p-4 sticky top-0 transition-all duration-500 ease-in-out z-[50] flex justify-between items-center ${isScrolled
           ? "w-full md:w-[80%] transform md:top-10 md:rounded-xl"
           : "w-full lg:pr-6"
-      } `}
+        } `}
     >
       <Link href="/">
         <div className="flex items-center gap-2">
@@ -58,7 +57,6 @@ const Navbar = ({ active }: { active: string }) => {
                   "pb-6 duration-100 hover:border-b-4 hover:border-b-red-400"
                 )}
                 href="/pricing"
-                target="_blank"
               >
                 Pricing
               </Link>
@@ -70,7 +68,6 @@ const Navbar = ({ active }: { active: string }) => {
                   "pb-6 duration-100 hover:border-b-4 hover:border-b-red-400"
                 )}
                 href="/blogs"
-                target="_blank"
               >
                 Articles
               </Link>
@@ -82,7 +79,6 @@ const Navbar = ({ active }: { active: string }) => {
                   "pb-6 duration-100 hover:border-b-4 hover:border-b-red-400"
                 )}
                 href="/about"
-                target="_blank"
               >
                 About
               </Link>
