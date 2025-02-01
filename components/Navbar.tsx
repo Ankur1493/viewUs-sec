@@ -28,21 +28,21 @@ const Navbar = ({ active }: { active: string }) => {
 
   const navItems = [
     { href: "/pricing", label: "Pricing" },
-    { href: "/articles", label: "Articles" },
+    { href: "/blogs", label: "Articles" },
     { href: "/about", label: "About" },
   ];
 
   return (
     <header
       className={`bg-white bg-opacity-30 backdrop-blur-md text-black shadow-custom p-4 sticky top-0 transition-all duration-500 ease-in-out z-[50] flex justify-between items-center ${isScrolled
-        ? "w-full md:w-[80%] transform md:top-10 md:rounded-xl"
-        : "w-full lg:pr-6"
+          ? "w-full md:w-[80%] transform md:top-10 md:rounded-xl"
+          : "w-full lg:pr-6"
         } `}
     >
       <Link href="/">
         <div className="flex items-center gap-2">
           <Image src={logo} alt="logo" width={40} height={40} />
-          <span className="font-semibold">ViewUs</span>
+          <span className="font-semibold">Viewus</span>
         </div>
       </Link>
       <div className="md:flex items-center justify-center gap-12 hidden">
@@ -64,12 +64,10 @@ const Navbar = ({ active }: { active: string }) => {
             <li>
               <Link
                 className={cn(
-                  active === "articles"
-                    ? "pb-6 border-b-4 border-b-red-400"
-                    : "",
+                  active === "blogs" ? "pb-6 border-b-4 border-b-red-400" : "",
                   "pb-6 duration-100 hover:border-b-4 hover:border-b-red-400"
                 )}
-                href="/articles"
+                href="/blogs"
               >
                 Articles
               </Link>

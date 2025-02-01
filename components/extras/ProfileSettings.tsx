@@ -8,7 +8,6 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Save } from "lucide-react";
-import profileImage from "@/public/assets/images/profile.png";
 import {
   Form,
   FormControl,
@@ -80,8 +79,7 @@ export const ProfileSettings = ({ user }: { user: User }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Details updated successfully");
-      console.log(response.status);
+      if (response.data.status) toast.success("Details updated successfully");
       //toast profile updated
     } catch (error) {
       toast.error("Sorry, unable to process your changes!");
@@ -107,7 +105,11 @@ export const ProfileSettings = ({ user }: { user: User }) => {
             <div className="flex gap-4 items-center">
               <div className="relative w-[64px] h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
                 <Image
-                  src={selectedImage ? selectedImage : profileImage}
+                  src={
+                    selectedImage
+                      ? selectedImage
+                      : "https://d3eyp937ijscg0.cloudfront.net/viewus_images/profile.png"
+                  }
                   alt="Selected Image"
                   layout="fill"
                   objectFit="cover"
@@ -199,7 +201,7 @@ export const ProfileSettings = ({ user }: { user: User }) => {
             />
 
             <Button
-              className="w-full shadow-md mt-24 hover:opacity-100 opacity-90 hover:scale-105 transition-all duration-300 transform"
+              className="w-full shadow-md mt-24 hover:opacity-80 opacity-100 transition-all duration-300 transform"
               type="submit"
               disabled={isLoading}
             >

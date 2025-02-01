@@ -16,13 +16,18 @@ export async function generateMetadata({
       "Share your experience with us! Submit a review and help us improve.",
     openGraph: {
       title: `${reviewForm?.name}`,
-      description: "Share your experience with us! Submit a review and help us improve.",
-      images: ["/assets/images/reviewPage.png"],
+      description:
+        "Share your experience with us! Submit a review and help us improve.",
+      images: [
+        "https://d3eyp937ijscg0.cloudfront.net/viewus_images/reviewPage.png",
+      ],
+
       url: `https://www.viewus.in/a/${slug}`,
     },
     twitter: {
       title: `${reviewForm?.name}`,
-      description: "Share your experience with us! Submit a review and help us improve.",
+      description:
+        "Share your experience with us! Submit a review and help us improve.",
     },
   };
 }

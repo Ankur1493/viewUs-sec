@@ -10,8 +10,10 @@ interface wallCardType {
   title: string;
   slug: WallData;
   url?: string;
+  urlReset?: string;
   desc: string;
   img: string;
+  info?: string;
 }
 
 export const freeFeatures: features[] = [
@@ -46,7 +48,8 @@ export const WallCardTypesConstants: wallCardType[] = [
     key: 1,
     title: "Fixed",
     slug: "fixed" as const,
-    url: "https://embed.viewus.in/w/embed-testimonials?slug=bakedui",
+    url: "https://embed.viewus.in/",
+    urlReset: "https://embed.viewus.in/",
     desc: "A fixed grid layout structure for showcasing a selected and crucial reviews",
     img: "/assets/images/grid_fixed.png",
   },
@@ -54,32 +57,45 @@ export const WallCardTypesConstants: wallCardType[] = [
     key: 2,
     title: "Animated",
     slug: "animated" as const,
-    url: "https://embed.viewus.in/w/embed-testimonials?slug=bakedui&animated=on",
+    url: "https://embed.viewus.in?animated=on",
+    urlReset: "https://embed.viewus.in?animated=on",
     desc: "A animated grid layout structure for showcasing a lot of reviews which are important",
     img: "/assets/images/grid_animated.gif",
   },
   {
     key: 3,
-    url: "https://embed.viewus.in/w/embed-testimonials/carousal?slug=bakedui",
-    title: "Carousel",
-    slug: "carousal" as const,
+    url: "https://embed.viewus.in/w/carousal",
+    urlReset: "https://embed.viewus.in/w/carousal",
+    title: "Carousel (Horizontal Cards)",
+    slug: "carousal-horizontal" as const,
     desc: "A carousel for you to have an showcase horizontaly and clear reviews",
-    img: "/assets/images/carousal_fixed.png",
+    img: "/assets/images/carousal1.png",
   },
   {
     key: 4,
-    url: "https://embed.viewus.in/w/embed-testimonials/carousal?slug=bakedui&animated=on",
-    title: "Carousel Animated" as const,
-    slug: "animated-carousal",
-    desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
-    img: "/assets/images/carousal_animated.gif",
+    url: "https://embed.viewus.in/w?cards=3",
+    urlReset: "https://embed.viewus.in/w?cards=3",
+    title: "Carousel (Vertical Cards)",
+    slug: "carousal-vertical" as const,
+    desc: "A carousel for you to have an showcase horizontaly and clear reviews",
+    img: "/assets/images/carousal2.png",
   },
   {
     key: 5,
-    title: "Single Testimonial",
+    url: "https://embed.viewus.in/w/carousal?animated=on&rows=2",
+    urlReset: "https://embed.viewus.in/w/carousal?animated=on&rows=2",
+    title: "Carousel Animated (2 rows)" as const,
+    slug: "carousal-2rows-animated",
+    desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
+    img: "/assets/images/carousal_2rows_animated.gif",
+    info: "Only text reviews & texts from imported reviews are shown in this carousel",
+  },
+  {
+    key: 6,
+    title: "Customize your Wall of Love",
     url: "/articles",
     slug: "fixed" as const,
-    desc: "A animated carousel for you to have an showcase horizontaly and clear reviews",
+    desc: "We can design a custom wall of love for you as per your requirements",
     img: "/assets/images/coming_soon.jpg",
   },
 ];

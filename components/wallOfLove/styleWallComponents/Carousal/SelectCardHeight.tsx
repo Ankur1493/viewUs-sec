@@ -4,8 +4,8 @@ import { WallSidebarWrapper } from "../WallSidebarWrapper";
 
 export const SelectCardHeight = () => {
   const { url, setUrl } = useWallTypeStore();
-  const [height, setHeight] = useState("auto");
-  const options = ["fit", "auto"];
+  const [height, setHeight] = useState("fit");
+  const options = ["fit", "full"];
 
   const handleHeightChange = (newHeight: string) => {
     setHeight(newHeight);

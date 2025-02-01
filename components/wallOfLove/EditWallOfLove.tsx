@@ -10,7 +10,6 @@ export const EditWallOfLove = () => {
   const [loading, setLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  console.log({ url });
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
@@ -43,7 +42,7 @@ export const EditWallOfLove = () => {
           </div>
         </div>
         <div className={`flex-grow h-full overflow-x-hidden md:ml-[16%]`}>
-          <div className="w-full flex justify-center h-screen relative w-full">
+          <div className="w-full flex justify-center h-screen relative">
             {loading && (
               <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
                 <div>Loading preview...</div>
@@ -52,7 +51,7 @@ export const EditWallOfLove = () => {
 
             <iframe
               src={url!}
-              width="950%"
+              width="100%"
               height="100%"
               frameBorder={2}
               scrolling="yes"

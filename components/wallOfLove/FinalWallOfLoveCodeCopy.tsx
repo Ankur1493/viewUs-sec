@@ -25,9 +25,16 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
     setPage("all", null);
   };
 
+  const content = `${
+    data === "animated"
+      ? `<iframe src=${url!} width="100%" height="800px" frameBorder="0" scrolling="no"></iframe>`
+      : `<script async src="http://embed.viewus.in/iframeEmbedder.js" /> 
+      <iframe src=${url!} width="100%" frameBorder="0" scrolling="no"></iframe>`
+  }`;
+
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(url!);
+      await navigator.clipboard.writeText(content!);
       setIsCopied(true);
       toast("copied the URL");
       setTimeout(() => setIsCopied(false), 2000);
@@ -48,8 +55,8 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-between">
-          <code className="bg-muted text-muted-foreground text-xs md:text-lg px-2 py-1 rounded-md flex-grow mr-2 overflow-x-auto">
-            {url}
+          <code className="bg-muted text-muted-foreground text-xs md:text-lg px-2 py-1 rounded-md flex-grow mr-2 overflow-x-auto whitespace-pre-line scrollbar-hidden">
+            {content}
           </code>
           <Button
             size="icon"
@@ -76,24 +83,25 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
         </Button>
         <Button
           className="flex-1"
+          variant="main"
           onClick={handleRedirect}
           disabled={redirected}
         >
           <PartyPopperIcon className="mr-2 h-4 w-4" /> Done
         </Button>
       </div>
-      <div className="w-full flex justify-center h-screen relative">
+      <div className="w-full flex justify-center h-screen relative scrollbar-hidden">
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
             <div>Loading preview...</div>
           </div>
         )}
-
+        <script async src="http://embed.viewus.in/iframeEmbedder.js" />
         <iframe
           src={url!}
-          width="950%"
+          width="100%"
           height="100%"
-          frameBorder={2}
+          frameBorder="0"
           scrolling="yes"
           onLoadStart={() => setLoading(true)}
           onLoad={() => setLoading(false)}

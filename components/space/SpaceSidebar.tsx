@@ -201,7 +201,7 @@ export const Logo = () => {
       href="/dashboard"
       className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-4 relative z-20"
     >
-      <LogoIcon />
+      <Image src="/assets/images/logo1.png" height={40} width={40} alt="logo" />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -209,13 +209,6 @@ export const Logo = () => {
       >
         ViewUs
       </motion.span>
-    </Link>
-  );
-};
-export const LogoIcon = () => {
-  return (
-    <Link href="/dashboard">
-      <Image src="/assets/images/logo1.png" height={40} width={40} alt="logo" />
     </Link>
   );
 };

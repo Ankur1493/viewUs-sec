@@ -4,7 +4,7 @@ import { WallSidebarWrapper } from "./WallSidebarWrapper";
 
 export const SelectCardBorderRadius = () => {
   const { url, setUrl } = useWallTypeStore();
-  const [radius, setRadius] = useState("low");
+  const [radius, setRadius] = useState("high");
   const options = ["low", "medium", "high"];
 
   const handleRadiusChange = (newRadius: string) => {

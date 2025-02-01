@@ -4,7 +4,7 @@ import { WallSidebarWrapper } from "../WallSidebarWrapper";
 
 export const SelectColumns = () => {
   const { url, setUrl } = useWallTypeStore();
-  const [columns, setColumns] = useState(3);
+  const [columns, setColumns] = useState(4);
   const options = [2, 3, 4];
 
   const handleColumnsChange = (newColumns: number) => {

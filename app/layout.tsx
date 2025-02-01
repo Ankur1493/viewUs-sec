@@ -18,13 +18,17 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "View Us",
+  title: "Viewus",
   description: "Collect and manage testimonials",
   openGraph: {
-    title: "View Us",
+    title: "Viewus",
     description: "Collect and manage testimonials",
-    images: ["/assets/images/logo1.png"],
+    images: ["/assets/images/logo.png"],
     url: "https://www.viewus.in/",
+  },
+  twitter: {
+    title: "Viewus",
+    description: "Collect and manage testimonials",
   },
 };
 
