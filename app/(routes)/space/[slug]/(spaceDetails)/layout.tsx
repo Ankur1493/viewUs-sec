@@ -26,13 +26,11 @@ const SpaceLayout = async ({
   }
 
   return (
-    <div className="relative flex">
-      <div className="flex-grow overflow-x-hidden">
-        <div className="absolute top-0 right-0">
-          <DashboardNavbar user={userDetails} />
-        </div>
-        {children}
+    <div className="min-h-screen">
+      <div className="fixed w-full top-0 right-0 z-10">
+        <DashboardNavbar user={userDetails} />
       </div>
+      <div className="flex-grow overflow-x-hidden">{children}</div>
     </div>
   );
 };

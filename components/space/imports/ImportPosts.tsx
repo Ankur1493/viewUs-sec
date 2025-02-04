@@ -36,7 +36,7 @@ export const ImportPosts = () => {
   return (
     <div className="mx-auto px-4 py-8 overflow-hidden">
       <div className="mb-8 pt-6  px-6">
-        <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2 mb-2">
+        <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2 mb-2 text-black">
           <Import className="w-8 h-8" />
           Import Testimonials
         </h2>

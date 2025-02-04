@@ -33,7 +33,7 @@ const SpacePage = async ({
   params: { slug: string };
 }) => {
   const response = await fetchTestimonials(slug);
-  console.log({ response })
+  console.log({ response });
   if (!response || response === null) {
     return (
       <div className="h-full w-full  flex flex-col justify-center pt-24 md:pt-0  px-6 items-center">
@@ -86,7 +86,7 @@ const SpacePage = async ({
 
   return (
     <div className="flex flex-col justify-center pb-4 md:pr-4">
-      <div className="mb-3 px-4 md:px-7">
+      <div className="mb-3 px-4 md:px-7 mt-4">
         {slug && (
           <SpaceInfo
             space={space}
