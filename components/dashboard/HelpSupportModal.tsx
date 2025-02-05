@@ -45,7 +45,7 @@ export function HelpSupportModal({ email }: { email: string }) {
           <span>Help and Support</span>
         </div>
       </DialogTrigger>
-      <DialogContent className="w-[350px] md:w-full rounded max-w-[425px] flex flex-col gap-10 md:gap-16 md:max-w-[600px] md:h-1/2 h-3/5 lg:h-3/5 bg-white py-8">
+      <DialogContent className="w-[350px] md:w-full rounded max-w-[425px] flex flex-col gap-10 md:gap-12 md:max-w-[600px] md:h-1/2 h-3/5 lg:h-3/5 bg-white py-8">
         <DialogHeader className="space-y-0">
           <DialogTitle className="flex items-center justify-center text-2xl md:text-4xl font-bold text-primary">
             <HelpCircleIcon className="mr-2" size={30} />
@@ -81,7 +81,7 @@ export function HelpSupportModal({ email }: { email: string }) {
             />
             <Button
               type="submit"
-              className="absolute bottom-4 w-full"
+              className={`absolute bottom-4 w-full ${!isFormValid ? "cursor-not-allowed" : "cursor-pointer"}`}
               onClick={async () => {
                 await sendSupportAndHelpMail({
                   email: email!,
@@ -89,7 +89,6 @@ export function HelpSupportModal({ email }: { email: string }) {
                   type: subject,
                 });
               }}
-              disabled={!isFormValid}
             >
               Submit
             </Button>

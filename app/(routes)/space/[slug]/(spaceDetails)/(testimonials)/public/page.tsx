@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { PartyPopper } from "lucide-react";
+import { Share2 } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -22,17 +22,19 @@ export default function PublicURLPage({
 }) {
   return (
     <div className="flex h-fit px-2 md:px-6 py-12 pt-16">
-      <Card className="md:px-8 py-6 w-full">
-        <CardHeader>
-          <div className="bg-[#E9F8FF] w-[70px] h-[70px] rounded-full flex justify-center items-center">
-            <PartyPopper color="#009EE2" size={30} />
+      <Card className="w-full">
+        <CardHeader className="gap-2">
+          <div className="flex items-center gap-4">
+            <div className="bg-[#E9F8FF] w-[50px] h-[50px] rounded-full flex justify-center items-center">
+              <Share2 color="#009EE2" size={25} />
+            </div>
+            <CardTitle className="max-w-3xl font-bold leading-6 text-2xl">
+              Share with your customers
+            </CardTitle>
           </div>
-          <CardTitle className="max-w-3xl font-medium pt-2 leading-8">
-            Share this URL with your customers to collect reviews
-          </CardTitle>
-          <CardDescription className="max-w-xl leading-5 mt-4">
-            This will take you to the review form page, via which your users can
-            submit a testimonial for you to showcase
+          <CardDescription className="max-w-xl leading-5 text-md">
+            Share this review collection URL with your customers to gather
+            testimonials.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-between">

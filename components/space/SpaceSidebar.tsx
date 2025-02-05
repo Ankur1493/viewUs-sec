@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Sidebar,
@@ -40,6 +40,10 @@ export function SpaceSideBar({ email }: { email: string }) {
   const isImportedActive = pathName.includes("import");
   const isPublicActive = pathName.includes("public");
   const isWallActive = pathName.includes("wall");
+
+  useEffect(() => {
+    console.log(slug);
+  }, [slug]);
 
   const inboxLinks = [
     {
@@ -100,7 +104,7 @@ export function SpaceSideBar({ email }: { email: string }) {
         <SidebarGroup>
           <SidebarGroupLabel className="text-gray-700">Inbox</SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col jutify-center items-center">
-            <SidebarMenu className="w-[80%]">
+            <SidebarMenu className="w-[95%]">
               {inboxLinks.map((link, idx) => (
                 <SidebarMenuItem key={idx}>
                   <Link href={`/space/${slug}`}>
@@ -108,12 +112,13 @@ export function SpaceSideBar({ email }: { email: string }) {
                       key={idx}
                       onClick={link.onClick}
                       className={cn(
-                        "p-2 rounded-md hover:bg-[#ededed] transition-all duration-0 ease-in-out",
+                        "p-2 rounded-md hover:bg-gray-100 transition-all duration-0 ease-in-out",
                         filter === link.key &&
                           !isImportedActive &&
                           !isPublicActive &&
-                          !isWallActive
-                          ? "bg-[#ededed]"
+                          !isWallActive &&
+                          slug !== undefined
+                          ? "bg-gray-100 border-l-[3px] border-black rounded-l-none"
                           : "bg-transparent"
                       )}
                     >
@@ -133,14 +138,18 @@ export function SpaceSideBar({ email }: { email: string }) {
             Integrations
           </SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col jutify-center items-center">
-            <SidebarMenu className="w-[80%]">
+            <SidebarMenu className="w-[95%]">
               <SidebarMenuItem>
                 <Link
                   href={`/space/${slug}/import`}
                   className="flex items-center cursor-pointer"
                 >
                   <SidebarMenuButton
-                    className={cn(isImportedActive ? "bg-gray-100" : "")}
+                    className={cn(
+                      isImportedActive
+                        ? "bg-gray-100 border-l-[3px] border-black rounded-l-none"
+                        : ""
+                    )}
                   >
                     <ImportIcon className="text-black h-4 w-4 flex-shrink-0" />
                     <span className="ml-2">Import Testimonials</span>
@@ -153,7 +162,7 @@ export function SpaceSideBar({ email }: { email: string }) {
         <SidebarGroup>
           <SidebarGroupLabel className="text-gray-700">Pages</SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col jutify-center items-center">
-            <SidebarMenu className="w-[80%]">
+            <SidebarMenu className="w-[95%]">
               {PageLinks.map((link, idx) => {
                 const isActive =
                   (link.key === "public" && isPublicActive) ||
@@ -162,7 +171,11 @@ export function SpaceSideBar({ email }: { email: string }) {
                   <SidebarMenuItem key={idx}>
                     <SidebarMenuButton
                       asChild
-                      className={cn(isActive ? "bg-gray-100" : "")}
+                      className={cn(
+                        isActive
+                          ? "bg-gray-100 border-l-[3px] border-black rounded-l-none"
+                          : ""
+                      )}
                     >
                       <Link href={link.href}>
                         {link.icon}
@@ -176,7 +189,7 @@ export function SpaceSideBar({ email }: { email: string }) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="flex gap-3 jutify-center items-center bg-white">
+      <SidebarFooter className="flex gap-3 jutify-center items-center bg-white border-t">
         <SidebarMenuButton className="w-[80%]">
           <HelpSupportModal email={email} />
         </SidebarMenuButton>
