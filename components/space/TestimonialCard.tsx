@@ -172,6 +172,7 @@ export const TestimonialCard = ({ testimonial }: { testimonial: IReview }) => {
             <div className="w-[300px] h-[200px]">
               <video
                 src={testimonial.importedVideo[0]}
+                autoPlay={false}
                 controls
                 className="w-full h-full object-cover rounded-lg"
               />

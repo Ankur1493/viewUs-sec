@@ -198,7 +198,7 @@ export function SpaceSideBar({ email }: { email: string }) {
             event.preventDefault();
             signOut();
           }}
-          className="flex gap-2 items-center py-2 rounded-xl w-[80%]"
+          className="flex gap-2 items-center py-2 rounded-md w-[80%]"
         >
           <LogOutIcon size={15} /> Sign Out
         </Button>

@@ -155,16 +155,18 @@ export const SaveButton = ({
           <Dialog open={isSaveDialogOpen} onOpenChange={setIsSaveDialogOpen}>
             <DialogContent className="bg-white">
               <DialogHeader>
-                <DialogTitle>Are you ready to collect Testimonials</DialogTitle>
+                <DialogTitle>Ready to collect Testimonials?</DialogTitle>
                 <DialogDescription>
-                  Your will be redirected in a minute.
+                  Your page will be saved and you'll be redirected in a minute.
                 </DialogDescription>
               </DialogHeader>
-              <DialogFooter>
+              <DialogFooter className="pt-4">
                 <Button variant="outline" onClick={() => handleSaveConfirm()}>
-                  No
+                  No, cancel
                 </Button>
-                <Button onClick={() => handleSaveConfirm()}>Yes</Button>
+                <Button onClick={() => handleSaveConfirm()}>
+                  Yes, continue
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

@@ -1,3 +1,4 @@
+"use client";
 import { Video, MessageSquare, Import } from "lucide-react";
 // import Link from "next/link";
 import { SpaceEditButton } from "../dashboard/SpaceEditButton";
@@ -5,6 +6,8 @@ import { Space } from "@prisma/client";
 import { SpaceDeleteButton } from "../dashboard/SpaceDeleteButton";
 import { SpaceCopyButton } from "../dashboard/SpaceCopyButton";
 import { Button } from "../ui/button";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 // import { ExternalLink } from "lucide-react";
 // import { Separator } from "../ui/separator";
 
@@ -30,12 +33,42 @@ export default function SpaceInfo({
   space,
   testimonialCounts,
 }: SpaceInfoProps) {
+  const [isSticky, setIsSticky] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const spacerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (headerRef.current && spacerRef.current) {
+        const headerRect = headerRef.current.getBoundingClientRect();
+        const spacerRect = spacerRef.current.getBoundingClientRect();
+        setIsSticky(spacerRect.top <= 25);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="w-full flex flex-col gap-4 space-y-1 lg:space-y-0 justify-between py-3">
+    <header
+      ref={spacerRef}
+      className="relative w-full flex flex-col gap-2 space-y-1 lg:space-y-0 justify-between py-3"
+    >
       <div className="w-full mx-auto flex items-start md:items-center justify-between">
         <div className="flex items-center space-x-4">
           <div className="flex flex-col justify-center">
-            <h1 className="text-3xl font-bold text-black">
+            <h1
+              ref={headerRef}
+              className={cn(
+                "top-0  text-3xl font-bold text-black z-50",
+                isSticky
+                  ? "fixed top-3 scale-75 transition-all duration-300 ease-in-out "
+                  : ""
+              )}
+            >
               {space.name.toUpperCase()}
             </h1>
             {/* <p className="text-sm text-gray-400  px-0 mx-0">

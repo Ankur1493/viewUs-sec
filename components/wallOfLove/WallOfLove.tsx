@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { FinalWallOfLoveCodeCopy } from "./FinalWallOfLoveCodeCopy";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
-import { ArrowLeftIcon } from "lucide-react";
+import { MoveLeft } from "lucide-react";
 
 interface WallOfLoveProps {
   slug: string;
@@ -46,15 +46,16 @@ export const WallOfLove = ({ slug }: WallOfLoveProps) => {
         <>
           <Button
             onClick={() => router.push(`/space/${slug}`)}
-            className="fixed top-2 left-2 bg-white text-black hover:bg-gray-100 flex-1 flex gap-2 border shadow-sm px-6"
+            className="fixed top-3 left-2 bg-white text-black hover:bg-white flex-1 flex gap-2 border-none shadow-none z-10"
           >
-            <ArrowLeftIcon size={25} />
+            <MoveLeft size={20} />
+            Back
           </Button>
-          <div className="flex flex-col gap-8 px-2 md:px-4 lg:px-40 pb-12">
-            <h1 className="text-3xl md:text-4xl font-semibold text-black">
+          <div className="flex flex-col gap-8 px-2 md:px-4 lg:px-16 py-8">
+            <h1 className="text-3xl md:text-4xl font-semibold text-black text-">
               What kind of wall do you want to cook today??
             </h1>
-            <div className="w-full lg:pr-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="w-full lg:pr-6 grid grid-cols-1 md:grid-cols-3 gap-6 gap-y-16">
               {WallCardTypesConstants.map((card, index) => (
                 <WallCardTypes
                   index={index}
