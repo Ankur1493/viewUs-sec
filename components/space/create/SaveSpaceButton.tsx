@@ -157,7 +157,8 @@ export const SaveButton = ({
               <DialogHeader>
                 <DialogTitle>Ready to collect Testimonials?</DialogTitle>
                 <DialogDescription>
-                  Your page will be saved and you'll be redirected in a minute.
+                  Your page will be saved and you&apos;ll be redirected in a
+                  minute.
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter className="pt-4">

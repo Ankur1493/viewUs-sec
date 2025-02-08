@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { TestimonialCard } from "./TestimonialCard";
-import { FrownIcon, Video } from "lucide-react";
+import { Video } from "lucide-react";
 import TestimonialSkeleton from "./TestimonialSkeleton";
 import { Card } from "../ui/card";
 

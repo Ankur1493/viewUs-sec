@@ -40,7 +40,6 @@ export default function SpaceInfo({
   useEffect(() => {
     const handleScroll = () => {
       if (headerRef.current && spacerRef.current) {
-        const headerRect = headerRef.current.getBoundingClientRect();
         const spacerRect = spacerRef.current.getBoundingClientRect();
         setIsSticky(spacerRect.top <= 25);
       }
