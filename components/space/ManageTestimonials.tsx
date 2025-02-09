@@ -3,8 +3,9 @@
 import { useEffect, useState, useMemo } from "react";
 import { useTestimonialFilterStore } from "@/store/useTestimonialFilterStore";
 import { TestimonialCard } from "./TestimonialCard";
-import { FrownIcon } from "lucide-react";
+import { Video } from "lucide-react";
 import TestimonialSkeleton from "./TestimonialSkeleton";
+import { Card } from "../ui/card";
 
 export enum ReviewType {
   TEXT = 0,
@@ -88,7 +89,7 @@ export const ManageTestimonials = ({
 
   if (loading) {
     return (
-      <div className="px-6">
+      <div className="px-6 flex flex-col gap-4">
         <TestimonialSkeleton />
         <TestimonialSkeleton />
       </div>
@@ -112,13 +113,25 @@ export const ManageTestimonials = ({
 
   if (filteredTestimonials.length === 0) {
     return (
-      <div className="w-full flex pt-52 justify-center items-center">
-        <div className="bg-[#E9F8FF] w-[80px] h-[80px] rounded-full flex justify-center items-center mx-6">
+      <div className="w-full flex justify-center items-center px-6">
+        {/* <div className="bg-[#E9F8FF] w-[80px] h-[80px] rounded-full flex justify-center items-center mx-6">
           <FrownIcon color="#009EE2" size={30} />
         </div>
         <h1 className="text-3xl font-medium">
           You have no {filter} reviews yet
-        </h1>
+        </h1> */}
+        <Card className="flex flex-col items-center justify-center p-12 w-full">
+          <div className="mb-6 rounded-full bg-[#E9F8FF] p-4">
+            <Video color="#009EE2" className="h-8 w-8 text-slate-500" />
+          </div>
+          <h2 className="mb-2 text-xl font-semibold">
+            You have no {filter} reviews yet
+          </h2>
+          <p className="mb-6 text-center text-muted-foreground">
+            Start collecting {filter} testimonials from your customers to build
+            trust and credibility.
+          </p>
+        </Card>
       </div>
     );
   }

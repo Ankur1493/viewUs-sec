@@ -16,15 +16,26 @@ export default async function SettingsPage() {
   }
 
   return (
-    <div className="flex flex-col py-8 lg:flex-row px-8 md:px-16 w-full gap-16 pb-4">
-      <div className="flex flex-col gap-6 w-full">
-        <h1 className="text-4xl font-bold text-black">Settings</h1>
-        <div className="flex flex-col gap-4">
-          <ProfileSettings user={userDetails} />
-          <AccountSettings user={userDetails} />
+    <div className="flex flex-col py-8 lg:flex-row px-8 md:px-12 w-full gap-8 pb-4">
+      <div className="flex flex-col gap-10 w-full">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-black">
+            Settings
+          </h1>
+          <p className="text-muted-foreground mt-1 text-sm">
+            Manage your profile and account settings.
+          </p>
+        </div>
+        <div className="flex flex-row gap-10 w-full">
+          <div className="flex basis-3/5 flex-col gap-4 w-[90%]">
+            <ProfileSettings user={userDetails} />
+            <AccountSettings user={userDetails} />
+          </div>
+          <div className="basis-2/5">
+            <SettingDetails />
+          </div>
         </div>
       </div>
-      <SettingDetails />
     </div>
   );
 }

@@ -7,7 +7,7 @@ import {
 
 export default function TestimonialSkeleton() {
   return (
-    <Card className={`relative rounded-xl overflow-hidden w-[98%] bg-gray-50`}>
+    <Card className={`relative rounded-md overflow-hidden w-[98%] bg-white`}>
       <div className={`absolute inset-0 skeleton-shimmer`}></div>
       <div className="flex-grow">
         <CardHeader>

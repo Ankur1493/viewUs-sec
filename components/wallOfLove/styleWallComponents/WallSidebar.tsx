@@ -50,16 +50,16 @@ export const WallSidebar = ({ onClick, isSidebarOpen }: SidebarToggleProps) => {
   };
 
   return (
-    <div className=" relative h-full text-white lg:p-2 shadow-lg border rounded-md flex flex-col pb-2 overflow-y-hidden">
+    <div className=" relative h-full text-white lg:p-2 border flex flex-col pb-2 overflow-y-hidden">
       {isSidebarOpen && (
         <div className="absolute top-1 right-1 ">
           <X size={15} onClick={onClick} color="black" />{" "}
         </div>
       )}
-      <h2 className="text-black text-base lg:text-lg py-2 font-semibold text-center">
-        Customize your{" "}
-        <span className="block md:inline lg:block">Wall of Love</span>
+      <h2 className="text-black text-base lg:text-xl py-[11px] font-semibold text-center">
+        Wall of Love
       </h2>
+
       <div className="space-y-2 flex-grow overflow-y-auto no-scrollbar border-t py-1">
         <SelectTheme />
         <SelectBorderRadius />
@@ -110,10 +110,10 @@ export const WallSidebar = ({ onClick, isSidebarOpen }: SidebarToggleProps) => {
           </>
         ) : null}
       </div>
-      <div className="bottom-0 pt-6 flex flex-col gap-2 w-full">
+      <div className="bottom-0 pt-6 flex flex-col gap-2 w-full border-t">
         <Button
-          variant="secondary"
-          className="flex items-center gap-2 border\"
+          // variant="outline"
+          className="flex items-center gap-2"
           onClick={handleReset}
         >
           <RotateCcw

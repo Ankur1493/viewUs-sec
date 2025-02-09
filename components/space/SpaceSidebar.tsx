@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Sidebar,
@@ -25,7 +25,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
 import { useParams, usePathname } from "next/navigation";
@@ -42,36 +41,38 @@ export function SpaceSideBar({ email }: { email: string }) {
   const isPublicActive = pathName.includes("public");
   const isWallActive = pathName.includes("wall");
 
+  useEffect(() => {
+    console.log(slug);
+  }, [slug]);
+
   const inboxLinks = [
     {
       label: "All",
-      icon: (
-        <CircleCheckIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />
-      ),
+      icon: <CircleCheckIcon className="text-black h-4 w-4 flex-shrink-0" />,
       onClick: () => setFilter("all"),
       key: "all",
     },
     {
       label: "Written",
-      icon: <PencilIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
+      icon: <PencilIcon className="text-black h-4 w-4 flex-shrink-0" />,
       onClick: () => setFilter("text"),
       key: "text",
     },
     {
       label: "Video",
-      icon: <VideoIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
+      icon: <VideoIcon className="text-black h-4 w-4 flex-shrink-0" />,
       onClick: () => setFilter("video"),
       key: "video",
     },
     {
       label: "Imported",
-      icon: <ImportIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
+      icon: <ImportIcon className="text-black h-4 w-4 flex-shrink-0" />,
       onClick: () => setFilter("imported"),
       key: "imported",
     },
     {
       label: "Liked",
-      icon: <Heart className="text-neutral-700 h-4 w-4 flex-shrink-0" />,
+      icon: <Heart className="text-black h-4 w-4 flex-shrink-0" />,
       onClick: () => setFilter("liked"),
       key: "liked",
     },
@@ -82,28 +83,28 @@ export function SpaceSideBar({ email }: { email: string }) {
       label: "Your Public URL",
       href: `/space/${slug}/public`,
       key: "public",
-      icon: <Link2 className="text-neutral-700 h-6 w-6 flex-shrink-0" />,
+      icon: <Link2 className="text-black h-6 w-6 flex-shrink-0" />,
     },
     {
       label: "Wall of Love",
       key: "wall",
       href: `/space/${slug}/wall`,
       icon: (
-        <MessageCircleHeartIcon className="text-neutral-700 h-6 w-6 flex-shrink-0" />
+        <MessageCircleHeartIcon className="text-black h-6 w-6 flex-shrink-0" />
       ),
     },
   ];
 
   return (
-    <Sidebar>
-      <SidebarHeader className="flex flex-col jutify-center items-center">
+    <Sidebar className="text-black">
+      <SidebarHeader className="flex flex-col justify-center items-center bg-white border-b">
         <Logo />
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-white">
         <SidebarGroup>
-          <SidebarGroupLabel>Inbox</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-gray-700">Inbox</SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col jutify-center items-center">
-            <SidebarMenu className="w-[80%]">
+            <SidebarMenu className="w-[95%]">
               {inboxLinks.map((link, idx) => (
                 <SidebarMenuItem key={idx}>
                   <Link href={`/space/${slug}`}>
@@ -111,12 +112,13 @@ export function SpaceSideBar({ email }: { email: string }) {
                       key={idx}
                       onClick={link.onClick}
                       className={cn(
-                        "p-2 rounded-md",
+                        "p-2 rounded-md hover:bg-gray-100 transition-all duration-0 ease-in-out",
                         filter === link.key &&
                           !isImportedActive &&
                           !isPublicActive &&
-                          !isWallActive
-                          ? "bg-gray-100"
+                          !isWallActive &&
+                          slug !== undefined
+                          ? "bg-gray-100 border-l-[3px] border-black rounded-l-none"
                           : "bg-transparent"
                       )}
                     >
@@ -132,18 +134,24 @@ export function SpaceSideBar({ email }: { email: string }) {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>Integrations</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-gray-700">
+            Integrations
+          </SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col jutify-center items-center">
-            <SidebarMenu className="w-[80%]">
+            <SidebarMenu className="w-[95%]">
               <SidebarMenuItem>
                 <Link
                   href={`/space/${slug}/import`}
                   className="flex items-center cursor-pointer"
                 >
                   <SidebarMenuButton
-                    className={cn(isImportedActive ? "bg-gray-100" : "")}
+                    className={cn(
+                      isImportedActive
+                        ? "bg-gray-100 border-l-[3px] border-black rounded-l-none"
+                        : ""
+                    )}
                   >
-                    <ImportIcon className="text-neutral-700 h-4 w-4 flex-shrink-0" />
+                    <ImportIcon className="text-black h-4 w-4 flex-shrink-0" />
                     <span className="ml-2">Import Testimonials</span>
                   </SidebarMenuButton>
                 </Link>
@@ -152,9 +160,9 @@ export function SpaceSideBar({ email }: { email: string }) {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>Pages</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-gray-700">Pages</SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col jutify-center items-center">
-            <SidebarMenu className="w-[80%]">
+            <SidebarMenu className="w-[95%]">
               {PageLinks.map((link, idx) => {
                 const isActive =
                   (link.key === "public" && isPublicActive) ||
@@ -163,7 +171,11 @@ export function SpaceSideBar({ email }: { email: string }) {
                   <SidebarMenuItem key={idx}>
                     <SidebarMenuButton
                       asChild
-                      className={cn(isActive ? "bg-gray-100" : "")}
+                      className={cn(
+                        isActive
+                          ? "bg-gray-100 border-l-[3px] border-black rounded-l-none"
+                          : ""
+                      )}
                     >
                       <Link href={link.href}>
                         {link.icon}
@@ -177,7 +189,7 @@ export function SpaceSideBar({ email }: { email: string }) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="flex gap-3 jutify-center items-center">
+      <SidebarFooter className="flex gap-3 jutify-center items-center bg-white border-t">
         <SidebarMenuButton className="w-[80%]">
           <HelpSupportModal email={email} />
         </SidebarMenuButton>
@@ -186,7 +198,7 @@ export function SpaceSideBar({ email }: { email: string }) {
             event.preventDefault();
             signOut();
           }}
-          className="flex gap-2 items-center py-2 rounded-xl w-[80%]"
+          className="flex gap-2 items-center py-2 rounded-md w-[80%]"
         >
           <LogOutIcon size={15} /> Sign Out
         </Button>
@@ -199,16 +211,12 @@ export const Logo = () => {
   return (
     <Link
       href="/dashboard"
-      className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-4 relative z-20"
+      className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-2 relative z-20"
     >
-      <Image src="/assets/images/logo1.png" height={40} width={40} alt="logo" />
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="font-bold text-2xl text-black whitespace-pre"
-      >
+      <Image src="/assets/images/logo1.png" height={30} width={30} alt="logo" />
+      <span className="font-bold text-xl text-black whitespace-pre">
         ViewUs
-      </motion.span>
+      </span>
     </Link>
   );
 };

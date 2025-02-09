@@ -44,7 +44,7 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
   };
 
   return (
-    <div className="flex flex-col gap-7 md:px-4 md:pr-6">
+    <div className="flex flex-col gap-7 md:px-4 md:pr-6 pt-5">
       <Card>
         <CardHeader>
           <CardTitle className="text-xl md:text-2xl">
@@ -55,7 +55,7 @@ export const FinalWallOfLoveCodeCopy = ({ slug }: { slug: string }) => {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-between">
-          <code className="bg-muted text-muted-foreground text-xs md:text-lg px-2 py-1 rounded-md flex-grow mr-2 overflow-x-auto whitespace-pre-line scrollbar-hidden">
+          <code className="bg-muted text-muted-foreground text-xs md:text-base px-2 py-1 rounded-md flex-grow mr-2 overflow-x-auto whitespace-pre-line scrollbar-hidden">
             {content}
           </code>
           <Button

@@ -5,6 +5,7 @@ import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuItem,
@@ -51,20 +52,23 @@ export function SideBar({ email }: { email: string }) {
 
   return (
     <Sidebar>
-      <SidebarHeader className="flex flex-col jutify-center items-center">
+      <SidebarHeader className="flex flex-col jutify-center items-center bg-white border-b">
         <Logo />
-        <Button className="w-[80%] py-5 shadow-md rounded-3xl">
-          Create New Project
-        </Button>
       </SidebarHeader>
-      <SidebarContent className="pt-6">
+      <SidebarContent className=" bg-white">
         <SidebarGroup>
+          <SidebarGroupLabel className="text-gray-700">
+            Dashboard
+          </SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col jutify-center items-center">
-            <SidebarMenu className="w-[80%]">
+            <SidebarMenu className="w-[95%]">
               {links.map((link, idx) => (
                 <SidebarMenuItem key={idx}>
                   <SidebarMenuButton asChild>
-                    <Link href={link.href} target={link.label === "Home" ? "" : "_blank"}>
+                    <Link
+                      href={link.href}
+                      target={link.label === "Home" ? "" : "_blank"}
+                    >
                       {link.icon}
                       <span>{link.label}</span>
                     </Link>
@@ -75,8 +79,8 @@ export function SideBar({ email }: { email: string }) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="flex gap-3 jutify-center items-center">
-        <SidebarMenuButton className="w-[80%]">
+      <SidebarFooter className="flex gap-3 jutify-center items-center bg-white">
+        <SidebarMenuButton className="w-[95%]">
           <HelpSupportModal email={email} />
         </SidebarMenuButton>
         <Button
@@ -96,9 +100,9 @@ export function SideBar({ email }: { email: string }) {
 export const Logo = () => (
   <Link
     href="/dashboard"
-    className="flex gap-2 items-center text-sm text-black py-4"
+    className="font-normal flex justify-center space-x-2 items-center text-sm text-black py-2 relative z-20"
   >
-    <Image src="/assets/images/logo1.png" height={40} width={40} alt="logo" />
-    <span className="font-bold text-2xl text-black">ViewUs</span>
+    <Image src="/assets/images/logo1.png" height={30} width={30} alt="logo" />
+    <span className="font-bold text-xl text-black whitespace-pre">ViewUs</span>
   </Link>
 );
