@@ -4,14 +4,14 @@ import Link from "next/link";
 
 export default function SettingDetails() {
   return (
-    <div className="w-full sticky top-0 hidden lg:flex items-top justify-center lg:p-4 h-fit">
-      <Card className="lg:p-8 flex flex-col gap-4 w-full max-w-md shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div className="w-full sticky top-20 hidden lg:flex items-top justify-center h-fit">
+      <Card className="lg:p-8 flex flex-col gap-4 w-full max-w-md transition-shadow duration-300">
         <CardHeader className="p-4">
           <CardTitle className="text-3xl font-bold text-center text-purple-700">
             Subscribe to PRO for
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-4">
+        <CardContent className="flex flex-col gap-4 p-0">
           <div className="flex gap-4">
             <Card className="border-dashed border-purple-300 flex-1 hover:bg-purple-50 transition-colors duration-200">
               <CardHeader>

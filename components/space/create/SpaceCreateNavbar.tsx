@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import { SaveButton } from "./SaveSpaceButton";
+import { CircleAlert } from "lucide-react";
 
 const testimonialTypes = [
   { page: "1", label: "Space Details" },
@@ -31,7 +32,15 @@ const testimonialTypes = [
   { page: "7", label: "Design" },
 ];
 
-export const SpaceCreateNavbar = ({ id, slug, page }: { id?: string | undefined, slug?: string | undefined, page: "create" | "edit" }) => {
+export const SpaceCreateNavbar = ({
+  id,
+  slug,
+  page,
+}: {
+  id?: string | undefined;
+  slug?: string | undefined;
+  page: "create" | "edit";
+}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -50,7 +59,7 @@ export const SpaceCreateNavbar = ({ id, slug, page }: { id?: string | undefined,
     setIsDialogOpen(false);
     if (confirm) {
       router.push("/dashboard");
-      sessionStorage.clear()
+      sessionStorage.clear();
     }
   };
 
@@ -63,18 +72,16 @@ export const SpaceCreateNavbar = ({ id, slug, page }: { id?: string | undefined,
   }, [currentPage]);
 
   return (
-    <div className="border-b">
+    <div className="border-b bg-white">
       <div className="flex items-center justify-between p-4">
         <Select
           value={currentPage}
           onValueChange={(value) => {
-            if (page === "create")
-              router.push(`/space/create?page=${value}`);
-            else
-              router.push(`/space/${slug}/edit?page=${value}`)
+            if (page === "create") router.push(`/space/create?page=${value}`);
+            else router.push(`/space/${slug}/edit?page=${value}`);
           }}
         >
-          <SelectTrigger className="w-[180px] border-none">
+          <SelectTrigger className="w-[180px] border-none shadow-none">
             <SelectValue className="text-lg font-bold">
               {currentPageData.label}
             </SelectValue>
@@ -96,21 +103,28 @@ export const SpaceCreateNavbar = ({ id, slug, page }: { id?: string | undefined,
       </div>
       <Progress
         value={(parseInt(currentPage) / testimonialTypes.length) * 100}
-        className="h-1"
+        className="h-1 bg-[#EAEBEC]"
       />
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="bg-white">
           <DialogHeader>
-            <DialogTitle>Are you sure you want to exit?</DialogTitle>
+            <DialogTitle className="flex gap-2 items-end">
+              <CircleAlert size={20} /> Are you sure you want to exit?
+            </DialogTitle>
             <DialogDescription>
               Your progress will be lost if you exit now.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => handleExitConfirm(false)}>
-              No
+              No, stay
             </Button>
-            <Button onClick={() => handleExitConfirm(true)}>Yes</Button>
+            <Button
+              variant="destructive"
+              onClick={() => handleExitConfirm(true)}
+            >
+              Yes, exit
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

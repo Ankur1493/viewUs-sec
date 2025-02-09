@@ -55,11 +55,11 @@ export const WallCardTypes = ({
       className={cn(
         "min-h-[400px] cursor-pointer group overflow-hidden relative",
         index === 0 || index === 3 || index === 4
-          ? "border-dashed border-pink-300 hover:bg-pink-50 transition-colors duration-200"
-          : "border-dashed border-purple-300 hover:bg-purple-50 transition-colors duration-200"
+          ? " hover:bg-pink-50 transition-colors duration-200"
+          : " hover:bg-purple-50 transition-colors duration-200"
       )}
     >
-      <CardHeader className="border-dashed border-b transition-colors duration-300">
+      <CardHeader className="border-b">
         <div className="flex justify-between items-start">
           <div>
             <CardTitle className="text-2xl font-bold mb-2 group-hover:text-purple-700 transition-colors duration-300">
@@ -72,7 +72,7 @@ export const WallCardTypes = ({
         </div>
       </CardHeader>
       <CardContent className="overflow-hidden">
-        <div className="relative w-full h-64 overflow-hidden rounded-md">
+        <div className="relative w-full h-64 overflow-hidden rounded-md  border-gray-200">
           <Image
             src={img}
             alt="wall type"

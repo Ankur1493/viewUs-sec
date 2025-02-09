@@ -7,7 +7,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Save } from "lucide-react";
+import { Camera, Save } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -21,6 +21,13 @@ import { profileSchema } from "@/schemas/user";
 import axios from "axios";
 import { toast } from "sonner";
 import { SpinnerLoader } from "../loaders/Loader";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 
 export const ProfileSettings = ({ user }: { user: User }) => {
   const [imageKey] = useState(Date.now());
@@ -90,20 +97,19 @@ export const ProfileSettings = ({ user }: { user: User }) => {
   };
 
   return (
-    <div className="w-full">
-      <div className="mb-2">
-        <h2 className="text-lg font-semibold text-neutral-700 flex items-center">
-          Profile
-        </h2>
-      </div>
-      <div className="w-full ">
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle className="text-black">Profile</CardTitle>
+        <CardDescription>Update your personal information.</CardDescription>
+      </CardHeader>
+      <CardContent className="w-full ">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSaveChanges)}
-            className="space-y-4"
+            className="space-y-6"
           >
             <div className="flex gap-4 items-center">
-              <div className="relative w-[64px] h-[64px] rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
+              <div className="relative w-16 h-16 rounded-full overflow-hidden bg-[#E9F8FF] flex items-center justify-center">
                 <Image
                   src={
                     selectedImage
@@ -115,11 +121,8 @@ export const ProfileSettings = ({ user }: { user: User }) => {
                   objectFit="cover"
                 />
               </div>
-              <Button
-                onClick={handleUploadClick}
-                variant="outline"
-                className="shadow-md"
-              >
+              <Button onClick={handleUploadClick} variant="outline">
+                <Camera className="w-4 h-4 mr-2" />
                 Change Image
               </Button>
               <input
@@ -157,7 +160,12 @@ export const ProfileSettings = ({ user }: { user: User }) => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled placeholder="Enter your email" />
+                    <Input
+                      {...field}
+                      disabled
+                      placeholder="Enter your email"
+                      className="text-black"
+                    />
                   </FormControl>
                   <FormMessage>
                     {form.formState.errors.email?.message}
@@ -220,7 +228,7 @@ export const ProfileSettings = ({ user }: { user: User }) => {
             </Button>
           </form>
         </Form>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };

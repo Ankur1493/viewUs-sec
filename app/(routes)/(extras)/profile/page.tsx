@@ -17,9 +17,9 @@ export default async function Profle() {
   return (
     <div>
       <div className="flex flex-col px-2 py-12 md:px-10 lg:px-16 w-full gap-12">
-        <div className="flex flex-col gap-6 w-full">
+        {/* <div className="flex flex-col gap-6 w-full">
           <h1 className="text-4xl font-bold text-black">User Profile</h1>
-        </div>
+        </div> */}
         <Profile user={userDetails} />
       </div>
     </div>
