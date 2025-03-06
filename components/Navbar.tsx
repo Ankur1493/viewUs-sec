@@ -45,7 +45,7 @@ const Navbar = ({ active }: { active: string }) => {
           <span className="font-semibold">Viewus</span>
         </div>
       </Link>
-      <div className="md:flex items-center justify-center gap-12 hidden">
+      <div className="md:flex items-center justify-center gap-6 hidden">
         <nav>
           <ul className="flex gap-6">
             <li>
@@ -85,7 +85,7 @@ const Navbar = ({ active }: { active: string }) => {
             </li>
           </ul>
         </nav>
-        <div>
+        <div className="mr-5">
           <Link href="/login">
             <Button>Sign Up</Button>
           </Link>
