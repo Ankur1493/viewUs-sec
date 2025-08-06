@@ -15,6 +15,8 @@ const config: Config = {
     extend: {
       fontFamily: {
         satoshi: ["Satoshi", "sans-serif"],
+        primary: ["var(--font-creato-display)", "sans-serif"],
+        secondary: ["var(--font-rethink)", "sans-serif"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

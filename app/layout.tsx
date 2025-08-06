@@ -17,6 +17,60 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+const rethinkSans = localFont({
+  src: [
+    {
+      path: "../public/fonts/rethink-sans/regular.ttf",
+      weight: "400",
+    },
+    {
+      path: "../public/fonts/rethink-sans/medium.ttf",
+      weight: "500",
+    },
+    {
+      path: "../public/fonts/rethink-sans/semi-bold.ttf",
+      weight: "600",
+    },
+    {
+      path: "../public/fonts/rethink-sans/bold.ttf",
+      weight: "700",
+    },
+    {
+      path: "../public/fonts/rethink-sans/extra-bold.ttf",
+      weight: "800",
+    },
+  ],
+  variable: "--font-rethink",
+  display: "swap",
+});
+
+const creato_display = localFont({
+  src: [
+    {
+      path: "../public/fonts/creato-display/light.otf",
+      weight: "400",
+    },
+    {
+      path: "../public/fonts/creato-display/regular.otf",
+      weight: "500",
+    },
+    {
+      path: "../public/fonts/creato-display/medium.otf",
+      weight: "600",
+    },
+    {
+      path: "../public/fonts/creato-display/bold.otf",
+      weight: "700",
+    },
+    {
+      path: "../public/fonts/creato-display/extra-bold.otf",
+      weight: "800",
+    },
+  ],
+  variable: "--font-creato-display",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Viewus",
   description: "Collect and manage testimonials",
@@ -40,7 +94,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased absolute top-0 z-0 h-screen mx-auto max-w-9xl`}
+        className={`${geistSans.variable} ${geistMono.variable} ${creato_display.variable} ${rethinkSans.variable} font-secondary bg-accent/30 w-full`}
       >
         <SessionProvider>
           <CSPostHogProvider>
