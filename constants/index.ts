@@ -1,4 +1,5 @@
 import { WallData } from "@/store/useWallTypeStore";
+import { BarChart3, Folder, Network, UserPlus, Video } from "lucide-react";
 
 interface features {
   title: string;
@@ -99,3 +100,33 @@ export const WallCardTypesConstants: wallCardType[] = [
     img: "/assets/images/coming_soon.jpg",
   },
 ];
+
+
+export const steps = [
+  {
+    icon: UserPlus,
+    title: "Sign Up & Set Up Your Profile",
+    description:
+      "Create your account and personalize your testimonial dashboard to match your brand.",
+  },
+  {
+    icon: Folder,
+    title: "Create Testimonial Collections",
+    description:
+      "Group testimonials into collections like product reviews, service feedback, or client success stories.",
+  },
+  {
+    icon: Video,
+    title: "Import or Collect Testimonials",
+    description:
+      "Upload video/text testimonials or import them from forms, emails, and social platforms.",
+  },
+  {
+    icon: BarChart3,
+    title: "Embed & Track Performance",
+    description:
+      "Embed testimonial cards on your site and monitor their impact with detailed analytics.",
+  },
+];
+
+export const workingImages = ["/assets/blue-bg.png", "/assets/blue-bg.png", "/assets/blue-bg.png", "/assets/blue-bg.png"];
