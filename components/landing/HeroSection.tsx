@@ -85,7 +85,8 @@ const HeroSection = () => {
         <div className="flex gap-2 w-fit pt-6">
           <Link
             href={"/login"}
-            className="hero__button w-fit p-3 flex-1 px-5 border-white bg-gradient-to-br from-violet-700 to-orange-500 text-white text-[24px] font-bold rounded-xl text-center cursor-pointer opacity-0"
+            className="hero__button w-fit p-3 flex-1 px-5 border border-white bg-gradient-to-br from-violet-700 to-orange-500 text-white text-[24px] font-bold rounded-xl text-center cursor-pointer opacity-0 scale-50 transition-all duration-300 hover:opacity-100 hover:scale-100"
+
           >
             Start for Free
           </Link>
